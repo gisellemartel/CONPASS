@@ -1,2 +1,2 @@
-# ConcordiaU-Campus-Map
-project for mini-capstone course at Concordia University 
+# CONPASS
+campus map mobile app project for mini-capstone course at Concordia University 
