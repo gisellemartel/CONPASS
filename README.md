@@ -3,7 +3,7 @@ Campus map mobile app project for mini-capstone course at Concordia University
 
 ## Setting up
 
-1. install expo cli on your machine <br/>
+1. install expo cli on your machine (if not already  installed)<br/>
 `npm install -g expo-cli`
 2. install dependencies <br/>
 `yarn install`
