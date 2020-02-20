@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
-import { Text, View } from 'react-native';
+import {View, Text } from 'react-native';
 import styles from './styles';
+import TheMap from 'app/components/map';
+import SearchBar from 'app/components/searchBar';
 
 export default class Home extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>Hello World</Text>
+        <TheMap />
+        <SearchBar/>
       </View>
     );
   }

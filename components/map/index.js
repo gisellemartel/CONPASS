@@ -1,9 +1,10 @@
 import React from 'react';
 import MapView from 'react-native-maps';
 import { StyleSheet, View, Dimensions } from 'react-native';
+import styles from './styles';
 
-export default function Map() {
-    return (
+export default function TheMap() {
+    return (    
         <View style={styles.container}>
             <MapView initialRegion={{
                 latitude: 45.492409,
@@ -14,16 +15,3 @@ export default function Map() {
         </View>
     );
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    mapStyle: {
-        width: Dimensions.get('window').width,
-        height: Dimensions.get('window').height,
-    },
-});
