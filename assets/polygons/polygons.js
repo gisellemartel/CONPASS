@@ -3,6 +3,29 @@
 let buildings = [
     /*LOYOLA CAMPUS BUILDINGS*/
     {
+        name: "CC",
+        polygons: [{
+            name: "Loyola_Central_building",
+            coordinates: [{
+                    latitude: 45.458139,
+                    longitude: -73.640995
+                },
+                {
+                    latitude: 45.458587,
+                    longitude: -73.640605
+                },
+                {
+                    latitude: 45.458015,
+                    longitude: -73.639060
+                },
+                {
+                    latitude: 45.457508,
+                    longitude: -73.639431
+                }
+            ]
+        }]
+    },
+    {
         name: "CJ",
         polygons: [{
             name: "Communications & Journalism building",
