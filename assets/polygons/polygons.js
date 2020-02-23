@@ -3,9 +3,14 @@
 let buildings = [
     /*LOYOLA CAMPUS BUILDINGS*/
     {
-        name: "Vanier Library",
+        campus: "LOY",
+        building: "VL",
+        buildingName: "Vanier Library building",
+        address: "7141 Sherbrooke W",
+        latitude: 45.459026,
+        longitude: -73.638606,
         polygons: [{
-            name: "Vanier_Library_building",
+            name: "Vanier Library building",
             coordinates: [{
                     latitude: 45.458913,
                     longitude: -73.639501
@@ -26,9 +31,14 @@ let buildings = [
         }]
     },
     {
-        name: "SP Building Loyola",
+        campus: "LOY",
+        building: "SP",
+        buildingName: "Richard J. Renaud Science Complex",
+        address: "7141 Sherbrooke W",
+        latitude: 45.457881,
+        longitude: -73.641565,
         polygons: [{
-            name: "SP Building",
+            name: "Richard J. Renaud Science Complex",
             coordinates: [{
                     latitude: 45.458408,
                     longitude: -73.641537
@@ -57,9 +67,14 @@ let buildings = [
         }]
     },
     {
-        name: "CC",
+        campus: "LOY",
+        building: "CC",
+        buildingName: "Central Building",
+        address: "7141 Sherbrooke West",
+        latitude: 45.458204,
+        longitude: -73.640300,
         polygons: [{
-            name: "Loyola_Central_building",
+            name: "Central Building",
             coordinates: [{
                     latitude: 45.458139,
                     longitude: -73.640995
@@ -80,7 +95,12 @@ let buildings = [
         }]
     },
     {
-        name: "CJ",
+        campus: "LOY",
+        building: "CJ",
+        buildingName: "Communication Studies and Journalism Building",
+        address: "7141 Sherbrooke West",
+        latitude: 45.457478,
+        longitude: -73.640354,
         polygons: [{
             name: "Communications & Journalism building",
             coordinates: [{
@@ -134,7 +154,12 @@ let buildings = [
 
     /* SGW Campus Buildings */
     {
-        name: "GM",
+        campus: "SGW",
+        building: "GM",
+        buildingName: "GM_building",
+        address: "1550 DeMaisonneuve W",
+        latitude: "45.495983",
+        longtitude: "-73.578824",
         polygons: [{
             name: "GM_building",
             coordinates: [{
@@ -157,7 +182,12 @@ let buildings = [
         }]
     },
     {
-        name: "FB",
+        campus: "SGW",
+        building: "FB",
+        buildingName: "Faubourg Building",
+        address: "1250 Guy Street",
+        latitude: 45.494666,
+        longitude: -73.577603,
         polygons: [{
             name: "FB_building",
             coordinates: [{
@@ -180,9 +210,14 @@ let buildings = [
         }]
     },
     {
-        name: "Hall",
+        campus: "SGW",
+        building: "H",
+        buildingName: "Henry F. Hall Building",
+        address: "1455 DeMaisonneuve W",
+        latitude: 45.497092,
+        longtitude: -73.578800,
         polygons: [{
-            name: "hall_1",
+            name: "Henry F. Hall Building",
             coordinates: [{
                     latitude: 45.497164,
                     longitude: -73.579548
@@ -203,9 +238,14 @@ let buildings = [
         }]
     },
     {
-        name: "EV",
+        campus: "SGW",
+        building: "EV",
+        buildingName: "Engineering, Computer Science and Visual Arts Inte",
+        address: "1515 Ste-Catherine W",
+        latitude: 45.495376,
+        longtitude: -73.577997,
         polygons: [{
-                name: "ev_1",
+                name: "Engineering, Computer Science and Visual Arts Inte",
                 coordinates: [{
                         latitude: 45.495599,
                         longitude: -73.578679
@@ -225,7 +265,7 @@ let buildings = [
                 ]
             },
             {
-                name: "ev_2",
+                name: "Engineering, Computer Science and Visual Arts Inte_2",
                 coordinates: [{
                         latitude: 45.495528,
                         longitude: -73.577544
