@@ -26,6 +26,37 @@ let buildings = [
         }]
     },
     {
+        name: "SP Building Loyola",
+        polygons: [{
+            name: "SP Building",
+            coordinates: [{
+                    latitude: 45.458408,
+                    longitude: -73.641537
+                },
+                {
+                    latitude: 45.457507,
+                    longitude: -73.642148
+                },
+                {
+                    latitude: 45.456759,
+                    longitude: -73.640444
+                },
+                {
+                    latitude: 45.457021,
+                    longitude: -73.639932
+                },
+                {
+                    latitude: 45.457578,
+                    longitude: -73.641375
+                },
+                {
+                    latitude: 45.458158,
+                    longitude: -73.640961
+                }
+            ]
+        }]
+    },
+    {
         name: "CC",
         polygons: [{
             name: "Loyola_Central_building",
