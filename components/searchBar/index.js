@@ -1,8 +1,7 @@
 import React, { Component } from "react";
-import { View, TextInput, Text, Image } from "react-native";
+import { View, Text } from "react-native";
 import styles from "./styles";
 import { SearchBar } from "react-native-elements";
-import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 export default class searchBar extends Component {
   constructor(props) {
     super(props);
@@ -18,7 +17,6 @@ export default class searchBar extends Component {
     try {
       const result = await fetch(apiUrl);
       const json = await result.json();
-      console.log(json);
       this.setState({
         predictions: json.predictions
       });
@@ -27,9 +25,8 @@ export default class searchBar extends Component {
     }
   }
   render() {
-    const predictiions = this.state.predictions.map(prediction => (
+    const predictions = this.state.predictions.map(prediction => (
       <Text
-
         style={styles.suggestions}
         key={prediction.id}
       >
@@ -38,9 +35,6 @@ export default class searchBar extends Component {
     ));
     return (
       <View style={styles.container}>
-        <View>
-          {/* <Image style={styles.burger} source={require("./burger.png")} /> */}
-
           <SearchBar
           lightTheme
             placeholder="Type Here..."
@@ -48,9 +42,7 @@ export default class searchBar extends Component {
             value={this.state.destination}
             style={styles.SearchBar}
           />
-        </View>
-
-        {predictiions}
+        {predictions}
       </View>
     );
   }
