@@ -87,6 +87,34 @@ let buildings = [
         }]
     },
     {
+    campus: "LOY",
+        building: "FC",
+        buildingName: "F.C. Smith Building",
+        address: "7141 Sherbrooke West",
+        latitude: 45.458493,
+        longitude: -73.639287,
+        polygons: [{
+            name: "F.C. Smith Building",
+            coordinates: [{
+                    latitude: 45.458808,
+                    longitude: -73.639603
+                },
+                {
+                    latitude: 45.458645,
+                    longitude: -73.639759
+                },
+                {
+                    latitude: 45.458359,
+                    longitude: -73.639037
+                },
+                {
+                    latitude: 45.458569,
+                    longitude: -73.638849
+                }
+            ]
+        }]
+    },
+    {
         campus: "LOY",
         building: "SP",
         buildingName: "Richard J. Renaud Science Complex",
