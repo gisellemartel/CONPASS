@@ -1,16 +1,26 @@
 import React, { Component } from "react";
-import { View, TextInput, Text, Image } from "react-native";
+import { View, TextInput, Text, Image,Button } from "react-native";
 import styles from "./styles";
 import { SearchBar } from "react-native-elements";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
+import b from '/Users/talalbazerbachi/Documents/GitHub/ConcordiaU-Campus-Map/components/map/index.js';
 export default class searchBar extends Component {
   constructor(props){
     super(props);
     this.state={
-      destination:"",
-      predictions:[]
+      destination:"",      
+      predictions:[],
+      locations:"",
+      region: {
+       latitude: 45.492409,
+      longitude: -73.582153,
+      latitudeDelta: 0.0922,
+        longitudeDelta: 0.0421
+    },
     };
   }
+
+
   async onChangeDestination(destination){
     this.setState({destination});
     const key="AIzaSyCqNODizSqMIWbKbO8Iq3VWdBcK846n_3w";
@@ -18,7 +28,7 @@ export default class searchBar extends Component {
     try{
     const result= await fetch(apiUrl);
     const json= await result.json();
-    console.log(json);
+    //console.log(json);
     this.setState({
       predictions: json.predictions
 
@@ -28,27 +38,65 @@ export default class searchBar extends Component {
       console.error(err);
     }
   }
+
+  async getLatLong(prediction){
+    this.setState({description:prediction});
+    console.log("I am here"+prediction);
+    const key="AIzaSyCqNODizSqMIWbKbO8Iq3VWdBcK846n_3w";
+    const geoUrl=`https://maps.googleapis.com/maps/api/place/details/json?key=${key}&placeid=${prediction}`;
+    
+    try{
+    const georesult= await fetch(geoUrl);
+    const gjson= await georesult.json();
+    this.setState({locations:gjson.result.geometry.location});
+   
+    this.setState({
+      region:{
+      latitude:this.state.locations.lat,
+      longitude:this.state.locations.lng,
+      latitudeDelta: 0.05,
+        longitudeDelta: 0.05
+      }
+      
+    });
+    this.props.callBack(this.state.region);
+    //b.onRegionChange(this.state.region);
+
+    }
+    catch(err){
+      console.error(err);
+    }}
+  
+
   render() {
-    const predictiions=this.state.predictions.map(prediction=>(
-      <Text  style={styles.suggestions} key={prediction.id}> {prediction.description} </Text>
+    const predictions=this.state.predictions.map(prediction=>(
+      <View style={styles.sug}>
+      <Button
+        color="black"
+        onPress={()=>this.getLatLong(prediction.place_id)}  
+        style={styles.suggestions} key={prediction.id}
+        title={prediction.description} 
+        /> 
+        </View>  
     )); 
+
     return (
       <View style={styles.container}>
         <View>
-          {/* <Image style={styles.burger} source={require("./burger.png")} /> */}
-          <TextInput
-            placeholder="Search for a place"
-            value={this.state.distination}
+          <SearchBar
+          lightTheme
+            placeholder="Type Here..."
+            onChangeText={destination => this.onChangeDestination(destination)}
+            value={this.state.destination}
             style={styles.SearchBar}
-            onChangeText={destination=>this.onChangeDestination(destination)} 
-            />
-           
+          />           
 
        
         </View>
      
-         {predictiions} 
+         {predictions} 
       </View>
     );
   }
+
 }
