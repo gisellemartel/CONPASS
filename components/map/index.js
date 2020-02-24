@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import MapView from 'react-native-maps';
+import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
 import { StyleSheet, View, Dimensions } from 'react-native';
 import styles from './styles';
 
@@ -36,6 +36,7 @@ export default class TheMap extends Component{
     return (    
         <View style={styles.container}>
             <MapView 
+                provider={PROVIDER_GOOGLE}
                 showUserLocation={true}
                 region={this.props.updatedRegion} 
                 style={styles.mapStyle} />
