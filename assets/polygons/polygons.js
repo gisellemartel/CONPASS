@@ -63,12 +63,16 @@ let buildings = [
             name: "Richard J. Renaud Science Complex",
             coordinates: 
             [
-                {latitude: 45.458408,longitude: -73.641537},
-                {latitude: 45.457507,longitude: -73.642148},
-                {latitude: 45.456759,longitude: -73.640444},
-                {latitude: 45.457021,longitude: -73.639932},
-                {latitude: 45.457578,longitude: -73.641375},
-                {latitude: 45.458158,longitude: -73.640961}
+                {latitude: 45.456983, longitude: -73.640829},
+                {latitude: 45.457438, longitude: -73.642004},
+                {latitude: 45.457641, longitude: -73.641846},
+                {latitude: 45.457672, longitude: -73.641926},
+                {latitude: 45.458328, longitude: -73.641412},
+                {latitude: 45.458194, longitude: -73.641038},
+                {latitude: 45.458341, longitude: -73.640922},
+                {latitude: 45.458317, longitude: -73.640860},
+                {latitude: 45.457525, longitude: -73.641470},
+                {latitude: 45.457203, longitude: -73.640654},
             ]
         }]
     },
@@ -83,11 +87,46 @@ let buildings = [
             name: "Central Building",
             coordinates: 
             [
-                {latitude: 45.458139,longitude: -73.640995},
-                {latitude: 45.458587, longitude: -73.640605},
-                {latitude: 45.458015, longitude: -73.639060},
-                {latitude: 45.457508, longitude: -73.639431}
-            ]
+                {latitude: 45.457798, longitude: -73.639827},
+                {latitude: 45.457911, longitude: -73.640125},
+                {latitude: 45.457985, longitude: -73.640067},
+                {latitude: 45.457962, longitude: -73.640007},
+                {latitude: 45.458107, longitude: -73.639907},
+                {latitude: 45.458123, longitude: -73.639944},
+                {latitude: 45.458079, longitude: -73.640012},
+                {latitude: 45.458378, longitude: -73.640795},
+                {latitude: 45.458438, longitude: -73.640749},
+                {latitude: 45.458463, longitude: -73.640813},
+                {latitude: 45.458414, longitude: -73.640852},
+                {latitude: 45.458473, longitude: -73.641007},
+                {latitude: 45.458382, longitude: -73.641075},
+                {latitude: 45.458508, longitude: -73.641375},
+                {latitude: 45.458806, longitude: -73.641159},
+                {latitude: 45.458821, longitude: -73.641129},
+                {latitude: 45.458784, longitude: -73.641034},
+                {latitude: 45.458764, longitude: -73.641050},
+                {latitude: 45.458684, longitude: -73.640807},
+                {latitude: 45.458587, longitude: -73.640879},
+                {latitude: 45.458540, longitude: -73.640756},
+                {latitude: 45.458514, longitude: -73.640774},
+                {latitude: 45.458488, longitude: -73.640709},
+                {latitude: 45.458519, longitude: -73.640686},
+                {latitude: 45.458220, longitude: -73.639904},
+                {latitude: 45.458166, longitude: -73.639946},
+                {latitude: 45.458142, longitude: -73.639881},
+                {latitude: 45.458276, longitude: -73.639766},
+                {latitude: 45.458297, longitude: -73.639822},
+                {latitude: 45.458372, longitude: -73.639766},
+                {latitude: 45.458260, longitude: -73.639468},
+                {latitude: 45.458183, longitude: -73.639526},
+                {latitude: 45.458201, longitude: -73.639616},
+                {latitude: 45.458087, longitude: -73.639689},
+                {latitude: 45.458039, longitude: -73.639580},
+                {latitude: 45.457982, longitude: -73.639624},
+                {latitude: 45.458023, longitude: -73.639753},
+                {latitude: 45.457915, longitude: -73.639836},
+                {latitude: 45.457876, longitude: -73.639766},
+                ]
         }]
     },
     {
@@ -101,17 +140,26 @@ let buildings = [
             name: "Communications & Journalism building",
             coordinates:
             [
-                {latitude: 45.457348,longitude: -73.640747},
-                {latitude: 45.457192,longitude: -73.640441},
-                {latitude: 45.457392,longitude: -73.640184},
-                {latitude: 45.457242,longitude: -73.640036},
-                {latitude: 45.457259,longitude: -73.639829},
-                {latitude: 45.457418,longitude: -73.639760},
-                {latitude: 45.457499,longitude: -73.639848},
-                {latitude: 45.457457,longitude: -73.640058},
-                {latitude: 45.457493,longitude: -73.640143},
-                {latitude: 45.457629,longitude: -73.640045},
-                {latitude: 45.457771,longitude: -73.640389}
+                {latitude: 45.457175, longitude: -73.640391},
+                {latitude: 45.457279, longitude: -73.640658},
+                {latitude: 45.457303, longitude: -73.640639},
+                {latitude: 45.457334, longitude: -73.640718},
+                {latitude: 45.457596, longitude: -73.640503},
+                {latitude: 45.457650, longitude: -73.640631},
+                {latitude: 45.457831, longitude: -73.640484},
+                {latitude: 45.457754, longitude: -73.640291},
+                {latitude: 45.457726, longitude: -73.640314},
+                {latitude: 45.457623, longitude: -73.640044},
+                {latitude: 45.457485, longitude: -73.640150},
+                {latitude: 45.457436, longitude: -73.640027},
+                {latitude: 45.457480, longitude: -73.639821},
+                {latitude: 45.457377, longitude: -73.639761},
+                {latitude: 45.457282, longitude: -73.639800},
+                {latitude: 45.457230, longitude: -73.639885},
+                {latitude: 45.457211, longitude: -73.640016},
+                {latitude: 45.457305, longitude: -73.640074},
+                {latitude: 45.457361, longitude: -73.640075},
+                {latitude: 45.457410, longitude: -73.640206},
             ]
         }]
     },
@@ -202,10 +250,12 @@ let buildings = [
             name: "GM_building",
             coordinates: 
             [
-                {latitude: 45.495780,longitude: -73.579146},
-                {latitude: 45.496134,longitude: -73.578809},
-                {latitude: 45.495948,longitude: -73.578435},
-                {latitude: 45.495628,longitude: -73.578763}
+                {latitude: 45.496130, longitude: -73.578810},
+                {latitude: 45.495781, longitude: -73.579146},
+                {latitude: 45.495762, longitude: -73.579108},
+                {latitude: 45.495779, longitude: -73.579089},
+                {latitude: 45.495618, longitude: -73.578746},
+                {latitude: 45.495947, longitude: -73.578435},
             ]
         }]
     },
@@ -238,10 +288,10 @@ let buildings = [
             name: "Henry F. Hall Building",
             coordinates: 
             [
-                {latitude: 45.497164,longitude: -73.579548},
-                {latitude: 45.497720,longitude: -73.579030},
-                {latitude: 45.497352,longitude: -73.578306},
-                {latitude: 45.496824,longitude: -73.578850}
+                {latitude: 45.497373, longitude: -73.578336},
+                {latitude: 45.497710, longitude: -73.579032},
+                {latitude: 45.497164, longitude: -73.579545},
+                {latitude: 45.496829, longitude: -73.578848},
             ]
         }]
     },
@@ -266,10 +316,12 @@ let buildings = [
             name: "Engineering, Computer Science and Visual Arts Inte_2",
             coordinates:
             [
-                {latitude: 45.495528,longitude: -73.577544},
-                {latitude: 45.495678,longitude: -73.578067},
-                {latitude: 45.496047,longitude: -73.577710,},
-                {latitude: 45.495831,longitude: -73.577249},
+                {latitude: 45.495670, longitude: -73.578075},
+                {latitude: 45.496048, longitude: -73.577708},
+                {latitude: 45.495829, longitude: -73.577248},
+                {latitude: 45.495539, longitude: -73.577530},
+                {latitude: 45.495550, longitude: -73.577555},
+                {latitude: 45.495462, longitude: -73.577637},
             ]
         }
         ]
