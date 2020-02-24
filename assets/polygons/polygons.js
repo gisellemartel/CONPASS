@@ -12,20 +12,76 @@ let buildings = [
         polygons: [{
             name: "Vanier Library building",
             coordinates: [{
-                latitude: 45.458913,
-                longitude: -73.639501
+                latitude:45.459484, 
+                longitude: -73.639135
             },
             {
-                latitude: 45.458517,
-                longitude: -73.638360
+                latitude:45.459303,
+                longitude: -73.638672
             },
             {
-                latitude: 45.459102,
-                longitude: -73.637713
+                latitude:45.459313,
+                longitude: -73.638663
             },
             {
-                latitude: 45.459540,
-                longitude: -73.639189
+                latitude:45.459133,
+                longitude: -73.638197
+            },
+            {
+                latitude:45.459214,
+                longitude: -73.638133
+            },
+            {
+                latitude:45.459102,
+                longitude: -73.637845
+            },
+            {
+                latitude: 45.458901,
+                longitude: -73.638002
+            },
+            {
+                latitude:45.458865,
+                longitude: -73.638237
+            },
+            {
+                latitude:45.458703,
+                longitude:-73.638363
+            },
+            {
+                latitude: 45.458717,
+                longitude:-73.638399
+            },
+            {
+                latitude: 45.458630,
+                longitude: -73.638468
+            },
+            {
+                latitude:  45.458829,
+                longitude: -73.638983
+            },
+            {
+                latitude: 45.458837,
+                longitude: -73.638976
+            },
+            {
+                latitude:45.458854,
+                longitude: -73.639020
+            },
+            {
+                latitude: 45.459050,
+                longitude: -73.638865
+            },
+            {
+                latitude: 45.459095,
+                longitude: -73.638985
+            },
+            {
+                latitude:45.458990,
+                longitude: -73.639125
+            },
+            {
+                latitude: 45.459107,
+                longitude: -73.639419
             }
             ]
         }]
