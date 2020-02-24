@@ -1,13 +1,13 @@
 import React, { Component } from "react";
-import { View, TextInput, Text, Image,Button } from "react-native";
+import { View, TextInput, Text, Image,Button, Keyboard } from "react-native";
 import styles from "./styles";
 import { SearchBar } from "react-native-elements";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
-import b from '/Users/talalbazerbachi/Documents/GitHub/ConcordiaU-Campus-Map/components/map/index.js';
 export default class searchBar extends Component {
   constructor(props){
     super(props);
     this.state={
+      showPredictions: true,
       destination:"",      
       predictions:[],
       locations:"",
@@ -16,7 +16,7 @@ export default class searchBar extends Component {
       longitude: -73.582153,
       latitudeDelta: 0.0922,
         longitudeDelta: 0.0421
-    },
+    }
     };
   }
 
@@ -41,13 +41,14 @@ export default class searchBar extends Component {
 
   async getLatLong(prediction){
     this.setState({description:prediction});
-    console.log("I am here"+prediction);
+    console.log("I am here "+prediction);
     const key="AIzaSyCqNODizSqMIWbKbO8Iq3VWdBcK846n_3w";
     const geoUrl=`https://maps.googleapis.com/maps/api/place/details/json?key=${key}&placeid=${prediction}`;
     
     try{
     const georesult= await fetch(geoUrl);
     const gjson= await georesult.json();
+    console.log(gjson.result.geometry.location);
     this.setState({locations:gjson.result.geometry.location});
    
     this.setState({
@@ -60,8 +61,6 @@ export default class searchBar extends Component {
       
     });
     this.props.callBack(this.state.region);
-    //b.onRegionChange(this.state.region);
-
     }
     catch(err){
       console.error(err);
@@ -72,29 +71,39 @@ export default class searchBar extends Component {
     const predictions=this.state.predictions.map(prediction=>(
       <View style={styles.sug}>
       <Button
+        key={prediction.id}
         color="black"
-        onPress={()=>this.getLatLong(prediction.place_id)}  
-        style={styles.suggestions} key={prediction.id}
+        style={styles.suggestions} 
         title={prediction.description} 
+        onPress={()=>{
+          this.setState({destination: prediction.description});
+          this.getLatLong(prediction.place_id);
+          this.setState({showPredictions: false});
+          Keyboard.dismiss();
+        }}  
         /> 
         </View>  
     )); 
-
+        
     return (
       <View style={styles.container}>
         <View>
           <SearchBar
           lightTheme
-            placeholder="Type Here..."
+            placeholder="Search..."
             onChangeText={destination => this.onChangeDestination(destination)}
             value={this.state.destination}
             style={styles.SearchBar}
+            onClear={() =>{this.setState({showPredictions: true}) }}
           />           
 
        
         </View>
-     
-         {predictions} 
+          {
+            this.state.showPredictions?
+            predictions : null
+          }
+          
       </View>
     );
   }
