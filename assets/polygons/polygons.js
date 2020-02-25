@@ -297,6 +297,24 @@ const buildings = [
   },
   {
     campus: 'SGW',
+    building: 'V',
+    buildingName: 'V Annex Building',
+    address: '2110 Mackay Street',
+    latitude: 45.497101,
+    longtitude: -73.579907,
+    polygons: [{
+      name: 'V Annex Building',
+      coordinates:
+      [
+        { latitude: 45.496984, longitude: -73.580019 },
+        { latitude: 45.496946, longitude: -73.579934 },
+        { latitude: 45.497053, longitude: -73.579824 },
+        { latitude: 45.497095, longitude: -73.579910 },
+      ]
+    }]
+  },
+  {
+    campus: 'SGW',
     building: 'VA',
     buildingName: 'VA Building',
     address: '1395 Rene Levesque W',
