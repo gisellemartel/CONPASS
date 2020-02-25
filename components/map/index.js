@@ -5,7 +5,6 @@ import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import { View } from 'react-native';
 import styles from './styles';
 
-
 export default class TheMap extends Component {
   constructor(props) {
     super(props);

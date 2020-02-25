@@ -25,7 +25,6 @@ export default class searchBar extends Component {
     };
   }
 
-
   async onChangeDestination(destination) {
     this.setState({ destination });
     const key = 'AIzaSyCqNODizSqMIWbKbO8Iq3VWdBcK846n_3w';
@@ -102,10 +101,10 @@ export default class searchBar extends Component {
             onClear={() => { this.setState({ showPredictions: true }); }}
           />
         </View>
-          {
+        {
             this.state.showPredictions
               ? predictions : null
-          }
+        }
       </View>
     );
   }
