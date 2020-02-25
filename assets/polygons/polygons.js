@@ -1,7 +1,7 @@
 // each building is made of many polygons, each polygon will have an array of coordinates
 
 const buildings = [
-  /* LOYOLA CAMPUS BUILDINGS*/
+  /*    LOYOLA CAMPUS BUILDINGS*/
   {
     campus: 'LOY',
     building: 'VL',
@@ -31,24 +31,6 @@ const buildings = [
               { latitude: 45.459095, longitude: -73.638985 },
               { latitude: 45.458990, longitude: -73.639125 },
               { latitude: 45.459107, longitude: -73.639419 }
-            ]
-    }]
-  },
-  {
-    campus: 'LOY',
-    building: 'PY',
-    buildingName: 'Psychology Building',
-    address: '7141 Sherbrooke W',
-    latitude: 45.458938,
-    longitude: -73.640467,
-    polygons: [{
-      name: 'Psychology Building',
-      coordinates:
-            [
-              { latitude: 45.459295, longitude: -73.640587 },
-              { latitude: 45.459114, longitude: -73.640113 },
-              { latitude: 45.458690, longitude: -73.640391 },
-              { latitude: 45.458845, longitude: -73.640857 },
             ]
     }]
   },
@@ -186,12 +168,12 @@ const buildings = [
   {
     campus: 'SGW',
     building: 'GN',
-    buildingName: 'Grey Nuns',
+    buildingName: 'Grey_Nuns',
     address: '1190 guy street',
     latitude: '45.493484',
     longtitude: '-73.576748',
     polygons: [{
-      name: 'Grey Nuns',
+      name: 'Grey_Nuns',
       coordinates:
             [
               { latitude: 45.492593, longitude: -73.576535 },
@@ -262,8 +244,8 @@ const buildings = [
     building: 'GM',
     buildingName: 'GM_building',
     address: '1550 DeMaisonneuve W',
-    latitude: 45.495983,
-    longtitude: -73.578824,
+    latitude: '45.495983',
+    longtitude: '-73.578824',
     polygons: [{
       name: 'GM_building',
       coordinates:
@@ -274,24 +256,6 @@ const buildings = [
               { latitude: 45.495779, longitude: -73.579089 },
               { latitude: 45.495618, longitude: -73.578746 },
               { latitude: 45.495947, longitude: -73.578435 },
-            ]
-    }]
-  },
-  {
-    campus: 'SGW',
-    building: 'B',
-    buildingName: 'B Annex',
-    address: '2160 Bishop Street',
-    latitude: 45.497856,
-    longtitude: -73.579588,
-    polygons: [{
-      name: 'B Annex',
-      coordinates:
-            [
-              { latitude: 45.497975, longitude: -73.579537 },
-              { latitude: 45.497780, longitude: -73.579722 },
-              { latitude: 45.497690, longitude: -73.579571 },
-              { latitude: 45.497889, longitude: -73.579381 },
             ]
     }]
   },
@@ -310,24 +274,6 @@ const buildings = [
               { latitude: 45.494912, longitude: -73.577787 },
               { latitude: 45.494654, longitude: -73.577219 },
               { latitude: 45.494397, longitude: -73.577520 }
-            ]
-    }]
-  },
-  {
-    campus: 'SGW',
-    building: 'LB',
-    buildingName: 'Webster Library Building',
-    address: '1400 DeMaisonneuve W',
-    latitude: 45.497050,
-    longtitude: -73.578009,
-    polygons: [{
-      name: 'Webster Library Building',
-      coordinates:
-            [
-              { latitude: 45.497284, longitude: -73.578062 },
-              { latitude: 45.496698, longitude: -73.578638 },
-              { latitude: 45.496227, longitude: -73.577702 },
-              { latitude: 45.496862, longitude: -73.577063 },
             ]
     }]
   },
