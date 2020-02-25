@@ -181,7 +181,7 @@ const buildings = [
               ]
     }]
   },
-  
+
   /* SGW Campus Buildings */
   {
     campus: 'SGW',
@@ -253,7 +253,7 @@ const buildings = [
                 { latitude: 45.492746, longitude: -73.576868 },
                 { latitude: 45.492609, longitude: -73.576584 },
                 { latitude: 45.492614, longitude: -73.576577 }
-  
+
               ]
     }]
   },
@@ -275,6 +275,24 @@ const buildings = [
                 { latitude: 45.495618, longitude: -73.578746 },
                 { latitude: 45.495947, longitude: -73.578435 },
               ]
+    }]
+  },
+  {
+    campus: 'SGW',
+    building: 'X',
+    buildingName: 'X Building',
+    address: '2080 Mackay Street',
+    latitude: 45.496940,
+    longtitude: -73.579593,
+    polygons: [{
+      name: 'X Building',
+      coordinates:
+      [
+        { latitude: 45.496991, longitude: -73.579736 },
+        { latitude: 45.496913, longitude: -73.579573 },
+        { latitude: 45.496814, longitude: -73.579672 },
+        { latitude: 45.496889, longitude: -73.579835 },
+      ]
     }]
   },
   {
