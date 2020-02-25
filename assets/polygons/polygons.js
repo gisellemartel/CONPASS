@@ -297,6 +297,26 @@ const buildings = [
   },
   {
     campus: 'SGW',
+    building: 'VA',
+    buildingName: 'VA Building',
+    address: '1395 Rene Levesque W',
+    latitude: 45.495543,
+    longtitude: -73.573795,
+    polygons: [{
+      name: 'VA Building',
+      coordinates:
+      [
+        { latitude: 45.496193, longitude: -73.573791 },
+        { latitude: 45.496075, longitude: -73.573546 },
+        { latitude: 45.495811, longitude: -73.573801 },
+        { latitude: 45.495670, longitude: -73.573485 },
+        { latitude: 45.495398, longitude: -73.573769 },
+        { latitude: 45.495671, longitude: -73.574306 },
+      ]
+    }]
+  },
+  {
+    campus: 'SGW',
     building: 'B',
     buildingName: 'B Annex',
     address: '2160 Bishop Street',
