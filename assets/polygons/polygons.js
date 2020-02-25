@@ -35,6 +35,24 @@ let buildings = [
         }]
     },
     {
+        campus: "LOY",
+        building: "PY",
+        buildingName: "Psychology Building",
+        address: "7141 Sherbrooke W",
+        latitude: 45.458938,
+        longitude: -73.640467,
+        polygons: [{
+            name: "Psychology Building",
+            coordinates: 
+            [
+                {latitude: 45.459295, longitude: -73.640587},
+                {latitude: 45.459114, longitude: -73.640113},
+                {latitude: 45.458690, longitude: -73.640391},
+                {latitude: 45.458845, longitude: -73.640857},
+            ]
+        }]
+    },
+    {
     campus: "LOY",
         building: "FC",
         buildingName: "F.C. Smith Building",
@@ -168,12 +186,12 @@ let buildings = [
     {
         campus: "SGW",
         building: "GN",
-        buildingName: "Grey_Nuns",
+        buildingName: "Grey Nuns",
         address: "1190 guy street",
         latitude: "45.493484",
         longtitude: "-73.576748",
         polygons: [{
-            name: "Grey_Nuns",
+            name: "Grey Nuns",
             coordinates: 
             [
                 {latitude: 45.492593,longitude: -73.576535},
