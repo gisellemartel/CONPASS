@@ -262,8 +262,8 @@ let buildings = [
         building: "GM",
         buildingName: "GM_building",
         address: "1550 DeMaisonneuve W",
-        latitude: "45.495983",
-        longtitude: "-73.578824",
+        latitude: 45.495983,
+        longtitude: -73.578824,
         polygons: [{
             name: "GM_building",
             coordinates: 
@@ -274,6 +274,24 @@ let buildings = [
                 {latitude: 45.495779, longitude: -73.579089},
                 {latitude: 45.495618, longitude: -73.578746},
                 {latitude: 45.495947, longitude: -73.578435},
+            ]
+        }]
+    },
+    {
+        campus: "SGW",
+        building: "B",
+        buildingName: "B Annex",
+        address: "2160 Bishop Street",
+        latitude: 45.497856,
+        longtitude: -73.579588,
+        polygons: [{
+            name: "B Annex",
+            coordinates: 
+            [
+                {latitude: 45.497975, longitude: -73.579537},
+                {latitude: 45.497780, longitude: -73.579722},
+                {latitude: 45.497690, longitude: -73.579571},
+                {latitude: 45.497889, longitude: -73.579381},
             ]
         }]
     },
