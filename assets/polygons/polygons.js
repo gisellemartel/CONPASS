@@ -297,6 +297,24 @@ let buildings = [
     },
     {
         campus: "SGW",
+        building: "LB",
+        buildingName: "Webster Library Building",
+        address: "1400 DeMaisonneuve W",
+        latitude: 45.497050,
+        longtitude: -73.578009,
+        polygons: [{
+            name: "Webster Library Building",
+            coordinates: 
+            [
+                {latitude: 45.497284, longitude: -73.578062},
+                {latitude: 45.496698, longitude: -73.578638},
+                {latitude: 45.496227, longitude: -73.577702},
+                {latitude: 45.496862, longitude: -73.577063},
+            ]
+        }]
+    },
+    {
+        campus: "SGW",
         building: "H",
         buildingName: "Henry F. Hall Building",
         address: "1455 DeMaisonneuve W",
