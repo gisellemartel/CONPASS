@@ -33,10 +33,8 @@ export default class searchBar extends Component {
     try {
       const result = await fetch(apiUrl);
       const json = await result.json();
-      // console.log(json);
       this.setState({
         predictions: json.predictions
-
       });
     } catch (err) {
       console.error(err);
@@ -103,14 +101,11 @@ export default class searchBar extends Component {
             style={styles.SearchBar}
             onClear={() => { this.setState({ showPredictions: true }); }}
           />
-
-
         </View>
-        {
+          {
             this.state.showPredictions
               ? predictions : null
           }
-
       </View>
     );
   }

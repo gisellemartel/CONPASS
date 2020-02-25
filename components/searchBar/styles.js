@@ -26,13 +26,10 @@ const styles = StyleSheet.create({
   sug: {
     backgroundColor: '#F1F7FC',
     height: '100%',
-
-
   },
 
   suggestions: {
     color: 'black',
-
     padding: 5,
     width: '90%',
     borderWidth: 0.5,

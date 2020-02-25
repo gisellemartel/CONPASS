@@ -22,15 +22,8 @@ export default class TheMap extends Component {
 
   componentDidMount() {
     const { description } = this.props.updatedRegion;
-    // console.log(`in the map: ${description}`);
     this.setState({ region: description });
   }
-
-
-  // onRegionChange(newregion){
-  //     console.log("i reach this point");
-  // this.setState({ region:newregion });
-  // }
 
   render() {
     return (
