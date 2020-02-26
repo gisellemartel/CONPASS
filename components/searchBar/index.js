@@ -2,7 +2,7 @@
 /* eslint-disable no-console */
 import React, { Component } from 'react';
 import {
-  View, Button, Keyboard, TouchableOpacity, Text
+  View, Keyboard, TouchableOpacity, Text
 } from 'react-native';
 // eslint-disable-next-line import/no-unresolved
 import { SearchBar } from 'react-native-elements';
@@ -80,7 +80,8 @@ export default class searchBar extends Component {
               this.getLatLong(prediction.place_id);
               this.setState({ showPredictions: false });
               Keyboard.dismiss();
-            }}>
+            }}
+          >
             <Text key={prediction.id}>{prediction.description}</Text>
           </TouchableOpacity>
 
@@ -99,7 +100,7 @@ export default class searchBar extends Component {
             style={styles.SearchBar}
             onClear={() => { this.setState({ showPredictions: true }); }}
           />
-        </View >
+        </View>
         {
           this.state.showPredictions
             ? predictions : null
