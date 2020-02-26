@@ -353,6 +353,24 @@ const buildings = [
   },
   {
     campus: 'SGW',
+    building: 'TD',
+    buildingName: 'TD Building',
+    address: '1410 Guy Street',
+    latitude: 45.495103,
+    longtitude: -73.578375,
+    polygons: [{
+      name: 'TD Building',
+      coordinates:
+      [
+        { latitude: 45.495126, longitude: -73.578501 },
+        { latitude: 45.495190, longitude: -73.578428 },
+        { latitude: 45.495038, longitude: -73.578077 },
+        { latitude: 45.494944, longitude: -73.578178 },
+      ]
+    }]
+  },
+  {
+    campus: 'SGW',
     building: 'LB',
     buildingName: 'Webster Library Building',
     address: '1400 DeMaisonneuve W',
