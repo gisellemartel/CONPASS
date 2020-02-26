@@ -35,7 +35,7 @@ export default class Home extends Component {
       <View style={styles.container}>
         <TheMap updatedRegion={this.state.region} />
         <SearchBar callBack={this.updateRegion} />
-        <SwitchCampuses />
+        <SwitchCampuses callBack={this.updateRegion} />
       </View>
     );
   }
