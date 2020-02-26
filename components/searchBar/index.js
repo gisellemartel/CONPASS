@@ -2,7 +2,7 @@
 /* eslint-disable no-console */
 import React, { Component } from 'react';
 import {
-  View, Button, Keyboard
+  View, Button, Keyboard, TouchableOpacity, Text
 } from 'react-native';
 // eslint-disable-next-line import/no-unresolved
 import { SearchBar } from 'react-native-elements';
@@ -72,19 +72,18 @@ export default class searchBar extends Component {
   render() {
     const predictions = this.state.predictions.map((prediction) => {
       return (
-        <View style={styles.sug} key={prediction.id}>
-          <Button
-            key={prediction.id}
-            color="black"
-            style={styles.suggestions}
-            title={prediction.description}
+        <View key={prediction.id} style={styles.view}>
+          <TouchableOpacity
+            style={styles.Touch}
             onPress={() => {
               this.setState({ destination: prediction.description });
               this.getLatLong(prediction.place_id);
               this.setState({ showPredictions: false });
               Keyboard.dismiss();
-            }}
-          />
+            }}>
+            <Text key={prediction.id}>{prediction.description}</Text>
+          </TouchableOpacity>
+
         </View>
       );
     });
@@ -100,10 +99,10 @@ export default class searchBar extends Component {
             style={styles.SearchBar}
             onClear={() => { this.setState({ showPredictions: true }); }}
           />
-        </View>
+        </View >
         {
-            this.state.showPredictions
-              ? predictions : null
+          this.state.showPredictions
+            ? predictions : null
         }
       </View>
     );

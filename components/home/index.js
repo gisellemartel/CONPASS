@@ -18,7 +18,7 @@ export default class Home extends Component {
     };
   }
 
-  updateRegion=(newRegion) => {
+  updateRegion = (newRegion) => {
     this.setState({
       region: {
         latitude: newRegion.latitude,
