@@ -353,6 +353,36 @@ const buildings = [
   },
   {
     campus: 'SGW',
+    building: 'FG',
+    buildingName: 'FG Building',
+    address: '1610 Ste-Catherine',
+    latitude: 45.494381,
+    longitude: -73.578425,
+    polygons: [{
+      name: 'FG building',
+      coordinates:
+      [
+        { latitude: 45.494908, longitude: -73.577788 },
+        { latitude: 45.494663, longitude: -73.577223 },
+        { latitude: 45.494397, longitude: -73.577523 },
+        { latitude: 45.494442, longitude: -73.577618 },
+        { latitude: 45.494387, longitude: -73.577685 },
+        { latitude: 45.494425, longitude: -73.577757 },
+        { latitude: 45.494395, longitude: -73.577795 },
+        { latitude: 45.494373, longitude: -73.577765 },
+        { latitude: 45.494180, longitude: -73.577989 },
+        { latitude: 45.494195, longitude: -73.578020 },
+        { latitude: 45.494105, longitude: -73.578130 },
+        { latitude: 45.494095, longitude: -73.578119 },
+        { latitude: 45.493907, longitude: -73.578344 },
+        { latitude: 45.493916, longitude: -73.578370 },
+        { latitude: 45.493622, longitude: -73.578698 },
+        { latitude: 45.493822, longitude: -73.579067 },
+      ]
+    }]
+  },
+  {
+    campus: 'SGW',
     building: 'TD',
     buildingName: 'TD Building',
     address: '1410 Guy Street',
