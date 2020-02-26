@@ -4,6 +4,7 @@ import { View } from 'react-native';
 import TheMap from '../map';
 import SearchBar from '../searchBar';
 import styles from './styles';
+import SwitchCampuses from '../switchCampuses';
 
 export default class Home extends Component {
   constructor(props) {
@@ -34,6 +35,7 @@ export default class Home extends Component {
       <View style={styles.container}>
         <TheMap updatedRegion={this.state.region} />
         <SearchBar callBack={this.updateRegion} />
+        <SwitchCampuses />
       </View>
     );
   }
