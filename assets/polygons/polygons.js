@@ -181,6 +181,30 @@ const buildings = [
               ]
     }]
   },
+  {
+    campus: 'LOY',
+    building: 'GE',
+    buildingName: 'Centre for Structural and Functional Genomics',
+    address: '7141 Sherbrooke West',
+    latitude: 45.457017,
+    longitude: -73.640432,
+    polygons: [{
+      name: 'GE building',
+      coordinates:
+              [
+                { latitude: 45.457042, longitude: -73.640164 },
+                { latitude: 45.456799, longitude: -73.640346 },
+                { latitude: 45.456897, longitude: -73.640609 },
+                { latitude: 45.456872, longitude: -73.640628 },
+                { latitude: 45.456893, longitude: -73.640687 },
+                { latitude: 45.456919, longitude: -73.640670 },
+                { latitude: 45.456946, longitude: -73.640740 },
+                { latitude: 45.457175, longitude: -73.640569 },
+                { latitude: 45.457132, longitude: -73.640451 },
+                { latitude: 45.457144, longitude: -73.640442 },
+              ]
+    }]
+  },
 
   /* SGW Campus Buildings */
   {
@@ -553,6 +577,42 @@ const buildings = [
               { latitude: 45.496815, longitude: -73.579671 },
               { latitude: 45.496908, longitude: -73.579577 },
               { latitude: 45.496949, longitude: -73.579665 },
+            ]
+    }]
+  },
+  {
+    campus: 'SGW',
+    building: 'ER',
+    buildingName: 'ER Building',
+    address: '2155 Guy Street ',
+    latitude: 45.496428,
+    longtitude: -73.579990,
+    polygons: [{
+      name: 'ER Annex',
+      coordinates:
+            [
+              { latitude: 45.496824, longitude: -73.579660 },
+              { latitude: 45.496803, longitude: -73.579606 },
+              { latitude: 45.496676, longitude: -73.579735 },
+              { latitude: 45.496701, longitude: -73.579785 },
+            ]
+    }]
+  },
+  {
+    campus: 'SGW',
+    building: 'FA',
+    buildingName: 'FA Building',
+    address: '2060 Mackay Street ',
+    latitude: 45.496874,
+    longtitude: -73.579468,
+    polygons: [{
+      name: 'FA Annex',
+      coordinates:
+            [
+              { latitude: 45.496776, longitude: -73.579585 },
+              { latitude: 45.496872, longitude: -73.579489 },
+              { latitude: 45.496831, longitude: -73.579406 },
+              { latitude: 45.496735, longitude: -73.579501 },
             ]
     }]
   },
