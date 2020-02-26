@@ -335,24 +335,6 @@ const buildings = [
   },
   {
     campus: 'SGW',
-    building: 'B',
-    buildingName: 'B Annex',
-    address: '2160 Bishop Street',
-    latitude: 45.497856,
-    longtitude: -73.579588,
-    polygons: [{
-      name: 'B Annex',
-      coordinates:
-              [
-                { latitude: 45.497975, longitude: -73.579537 },
-                { latitude: 45.497780, longitude: -73.579722 },
-                { latitude: 45.497690, longitude: -73.579571 },
-                { latitude: 45.497889, longitude: -73.579381 },
-              ]
-    }]
-  },
-  {
-    campus: 'SGW',
     building: 'FB',
     buildingName: 'Faubourg Building',
     address: '1250 Guy Street',
@@ -435,6 +417,96 @@ const buildings = [
               ]
     }
     ]
+  },
+  {
+    campus: 'SGW',
+    building: 'B',
+    buildingName: 'B Building',
+    address: '2160 Bishop Street',
+    latitude: 45.497856,
+    longtitude: -73.579588,
+    polygons: [{
+      name: 'B Annex',
+      coordinates:
+            [
+              { latitude: 45.497922, longitude: -73.579455 },
+              { latitude: 45.497884, longitude: -73.579373 },
+              { latitude: 45.497705, longitude: -73.579560 },
+              { latitude: 45.497740, longitude: -73.579636 },
+            ]
+    }]
+  },
+  {
+    campus: 'SGW',
+    building: 'CI',
+    buildingName: 'CI Building',
+    address: '2149 Mackay Street',
+    latitude: 45.497467,
+    longtitude: -73.579925,
+    polygons: [{
+      name: 'CI Annex',
+      coordinates:
+            [
+              { latitude: 45.497590, longitude: -73.579838 },
+              { latitude: 45.497406, longitude: -73.580013 },
+              { latitude: 45.497363, longitude: -73.579929 },
+              { latitude: 45.497549, longitude: -73.579746 },
+            ]
+    }]
+  },
+  {
+    campus: 'SGW',
+    building: 'CL',
+    buildingName: 'CL Building',
+    address: '1665 Ste-Catherine W',
+    latitude: 45.494259,
+    longtitude: -73.579007,
+    polygons: [{
+      name: 'CL Annex',
+      coordinates:
+            [
+              { latitude: 45.494473, longitude: -73.579278 },
+              { latitude: 45.494166, longitude: -73.579656 },
+              { latitude: 45.493970, longitude: -73.579311 },
+              { latitude: 45.494260, longitude: -73.578934 },
+            ]
+    }]
+  },
+  {
+    campus: 'SGW',
+    building: 'D',
+    buildingName: 'D Building',
+    address: '2140 Bishop Street',
+    latitude: 45.497827,
+    longtitude: -73.579409,
+    polygons: [{
+      name: 'D Annex',
+      coordinates:
+            [
+              { latitude: 45.497741, longitude: -73.579413 },
+              { latitude: 45.497850, longitude: -73.579302 },
+              { latitude: 45.497810, longitude: -73.579230 },
+              { latitude: 45.497707, longitude: -73.579341 },
+            ]
+    }]
+  },
+  {
+    campus: 'SGW',
+    building: 'EN',
+    buildingName: 'EN Building',
+    address: '2070 Mackay Street',
+    latitude: 45.496944,
+    longtitude: -73.579555,
+    polygons: [{
+      name: 'D Annex',
+      coordinates:
+            [
+              { latitude: 45.496856, longitude: -73.579757 },
+              { latitude: 45.496815, longitude: -73.579671 },
+              { latitude: 45.496908, longitude: -73.579577 },
+              { latitude: 45.496949, longitude: -73.579665 },
+            ]
+    }]
   },
 ];
 export default buildings;
