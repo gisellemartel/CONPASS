@@ -42,7 +42,7 @@ export default class SwitchCampuses extends Component {
         return (
             <View style={styles.container}>
                 <View style={styles.btn}>
-                    <Button title='Layola'
+                    <Button title='Loyola'
                         onPress={() => this.getLatLong('ChIJJ4gBMS4XyUwR5Cxm6Yq7mhc')}
                     />
 
