@@ -9,13 +9,17 @@ export default class TheMap extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      // eslint-disable-next-line react/no-unused-state
-      region: {
+      coordinate: {
         latitude: 45.492409,
         longitude: -73.582153,
-        latitudeDelta: 0.04,
-        longitudeDelta: 0.04
       },
+      // eslint-disable-next-line react/no-unused-state
+      // region: {
+      //   latitude: 45.492409,
+      //   longitude: -73.582153,
+      //   latitudeDelta: 0.04,
+      //   longitudeDelta: 0.04
+      // },
     };
   }
 
@@ -25,13 +29,24 @@ export default class TheMap extends Component {
   }
 
   render() {
+    // const { coordinate } =
     return (
       <View style={styles.container}>
         <MapView
           provider={PROVIDER_GOOGLE}
           region={this.props.updatedRegion}
           style={styles.mapStyle}
-        />
+        >
+          <MapView.Marker
+            coordinate={{
+              latitude: this.props.updatedRegion.latitude,
+              longitude: this.props.updatedRegion.longitude
+            }}
+            title={"title"}
+            description={"description"}
+          />
+        </MapView>
+
       </View>
     );
   }
