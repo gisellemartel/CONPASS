@@ -205,7 +205,110 @@ const buildings = [
               ]
     }]
   },
+  {
+    campus: 'LOY',
+    building: 'TA',
+    buildingName: 'TA Building',
+    address: '7079 Terrebonne',
+    latitude: 45.459992,
+    longitude: -73.640897,
+    polygons: [{
+      name: 'Terrebonne Building',
+      coordinates:
 
+                [
+                  { latitude: 45.460084, longitude: -73.640895 },
+                  { latitude: 45.459978, longitude: -73.640977 },
+                  { latitude: 45.459939, longitude: -73.640870 },
+                  { latitude: 45.460041, longitude: -73.640782 },
+                ]
+
+    }]
+  },
+  {
+    campus: 'LOY',
+    building: 'JR',
+    buildingName: 'Jesuit Residence',
+    address: '7141 Sherbrooke West',
+    latitude: 45.458432,
+    longitude: -73.643235,
+    polygons: [{
+      name: 'Jesuit Residence',
+      coordinates:
+      [
+        { latitude: 45.458634, longitude: -73.643309 },
+        { latitude: 45.458566, longitude: -73.643365 },
+        { latitude: 45.458560, longitude: -73.643349 },
+        { latitude: 45.458495, longitude: -73.643400 },
+        { latitude: 45.458465, longitude: -73.643329 },
+        { latitude: 45.458448, longitude: -73.643342 },
+        { latitude: 45.458408, longitude: -73.643244 },
+        { latitude: 45.458426, longitude: -73.643227 },
+        { latitude: 45.458398, longitude: -73.643155 },
+        { latitude: 45.458538, longitude: -73.643058 },
+      ]
+
+    }]
+  },
+  {
+    campus: 'LOY',
+    building: 'BH',
+    buildingName: 'BH Building',
+    address: '3500 Bermore Avenue',
+    latitude: 45.459819,
+    longitude: -73.639152,
+    polygons: [{
+      name: 'BH Building',
+      coordinates:
+
+      [
+        { latitude: 45.459819, longitude: -73.639163 },
+        { latitude: 45.459756, longitude: -73.639009 },
+        { latitude: 45.459662, longitude: -73.639082 },
+        { latitude: 45.459723, longitude: -73.639242 },
+      ]
+
+    }]
+  },
+  {
+    campus: 'LOY',
+    building: 'HU',
+    buildingName: 'HU Building',
+    address: '7141, Sherbrooke W',
+    latitude: 45.458513,
+    longitude: -73.641921,
+    polygons: [{
+      name: 'HU Building-Applied Science Hub',
+      coordinates:
+      [
+        { latitude: 45.458208, longitude: -73.641676 },
+        { latitude: 45.458676, longitude: -73.641328 },
+        { latitude: 45.459249, longitude: -73.642786 },
+        { latitude: 45.458791, longitude: -73.643170 },
+      ]
+
+    }]
+  },
+  {
+    campus: 'LOY',
+    building: 'HB',
+    buildingName: 'Hingston Hall Resisdence',
+    address: '7141 Sherbrooke West',
+    latitude: 45.459356,
+    longitude: -73.641270,
+    polygons: [{
+      name: 'Hingston Hall Resisdence',
+      coordinates:
+
+      [
+        { latitude: 45.459710, longitude: -73.641372 },
+        { latitude: 45.459537, longitude: -73.640894 },
+        { latitude: 45.459255, longitude: -73.641090 },
+        { latitude: 45.459431, longitude: -73.641587 },
+      ]
+
+    }]
+  },
   /* SGW Campus Buildings */
   {
     campus: 'SGW',
@@ -283,6 +386,29 @@ const buildings = [
   },
   {
     campus: 'SGW',
+    building: 'GS',
+    buildingName: 'GS Building',
+    address: '1538, Sherbrooke W',
+    latitude: 45.496673,
+    longtitude: -73.581409,
+    polygons: [{
+      name: 'Guy-Sherbrooke Building',
+      coordinates:
+      [
+        { latitude: 45.496785, longitude: -73.581302 },
+        { latitude: 45.496624, longitude: -73.581453 },
+        { latitude: 45.496577, longitude: -73.581435 },
+        { latitude: 45.496415, longitude: -73.580942 },
+        { latitude: 45.496486, longitude: -73.580874 },
+        { latitude: 45.496476, longitude: -73.580846 },
+        { latitude: 45.496517, longitude: -73.580805 },
+        { latitude: 45.496654, longitude: -73.581171 },
+        { latitude: 45.496710, longitude: -73.581128 },
+      ]
+    }]
+  },
+  {
+    campus: 'SGW',
     building: 'GM',
     buildingName: 'GM_building',
     address: '1550 DeMaisonneuve W',
@@ -299,6 +425,32 @@ const buildings = [
                 { latitude: 45.495618, longitude: -73.578746 },
                 { latitude: 45.495947, longitude: -73.578435 },
               ]
+    }]
+  },
+  {
+    campus: 'SGW',
+    building: 'T',
+    buildingName: 'T Building',
+    address: '2030 Mackay Street',
+    latitude: 45.496710,
+    longtitude: -73.579270,
+    polygons: [{
+      name: 'T Building',
+      coordinates:
+      [
+        { latitude: 45.496812, longitude: -73.579339 },
+        { latitude: 45.496651, longitude: -73.579499 },
+        { latitude: 45.496609, longitude: -73.579413 },
+        { latitude: 45.496666, longitude: -73.579349 },
+        { latitude: 45.496545, longitude: -73.579117 },
+        { latitude: 45.496644, longitude: -73.579004 },
+        { latitude: 45.496729, longitude: -73.579163 },
+        { latitude: 45.496716, longitude: -73.579179 },
+        { latitude: 45.496761, longitude: -73.579263 },
+        { latitude: 45.496763, longitude: -73.579253 },
+        { latitude: 45.496808, longitude: -73.579335 },
+      ]
+
     }]
   },
   {
@@ -528,6 +680,26 @@ const buildings = [
   },
   {
     campus: 'SGW',
+    building: 'LD',
+    buildingName: 'LD Building',
+    address: '1424 Bishop Street',
+    latitude: 45.496697,
+    longtitude: -73.577312,
+    polygons: [{
+      name: 'LD Building',
+      coordinates:
+      [
+        { latitude: 45.496890, longitude: -73.579475 },
+        { latitude: 45.496931, longitude: -73.579554 },
+        { latitude: 45.496700, longitude: -73.579783 },
+        { latitude: 45.496676, longitude: -73.579733 },
+        { latitude: 45.496802, longitude: -73.579607 },
+        { latitude: 45.496788, longitude: -73.579574 },
+      ]
+    }]
+  },
+  {
+    campus: 'SGW',
     building: 'CL',
     buildingName: 'CL Building',
     address: '1665 Ste-Catherine W',
@@ -542,6 +714,28 @@ const buildings = [
               { latitude: 45.493970, longitude: -73.579311 },
               { latitude: 45.494260, longitude: -73.578934 },
             ]
+    }]
+  },
+  {
+    campus: 'SGW',
+    building: 'MB',
+    buildingName: 'John Molson Building',
+    address: '1450 Guy Street',
+    latitude: 45.495304,
+    longtitude: -73.579044,
+    polygons: [{
+      name: 'John Molson Building',
+      coordinates:
+      [
+        { latitude: 45.494996, longitude: -73.578733 },
+        { latitude: 45.495187, longitude: -73.578521 },
+        { latitude: 45.495534, longitude: -73.579216 },
+        { latitude: 45.495363, longitude: -73.579384 },
+        { latitude: 45.495216, longitude: -73.579115 },
+        { latitude: 45.495164, longitude: -73.579173 },
+        { latitude: 45.494999, longitude: -73.578818 },
+        { latitude: 45.495033, longitude: -73.578784 },
+      ]
     }]
   },
   {
