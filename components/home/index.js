@@ -3,6 +3,7 @@ import { View } from 'react-native';
 import { connect } from 'react-redux';
 import TheMap from '../map';
 import SearchBar from '../searchBar';
+import Shuttle from '../shuttleInformation';
 import styles from './styles';
 import SwitchCampuses from '../switchCampuses';
 
@@ -45,6 +46,7 @@ class Home extends Component {
           changeVisibilityTo={this.changeVisibilityTo}
         />
         <SwitchCampuses updateRegion={this.updateRegion} visiblityState={this.state.isVisible} />
+        <Shuttle />
       </View>
     );
   }
