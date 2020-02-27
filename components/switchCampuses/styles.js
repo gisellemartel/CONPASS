@@ -2,14 +2,16 @@ import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
   btn: {
-    bottom: '97%',
+    top: '135%',
     width: '30%',
+    left: '150%',
+
     marginHorizontal: 5,
   },
   container: {
     flexDirection: 'row',
     position: 'absolute',
-    justifyContent: 'center'
+    justifyContent: 'flex-end'
   },
 });
 
