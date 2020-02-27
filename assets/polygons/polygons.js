@@ -205,7 +205,46 @@ const buildings = [
               ]
     }]
   },
+  {
+    campus: 'LOY',
+    building: 'TA',
+    buildingName: 'TA Building',
+    address: '7079 Terrebonne',
+    latitude: 45.459992,
+    longitude: -73.640897,
+    polygons: [{
+      name: 'Terrebonne Building',
+      coordinates:
 
+                [
+                  { latitude: 45.460084, longitude: -73.640895 },
+                  { latitude: 45.459978, longitude: -73.640977 },
+                  { latitude: 45.459939, longitude: -73.640870 },
+                  { latitude: 45.460041, longitude: -73.640782 },
+                ]
+
+    }]
+  },
+  {
+    campus: 'LOY',
+    building: 'HB',
+    buildingName: 'Hingston Hall Resisdence',
+    address: '7141 Sherbrooke West',
+    latitude: 45.459356,
+    longitude: -73.641270,
+    polygons: [{
+      name: 'Hingston Hall Resisdence',
+      coordinates:
+
+      [
+        { latitude: 45.459710, longitude: -73.641372 },
+        { latitude: 45.459537, longitude: -73.640894 },
+        { latitude: 45.459255, longitude: -73.641090 },
+        { latitude: 45.459431, longitude: -73.641587 },
+      ]
+
+    }]
+  },
   /* SGW Campus Buildings */
   {
     campus: 'SGW',
@@ -279,6 +318,29 @@ const buildings = [
                 { latitude: 45.492614, longitude: -73.576577 }
 
               ]
+    }]
+  },
+  {
+    campus: 'SGW',
+    building: 'GS',
+    buildingName: 'GS Building',
+    address: '1538, Sherbrooke W',
+    latitude: 45.496673,
+    longtitude: -73.581409,
+    polygons: [{
+      name: 'Guy-Sherbrooke Building',
+      coordinates:
+      [
+        { latitude: 45.496785, longitude: -73.581302 },
+        { latitude: 45.496624, longitude: -73.581453 },
+        { latitude: 45.496577, longitude: -73.581435 },
+        { latitude: 45.496415, longitude: -73.580942 },
+        { latitude: 45.496486, longitude: -73.580874 },
+        { latitude: 45.496476, longitude: -73.580846 },
+        { latitude: 45.496517, longitude: -73.580805 },
+        { latitude: 45.496654, longitude: -73.581171 },
+        { latitude: 45.496710, longitude: -73.581128 },
+      ]
     }]
   },
   {
