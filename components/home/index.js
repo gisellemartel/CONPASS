@@ -36,17 +36,23 @@ class Home extends Component {
     this.setState({ isVisible: boolean });
   }
 
+  updateCoordinates = (newCoordinates) => {
+    this.setState({
+      coordinates: newCoordinates
+    });
+  }
+
   render() {
     return (
       <View style={styles.container}>
-        <TheMap updatedRegion={this.state.region} />
+        <TheMap updatedRegion={this.state.region} updatedCoordinates={this.state.coordinates}/>
         <SearchBar
           navigation={this.props.navigation}
           updateRegion={this.updateRegion}
           changeVisibilityTo={this.changeVisibilityTo}
         />
         <SwitchCampuses updateRegion={this.updateRegion} visiblityState={this.state.isVisible} />
-        <Shuttle />
+        <Shuttle coordinateCallback={this.updateCoordinates} />
       </View>
     );
   }
