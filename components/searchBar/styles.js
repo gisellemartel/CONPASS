@@ -35,7 +35,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#F1F7FC',
     height: '100%',
   },
-
   suggestions: {
     color: 'black',
     padding: 5,

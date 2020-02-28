@@ -36,7 +36,7 @@ export default class TheMap extends Component {
           return (
             building.polygons.map((polygon) => {
               return (
-                <Polygon
+                <CustomPolygon
                   key={polygon.name}
                   coordinates={polygon.coordinates}
                   fillColor="rgba(255,135,135,0.5)"
@@ -48,4 +48,18 @@ export default class TheMap extends Component {
       </MapView>
     );
   }
+}
+
+function CustomPolygon({ onLayout, ...props }) {
+  const ref = React.useRef();
+
+  function onLayoutPolygon() {
+    if (ref.current) {
+      ref.current.setNativeProps({ fillColor: props.fillColor });
+    }
+    // call onLayout() from the props if you need it
+  }
+
+  // eslint-disable-next-line react/jsx-props-no-spreading
+  return <Polygon ref={ref} onLayout={onLayoutPolygon} {...props} />;
 }

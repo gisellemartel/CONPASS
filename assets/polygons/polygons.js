@@ -215,13 +215,12 @@ const buildings = [
     polygons: [{
       name: 'Terrebonne Building',
       coordinates:
-
-                [
-                  { latitude: 45.460084, longitude: -73.640895 },
-                  { latitude: 45.459978, longitude: -73.640977 },
-                  { latitude: 45.459939, longitude: -73.640870 },
-                  { latitude: 45.460041, longitude: -73.640782 },
-                ]
+              [
+                { latitude: 45.460084, longitude: -73.640895 },
+                { latitude: 45.459978, longitude: -73.640977 },
+                { latitude: 45.459939, longitude: -73.640870 },
+                { latitude: 45.460041, longitude: -73.640782 },
+              ]
 
     }]
   },
@@ -235,19 +234,18 @@ const buildings = [
     polygons: [{
       name: 'Jesuit Residence',
       coordinates:
-      [
-        { latitude: 45.458634, longitude: -73.643309 },
-        { latitude: 45.458566, longitude: -73.643365 },
-        { latitude: 45.458560, longitude: -73.643349 },
-        { latitude: 45.458495, longitude: -73.643400 },
-        { latitude: 45.458465, longitude: -73.643329 },
-        { latitude: 45.458448, longitude: -73.643342 },
-        { latitude: 45.458408, longitude: -73.643244 },
-        { latitude: 45.458426, longitude: -73.643227 },
-        { latitude: 45.458398, longitude: -73.643155 },
-        { latitude: 45.458538, longitude: -73.643058 },
-      ]
-
+              [
+                { latitude: 45.458634, longitude: -73.643309 },
+                { latitude: 45.458566, longitude: -73.643365 },
+                { latitude: 45.458560, longitude: -73.643349 },
+                { latitude: 45.458495, longitude: -73.643400 },
+                { latitude: 45.458465, longitude: -73.643329 },
+                { latitude: 45.458448, longitude: -73.643342 },
+                { latitude: 45.458408, longitude: -73.643244 },
+                { latitude: 45.458426, longitude: -73.643227 },
+                { latitude: 45.458398, longitude: -73.643155 },
+                { latitude: 45.458538, longitude: -73.643058 },
+              ]
     }]
   },
   {
@@ -260,14 +258,12 @@ const buildings = [
     polygons: [{
       name: 'BH Building',
       coordinates:
-
-      [
-        { latitude: 45.459819, longitude: -73.639163 },
-        { latitude: 45.459756, longitude: -73.639009 },
-        { latitude: 45.459662, longitude: -73.639082 },
-        { latitude: 45.459723, longitude: -73.639242 },
-      ]
-
+              [
+                { latitude: 45.459819, longitude: -73.639163 },
+                { latitude: 45.459756, longitude: -73.639009 },
+                { latitude: 45.459662, longitude: -73.639082 },
+                { latitude: 45.459723, longitude: -73.639242 },
+              ]
     }]
   },
   {
@@ -280,13 +276,12 @@ const buildings = [
     polygons: [{
       name: 'HU Building-Applied Science Hub',
       coordinates:
-      [
-        { latitude: 45.458208, longitude: -73.641676 },
-        { latitude: 45.458676, longitude: -73.641328 },
-        { latitude: 45.459249, longitude: -73.642786 },
-        { latitude: 45.458791, longitude: -73.643170 },
-      ]
-
+              [
+                { latitude: 45.458208, longitude: -73.641676 },
+                { latitude: 45.458676, longitude: -73.641328 },
+                { latitude: 45.459249, longitude: -73.642786 },
+                { latitude: 45.458791, longitude: -73.643170 },
+              ]
     }]
   },
   {
@@ -299,14 +294,82 @@ const buildings = [
     polygons: [{
       name: 'Hingston Hall Resisdence',
       coordinates:
+              [
+                { latitude: 45.459710, longitude: -73.641372 },
+                { latitude: 45.459537, longitude: -73.640894 },
+                { latitude: 45.459255, longitude: -73.641090 },
+                { latitude: 45.459431, longitude: -73.641587 },
+              ]
+    }]
+  },
+  {
+    campus: 'LOY',
+    building: 'PC',
+    buildingName: 'Perform Centre',
+    address: '7200 Sherbrooke West',
+    latitude: 45.457088,
+    longitude: -73.637683,
+    polygons: [{
+      name: 'Perform Centre',
+      coordinates:
+              [
+                { latitude: 45.456945, longitude: -73.636772 },
+                { latitude: 45.456679, longitude: -73.636984 },
+                { latitude: 45.457015, longitude: -73.637842 },
+                { latitude: 45.457283, longitude: -73.637629 },
+              ]
 
-      [
-        { latitude: 45.459710, longitude: -73.641372 },
-        { latitude: 45.459537, longitude: -73.640894 },
-        { latitude: 45.459255, longitude: -73.641090 },
-        { latitude: 45.459431, longitude: -73.641587 },
-      ]
-
+    }]
+  },
+  {
+    campus: 'LOY',
+    building: 'PS',
+    buildingName: 'Physical Services Building',
+    address: '7141 Sherbrooke West',
+    latitude: 45.459636,
+    longitude: -73.639758,
+    polygons: [{
+      name: 'Perform Centre',
+      coordinates:
+              [
+                { latitude: 45.459981, longitude: -73.640133 },
+                { latitude: 45.459863, longitude: -73.640227 },
+                { latitude: 45.459852, longitude: -73.640200 },
+                { latitude: 45.459705, longitude: -73.640313 },
+                { latitude: 45.459638, longitude: -73.640133 },
+                { latitude: 45.459608, longitude: -73.640157 },
+                { latitude: 45.459413, longitude: -73.639655 },
+                { latitude: 45.459443, longitude: -73.639630 },
+                { latitude: 45.459403, longitude: -73.639524 },
+                { latitude: 45.459332, longitude: -73.639578 },
+                { latitude: 45.459286, longitude: -73.639457 },
+                { latitude: 45.459577, longitude: -73.639228 },
+                { latitude: 45.459623, longitude: -73.639348 },
+                { latitude: 45.459665, longitude: -73.639314 },
+              ]
+    }]
+  },
+  {
+    campus: 'LOY',
+    building: 'RA',
+    buildingName: 'Recreation and Athletics Complex',
+    address: '7200 Sherbrooke West',
+    latitude: 45.456774,
+    longitude: -73.637610,
+    polygons: [{
+      name: 'RA Building',
+      coordinates:
+              [
+                { latitude: 45.456725, longitude: -73.637101 },
+                { latitude: 45.456389, longitude: -73.637368 },
+                { latitude: 45.456692, longitude: -73.638141 },
+                { latitude: 45.456794, longitude: -73.638061 },
+                { latitude: 45.456844, longitude: -73.638187 },
+                { latitude: 45.457008, longitude: -73.638057 },
+                { latitude: 45.456957, longitude: -73.637926 },
+                { latitude: 45.457026, longitude: -73.637872 },
+                { latitude: 45.456725, longitude: -73.637101 },
+              ]
     }]
   },
   /* SGW Campus Buildings */
@@ -652,12 +715,12 @@ const buildings = [
     polygons: [{
       name: 'B Annex',
       coordinates:
-            [
-              { latitude: 45.497922, longitude: -73.579455 },
-              { latitude: 45.497884, longitude: -73.579373 },
-              { latitude: 45.497705, longitude: -73.579560 },
-              { latitude: 45.497740, longitude: -73.579636 },
-            ]
+              [
+                { latitude: 45.497922, longitude: -73.579455 },
+                { latitude: 45.497884, longitude: -73.579373 },
+                { latitude: 45.497705, longitude: -73.579560 },
+                { latitude: 45.497740, longitude: -73.579636 },
+              ]
     }]
   },
   {
@@ -670,12 +733,12 @@ const buildings = [
     polygons: [{
       name: 'CI Annex',
       coordinates:
-            [
-              { latitude: 45.497590, longitude: -73.579838 },
-              { latitude: 45.497406, longitude: -73.580013 },
-              { latitude: 45.497363, longitude: -73.579929 },
-              { latitude: 45.497549, longitude: -73.579746 },
-            ]
+              [
+                { latitude: 45.497590, longitude: -73.579838 },
+                { latitude: 45.497406, longitude: -73.580013 },
+                { latitude: 45.497363, longitude: -73.579929 },
+                { latitude: 45.497549, longitude: -73.579746 },
+              ]
     }]
   },
   {
@@ -688,14 +751,14 @@ const buildings = [
     polygons: [{
       name: 'LD Building',
       coordinates:
-      [
-        { latitude: 45.496890, longitude: -73.579475 },
-        { latitude: 45.496931, longitude: -73.579554 },
-        { latitude: 45.496700, longitude: -73.579783 },
-        { latitude: 45.496676, longitude: -73.579733 },
-        { latitude: 45.496802, longitude: -73.579607 },
-        { latitude: 45.496788, longitude: -73.579574 },
-      ]
+              [
+                { latitude: 45.496890, longitude: -73.579475 },
+                { latitude: 45.496931, longitude: -73.579554 },
+                { latitude: 45.496700, longitude: -73.579783 },
+                { latitude: 45.496676, longitude: -73.579733 },
+                { latitude: 45.496802, longitude: -73.579607 },
+                { latitude: 45.496788, longitude: -73.579574 },
+              ]
     }]
   },
   {
@@ -708,12 +771,12 @@ const buildings = [
     polygons: [{
       name: 'CL Annex',
       coordinates:
-            [
-              { latitude: 45.494473, longitude: -73.579278 },
-              { latitude: 45.494166, longitude: -73.579656 },
-              { latitude: 45.493970, longitude: -73.579311 },
-              { latitude: 45.494260, longitude: -73.578934 },
-            ]
+              [
+                { latitude: 45.494473, longitude: -73.579278 },
+                { latitude: 45.494166, longitude: -73.579656 },
+                { latitude: 45.493970, longitude: -73.579311 },
+                { latitude: 45.494260, longitude: -73.578934 },
+              ]
     }]
   },
   {
@@ -726,16 +789,16 @@ const buildings = [
     polygons: [{
       name: 'John Molson Building',
       coordinates:
-      [
-        { latitude: 45.494996, longitude: -73.578733 },
-        { latitude: 45.495187, longitude: -73.578521 },
-        { latitude: 45.495534, longitude: -73.579216 },
-        { latitude: 45.495363, longitude: -73.579384 },
-        { latitude: 45.495216, longitude: -73.579115 },
-        { latitude: 45.495164, longitude: -73.579173 },
-        { latitude: 45.494999, longitude: -73.578818 },
-        { latitude: 45.495033, longitude: -73.578784 },
-      ]
+              [
+                { latitude: 45.494996, longitude: -73.578733 },
+                { latitude: 45.495187, longitude: -73.578521 },
+                { latitude: 45.495534, longitude: -73.579216 },
+                { latitude: 45.495363, longitude: -73.579384 },
+                { latitude: 45.495216, longitude: -73.579115 },
+                { latitude: 45.495164, longitude: -73.579173 },
+                { latitude: 45.494999, longitude: -73.578818 },
+                { latitude: 45.495033, longitude: -73.578784 },
+              ]
     }]
   },
   {
@@ -748,12 +811,12 @@ const buildings = [
     polygons: [{
       name: 'D Annex',
       coordinates:
-            [
-              { latitude: 45.497741, longitude: -73.579413 },
-              { latitude: 45.497850, longitude: -73.579302 },
-              { latitude: 45.497810, longitude: -73.579230 },
-              { latitude: 45.497707, longitude: -73.579341 },
-            ]
+              [
+                { latitude: 45.497741, longitude: -73.579413 },
+                { latitude: 45.497850, longitude: -73.579302 },
+                { latitude: 45.497810, longitude: -73.579230 },
+                { latitude: 45.497707, longitude: -73.579341 },
+              ]
     }]
   },
   {
@@ -766,12 +829,12 @@ const buildings = [
     polygons: [{
       name: 'D Annex',
       coordinates:
-            [
-              { latitude: 45.496856, longitude: -73.579757 },
-              { latitude: 45.496815, longitude: -73.579671 },
-              { latitude: 45.496908, longitude: -73.579577 },
-              { latitude: 45.496949, longitude: -73.579665 },
-            ]
+              [
+                { latitude: 45.496856, longitude: -73.579757 },
+                { latitude: 45.496815, longitude: -73.579671 },
+                { latitude: 45.496908, longitude: -73.579577 },
+                { latitude: 45.496949, longitude: -73.579665 },
+              ]
     }]
   },
   {
@@ -784,12 +847,12 @@ const buildings = [
     polygons: [{
       name: 'ER Annex',
       coordinates:
-            [
-              { latitude: 45.496824, longitude: -73.579660 },
-              { latitude: 45.496803, longitude: -73.579606 },
-              { latitude: 45.496676, longitude: -73.579735 },
-              { latitude: 45.496701, longitude: -73.579785 },
-            ]
+              [
+                { latitude: 45.496824, longitude: -73.579660 },
+                { latitude: 45.496803, longitude: -73.579606 },
+                { latitude: 45.496676, longitude: -73.579735 },
+                { latitude: 45.496701, longitude: -73.579785 },
+              ]
     }]
   },
   {
@@ -802,12 +865,129 @@ const buildings = [
     polygons: [{
       name: 'FA Annex',
       coordinates:
-            [
-              { latitude: 45.496776, longitude: -73.579585 },
-              { latitude: 45.496872, longitude: -73.579489 },
-              { latitude: 45.496831, longitude: -73.579406 },
-              { latitude: 45.496735, longitude: -73.579501 },
-            ]
+              [
+                { latitude: 45.496776, longitude: -73.579585 },
+                { latitude: 45.496872, longitude: -73.579489 },
+                { latitude: 45.496831, longitude: -73.579406 },
+                { latitude: 45.496735, longitude: -73.579501 },
+              ]
+    }]
+  },
+  {
+    campus: 'SGW',
+    building: 'M',
+    buildingName: 'M Building',
+    address: '2135 Mackay Street ',
+    latitude: 45.497368,
+    longtitude: -73.579777,
+    polygons: [{
+      name: 'M Annex',
+      coordinates:
+              [
+                { latitude: 45.497424, longitude: -73.579750 },
+                { latitude: 45.497322, longitude: -73.579849 },
+                { latitude: 45.497289, longitude: -73.579780 },
+                { latitude: 45.497389, longitude: -73.579682 },
+              ]
+    }]
+  },
+  {
+    campus: 'SGW',
+    building: 'MI',
+    buildingName: 'MI Building',
+    address: '2130 Bishop Street',
+    latitude: 45.497807,
+    longtitude: -73.579261,
+    polygons: [{
+      name: 'MI Annex',
+      coordinates:
+              [
+                { latitude: 45.497809, longitude: -73.579229 },
+                { latitude: 45.497706, longitude: -73.579342 },
+                { latitude: 45.497647, longitude: -73.579403 },
+                { latitude: 45.497623, longitude: -73.579353 },
+                { latitude: 45.497693, longitude: -73.579285 },
+                { latitude: 45.497681, longitude: -73.579260 },
+                { latitude: 45.497778, longitude: -73.579166 },
+              ]
+    }]
+  },
+  {
+    campus: 'SGW',
+    building: 'MU',
+    buildingName: 'MU Building',
+    address: '2170 Bishop Street',
+    latitude: 45.497963,
+    longtitude: -73.579506,
+    polygons: [{
+      name: 'MU Annex',
+      coordinates:
+              [
+                { latitude: 45.497747, longitude: -73.579629 },
+                { latitude: 45.497785, longitude: -73.579704 },
+                { latitude: 45.497963, longitude: -73.579536 },
+                { latitude: 45.497918, longitude: -73.579458 },
+              ]
+    }]
+  },
+  {
+    campus: 'SGW',
+    building: 'R',
+    buildingName: 'R Building',
+    address: '2050 Mackay Street',
+    latitude: 45.496826,
+    longtitude: -73.579389,
+    polygons: [{
+      name: 'R Annex',
+      coordinates:
+              [
+                { latitude: 45.496837, longitude: -73.579399 },
+                { latitude: 45.496745, longitude: -73.579491 },
+                { latitude: 45.496710, longitude: -73.579421 },
+                { latitude: 45.496802, longitude: -73.579329 },
+              ]
+    }]
+  },
+  {
+    campus: 'SGW',
+    building: 'S',
+    buildingName: 'S Building',
+    address: '2145 Mackay Street',
+    latitude: 45.497423,
+    longtitude: -73.579851,
+    polygons: [{
+      name: 'S Annex',
+      coordinates:
+              [
+                { latitude: 45.497423, longitude: -73.579748 },
+                { latitude: 45.497437, longitude: -73.579773 },
+                { latitude: 45.497459, longitude: -73.579751 },
+                { latitude: 45.497490, longitude: -73.579813 },
+                { latitude: 45.497365, longitude: -73.579933 },
+                { latitude: 45.497324, longitude: -73.579848 },
+              ]
+    }]
+  },
+  {
+    campus: 'SGW',
+    building: 'SB',
+    buildingName: 'Samuel Bronfman Building',
+    address: '1590 Doctor Penfield',
+    latitude: 45.496600,
+    longtitude: -73.586090,
+    polygons: [{
+      name: 'S Annex',
+      coordinates:
+              [
+                { latitude: 45.496684, longitude: -73.586086 },
+                { latitude: 45.496538, longitude: -73.586211 },
+                { latitude: 45.496437, longitude: -73.586207 },
+                { latitude: 45.496467, longitude: -73.585738 },
+                { latitude: 45.496492, longitude: -73.585738 },
+                { latitude: 45.496554, longitude: -73.585792 },
+                { latitude: 45.496582, longitude: -73.585828 },
+                { latitude: 45.496659, longitude: -73.586008 },
+              ]
     }]
   },
 ];
