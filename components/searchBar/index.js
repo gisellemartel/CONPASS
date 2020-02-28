@@ -48,16 +48,17 @@ export default class searchBar extends Component {
       const georesult = await fetch(geoUrl);
       const gjson = await georesult.json();
       this.setState({ locations: gjson.result.geometry.location });
-
+      console.log(gjson.result.geometry.location);
       this.setState({
         region: {
-          latitude: locations.lat,
-          longitude: locations.lng,
+          latitude: this.state.locations.lat,
+          longitude: this.state.locations.lng,
           latitudeDelta: 0.05,
           longitudeDelta: 0.05
         }
 
       });
+      console.log(this.state.region);
       this.props.callBack(this.state.region);
     } catch (err) {
       console.error(err);
