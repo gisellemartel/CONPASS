@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import TheMap from '../map';
 import SearchBar from '../searchBar';
 import Shuttle from '../shuttleInformation';
+import ShuttleSchedule from '../shuttleSchedule';
 import styles from './styles';
 import SwitchCampuses from '../switchCampuses';
 
@@ -51,6 +52,9 @@ class Home extends Component {
   render() {
     return (
       <View style={styles.container}>
+        <ShuttleSchedule />
+      </View>
+      /*<View style={styles.container}>
         <TheMap
           updatedRegion={this.state.region}
           updatedCoordinates={this.state.coordinates}
@@ -66,7 +70,7 @@ class Home extends Component {
           coordinateCallback={this.updateCoordinates}
           getPolylinePoint={this.getPolylinePoint}
         />
-      </View>
+      </View>*/
     );
   }
 }
