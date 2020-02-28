@@ -78,7 +78,8 @@ export default class searchBar extends Component {
             onPress={() => {
               this.setState({ destination: prediction.description });
               this.getLatLong(prediction.place_id);
-              this.setState({ showPredictions: false });
+              this.setState({ showPredictions: true });
+              this.props.changeVisibilityTo(false);
               Keyboard.dismiss();
             }}
           >
@@ -95,10 +96,24 @@ export default class searchBar extends Component {
           <SearchBar
             lightTheme
             placeholder="Search..."
-            onChangeText={(destination) => { return this.onChangeDestination(destination); }}
+            onChangeText={(destination) => {
+              destination.length === 0
+                ? this.props.changeVisibilityTo(true)
+                : this.props.changeVisibilityTo(false);
+              return this.onChangeDestination(destination);
+            }}
             value={this.state.destination}
             style={styles.SearchBar}
-            onClear={() => { this.setState({ showPredictions: true }); }}
+            onClear={() => {
+              this.setState({ showPredictions: true });
+            }}
+            onTouchStart={
+              () => {
+                this.props.changeVisibilityTo(false);
+              }
+            }
+            onBlur={() => { this.props.changeVisibilityTo(true); }}
+            blurOnSubmit
           />
         </View>
         {
