@@ -3,7 +3,9 @@ import {
   View, Keyboard, TouchableOpacity, Text
 } from 'react-native';
 import { SearchBar } from 'react-native-elements';
+import i18n from 'i18n-js';
 import styles from './styles';
+import SetLocaleContext from '../../localization-context';
 
 export default class searchBar extends Component {
   constructor(props) {
@@ -18,8 +20,14 @@ export default class searchBar extends Component {
         longitude: -73.582153,
         latitudeDelta: 0.0922,
         longitudeDelta: 0.0421
-      }
+      },
+      isMounted: false,
     };
+  }
+
+  componentDidMount() {
+    SetLocaleContext();
+    this.setState({ isMounted: true });
   }
 
   async onChangeDestination(destination) {
@@ -38,7 +46,7 @@ export default class searchBar extends Component {
   }
 
   async getLatLong(prediction) {
-    // eslint-disable-next-line react/no-unused-state
+  // eslint-disable-next-line react/no-unused-state
     this.setState({ description: prediction });
     const key = 'AIzaSyCqNODizSqMIWbKbO8Iq3VWdBcK846n_3w';
     const geoUrl = `https://maps.googleapis.com/maps/api/place/details/json?key=${key}&placeid=${prediction}`;
@@ -66,6 +74,8 @@ export default class searchBar extends Component {
 
 
   render() {
+    const placeholder = this.state.isMounted ? i18n.t('search') : 'Search...';
+
     const predictions = this.state.predictions.map((prediction) => {
       return (
         <View key={prediction.id} style={styles.view}>
@@ -90,7 +100,7 @@ export default class searchBar extends Component {
         <View>
           <SearchBar
             lightTheme
-            placeholder="Search..."
+            placeholder={placeholder}
             onChangeText={(destination) => { return this.onChangeDestination(destination); }}
             value={this.state.destination}
             style={styles.SearchBar}
