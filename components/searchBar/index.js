@@ -1,10 +1,7 @@
-/* eslint-disable react/destructuring-assignment */
-/* eslint-disable no-console */
 import React, { Component } from 'react';
 import {
   View, Keyboard, TouchableOpacity, Text
 } from 'react-native';
-// eslint-disable-next-line import/no-unresolved
 import { SearchBar } from 'react-native-elements';
 import styles from './styles';
 
@@ -45,6 +42,7 @@ export default class searchBar extends Component {
     this.setState({ description: prediction });
     const key = 'AIzaSyCqNODizSqMIWbKbO8Iq3VWdBcK846n_3w';
     const geoUrl = `https://maps.googleapis.com/maps/api/place/details/json?key=${key}&placeid=${prediction}`;
+    const { locations } = this.state;
 
     try {
       const georesult = await fetch(geoUrl);
@@ -53,10 +51,8 @@ export default class searchBar extends Component {
 
       this.setState({
         region: {
-          // eslint-disable-next-line react/no-access-state-in-setstate
-          latitude: this.state.locations.lat,
-          // eslint-disable-next-line react/no-access-state-in-setstate
-          longitude: this.state.locations.lng,
+          latitude: locations.lat,
+          longitude: locations.lng,
           latitudeDelta: 0.05,
           longitudeDelta: 0.05
         }

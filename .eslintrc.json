@@ -32,7 +32,10 @@
             }
         ],
         "no-use-before-define": "off",
+        "react/jsx-props-no-spreading": "off",
+        "react/destructuring-assignment": "off",
         "react/prop-types": "off",
+        "no-console": "off",
         "comma-dangle": "off",
         "react/forbid-prop-types": [
             0
