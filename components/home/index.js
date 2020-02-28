@@ -42,17 +42,30 @@ class Home extends Component {
     });
   }
 
+  getPolylinePoint = (data) => {
+    this.setState({
+      encryptedLine: data
+    });
+  }
+
   render() {
     return (
       <View style={styles.container}>
-        <TheMap updatedRegion={this.state.region} updatedCoordinates={this.state.coordinates}/>
+        <TheMap
+          updatedRegion={this.state.region}
+          updatedCoordinates={this.state.coordinates}
+          encryptedLine={this.state.encryptedLine}
+        />
         <SearchBar
           navigation={this.props.navigation}
           updateRegion={this.updateRegion}
           changeVisibilityTo={this.changeVisibilityTo}
         />
         <SwitchCampuses updateRegion={this.updateRegion} visiblityState={this.state.isVisible} />
-        <Shuttle coordinateCallback={this.updateCoordinates} />
+        <Shuttle
+          coordinateCallback={this.updateCoordinates}
+          getPolylinePoint={this.getPolylinePoint}
+        />
       </View>
     );
   }
