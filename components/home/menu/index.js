@@ -1,49 +1,56 @@
 import React, { Component } from 'react';
 import { View, Text, Image } from 'react-native';
-import Language from 'app/components/home/menu/languageView';
+import { createStackNavigator } from '@react-navigation/stack';
+import i18n from 'i18n-js';
 import styles from './styles';
 import conpass from './conpass.png';
+import Language from './Language';
+
+const Stack = createStackNavigator();
 
 export default class Menu extends Component {
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      optionView: null,
-    };
-  }
-
-  changeView(e, screen) {
-    let optionView;
-
-    if (screen === 'language') {
-      optionView = <Language />;
-    }
-
-    this.setState({ optionView });
-  }
-
   render() {
-    const { optionView } = this.state;
+    return (
+      <Stack.Navigator
+        initialRouteName="MenuOptions"
+        screenOptions={{
+          title: '',
+          headerStyle: {
+            backgroundColor: '#F5FCFF',
+            shadowColor: 'transparent',
+          },
+          headerTintColor: '#808080',
+          headerBackTitleStyle: {
+            fontSize: 25
+          }
+        }}
+      >
+        <Stack.Screen name="MenuOptions" options={{ headerShown: false }} component={MenuOptions} />
+        <Stack.Screen name="Language" component={Language} />
+      </Stack.Navigator>
+    );
+  }
+}
 
+class MenuOptions extends Component {
+  render() {
     return (
       <View style={styles.container}>
         <Image style={styles.logo} source={conpass} />
         <View style={styles.options}>
-          <Text>
-            Set Calendar
+          <Text style={styles.option}>
+            {i18n.t('setCalendar')}
           </Text>
-          <Text>
-            Accessibility
+          <Text style={styles.option}>
+            {i18n.t('accessibility')}
           </Text>
-          <Text onPress={(e) => { this.changeView(e, 'language'); }}>
-            Language
+          <Text style={styles.option} onPress={() => { return this.props.navigation.navigate('Language'); }}>
+            {i18n.t('language')}
           </Text>
         </View>
         <Text style={styles.help}>
-          Help
+          {i18n.t('help')}
         </Text>
-        { optionView }
       </View>
     );
   }

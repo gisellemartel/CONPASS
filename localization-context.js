@@ -7,14 +7,26 @@ const SetLocaleContext = () => {
     en: {
       welcome: 'Hello',
       search: 'Search...',
+      setCalendar: 'Set Calendar',
+      accessibility: 'Accessibility',
+      language: 'Language',
+      help: 'Help',
     },
     fr: {
       welcome: 'Bonjour',
-      search: 'Chercher...'
+      search: 'Chercher...',
+      setCalendar: 'Calendrier',
+      accessibility: 'Accessibilité',
+      language: 'Language',
+      help: 'Aide',
     },
     sp: {
       welcome: 'Hola',
-      search: 'Buscar...'
+      search: 'Buscar...',
+      setCalendar: 'Calendario',
+      accessibility: 'Accesibilidad',
+      language: 'Idioma',
+      help: 'Ayuda',
     }
   };
 

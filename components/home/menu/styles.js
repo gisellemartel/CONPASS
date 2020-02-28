@@ -9,17 +9,28 @@ const styles = StyleSheet.create({
   },
   logo: {
     width: 200,
+    top: 25,
+    left: 20,
     resizeMode: 'contain',
     position: 'absolute',
-    top: 25,
   },
   options: {
     position: 'absolute',
-    top: '30%',
+    top: '20%',
+    left: 0,
+    paddingLeft: 20,
+  },
+  option: {
+    paddingBottom: 20,
+    textAlign: 'left',
+    fontSize: 30,
   },
   help: {
     position: 'absolute',
-    bottom: 20
+    bottom: 20,
+    left: 0,
+    paddingLeft: 20,
+    fontSize: 30,
   }
 });
 
