@@ -40,7 +40,7 @@ export default class TheMap extends Component {
           <Polyline
             coordinates={this.state.coordinates}
             strokeWidth={4}
-            strokeColor="blue"
+            strokeColor="black"
           />
 
 		{buildings.map((building) => {
