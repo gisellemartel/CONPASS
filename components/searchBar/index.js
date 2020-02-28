@@ -78,14 +78,13 @@ export default class searchBar extends Component {
             onPress={() => {
               this.setState({ destination: prediction.description });
               this.getLatLong(prediction.place_id);
-              this.setState({ showPredictions: true });
+              this.setState({ showPredictions: false });
               this.props.changeVisibilityTo(false);
               Keyboard.dismiss();
             }}
           >
             <Text key={prediction.id}>{prediction.description}</Text>
           </TouchableOpacity>
-
         </View>
       );
     });
