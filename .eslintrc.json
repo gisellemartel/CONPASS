@@ -35,6 +35,7 @@
         "react/jsx-props-no-spreading": "off",
         "react/destructuring-assignment": "off",
         "react/prop-types": "off",
+        "max-classes-per-file": "off",
         "no-console": "off",
         "comma-dangle": "off",
         "react/forbid-prop-types": [

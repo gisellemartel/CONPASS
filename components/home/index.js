@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import SideMenu from 'react-native-side-menu';
 import { View } from 'react-native';
+import Menu from './menu';
 import TheMap from '../map';
 import SearchBar from '../searchBar';
 import styles from './styles';
@@ -29,11 +31,14 @@ export default class Home extends Component {
   }
 
   render() {
+    const menu = <Menu />;
     return (
-      <View style={styles.container}>
-        <TheMap updatedRegion={this.state.region} />
-        <SearchBar callBack={this.updateRegion} />
-      </View>
+      <SideMenu menu={menu}>
+        <View style={styles.container}>
+          <TheMap updatedRegion={this.state.region} />
+          <SearchBar callBack={this.updateRegion} />
+        </View>
+      </SideMenu>
     );
   }
 }
