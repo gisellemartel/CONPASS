@@ -1,20 +1,16 @@
 /* eslint-disable react/no-unused-state */
-/* eslint-disable react/destructuring-assignment */
 import React, { Component } from 'react';
-import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
-import { View } from 'react-native';
+import MapView, { Polygon, PROVIDER_GOOGLE } from 'react-native-maps';
+import buildings from '../../assets/polygons/polygons';
 import styles from './styles';
 
 export default class TheMap extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      // eslint-disable-next-line react/no-unused-state
       region: {
         latitude: 45.492409,
-        longitude: -73.582153,
-        latitudeDelta: 0.04,
-        longitudeDelta: 0.04
+        longitude: -73.582153
       },
     };
   }
@@ -26,13 +22,38 @@ export default class TheMap extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <MapView
-          provider={PROVIDER_GOOGLE}
-          region={this.props.updatedRegion}
-          style={styles.mapStyle}
-        />
-      </View>
+      <MapView
+        provider={PROVIDER_GOOGLE}
+        region={this.props.updatedRegion}
+        style={styles.mapStyle}
+      >
+        {buildings.map((building) => {
+          return (
+            building.polygons.map((polygon) => {
+              return (
+                <CustomPolygon
+                  key={polygon.name}
+                  coordinates={polygon.coordinates}
+                  fillColor="rgba(255,135,135,0.5)"
+                />
+              );
+            })
+          );
+        })}
+      </MapView>
     );
   }
+}
+
+function CustomPolygon({ onLayout, ...props }) {
+  const ref = React.useRef();
+
+  function onLayoutPolygon() {
+    if (ref.current) {
+      ref.current.setNativeProps({ fillColor: props.fillColor });
+    }
+    // call onLayout() from the props if you need it
+  }
+
+  return <Polygon ref={ref} onLayout={onLayoutPolygon} {...props} />;
 }
