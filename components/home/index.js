@@ -18,6 +18,11 @@ export default class Home extends Component {
     };
   }
 
+  // componentDidMount() {
+  //   const { localization } = this.props.localizationData;
+  //   this.setState({ locale: localization });
+  // }
+
   updateRegion = (newRegion) => {
     this.setState({
       region: {
@@ -34,6 +39,11 @@ export default class Home extends Component {
       <View style={styles.container}>
         <TheMap updatedRegion={this.state.region} />
         <SearchBar callBack={this.updateRegion} />
+        {/* <Text>
+          {this.state && this.state.locale
+            ? this.state.locale.t('welcome')
+            : null}
+        </Text> */}
       </View>
     );
   }
