@@ -14,8 +14,9 @@ export default class Home extends Component {
         latitude: 45.492409,
         longitude: -73.582153,
         latitudeDelta: 0.04,
-        longitudeDelta: 0.04
+        longitudeDelta: 0.04,
       },
+      isVisible: true,
     };
   }
 
@@ -30,12 +31,16 @@ export default class Home extends Component {
     });
   }
 
+  changeVisibilityTo = (boolie) => {
+    this.setState({ isVisible: boolie });
+  }
+
   render() {
     return (
       <View style={styles.container}>
         <TheMap updatedRegion={this.state.region} />
-        <SearchBar callBack={this.updateRegion} />
-        <SwitchCampuses callBack={this.updateRegion} />
+        <SearchBar callBack={this.updateRegion} changeVisibilityTo={this.changeVisibilityTo} />
+        {this.state.isVisible && <SwitchCampuses callBack={this.updateRegion} />}
       </View>
     );
   }
