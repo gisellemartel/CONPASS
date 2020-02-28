@@ -1,20 +1,20 @@
 /* eslint-disable react/no-unused-state */
 import React, { Component } from 'react';
-import MapView, { Polygon, Polyline, PROVIDER_GOOGLE } from 'react-native-maps';import styles from './styles';
+import MapView, { Polygon, Polyline, PROVIDER_GOOGLE } from 'react-native-maps';
+
+import decodePolyline from 'decode-google-map-polyline';
 
 export default class TheMap extends Component {
   constructor(props) {
     super(props);
-    //Temporary code. This merely demonstrates that encrypted waypoints can be decoded into a compatible form.
-    const decodePolyline = require('decode-google-map-polyline');
-    const rawPolylinePoints = decodePolyline("qsmtGnrm`MuA|Eu@jC}@m@u@a@Sh@eAy@uA{@eGqEyG{EeHeFeFcEmDqCgBaBuI_IaCuBiCkBo@e@yAgA{KsJwGqFoF}EoFsE{EqEq@i@aAo@SAc@@[JMi@c@oA]q@c@k@gBuAk@c@KIPe@l@wAx@qAl@kAt@eAlAoAdByArBoBPU\\o@dBsBnAsBzDwHfCiFhBoE`BwEdCiHnDsJ@c@n@mBfDyJlFgPjAsDlAsELwALmD?}@AaAKaAE]OeAc@kBc@wAY}@[s@}@oA{@u@_@]YUk@s@sA{@u@[oAc@a@IKAUBUIgBe@kCs@kDcA{DiAmBs@{A{@qA{@}@s@uBuBiAwAmA{BeCuE_EiGsCkFmF_KkIwOoAwBcAcBYc@?SE[aCqEoA{ByAsCWa@a@_@w@c@gAe@]Uw@eAwDsF_CwCg@a@SKYGOA_@?a@FQFe@Rc@Z[\\SVsBgBiF_FoDiDqCiCoCiCKXcAbCcCxGyBnFiA~C");
+    const rawPolylinePoints = decodePolyline('qsmtGnrm`MuA|Eu@jC}@m@u@a@Sh@eAy@uA{@eGqEyG{EeHeFeFcEmDqCgBaBuI_IaCuBiCkBo@e@yAgA{KsJwGqFoF}EoFsE{EqEq@i@aAo@SAc@@[JMi@c@oA]q@c@k@gBuAk@c@KIPe@l@wAx@qAl@kAt@eAlAoAdByArBoBPU\\o@dBsBnAsBzDwHfCiFhBoE`BwEdCiHnDsJ@c@n@mBfDyJlFgPjAsDlAsELwALmD?}@AaAKaAE]OeAc@kBc@wAY}@[s@}@oA{@u@_@]YUk@s@sA{@u@[oAc@a@IKAUBUIgBe@kCs@kDcA{DiAmBs@{A{@qA{@}@s@uBuBiAwAmA{BeCuE_EiGsCkFmF_KkIwOoAwBcAcBYc@?SE[aCqEoA{ByAsCWa@a@_@w@c@gAe@]Uw@eAwDsF_CwCg@a@SKYGOA_@?a@FQFe@Rc@Z[\\SVsBgBiF_FoDiDqCiCoCiCKXcAbCcCxGyBnFiA~C');
     // Incompatible field names for direct decode. Need to do a small conversion.
     const waypoints = rawPolylinePoints.map((point) => {
       return {
         latitude: point.lat,
         longitude: point.lng
-      }
-    })
+      };
+    });
     this.state = {
       region: {
         latitude: 45.492409,
@@ -36,11 +36,12 @@ export default class TheMap extends Component {
           provider={PROVIDER_GOOGLE}
           region={this.props.updatedRegion}
           style={styles.mapStyle}
-        >    
+        >
           <Polyline
             coordinates={this.state.coordinates}
             strokeWidth={4}
-            strokeColor="blue"/>
+            strokeColor="blue"
+          />
 
 		{buildings.map((building) => {
           return (
