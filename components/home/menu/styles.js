@@ -6,6 +6,20 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#F5FCFF'
+  },
+  logo: {
+    width: 200,
+    resizeMode: 'contain',
+    position: 'absolute',
+    top: 25,
+  },
+  options: {
+    position: 'absolute',
+    top: '30%',
+  },
+  help: {
+    position: 'absolute',
+    bottom: 20
   }
 });
 
