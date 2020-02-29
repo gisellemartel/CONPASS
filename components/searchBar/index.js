@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 import React, { Component } from 'react';
 import {
   View, Keyboard, TouchableOpacity, Text, TouchableHighlight,
@@ -57,7 +58,7 @@ export default class searchBar extends Component {
       const georesult = await fetch(geoUrl);
       const gjson = await georesult.json();
       const locations = gjson.result.geometry.location;
-      console.log(gjson.result.geometry.location);
+      // console.log(gjson.result.geometry.location);
       this.setState({
         region: {
           latitude: locations.lat,
@@ -66,7 +67,7 @@ export default class searchBar extends Component {
           longitudeDelta: 0.05
         }
       });
-      console.log(this.state.region);
+      // console.log(this.state.region);
       this.props.updateRegion(this.state.region);
     } catch (err) {
       console.error(err);

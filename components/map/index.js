@@ -1,8 +1,10 @@
 /* eslint-disable class-methods-use-this */
 /* eslint-disable react/no-unused-state */
 import React, { Component } from 'react';
+import { View } from 'react-native';
 import MapView, { Polygon, Polyline, PROVIDER_GOOGLE } from 'react-native-maps';
-
+import buildings from '../../assets/polygons/polygons';
+import styles from './styles';
 
 export default class TheMap extends Component {
   constructor(props) {
@@ -37,19 +39,18 @@ export default class TheMap extends Component {
             strokeColor="black"
           />
 
-		{buildings.map((building) => {
-          return (
-            building.polygons.map((polygon) => {
-              return (
-                <CustomPolygon
-                  key={polygon.name}
-                  coordinates={polygon.coordinates}
-                  fillColor="rgba(255,135,135,0.5)"
-                />
-              );
-            })
-          );
-        })}
+          {buildings.map((building) => {
+            return (
+              building.polygons.map((polygon) => {
+                return (
+                  <CustomPolygon
+                    key={polygon.name}
+                    coordinates={polygon.coordinates}
+                    fillColor="rgba(255,135,135,0.5)"
+                  />
+                );
+              }));
+          })}
         </MapView>
 
       </View>
