@@ -1,8 +1,11 @@
+/* eslint-disable no-console */
+/* eslint-disable class-methods-use-this */
 /* eslint-disable react/no-deprecated */
 /* eslint-disable react/no-unused-state */
-import React, { Component, useState } from 'react';
-import { Modal, ScrollView, View, Button, Alert } from 'react-native';
-import { Table, Row } from 'react-native-table-component';
+import React, { Component } from 'react';
+import {
+  Modal, ScrollView, View, Button, Alert, SectionList, Text
+} from 'react-native';
 import decodePolyline from 'decode-google-map-polyline';
 import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
@@ -44,15 +47,15 @@ export default class Shuttle extends Component {
   }
 
   getTableData(shuttleTimes) {
-    const tableContent = []
+    const tableContent = [];
     shuttleTimes.forEach((tableRow) => {
-      tableContent.push([tableRow.LOY, tableRow.SGW])
-    })
+      tableContent.push([tableRow.LOY, tableRow.SGW]);
+    });
     return tableContent;
   }
 
   setModalVisible(visible) {
-    this.setState({modalVisible: visible});
+    this.setState({ modalVisible: visible });
   }
 
   async drawPath(origin, destination) {
@@ -80,31 +83,117 @@ export default class Shuttle extends Component {
   }
 
   render() {
+    const { modalVisible } = this.state;
     return (
       <View style={styles.container}>
         <Modal
           animationType="slide"
           transparent={false}
-          visible={this.state.modalVisible}>
-          <View style={styles.container}>
+          visible={modalVisible}
+        >
+          <View>
             <Button
-              title="Go Back"
+              title="Close"
               onPress={() => { this.setModalVisible(false); }}
             />
-            <ScrollView horizontal>
+            <ScrollView horizontal contentContainerStyle={styles.contentContainer}>
               <View>
-                <Table>
-                  <Table>
+                <Text style={styles.title}>Shuttle Bus Schedule</Text>
+                <SectionList
+                  sections={[
                     {
-                      this.state.monThuTableData.map((rowData) => (
-                        <Row
-                          key={rowData.id}
-                          data={rowData}
-                        />
-                      ))
+                      title: 'Sir George Williams Campus',
+                      data: ['7:45',
+                        '8:05',
+                        '8:20',
+                        '8:35',
+                        '8:55',
+                        '9:10',
+                        '9:30',
+                        '9:45',
+                        '10:05',
+                        '10:20',
+                        '10:55',
+                        '11:10',
+                        '11:45',
+                        '12:00',
+                        '12:30',
+                        '13:00',
+                        '13:30',
+                        '14:00',
+                        '14:30',
+                        '15:00',
+                        '15:30',
+                        '16:00',
+                        '16:30',
+                        '17:00',
+                        '17:30',
+                        '18:00',
+                        '18:30',
+                        '19:00',
+                        '19:30',
+                        '20:00',
+                        '20:10',
+                        '20:30',
+                        '21:00',
+                        '21:25',
+                        '21:45',
+                        '22:00',
+                        '22:30',
+                        '23:00']
+                    },
+                    {
+                      title: 'Loyola Campus',
+                      data: ['7:30',
+                        '7:40',
+                        '7:55',
+                        '8:20',
+                        '8:35',
+                        '8:55',
+                        '9:10',
+                        '9:30',
+                        '9:45',
+                        '10:20',
+                        '10:35',
+                        '10:55',
+                        '11:10',
+                        '11:30',
+                        '12:00',
+                        '12:30',
+                        '13:00',
+                        '13:30',
+                        '14:00',
+                        '14:30',
+                        '15:00',
+                        '15:30',
+                        '16:00',
+                        '16:30',
+                        '17:00',
+                        '17:30',
+                        '18:00',
+                        '18:30',
+                        '19:00',
+                        '19:30',
+                        '20:00',
+                        '20:00',
+                        '20:30',
+                        '20:45',
+                        '21:05',
+                        '21:30',
+                        '22:00',
+                        '22:30',
+                        '23:00',
+                        '']
+                    },
+                  ]}
+                  renderItem={({ item }) => { return <Text style={styles.item}>{item}</Text>; }}
+                  renderSectionHeader={
+                    ({ section }) => {
+                      return <Text style={styles.sectionHeader}>{section.title}</Text>;
                     }
-                  </Table>
-                </Table>
+}
+                  keyExtractor={(item, index) => { return index; }}
+                />
               </View>
             </ScrollView>
           </View>

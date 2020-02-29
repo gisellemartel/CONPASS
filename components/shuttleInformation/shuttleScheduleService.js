@@ -1,6 +1,5 @@
 /* eslint-disable no-unused-vars */
-const shuttleScheduleInformation =
-{
+const shuttleScheduleInformation = {
   Mth: [
     { SGW: '7:45', LOY: '7:30' },
     { SGW: '8:05', LOY: '7:40' },
