@@ -79,7 +79,7 @@ export default class Home extends Component {
           getPolylinePoint={this.getPolylinePoint}
         />
         )}
-        <WithinBuilding userLocation={this.state.region}/>
+        <WithinBuilding/>
       </View>
     );
   }

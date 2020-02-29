@@ -3,6 +3,8 @@ import {
   View, Keyboard, TouchableOpacity, Text
 } from 'react-native';
 import buildings from '../../assets/polygons/polygons';
+import * as Location from "expo-location";
+import * as Permissions from "expo-permissions";
 
 export default class WithinBuilding extends Component {
     
@@ -13,6 +15,9 @@ export default class WithinBuilding extends Component {
                 { latitude: 45.4581882, longitude: -73.6330318
 */
         this.state = {
+            //user's current location
+            location: '',
+
             //polygon covering all buildings in SGW
             xSGWCoordinates: [-73.5866750, -73.5764890, -73.5715300, -73.5814433],
             ySGWCoordinates: [45.4963950, 45.4912630, 45.4961810, 45.5008758],
@@ -31,6 +36,18 @@ export default class WithinBuilding extends Component {
             loyBuildings: this.formatPolygonsObjs('LOY') 
         }
     }
+
+    //retrieves the users' current location
+    async getCurrentLocation() {
+        const { status } = await Permissions.askAsync(Permissions.LOCATION);
+        if (status !== 'granted') {
+          this.setState({
+            errorMessage: 'Permission to access location was denied',
+          });
+        }
+        const location = await Location.getCurrentPositionAsync({});
+        this.setState({ location });
+      }
 
     //Format SGW or Loyola buildings to be used by pnpoly function
     formatPolygonsObjs(campus){
@@ -66,7 +83,14 @@ export default class WithinBuilding extends Component {
     }
 
     //returns the name of building the user is currently located in
-    buildingName(x, y){
+    async buildingName(){
+        await this.getCurrentLocation();
+        
+        const { location } = this.state;
+        
+        var x = location.coords.longitude;
+        var y = location.coords.latitude;
+
         if(this.pnpoly((this.state.xSGWCoordinates).length, this.state.xSGWCoordinates, this.state.ySGWCoordinates, x, y)){
             (this.state.sgwBuildings).forEach((sgwBuilding)=>{
                 if(this.pnpoly((sgwBuilding.xCoords).length, sgwBuilding.xCoords, sgwBuilding.yCoords, x, y))
@@ -84,14 +108,11 @@ export default class WithinBuilding extends Component {
         }
             
     }
-  render(){
-     
-    //update user's location 
-    /*this.state.xPoint= ;
-    this.state.yPoint= ;*/
 
-    this.buildingName(this.props.userLocation.longitude,this.props.userLocation.latitude);
-    //this.pnpoly(4, this.state.xCoordinates, this.state.yCoordinates, this.state.xPoint, this.state.yPoint);
+  render(){
+
+    this.buildingName();
+    
     return(
       <View>
         
