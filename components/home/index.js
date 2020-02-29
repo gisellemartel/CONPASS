@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import TheMap from '../map';
 import SearchBar from '../searchBar';
 import styles from './styles';
+import SwitchCampuses from '../switchCampuses';
 
 class Home extends Component {
   constructor(props) {
@@ -13,8 +14,9 @@ class Home extends Component {
         latitude: 45.492409,
         longitude: -73.582153,
         latitudeDelta: 0.04,
-        longitudeDelta: 0.04
+        longitudeDelta: 0.04,
       },
+      isVisible: false,
     };
   }
 
@@ -29,11 +31,21 @@ class Home extends Component {
     });
   }
 
+  changeVisibilityTo = (boolean) => {
+    this.setState({ isVisible: boolean });
+  }
+
   render() {
     return (
       <View style={styles.container}>
         <TheMap updatedRegion={this.state.region} />
-        <SearchBar callBack={this.updateRegion} navigation={this.props.navigation} />
+        <SearchBar
+          callBack={this.updateRegion}
+          navigation={this.props.navigation}
+          updateRegion={this.updateRegion}
+          changeVisibilityTo={this.changeVisibilityTo}
+        />
+        <SwitchCampuses updateRegion={this.updateRegion} visiblityState={this.state.isVisible} />
       </View>
     );
   }

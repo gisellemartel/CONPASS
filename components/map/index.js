@@ -54,6 +54,5 @@ function CustomPolygon({ onLayout, ...props }) {
     }
     // call onLayout() from the props if you need it
   }
-
   return <Polygon ref={ref} onLayout={onLayoutPolygon} {...props} />;
 }
