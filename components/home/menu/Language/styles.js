@@ -11,10 +11,13 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 20,
     color: '#808080',
+    width: '100%',
+    paddingLeft: 30,
+    paddingRight: 30
   },
   dropdown: {
     position: 'absolute',
-    width: 250
+    width: 300
   }
 });
 

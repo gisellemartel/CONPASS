@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import {
-  View, Keyboard, TouchableOpacity, Text
+  View, Keyboard, TouchableOpacity, Text, TouchableHighlight,
+  Image
 } from 'react-native';
 import { SearchBar } from 'react-native-elements';
 import i18n from 'i18n-js';
 import styles from './styles';
+
 import SetLocaleContext from '../../localization-context';
+import burger from './burger.png';
 
 export default class searchBar extends Component {
   constructor(props) {
@@ -99,6 +102,7 @@ export default class searchBar extends Component {
       <View style={styles.container}>
         <View>
           <SearchBar
+            searchIcon={<Icon navigation={this.props.navigation} />}
             lightTheme
             placeholder={placeholder}
             onChangeText={(destination) => { return this.onChangeDestination(destination); }}
@@ -115,3 +119,11 @@ export default class searchBar extends Component {
     );
   }
 }
+
+const Icon = (props) => {
+  return (
+    <TouchableHighlight onPress={() => { return props.navigation.navigate('Menu'); }}>
+      <Image style={styles.burger} source={burger} />
+    </TouchableHighlight>
+  );
+};

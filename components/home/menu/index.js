@@ -1,47 +1,14 @@
 import React, { Component } from 'react';
 import { View, Text, Image } from 'react-native';
-import { createStackNavigator } from '@react-navigation/stack';
 import i18n from 'i18n-js';
-import { connect, Provider } from 'react-redux';
+import { connect } from 'react-redux';
 import styles from './styles';
 import conpass from './conpass.png';
-import Language from './Language';
-import store from '../../../store';
-
-const Stack = createStackNavigator();
 
 class Menu extends Component {
   render() {
     return (
-
-      <Stack.Navigator
-        initialRouteName="MenuOptions"
-        screenOptions={{
-          title: '',
-          headerStyle: {
-            backgroundColor: '#F5FCFF',
-            shadowColor: 'transparent',
-          },
-          headerTintColor: '#808080',
-          headerBackTitleStyle: {
-            fontSize: 25
-          }
-        }}
-      >
-        <Stack.Screen name="MenuOptions" options={{ headerShown: false }} component={MenuOptions} />
-        <Stack.Screen name="Language" component={Language} />
-      </Stack.Navigator>
-
-    );
-  }
-}
-
-class MenuOptions extends Component {
-  render() {
-    const { language } = this.props;
-    return (
       <View style={styles.container}>
-        {language}
         <Image style={styles.logo} source={conpass} />
         <View style={styles.options}>
           <Text style={styles.option}>

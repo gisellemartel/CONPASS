@@ -10,7 +10,9 @@ const SetLocaleContext = () => {
       setCalendar: 'Set Calendar',
       accessibility: 'Accessibility',
       language: 'Language',
+      language_description: 'Choose the preffered language for navigation menu, names etc.',
       help: 'Help',
+      back: 'Back'
     },
     fr: {
       welcome: 'Bonjour',
@@ -18,7 +20,9 @@ const SetLocaleContext = () => {
       setCalendar: 'Calendrier',
       accessibility: 'Accessibilité',
       language: 'Language',
+      language_description: 'Choisissez la langue préférée pour le menu de navigation, les noms, etc.',
       help: 'Aide',
+      back: 'Retour'
     },
     sp: {
       welcome: 'Hola',
@@ -26,7 +30,9 @@ const SetLocaleContext = () => {
       setCalendar: 'Calendario',
       accessibility: 'Accesibilidad',
       language: 'Idioma',
+      language_description: 'Elija el idioma preferido para el menú de navegación, nombres, etc.',
       help: 'Ayuda',
+      back: 'Atrás'
     }
   };
 

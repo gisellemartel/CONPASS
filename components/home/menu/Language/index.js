@@ -6,7 +6,6 @@ import { connect } from 'react-redux';
 import styles from './styles';
 import languages from './languages';
 
-
 class Language extends Component {
   constructor(props) {
     super(props);
@@ -17,7 +16,6 @@ class Language extends Component {
   }
 
   setLanguage(value) {
-    console.log(value);
     const language = languages.find((lang) => { return lang.name === value; });
     i18n.locale = language.code;
     this.props.dispatch({ type: 'CHANGE_LANGUAGE', payload: { language: language.code } });
@@ -36,7 +34,7 @@ class Language extends Component {
     return (
       <View style={styles.container}>
         <Text style={styles.description}>
-          Choose the preffered language for navigation menu, names etc.
+          {i18n.t('language_description')}
         </Text>
         <View style={styles.dropdown}>
           <Dropdown

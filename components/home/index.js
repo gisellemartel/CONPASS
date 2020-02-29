@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
 import { connect } from 'react-redux';
 import TheMap from '../map';
 import SearchBar from '../searchBar';
@@ -30,12 +30,10 @@ class Home extends Component {
   }
 
   render() {
-    const {language} = this.props;
     return (
       <View style={styles.container}>
         <TheMap updatedRegion={this.state.region} />
-        <Text style={styles.button} onPress={() => { return this.props.navigation.navigate('Menu'); }}>press me {language}</Text>
-        <SearchBar callBack={this.updateRegion} />
+        <SearchBar callBack={this.updateRegion} navigation={this.props.navigation} />
       </View>
     );
   }
