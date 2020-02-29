@@ -70,7 +70,6 @@ export default class Home extends Component {
         />
         <SearchBar callBack={this.updateRegion} changeVisibilityTo={this.changeVisibilityTo} />
         {this.state.isVisible && <SwitchCampuses callBack={this.updateRegion} />}
-        {/* {this.state.isVisible && <SwitchCampuses callBack={this.updateRegion} />} */}
         {this.state.isVisible && (
         <SearchBarDestination
           updatedRegion={this.state.region}
