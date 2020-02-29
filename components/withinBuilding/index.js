@@ -18,14 +18,10 @@ export default class WithinBuilding extends Component {
             //polygon covering individual buildings taken from polygons.js file
             xCoordinates: [-73.578062,-73.578638, -73.577702, -73.577063],
             yCoordinates: [45.497284,45.496698, 45.496227, 45.496862],
-            
-            //user's location 
-            xPoint: -73.58906809999999,
-            yPoint: 45.4969778,
         }
     }
 
-
+    //finds if a pair of coordinates are inside a polygon
     pnpoly(nvert, vertx, verty, testx, testy)
     {
         var i, j, c = 0;
@@ -34,12 +30,30 @@ export default class WithinBuilding extends Component {
             (testx < (vertx[j]-vertx[i]) * (testy-verty[i]) / (verty[j]-verty[i]) + vertx[i]) )
             c = !c;
         }
+        nvert=null, vertx, verty, testx, testy
         console.log('--->'+c);
+        return c;
     }
 
+    //returns the name of building the user is currently located in
+    buildingName(x, y){
+        if(this.pnpoly((this.state.xSGWCoordinates).length, this.state.xSGWCoordinates, this.state.ySGWCoordinates, x, y)){
+            console.log('in SGW');
+        }else if(false){
+            console.log('in Loyola');
+        }else{
+            console.log('NOT @ Concordia');
+        }
+            
+    }
   render(){
-    
-    this.pnpoly(4, this.state.xCoordinates, this.state.yCoordinates, this.state.xPoint, this.state.yPoint);
+     
+    //update user's location 
+    /*this.state.xPoint= ;
+    this.state.yPoint= ;*/
+
+    this.buildingName(this.props.userLocation.longitude,this.props.userLocation.latitude);
+    //this.pnpoly(4, this.state.xCoordinates, this.state.yCoordinates, this.state.xPoint, this.state.yPoint);
     return(
       <View>
         

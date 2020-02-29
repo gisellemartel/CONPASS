@@ -6,6 +6,7 @@ import SearchBar from '../searchBar';
 import SearchBarDestination from '../searchBarDestination';
 import styles from './styles';
 import SwitchCampuses from '../switchCampuses';
+import WithinBuilding from '../withinBuilding';
 
 export default class Home extends Component {
   constructor(props) {
@@ -78,6 +79,7 @@ export default class Home extends Component {
           getPolylinePoint={this.getPolylinePoint}
         />
         )}
+        <WithinBuilding userLocation={this.state.region}/>
       </View>
     );
   }
