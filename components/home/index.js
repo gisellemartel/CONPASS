@@ -16,7 +16,7 @@ export default class Home extends Component {
         latitudeDelta: 0.04,
         longitudeDelta: 0.04,
       },
-      isVisible: true,
+      isVisible: false,
     };
   }
 
@@ -31,8 +31,8 @@ export default class Home extends Component {
     });
   }
 
-  changeVisibilityTo = (boolie) => {
-    this.setState({ isVisible: boolie });
+  changeVisibilityTo = (boolean) => {
+    this.setState({ isVisible: boolean });
   }
 
   render() {
@@ -40,7 +40,7 @@ export default class Home extends Component {
       <View style={styles.container}>
         <TheMap updatedRegion={this.state.region} />
         <SearchBar callBack={this.updateRegion} changeVisibilityTo={this.changeVisibilityTo} />
-        {this.state.isVisible && <SwitchCampuses callBack={this.updateRegion} />}
+        <SwitchCampuses callBack={this.updateRegion} visiblityState={this.state.isVisible} />
       </View>
     );
   }

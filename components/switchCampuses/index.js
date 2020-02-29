@@ -15,7 +15,7 @@ export default class SwitchCampuses extends Component {
   }
 
 
-  async functionSetLoyola() {
+  async setLoyola() {
     const state = await this.setState({
       region: {
         latitude: 45.458025,
@@ -25,7 +25,7 @@ export default class SwitchCampuses extends Component {
     this.props.callBack(this.state.region);
   }
 
-  async functionSetSGW() {
+  async setSGW() {
     const state = await this.setState({
       region: {
         latitude: 45.495598,
@@ -36,23 +36,26 @@ export default class SwitchCampuses extends Component {
   }
 
   render() {
-    return (
-      <View style={styles.container}>
-        <View style={styles.btn}>
-          <Button
-            title="Loyola"
-            onPress={() => { return this.functionSetLoyola(); }}
-          />
+    if (this.props.visiblityState) {
+      return (
+        <View style={styles.container}>
+          <View style={styles.btn}>
+            <Button
+              title="Loyola"
+              onPress={() => { return this.setLoyola(); }}
+            />
 
-        </View>
+          </View>
 
-        <View style={styles.btn}>
-          <Button
-            title="SGW"
-            onPress={() => { return this.functionSetSGW(); }}
-          />
+          <View style={styles.btn}>
+            <Button
+              title="SGW"
+              onPress={() => { return this.setSGW(); }}
+            />
+          </View>
         </View>
-      </View>
-    );
+      );
+    }
+    return null;
   }
 }

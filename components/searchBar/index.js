@@ -102,13 +102,14 @@ export default class searchBar extends Component {
             style={styles.SearchBar}
             onClear={() => {
               this.setState({ showPredictions: true });
+              this.props.changeVisibilityTo(false);
             }}
             onTouchStart={
               () => {
-                this.props.changeVisibilityTo(false);
+                this.props.changeVisibilityTo(true);
               }
             }
-            onBlur={() => { this.props.changeVisibilityTo(true); }}
+            onBlur={() => { this.props.changeVisibilityTo(false); }}
             blurOnSubmit
           />
         </View>
