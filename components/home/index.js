@@ -1,12 +1,12 @@
-/* eslint-disable react/destructuring-assignment */
 import React, { Component } from 'react';
 import { View } from 'react-native';
+import { connect } from 'react-redux';
 import TheMap from '../map';
 import SearchBar from '../searchBar';
 import styles from './styles';
 import SwitchCampuses from '../switchCampuses';
 
-export default class Home extends Component {
+class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -39,9 +39,23 @@ export default class Home extends Component {
     return (
       <View style={styles.container}>
         <TheMap updatedRegion={this.state.region} />
-        <SearchBar updateRegion={this.updateRegion} changeVisibilityTo={this.changeVisibilityTo} />
+        <SearchBar
+          navigation={this.props.navigation}
+          updateRegion={this.updateRegion}
+          changeVisibilityTo={this.changeVisibilityTo}
+        />
         <SwitchCampuses updateRegion={this.updateRegion} visiblityState={this.state.isVisible} />
       </View>
     );
   }
 }
+
+/**
+ * Redux store listener. This function will update
+ * the connected component state whenever the store updates.
+ */
+const mapStateToProps = (state) => {
+  return { language: state.language };
+};
+
+export default connect(mapStateToProps)(Home);

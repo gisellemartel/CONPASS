@@ -25,12 +25,6 @@ const styles = StyleSheet.create({
     margin: 1,
     borderRadius: 5,
   },
-  burger: {
-    resizeMode: 'contain',
-    width: 25,
-    height: 250,
-    margin: 10
-  },
   sug: {
     backgroundColor: '#F1F7FC',
     height: '100%',
@@ -49,6 +43,10 @@ const styles = StyleSheet.create({
     width: '95%',
     marginLeft: 5,
     marginRight: 5
+  },
+  burger: {
+    width: 20,
+    resizeMode: 'contain',
   }
 });
 
