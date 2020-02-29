@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-const shuttleServiceInformation = [
+const shuttleLocationInformation = [
   {
     campus: 'SGW',
     address: '1455 De Maisonneuve Blvd. W.',
@@ -13,4 +13,4 @@ const shuttleServiceInformation = [
     longitude: -73.638301
   }
 ];
-export default shuttleServiceInformation;
+export default shuttleLocationInformation;

@@ -18,6 +18,9 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     backgroundColor: 'rgba(247,247,247,1.0)',
   },
+  shuttle: {
+
+  },
   title: {
     fontSize: 36,
     alignItems: 'center',

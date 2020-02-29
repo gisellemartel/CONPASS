@@ -9,7 +9,7 @@ import {
 import decodePolyline from 'decode-google-map-polyline';
 import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
-import shuttleServiceInformation from './shuttleService';
+import shuttleLocationInformation from './shuttleLocationService';
 import shuttleScheduleInformation from './shuttleScheduleService';
 import styles from './styles';
 
@@ -21,8 +21,6 @@ export default class Shuttle extends Component {
       location: '',
       errorMessage: null,
       modalVisible: false,
-      monThuTableData: this.getTableData(shuttleScheduleInformation.Mth),
-      fridayTableData: this.getTableData(shuttleScheduleInformation.Fri)
     };
     this.getCurrentLocation();
   }
@@ -31,7 +29,7 @@ export default class Shuttle extends Component {
     await this.getCurrentLocation();
     const { location } = this.state;
     let destCoordinates = [];
-    if (destination === 'SGW') { destCoordinates = [shuttleServiceInformation[0].latitude, shuttleServiceInformation[0].longitude]; } else if (destination === 'LOY') { destCoordinates = [shuttleServiceInformation[1].latitude, shuttleServiceInformation[1].longitude]; }
+    if (destination === 'SGW') { destCoordinates = [shuttleLocationInformation[0].latitude, shuttleLocationInformation[0].longitude]; } else if (destination === 'LOY') { destCoordinates = [shuttleLocationInformation[1].latitude, shuttleLocationInformation[1].longitude]; }
     await this.drawPath([location.coords.latitude, location.coords.longitude], destCoordinates);
   }
 
@@ -41,17 +39,10 @@ export default class Shuttle extends Component {
       this.setState({
         errorMessage: 'Permission to access location was denied',
       });
+      return;
     }
     const location = await Location.getCurrentPositionAsync({});
     this.setState({ location });
-  }
-
-  getTableData(shuttleTimes) {
-    const tableContent = [];
-    shuttleTimes.forEach((tableRow) => {
-      tableContent.push([tableRow.LOY, tableRow.SGW]);
-    });
-    return tableContent;
   }
 
   setModalVisible(visible) {
@@ -68,7 +59,7 @@ export default class Shuttle extends Component {
       const { getPolylinePoint } = this.props;
       getPolylinePoint(encryptedPath);
       const rawPolylinePoints = decodePolyline(json.routes[0].overview_polyline.points);
-      // Incompatible field names for direct decode. Need to do a trivial conversion.
+      // Incompatible field names for direct decode. Need to do a trivial conversion
       const waypoints = rawPolylinePoints.map((point) => {
         return {
           latitude: point.lat,
@@ -103,87 +94,11 @@ export default class Shuttle extends Component {
                   sections={[
                     {
                       title: 'Sir George Williams Campus',
-                      data: ['7:45',
-                        '8:05',
-                        '8:20',
-                        '8:35',
-                        '8:55',
-                        '9:10',
-                        '9:30',
-                        '9:45',
-                        '10:05',
-                        '10:20',
-                        '10:55',
-                        '11:10',
-                        '11:45',
-                        '12:00',
-                        '12:30',
-                        '13:00',
-                        '13:30',
-                        '14:00',
-                        '14:30',
-                        '15:00',
-                        '15:30',
-                        '16:00',
-                        '16:30',
-                        '17:00',
-                        '17:30',
-                        '18:00',
-                        '18:30',
-                        '19:00',
-                        '19:30',
-                        '20:00',
-                        '20:10',
-                        '20:30',
-                        '21:00',
-                        '21:25',
-                        '21:45',
-                        '22:00',
-                        '22:30',
-                        '23:00']
+                      data: shuttleScheduleInformation.Mon_Thu.SGW
                     },
                     {
                       title: 'Loyola Campus',
-                      data: ['7:30',
-                        '7:40',
-                        '7:55',
-                        '8:20',
-                        '8:35',
-                        '8:55',
-                        '9:10',
-                        '9:30',
-                        '9:45',
-                        '10:20',
-                        '10:35',
-                        '10:55',
-                        '11:10',
-                        '11:30',
-                        '12:00',
-                        '12:30',
-                        '13:00',
-                        '13:30',
-                        '14:00',
-                        '14:30',
-                        '15:00',
-                        '15:30',
-                        '16:00',
-                        '16:30',
-                        '17:00',
-                        '17:30',
-                        '18:00',
-                        '18:30',
-                        '19:00',
-                        '19:30',
-                        '20:00',
-                        '20:00',
-                        '20:30',
-                        '20:45',
-                        '21:05',
-                        '21:30',
-                        '22:00',
-                        '22:30',
-                        '23:00',
-                        '']
+                      data: shuttleScheduleInformation.Mon_Thu.LOY
                     },
                   ]}
                   renderItem={({ item }) => { return <Text style={styles.item}>{item}</Text>; }}
@@ -198,7 +113,7 @@ export default class Shuttle extends Component {
             </ScrollView>
           </View>
         </Modal>
-        <View style={styles.btn}>
+        <View style={styles.shuttle}>
           <Button
             title="Shuttle Bus Information"
             onPress={() => { this.setModalVisible(true); }}
@@ -211,7 +126,7 @@ export default class Shuttle extends Component {
                 'Which campus would you like to get directions to the Shuttle Bus Stop?',
                 [
                   { text: 'SGW', onPress: () => { this.getDirectionsToShuttleBusStop('SGW'); } },
-                  { text: 'LOY', onPress: () => { this.getDirectionsToShuttleBusStop('LOY'); } },
+                  { text: 'LOY', onPress: () => { this.getDirectionsToShuttleBusStop('LOY'); } }
                 ],
                 { cancelable: false }
               );
