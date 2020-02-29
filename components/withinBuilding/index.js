@@ -74,7 +74,7 @@ export default class WithinBuilding extends Component {
             });
             console.log('------in SGW');
         }else if(this.pnpoly((this.state.xLOYCoordinates).length, this.state.xLOYCoordinates, this.state.yLOYCoordinates, x, y)){
-            (this.state.sgwBuildings).forEach((sgwBuilding)=>{
+            (this.state.loyBuildings).forEach((loyBuilding)=>{
                 if(this.pnpoly((loyBuilding.xCoords).length, loyBuilding.xCoords, loyBuilding.yCoords, x, y))
                     console.log(loyBuilding.name);
             });
