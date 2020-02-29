@@ -17,6 +17,12 @@ export default class Home extends Component {
         latitudeDelta: 0.04,
         longitudeDelta: 0.04,
       },
+      region2: {
+        latitude: 45.492409,
+        longitude: -73.582153,
+        latitudeDelta: 0.04,
+        longitudeDelta: 0.04,
+      },
       isVisible: true,
     };
   }
@@ -32,6 +38,29 @@ export default class Home extends Component {
     });
   }
 
+  updateRegion2 = (newRegion2) => {
+    this.setState({
+      region2: {
+        latitude: newRegion2.latitude,
+        longitude: newRegion2.longitude,
+        latitudeDelta: 0.05,
+        longitudeDelta: 0.05
+      }
+    });
+  }
+
+   updateCoordinates = (newCoordinates) => {
+    this.setState({
+      coordinates: newCoordinates
+    });
+  }
+
+  getPolylinePoint = (data) => {
+    this.setState({
+      encryptedLine: data
+    });
+  }
+
   changeVisibilityTo = (boolie) => {
     this.setState({ isVisible: boolie });
   }
@@ -39,10 +68,13 @@ export default class Home extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <TheMap updatedRegion={this.state.region} />
+        <TheMap updatedRegion={this.state.region}
+          updatedCoordinates={this.state.coordinates}
+          encryptedLine={this.state.encryptedLine} />
         <SearchBar callBack={this.updateRegion} changeVisibilityTo={this.changeVisibilityTo} />
-        {this.state.isVisible && <SwitchCampuses callBack={this.updateRegion} />}
-        <SearchBarDestination changeVisibilityTo={this.changeVisibilityTo} />
+        {/* {this.state.isVisible && <SwitchCampuses callBack={this.updateRegion} />} */}
+        <SearchBarDestination updatedRegion={this.state.region} callBack2={this.updateRegion2} coordinateCallback={this.updateCoordinates}
+          getPolylinePoint={this.getPolylinePoint}  changeVisibilityTo={this.changeVisibilityTo} />
       </View>
     );
   }

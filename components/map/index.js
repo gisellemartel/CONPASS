@@ -1,6 +1,6 @@
 /* eslint-disable react/no-unused-state */
 import React, { Component } from 'react';
-import MapView, { Polygon, PROVIDER_GOOGLE } from 'react-native-maps';
+import MapView, { Polyline,Polygon, PROVIDER_GOOGLE } from 'react-native-maps';
 import buildings from '../../assets/polygons/polygons';
 import styles from './styles';
 
@@ -26,8 +26,14 @@ export default class TheMap extends Component {
         provider={PROVIDER_GOOGLE}
         region={this.props.updatedRegion}
         style={styles.mapStyle}
+
       >
-        {buildings.map((building) => {
+       <Polyline
+            coordinates={this.props.updatedCoordinates ? this.props.updatedCoordinates : []}
+            strokeWidth={4}
+            strokeColor="black"
+          />
+        {/* {buildings.map((building) => {
           return (
             building.polygons.map((polygon) => {
               return (
@@ -39,7 +45,7 @@ export default class TheMap extends Component {
               );
             })
           );
-        })}
+        })} */}
       </MapView>
     );
   }

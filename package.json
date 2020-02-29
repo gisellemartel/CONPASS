@@ -11,6 +11,7 @@
     "lint:fix": "eslint *.js **/*.js --fix"
   },
   "dependencies": {
+    "decode-google-map-polyline": "^1.0.1",
     "eslint-config-airbnb": "^18.0.1",
     "eslint-plugin-import": "^2.20.1",
     "eslint-plugin-jsx-a11y": "^6.2.3",

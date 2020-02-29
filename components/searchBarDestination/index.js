@@ -4,6 +4,7 @@ import {
 } from 'react-native';
 import { SearchBar } from 'react-native-elements';
 import styles from './styles';
+import decodePolyline from 'decode-google-map-polyline';
 
 export default class searchBarDestination extends Component {
   constructor(props) {
@@ -13,11 +14,11 @@ export default class searchBarDestination extends Component {
       destination: '',
       predictions: [],
       locations: '',
-      region: {
-        latitude: 45.492409,
-        longitude: -73.582153,
-        latitudeDelta: 0.0922,
-        longitudeDelta: 0.0421
+      region2: {
+        latitude: 0,
+        longitude: 0,
+        latitudeDelta: 0,
+        longitudeDelta: 0
       }
     };
   }
@@ -50,6 +51,12 @@ export default class searchBarDestination extends Component {
       console.log(gjson.result.geometry.location);
       this.setState({
         region: {
+        latitude: 45.492409,
+        longitude: -73.582153,
+        latitudeDelta: 0.04,
+        longitudeDelta: 0.04,
+      },
+        region2: {
           latitude: this.state.locations.lat,
           longitude: this.state.locations.lng,
           latitudeDelta: 0.05,
@@ -57,7 +64,46 @@ export default class searchBarDestination extends Component {
         }
 
       });
-      console.log(this.state.region);
+      console.log("region 2:"+this.state.region2.latitude);
+      this.props.callBack2(this.state.region2);
+      this.drawPath();
+
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+    async drawPath() {
+      console.log("I am here");
+    const key = 'AIzaSyBsMjuj6q76Vcna8G5z9PDyTH2z16fNPDk';
+    console.log("I am here key");
+    const originLat= this.props.updatedRegion.latitude;
+    console.log("I am here origin 1 "+originLat);
+    const originLong= this.props.updatedRegion.longitude;
+    console.log("I am here origin 2 "+originLong);
+    const destinationLat=this.state.region2.latitude;
+    console.log("I am here des 1 "+ destinationLat);
+    const destinationLong=this.state.region2.longitude;
+    console.log("I am here des 2 "+ destinationLong);
+    const directionUrl = `https://maps.googleapis.com/maps/api/directions/json?key=${key}&origin=${originLat},${originLong}&destination=${destinationLat},${destinationLong}`;
+    console.log(directionUrl);
+    try {
+      const result = await fetch(directionUrl);
+      const json = await result.json();
+      console.log(json);
+      const encryptedPath = json.routes[0].overview_polyline.points;
+      console.log(json.routes[0].overview_polyline.points);
+      this.props.getPolylinePoint(encryptedPath);
+      const rawPolylinePoints = decodePolyline(json.routes[0].overview_polyline.points);
+      // Incompatible field names for direct decode. Need to do a trivial conversion.
+      const waypoints = rawPolylinePoints.map((point) => {
+        return {
+          latitude: point.lat,
+          longitude: point.lng
+        };
+      });
+      // const { coordinateCallback } = this.props;
+      this.props.coordinateCallback(waypoints);
     } catch (err) {
       console.error(err);
     }
