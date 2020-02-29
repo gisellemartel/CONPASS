@@ -17,12 +17,7 @@ export default class Home extends Component {
         latitudeDelta: 0.04,
         longitudeDelta: 0.04,
       },
-      region2: {
-        latitude: 45.492409,
-        longitude: -73.582153,
-        latitudeDelta: 0.04,
-        longitudeDelta: 0.04,
-      },
+
       isVisible: true,
     };
   }
