@@ -8,10 +8,17 @@ export default class TheMap extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      region: {
+      coordinate: {
         latitude: 45.492409,
-        longitude: -73.582153
+        longitude: -73.582153,
       },
+      // eslint-disable-next-line react/no-unused-state
+      // region: {
+      //   latitude: 45.492409,
+      //   longitude: -73.582153,
+      //   latitudeDelta: 0.04,
+      //   longitudeDelta: 0.04
+      // },
     };
   }
 
@@ -21,14 +28,15 @@ export default class TheMap extends Component {
   }
 
   render() {
+    // const { coordinate } =
     return (
-      <MapView
-        provider={PROVIDER_GOOGLE}
-        region={this.props.updatedRegion}
-        style={styles.mapStyle}
-
-      >
-       <Polyline
+      <View style={styles.container}>
+        <MapView
+          provider={PROVIDER_GOOGLE}
+          region={this.props.updatedRegion}
+          style={styles.mapStyle}
+        >
+        <Polyline
             coordinates={this.props.updatedCoordinates ? this.props.updatedCoordinates : []}
             strokeWidth={4}
             strokeColor="black"
@@ -46,7 +54,17 @@ export default class TheMap extends Component {
             })
           );
         })} */}
-      </MapView>
+          <MapView.Marker
+            coordinate={{
+              latitude: this.props.updatedRegion.latitude,
+              longitude: this.props.updatedRegion.longitude
+            }}
+            title={"title"}
+            description={"description"}
+          />
+        </MapView>
+
+      </View>
     );
   }
 }
