@@ -14,25 +14,22 @@ export default class SwitchCampuses extends Component {
     };
   }
 
-
-  async functionSetLoyola() {
-    const state = await this.setState({
+  functionSetLoyola() {
+    this.setState({
       region: {
         latitude: 45.458025,
         longitude: -73.640192,
       }
-    });
-    this.props.callBack(this.state.region);
+    }, () => { this.props.callBack(this.state.region); });
   }
 
-  async functionSetSGW() {
-    const state = await this.setState({
+  functionSetSGW() {
+    this.setState({
       region: {
         latitude: 45.495598,
         longitude: -73.577850,
       }
-    });
-    this.props.callBack(this.state.region);
+    }, () => { this.props.callBack(this.state.region); });
   }
 
   render() {
@@ -43,9 +40,7 @@ export default class SwitchCampuses extends Component {
             title="Loyola"
             onPress={() => { return this.functionSetLoyola(); }}
           />
-
         </View>
-
         <View style={styles.btn}>
           <Button
             title="SGW"
