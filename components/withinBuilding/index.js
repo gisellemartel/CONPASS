@@ -61,15 +61,23 @@ export default class WithinBuilding extends Component {
             c = !c;
         }
         nvert=null, vertx, verty, testx, testy
-        console.log('--->'+c);
+        //console.log('--->'+c);
         return c;
     }
 
     //returns the name of building the user is currently located in
     buildingName(x, y){
         if(this.pnpoly((this.state.xSGWCoordinates).length, this.state.xSGWCoordinates, this.state.ySGWCoordinates, x, y)){
-            console.log('in SGW');
+            (this.state.sgwBuildings).forEach((sgwBuilding)=>{
+                if(this.pnpoly((sgwBuilding.xCoords).length, sgwBuilding.xCoords, sgwBuilding.yCoords, x, y))
+                    console.log(sgwBuilding.name);
+            });
+            console.log('------in SGW');
         }else if(this.pnpoly((this.state.xLOYCoordinates).length, this.state.xLOYCoordinates, this.state.yLOYCoordinates, x, y)){
+            (this.state.sgwBuildings).forEach((sgwBuilding)=>{
+                if(this.pnpoly((loyBuilding.xCoords).length, loyBuilding.xCoords, loyBuilding.yCoords, x, y))
+                    console.log(loyBuilding.name);
+            });
             console.log('in Loyola');
         }else{
             console.log('NOT @ Concordia');
