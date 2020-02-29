@@ -69,7 +69,7 @@ export default class WithinBuilding extends Component {
     buildingName(x, y){
         if(this.pnpoly((this.state.xSGWCoordinates).length, this.state.xSGWCoordinates, this.state.ySGWCoordinates, x, y)){
             console.log('in SGW');
-        }else if(false){
+        }else if(this.pnpoly((this.state.xLOYCoordinates).length, this.state.xLOYCoordinates, this.state.yLOYCoordinates, x, y)){
             console.log('in Loyola');
         }else{
             console.log('NOT @ Concordia');
