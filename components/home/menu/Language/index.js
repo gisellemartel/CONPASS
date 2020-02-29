@@ -10,7 +10,7 @@ class Language extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      languagesOptions: this.createValues(),
+      languagesOptions: this.createDropdownValues(),
     };
     this.setLanguage = this.setLanguage.bind(this);
   }
@@ -21,7 +21,7 @@ class Language extends Component {
     this.props.dispatch({ type: 'CHANGE_LANGUAGE', payload: { language: language.code } });
   }
 
-  createValues() {
+  createDropdownValues() {
     const arr = [];
     languages.forEach((lang) => {
       arr.push({ value: lang.name });
@@ -49,6 +49,7 @@ class Language extends Component {
   }
 }
 
+// Redux DISPATCH allows to send messages via this component props to the store
 const mapDispatchToProps = (dispatch) => {
   return {
     dispatch

@@ -29,6 +29,10 @@ class Menu extends Component {
   }
 }
 
+/**
+ * Redux store listener. This function will update
+ * the connected component state whenever the store updates.
+ */
 const mapStateToProps = (state) => {
   return { language: state.language };
 };
