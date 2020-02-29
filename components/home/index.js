@@ -40,7 +40,6 @@ class Home extends Component {
       <View style={styles.container}>
         <TheMap updatedRegion={this.state.region} />
         <SearchBar
-          callBack={this.updateRegion}
           navigation={this.props.navigation}
           updateRegion={this.updateRegion}
           changeVisibilityTo={this.changeVisibilityTo}
