@@ -3,8 +3,8 @@ import {
   View, Keyboard, TouchableOpacity, Text
 } from 'react-native';
 import { SearchBar } from 'react-native-elements';
-import styles from './styles';
 import decodePolyline from 'decode-google-map-polyline';
+import styles from './styles';
 
 export default class searchBarDestination extends Component {
   constructor(props) {
@@ -51,11 +51,11 @@ export default class searchBarDestination extends Component {
       console.log(gjson.result.geometry.location);
       this.setState({
         region: {
-        latitude: 45.492409,
-        longitude: -73.582153,
-        latitudeDelta: 0.04,
-        longitudeDelta: 0.04,
-      },
+          latitude: 45.492409,
+          longitude: -73.582153,
+          latitudeDelta: 0.04,
+          longitudeDelta: 0.04,
+        },
         region2: {
           latitude: this.state.locations.lat,
           longitude: this.state.locations.lng,
@@ -64,27 +64,26 @@ export default class searchBarDestination extends Component {
         }
 
       });
-      console.log("region 2:"+this.state.region2.latitude);
+      console.log(`region 2:${this.state.region2.latitude}`);
       this.props.callBack2(this.state.region2);
       this.drawPath();
-
     } catch (err) {
       console.error(err);
     }
   }
 
-    async drawPath() {
-      console.log("I am here");
+  async drawPath() {
+    console.log('I am here');
     const key = 'AIzaSyBsMjuj6q76Vcna8G5z9PDyTH2z16fNPDk';
-    console.log("I am here key");
-    const originLat= this.props.updatedRegion.latitude;
-    console.log("I am here origin 1 "+originLat);
-    const originLong= this.props.updatedRegion.longitude;
-    console.log("I am here origin 2 "+originLong);
-    const destinationLat=this.state.region2.latitude;
-    console.log("I am here des 1 "+ destinationLat);
-    const destinationLong=this.state.region2.longitude;
-    console.log("I am here des 2 "+ destinationLong);
+    console.log('I am here key');
+    const originLat = this.props.updatedRegion.latitude;
+    console.log(`I am here origin 1 ${originLat}`);
+    const originLong = this.props.updatedRegion.longitude;
+    console.log(`I am here origin 2 ${originLong}`);
+    const destinationLat = this.state.region2.latitude;
+    console.log(`I am here des 1 ${destinationLat}`);
+    const destinationLong = this.state.region2.longitude;
+    console.log(`I am here des 2 ${destinationLong}`);
     const directionUrl = `https://maps.googleapis.com/maps/api/directions/json?key=${key}&origin=${originLat},${originLong}&destination=${destinationLat},${destinationLong}`;
     console.log(directionUrl);
     try {
@@ -120,7 +119,6 @@ export default class searchBarDestination extends Component {
               this.setState({ destination: prediction.description });
               this.getLatLong(prediction.place_id);
               this.setState({ showPredictions: false });
-              this.props.changeVisibilityTo(false);
               Keyboard.dismiss();
             }}
           >
@@ -137,9 +135,6 @@ export default class searchBarDestination extends Component {
             lightTheme
             placeholder="Search..."
             onChangeText={(destination) => {
-              destination.length === 0
-                ? this.props.changeVisibilityTo(true)
-                : this.props.changeVisibilityTo(false);
               return this.onChangeDestination(destination);
             }}
             value={this.state.destination}
@@ -147,12 +142,6 @@ export default class searchBarDestination extends Component {
             onClear={() => {
               this.setState({ showPredictions: true });
             }}
-            onTouchStart={
-              () => {
-                this.props.changeVisibilityTo(false);
-              }
-            }
-            onBlur={() => { this.props.changeVisibilityTo(true); }}
             blurOnSubmit
           />
         </View>

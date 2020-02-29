@@ -50,10 +50,10 @@ export default class Home extends Component {
   }
 
    updateCoordinates = (newCoordinates) => {
-    this.setState({
-      coordinates: newCoordinates
-    });
-  }
+     this.setState({
+       coordinates: newCoordinates
+     });
+   }
 
   getPolylinePoint = (data) => {
     this.setState({
@@ -68,13 +68,22 @@ export default class Home extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <TheMap updatedRegion={this.state.region}
+        <TheMap
+          updatedRegion={this.state.region}
           updatedCoordinates={this.state.coordinates}
-          encryptedLine={this.state.encryptedLine} />
+          encryptedLine={this.state.encryptedLine}
+        />
         <SearchBar callBack={this.updateRegion} changeVisibilityTo={this.changeVisibilityTo} />
+        {this.state.isVisible && <SwitchCampuses callBack={this.updateRegion} />}
         {/* {this.state.isVisible && <SwitchCampuses callBack={this.updateRegion} />} */}
-        <SearchBarDestination updatedRegion={this.state.region} callBack2={this.updateRegion2} coordinateCallback={this.updateCoordinates}
-          getPolylinePoint={this.getPolylinePoint}  changeVisibilityTo={this.changeVisibilityTo} />
+        {this.state.isVisible && (
+        <SearchBarDestination
+          updatedRegion={this.state.region}
+          callBack2={this.updateRegion2}
+          coordinateCallback={this.updateCoordinates}
+          getPolylinePoint={this.getPolylinePoint}
+        />
+        )}
       </View>
     );
   }
