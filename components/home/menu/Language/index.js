@@ -2,28 +2,37 @@ import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 import i18n from 'i18n-js';
 import { Dropdown } from 'react-native-material-dropdown';
-import RNRestart from 'react-native-locale-listener';
+import { connect } from 'react-redux';
 import styles from './styles';
+import languages from './languages';
 
 
-export default class Language extends Component {
+class Language extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      languagesOptions: this.createValues(),
+    };
+    this.setLanguage = this.setLanguage.bind(this);
   }
 
-  setLanguage(value, item, data) {
-    i18n.locale = 'en';
+  setLanguage(value) {
+    console.log(value);
+    const language = languages.find((lang) => { return lang.name === value; });
+    i18n.locale = language.code;
+    this.props.dispatch({ type: 'CHANGE_LANGUAGE', payload: { language: language.code } });
+  }
+
+  createValues() {
+    const arr = [];
+    languages.forEach((lang) => {
+      arr.push({ value: lang.name });
+    });
+    return arr;
   }
 
   render() {
-    
-    const dataSet = [{
-      value: 'English',
-    }, {
-      value: 'French',
-    }, {
-      value: 'Spanish',
-    }];
+    const { languagesOptions } = this.state;
     return (
       <View style={styles.container}>
         <Text style={styles.description}>
@@ -32,7 +41,7 @@ export default class Language extends Component {
         <View style={styles.dropdown}>
           <Dropdown
             label="Language"
-            data={dataSet}
+            data={languagesOptions}
             itemCount={6}
             onChangeText={this.setLanguage}
           />
@@ -41,3 +50,11 @@ export default class Language extends Component {
     );
   }
 }
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    dispatch
+  };
+};
+
+export default connect(mapDispatchToProps)(Language);

@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
+import { connect } from 'react-redux';
 import TheMap from '../map';
 import SearchBar from '../searchBar';
 import styles from './styles';
 
-export default class Home extends Component {
+class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -29,12 +30,19 @@ export default class Home extends Component {
   }
 
   render() {
+    const {language} = this.props;
     return (
       <View style={styles.container}>
         <TheMap updatedRegion={this.state.region} />
-        <Text style={styles.button} onPress={() => { return this.props.navigation.navigate('Menu'); }}>press me</Text>
+        <Text style={styles.button} onPress={() => { return this.props.navigation.navigate('Menu'); }}>press me {language}</Text>
         <SearchBar callBack={this.updateRegion} />
       </View>
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return { language: state.language };
+};
+
+export default connect(mapStateToProps)(Home);
