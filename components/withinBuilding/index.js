@@ -8,12 +8,19 @@ export default class WithinBuilding extends Component {
     
     constructor(props) {
         super(props);
-
+/*
+               { latitude: 45.4548085, longitude: -73.6396194 },
+                { latitude: 45.4581882, longitude: -73.6330318
+*/
         this.state = {
             //polygon covering all buildings in SGW
             xSGWCoordinates: [-73.5866750, -73.5764890, -73.5715300, -73.5814433],
             ySGWCoordinates: [45.4963950, 45.4912630, 45.4961810, 45.5008758],
             
+            //polygon covering all buildings in Loyola
+            xLOYCoordinates: [-73.6465040, -73.6396194, -73.6330318, -73.6428850],
+            yLOYCoordinates: [45.4572870, 45.4548085, 45.4581882, 45.4619310],
+
             //polygon covering individual buildings taken from polygons.js file
             xCoordinates: [-73.578062,-73.578638, -73.577702, -73.577063],
             yCoordinates: [45.497284,45.496698, 45.496227, 45.496862],
@@ -43,6 +50,7 @@ export default class WithinBuilding extends Component {
         });
         return formattedBuildings;
     }
+    
     //finds if a pair of coordinates are inside a polygon
     pnpoly(nvert, vertx, verty, testx, testy)
     {
