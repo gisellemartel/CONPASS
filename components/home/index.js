@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { View } from 'react-native';
 import TheMap from '../map';
 import SearchBar from '../searchBar';
+import SearchBarDestination from '../searchBarDestination';
 import styles from './styles';
 import SwitchCampuses from '../switchCampuses';
 
@@ -41,6 +42,7 @@ export default class Home extends Component {
         <TheMap updatedRegion={this.state.region} />
         <SearchBar callBack={this.updateRegion} changeVisibilityTo={this.changeVisibilityTo} />
         {this.state.isVisible && <SwitchCampuses callBack={this.updateRegion} />}
+        <SearchBarDestination changeVisibilityTo={this.changeVisibilityTo} />
       </View>
     );
   }
