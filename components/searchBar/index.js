@@ -12,7 +12,6 @@ export default class searchBar extends Component {
       showPredictions: true,
       destination: '',
       predictions: [],
-      locations: '',
       region: {
         latitude: 45.492409,
         longitude: -73.582153,
@@ -42,24 +41,22 @@ export default class searchBar extends Component {
     this.setState({ description: prediction });
     const key = 'AIzaSyCqNODizSqMIWbKbO8Iq3VWdBcK846n_3w';
     const geoUrl = `https://maps.googleapis.com/maps/api/place/details/json?key=${key}&placeid=${prediction}`;
-    const { locations } = this.state;
 
     try {
       const georesult = await fetch(geoUrl);
       const gjson = await georesult.json();
-      this.setState({ locations: gjson.result.geometry.location });
+      const locations = gjson.result.geometry.location;
       console.log(gjson.result.geometry.location);
       this.setState({
         region: {
-          latitude: this.state.locations.lat,
-          longitude: this.state.locations.lng,
+          latitude: locations.lat,
+          longitude: locations.lng,
           latitudeDelta: 0.05,
           longitudeDelta: 0.05
         }
-
       });
       console.log(this.state.region);
-      this.props.callBack(this.state.region);
+      this.props.updateRegion(this.state.region);
     } catch (err) {
       console.error(err);
     }
@@ -102,13 +99,14 @@ export default class searchBar extends Component {
             style={styles.SearchBar}
             onClear={() => {
               this.setState({ showPredictions: true });
+              this.props.changeVisibilityTo(false);
             }}
             onTouchStart={
               () => {
-                this.props.changeVisibilityTo(false);
+                this.props.changeVisibilityTo(true);
               }
             }
-            onBlur={() => { this.props.changeVisibilityTo(true); }}
+            onBlur={() => { this.props.changeVisibilityTo(false); }}
             blurOnSubmit
           />
         </View>

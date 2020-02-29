@@ -14,40 +14,44 @@ export default class SwitchCampuses extends Component {
     };
   }
 
-  functionSetLoyola() {
+  setLoyola() {
     this.setState({
       region: {
         latitude: 45.458025,
         longitude: -73.640192,
       }
-    }, () => { this.props.callBack(this.state.region); });
+    }, () => { this.props.updateRegion(this.state.region); });
   }
 
-  functionSetSGW() {
+  setSGW() {
     this.setState({
       region: {
         latitude: 45.495598,
         longitude: -73.577850,
       }
-    }, () => { this.props.callBack(this.state.region); });
+    }, () => { this.props.updateRegion(this.state.region); });
   }
 
   render() {
-    return (
-      <View style={styles.container}>
-        <View style={styles.btn}>
-          <Button
-            title="Loyola"
-            onPress={() => { return this.functionSetLoyola(); }}
-          />
+    if (this.props.visiblityState) {
+      return (
+        <View style={styles.container}>
+          <View style={styles.btn}>
+            <Button
+              title="Loyola"
+              onPress={() => { this.setLoyola(); }}
+            />
+          </View>
+
+          <View style={styles.btn}>
+            <Button
+              title="SGW"
+              onPress={() => { this.setSGW(); }}
+            />
+          </View>
         </View>
-        <View style={styles.btn}>
-          <Button
-            title="SGW"
-            onPress={() => { return this.functionSetSGW(); }}
-          />
-        </View>
-      </View>
-    );
+      );
+    }
+    return null;
   }
 }
