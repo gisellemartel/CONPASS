@@ -12,7 +12,6 @@ export default class searchBar extends Component {
       showPredictions: true,
       destination: '',
       predictions: [],
-      locations: '',
       region: {
         latitude: 45.492409,
         longitude: -73.582153,
@@ -42,13 +41,12 @@ export default class searchBar extends Component {
     this.setState({ description: prediction });
     const key = 'AIzaSyCqNODizSqMIWbKbO8Iq3VWdBcK846n_3w';
     const geoUrl = `https://maps.googleapis.com/maps/api/place/details/json?key=${key}&placeid=${prediction}`;
-    const { locations } = this.state;
 
     try {
       const georesult = await fetch(geoUrl);
       const gjson = await georesult.json();
-      this.setState({ locations: gjson.result.geometry.location });
-
+      const locations = gjson.result.geometry.location;
+      console.log(gjson.result.geometry.location);
       this.setState({
         region: {
           latitude: locations.lat,
@@ -56,9 +54,9 @@ export default class searchBar extends Component {
           latitudeDelta: 0.05,
           longitudeDelta: 0.05
         }
-
       });
-      this.props.callBack(this.state.region);
+      console.log(this.state.region);
+      this.props.updateRegion(this.state.region);
     } catch (err) {
       console.error(err);
     }
@@ -75,12 +73,12 @@ export default class searchBar extends Component {
               this.setState({ destination: prediction.description });
               this.getLatLong(prediction.place_id);
               this.setState({ showPredictions: false });
+              this.props.changeVisibilityTo(false);
               Keyboard.dismiss();
             }}
           >
             <Text key={prediction.id}>{prediction.description}</Text>
           </TouchableOpacity>
-
         </View>
       );
     });
@@ -91,10 +89,25 @@ export default class searchBar extends Component {
           <SearchBar
             lightTheme
             placeholder="Search..."
-            onChangeText={(destination) => { return this.onChangeDestination(destination); }}
+            onChangeText={(destination) => {
+              destination.length === 0
+                ? this.props.changeVisibilityTo(true)
+                : this.props.changeVisibilityTo(false);
+              return this.onChangeDestination(destination);
+            }}
             value={this.state.destination}
             style={styles.SearchBar}
-            onClear={() => { this.setState({ showPredictions: true }); }}
+            onClear={() => {
+              this.setState({ showPredictions: true });
+              this.props.changeVisibilityTo(false);
+            }}
+            onTouchStart={
+              () => {
+                this.props.changeVisibilityTo(true);
+              }
+            }
+            onBlur={() => { this.props.changeVisibilityTo(false); }}
+            blurOnSubmit
           />
         </View>
         {
