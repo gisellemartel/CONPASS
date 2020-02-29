@@ -1,6 +1,7 @@
 /* eslint-disable react/no-unused-state */
 import React, { Component } from 'react';
-import MapView, { Polyline,Polygon, PROVIDER_GOOGLE } from 'react-native-maps';
+import MapView, { Polyline, Polygon, PROVIDER_GOOGLE } from 'react-native-maps';
+import { View } from 'react-native';
 import buildings from '../../assets/polygons/polygons';
 import styles from './styles';
 
@@ -36,31 +37,31 @@ export default class TheMap extends Component {
           region={this.props.updatedRegion}
           style={styles.mapStyle}
         >
-        <Polyline
+          <Polyline
             coordinates={this.props.updatedCoordinates ? this.props.updatedCoordinates : []}
             strokeWidth={4}
             strokeColor="black"
           />
-        {/* {buildings.map((building) => {
-          return (
-            building.polygons.map((polygon) => {
-              return (
-                <CustomPolygon
-                  key={polygon.name}
-                  coordinates={polygon.coordinates}
-                  fillColor="rgba(255,135,135,0.5)"
-                />
-              );
-            })
-          );
-        })} */}
+          {buildings.map((building) => {
+            return (
+              building.polygons.map((polygon) => {
+                return (
+                  <CustomPolygon
+                    key={polygon.name}
+                    coordinates={polygon.coordinates}
+                    fillColor="rgba(255,135,135,0.5)"
+                  />
+                );
+              })
+            );
+          })}
           <MapView.Marker
             coordinate={{
               latitude: this.props.updatedRegion.latitude,
               longitude: this.props.updatedRegion.longitude
             }}
-            title={"title"}
-            description={"description"}
+            title="title"
+            description="description"
           />
         </MapView>
 
