@@ -33,35 +33,20 @@ class Home extends Component {
     });
   }
 
-  updateRegion2 = (newRegion2) => {
-    this.setState({
-      region2: {
-        latitude: newRegion2.latitude,
-        longitude: newRegion2.longitude,
-        latitudeDelta: 0.05,
-        longitudeDelta: 0.05
-      }
-    });
-  }
-
    updateCoordinates = (newCoordinates) => {
      this.setState({
        coordinates: newCoordinates
      });
    }
 
-  changeVisibilityTo = (boolean) => {
-    this.setState({ isVisible: boolean });
+  changeVisibilityTo = (visibility) => {
+    this.setState({ isVisible: visibility });
   }
 
   getPolylinePoint = (data) => {
     this.setState({
       encryptedLine: data
     });
-  }
-
-  changeVisibilityTo = (boolie) => {
-    this.setState({ isVisible: boolie });
   }
 
   render() {
