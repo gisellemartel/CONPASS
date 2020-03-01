@@ -10,9 +10,9 @@ export default class TheMap extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      region: {
+      coordinate: {
         latitude: 45.492409,
-        longitude: -73.582153
+        longitude: -73.582153,
       },
       coordinates: '',
       encryptedLine: ''
@@ -25,6 +25,7 @@ export default class TheMap extends Component {
   }
 
   render() {
+    // const { coordinate } =
     return (
       <View style={styles.container}>
         <MapView
@@ -37,7 +38,6 @@ export default class TheMap extends Component {
             strokeWidth={4}
             strokeColor="black"
           />
-
           {buildings.map((building) => {
             return (
               building.polygons.map((polygon) => {
@@ -48,8 +48,17 @@ export default class TheMap extends Component {
                     fillColor="rgba(255,135,135,0.5)"
                   />
                 );
-              }));
+              })
+            );
           })}
+          <MapView.Marker
+            coordinate={{
+              latitude: this.props.updatedRegion.latitude,
+              longitude: this.props.updatedRegion.longitude
+            }}
+            title="title"
+            description="description"
+          />
         </MapView>
 
       </View>

@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 const styles = StyleSheet.create({
   btn: {
     width: '30%',
-    bottom: '97%',
+    bottom: '80%',
     marginHorizontal: 5,
   },
   container: {
