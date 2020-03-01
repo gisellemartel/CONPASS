@@ -37,7 +37,6 @@ export default class TheMap extends Component {
             strokeWidth={4}
             strokeColor="black"
           />
-
           {buildings.map((building) => {
             return (
               building.polygons.map((polygon) => {
