@@ -6,6 +6,7 @@ import SearchBar from '../searchBar';
 import Shuttle from '../shuttleInformation';
 import styles from './styles';
 import SwitchCampuses from '../switchCampuses';
+import WithinBuilding from '../withinBuilding';
 
 class Home extends Component {
   constructor(props) {
@@ -37,8 +38,8 @@ class Home extends Component {
 
   // Function : change the visiblity of the switchCampuses component
   // parameter: boolean to set the visibility (false: unvisible)
-  changeVisibilityTo = (boolean) => {
-    this.setState({ isVisible: boolean });
+  changeVisibilityTo = (visibility) => {
+    this.setState({ isVisible: visibility });
   }
 
   // Function: Updates coordinates state to draw polyline
@@ -47,7 +48,6 @@ class Home extends Component {
     this.setState({
       coordinates: newCoordinates
     });
-  }
 
   getPolylinePoint = (data) => {
     this.setState({
@@ -69,6 +69,7 @@ class Home extends Component {
           changeVisibilityTo={this.changeVisibilityTo}
         />
         <SwitchCampuses updateRegion={this.updateRegion} visiblityState={this.state.isVisible} />
+        <WithinBuilding />
         <Shuttle
           coordinateCallback={this.updateCoordinates}
           getPolylinePoint={this.getPolylinePoint}
