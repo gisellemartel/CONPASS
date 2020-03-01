@@ -59,8 +59,6 @@ export default class TheMap extends Component {
             title="title"
             description="description"
           />
-          {/* }));
-          })} */}
         </MapView>
 
       </View>

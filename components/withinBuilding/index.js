@@ -102,11 +102,8 @@ export default class WithinBuilding extends Component {
 
     const { location } = this.state;
 
-    // const x = location.coords.longitude;
-    // const y = location.coords.latitude;
-
-    const x = -73.579055;
-    const y = 45.495321;
+    const x = location.coords.longitude;
+    const y = location.coords.latitude;
 
     if (this.isInPolygon((this.state.xSGWCoordinates).length, this.state.xSGWCoordinates, this.state.ySGWCoordinates, x, y)) {
       this.state.campusDisplayName = 'SGW';
