@@ -6,6 +6,7 @@ import buildings from '../../assets/polygons/polygons';
 import * as Location from "expo-location";
 import * as Permissions from "expo-permissions";
 import { StyleSheet } from 'react-native';
+import { AuthSession } from 'expo';
 
 export default class WithinBuilding extends Component {
     
@@ -116,11 +117,9 @@ export default class WithinBuilding extends Component {
     this.buildingName();
     
     return(
-      <View>
-          <View style={styles.userFinalLoc}>
-            <Text>{this.state.fianlCampus}</Text>
-            <Text>{this.state.fianlBuilding}</Text>
-          </View>
+      <View style={styles.userFinalLoc}>
+        <Text>{this.state.fianlCampus}</Text>
+        <Text>{this.state.fianlBuilding}</Text>
       </View>
     );
   }
@@ -129,8 +128,6 @@ export default class WithinBuilding extends Component {
 const styles = StyleSheet.create({
     userFinalLoc: {
         marginBottom: 10,
-        paddingHorizontal: 20,
-        backgroundColor:'pink',
-        //position: 'absolute',
+        backgroundColor: 'pink',
     },
 });
