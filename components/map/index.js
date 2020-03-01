@@ -9,13 +9,12 @@ import styles from './styles';
 export default class TheMap extends Component {
   constructor(props) {
     super(props);
-    const waypoints = '';
     this.state = {
       region: {
         latitude: 45.492409,
         longitude: -73.582153
       },
-      coordinates: waypoints,
+      coordinates: '',
       encryptedLine: ''
     };
   }
