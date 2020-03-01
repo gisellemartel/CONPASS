@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 import React, { Component } from 'react';
 import {
   View, Keyboard, TouchableOpacity, Text, TouchableHighlight,
@@ -56,12 +57,12 @@ export default class searchBar extends Component {
     try {
       const georesult = await fetch(geoUrl);
       const gjson = await georesult.json();
-      const locations = gjson.result.geometry.location;
-      console.log(gjson.result.geometry.location);
+      const locations = gjson.result?.geometry?.location;
+      console.log(gjson.result?.geometry?.location);
       this.setState({
         region: {
-          latitude: locations.lat,
-          longitude: locations.lng,
+          latitude: locations ? locations.lat : 45.492409,
+          longitude: locations ? locations.lng : -73.582153,
           latitudeDelta: 0.05,
           longitudeDelta: 0.05
         }
@@ -104,7 +105,8 @@ export default class searchBar extends Component {
             lightTheme
             placeholder={placeholder}
             onChangeText={(destination) => {
-              destination.length === 0 ? this.props.changeVisibilityTo(true) : this.props.changeVisibilityTo(false);
+              destination.length === 0
+                ? this.props.changeVisibilityTo(true) : this.props.changeVisibilityTo(false);
               return this.onChangeDestination(destination);
             }}
             value={this.state.destination}
