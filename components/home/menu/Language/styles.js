@@ -5,11 +5,19 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF'
+    backgroundColor: '#F5FCFF',
   },
-  button: {
+  description: {
     position: 'absolute',
-    bottom: 30,
+    top: 20,
+    color: '#808080',
+    width: '100%',
+    paddingLeft: 30,
+    paddingRight: 30
+  },
+  dropdown: {
+    position: 'absolute',
+    width: 300
   }
 });
 

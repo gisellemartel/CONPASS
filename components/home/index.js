@@ -1,13 +1,14 @@
-/* eslint-disable react/destructuring-assignment */
 import React, { Component } from 'react';
 import { View } from 'react-native';
+import { connect } from 'react-redux';
 import TheMap from '../map';
 import SearchBar from '../searchBar';
+import Shuttle from '../shuttleInformation';
 import styles from './styles';
 import SwitchCampuses from '../switchCampuses';
 import WithinBuilding from '../withinBuilding';
 
-export default class Home extends Component {
+class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -17,8 +18,7 @@ export default class Home extends Component {
         latitudeDelta: 0.04,
         longitudeDelta: 0.04,
       },
-
-      isVisible: true,
+      isVisible: false,
     };
   }
 
@@ -50,6 +50,10 @@ export default class Home extends Component {
      });
    }
 
+  changeVisibilityTo = (boolean) => {
+    this.setState({ isVisible: boolean });
+  }
+
   getPolylinePoint = (data) => {
     this.setState({
       encryptedLine: data
@@ -68,10 +72,28 @@ export default class Home extends Component {
           updatedCoordinates={this.state.coordinates}
           encryptedLine={this.state.encryptedLine}
         />
-        <SearchBar callBack={this.updateRegion} changeVisibilityTo={this.changeVisibilityTo} />
-        {this.state.isVisible && <SwitchCampuses callBack={this.updateRegion} />}
-        <WithinBuilding/>
+        <SearchBar
+          navigation={this.props.navigation}
+          updateRegion={this.updateRegion}
+          changeVisibilityTo={this.changeVisibilityTo}
+        />
+        <SwitchCampuses updateRegion={this.updateRegion} visiblityState={this.state.isVisible} />
+        <WithinBuilding />
+        <Shuttle
+          coordinateCallback={this.updateCoordinates}
+          getPolylinePoint={this.getPolylinePoint}
+        />
       </View>
     );
   }
 }
+
+/**
+ * Redux store listener. This function will update
+ * the connected component state whenever the store updates.
+ */
+const mapStateToProps = (state) => {
+  return { language: state.language };
+};
+
+export default connect(mapStateToProps)(Home);
