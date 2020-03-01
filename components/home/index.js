@@ -11,6 +11,7 @@ class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      // Set Initial region of the map
       region: {
         latitude: 45.492409,
         longitude: -73.582153,
@@ -21,6 +22,8 @@ class Home extends Component {
     };
   }
 
+  // Function : updates the currently set region to a new region
+  // parameter : a region object to be set to
   updateRegion = (newRegion) => {
     this.setState({
       region: {
@@ -32,10 +35,14 @@ class Home extends Component {
     });
   }
 
+  // Function : change the visiblity of the switchCampuses component
+  // parameter: boolean to set the visibility (false: unvisible)
   changeVisibilityTo = (boolean) => {
     this.setState({ isVisible: boolean });
   }
 
+  // Function: Updates coordinates state to draw polyline
+  // Parameter: object with latitudes and longitudes
   updateCoordinates = (newCoordinates) => {
     this.setState({
       coordinates: newCoordinates
