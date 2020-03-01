@@ -12,6 +12,7 @@ class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      // Set Initial region of the map
       region: {
         latitude: 45.492409,
         longitude: -73.582153,
@@ -22,6 +23,8 @@ class Home extends Component {
     };
   }
 
+  // Function : updates the currently set region to a new region
+  // parameter : a region object to be set to
   updateRegion = (newRegion) => {
     this.setState({
       region: {
@@ -33,25 +36,18 @@ class Home extends Component {
     });
   }
 
-  updateRegion2 = (newRegion2) => {
-    this.setState({
-      region2: {
-        latitude: newRegion2.latitude,
-        longitude: newRegion2.longitude,
-        latitudeDelta: 0.05,
-        longitudeDelta: 0.05
-      }
-    });
-  }
-
-   updateCoordinates = (newCoordinates) => {
-     this.setState({
-       coordinates: newCoordinates
-     });
-   }
-   
+  // Function : change the visiblity of the switchCampuses component
+  // parameter: boolean to set the visibility (false: unvisible)
   changeVisibilityTo = (visibility) => {
     this.setState({ isVisible: visibility });
+  }
+
+  // Function: Updates coordinates state to draw polyline
+  // Parameter: object with latitudes and longitudes
+  updateCoordinates = (newCoordinates) => {
+    this.setState({
+      coordinates: newCoordinates
+    });
   }
 
   getPolylinePoint = (data) => {
@@ -68,16 +64,13 @@ class Home extends Component {
           updatedCoordinates={this.state.coordinates}
           encryptedLine={this.state.encryptedLine}
         />
-        <SearchBar 
+        <SearchBar
           navigation={this.props.navigation}
           updateRegion={this.updateRegion}
-          changeVisibilityTo={this.changeVisibilityTo} />
-          
-          {this.state.isVisible && <SwitchCampuses callBack={this.updateRegion} />}
-      
-        <WithinBuilding/>
-
+          changeVisibilityTo={this.changeVisibilityTo}
+        />
         <SwitchCampuses updateRegion={this.updateRegion} visiblityState={this.state.isVisible} />
+        <WithinBuilding />
         <Shuttle
           coordinateCallback={this.updateCoordinates}
           getPolylinePoint={this.getPolylinePoint}

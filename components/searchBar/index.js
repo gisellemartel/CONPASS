@@ -34,6 +34,9 @@ export default class searchBar extends Component {
     this.setState({ isMounted: true });
   }
 
+  // Function: When entering text searchbar, captures all the possible predictions from google's api
+  // Parameter: Text input from search bar
+
   async onChangeDestination(destination) {
     this.setState({ destination });
     const key = 'AIzaSyCqNODizSqMIWbKbO8Iq3VWdBcK846n_3w';
@@ -48,6 +51,8 @@ export default class searchBar extends Component {
       console.error(err);
     }
   }
+  // Function: gets the latitude and longitude of a chosen prediction
+  // Parameter: place_id of the chosen prediction
 
   async getLatLong(prediction) {
     this.setState({ description: prediction });
@@ -76,6 +81,7 @@ export default class searchBar extends Component {
   render() {
     const placeholder = this.state.isMounted ? i18n.t('search') : 'Search...';
 
+    // Predictions mapped and formmated from the current state predictions
     const predictions = this.state.predictions.map((prediction) => {
       return (
         <View key={prediction.id} style={styles.view}>

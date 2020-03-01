@@ -2,6 +2,7 @@
 /* eslint-disable class-methods-use-this */
 /* eslint-disable react/no-deprecated */
 /* eslint-disable react/no-unused-state */
+
 import React, { Component } from 'react';
 import {
   Modal, ScrollView, View, Button, Alert, SectionList, Text
@@ -25,6 +26,9 @@ export default class Shuttle extends Component {
     this.getCurrentLocation();
   }
 
+  // eslint-disable-next-line max-len
+  // Function: fetches the current location of the user, gets the shuttle bus location of SGW or Loyola, calls the draw function
+  // Parameter: SGW or Loyola String
   async getDirectionsToShuttleBusStop(destination) {
     await this.getCurrentLocation();
     const { location } = this.state;
@@ -33,6 +37,7 @@ export default class Shuttle extends Component {
     await this.drawPath([location.coords.latitude, location.coords.longitude], destCoordinates);
   }
 
+  // Function: gets the current location of the user after grating permissions
   async getCurrentLocation() {
     const { status } = await Permissions.askAsync(Permissions.LOCATION);
     if (status !== 'granted') {
@@ -49,6 +54,8 @@ export default class Shuttle extends Component {
     this.setState({ modalVisible: visible });
   }
 
+  // Function: Draws a polyline on the map from an origin to a destination
+  // Parameter: origin point and desired destination as an array of lat,long
   async drawPath(origin, destination) {
     const key = 'AIzaSyBsMjuj6q76Vcna8G5z9PDyTH2z16fNPDk';
     const directionUrl = `https://maps.googleapis.com/maps/api/directions/json?key=${key}&origin=${origin[0]},${origin[1]}&destination=${destination[0]},${destination[1]}`;
