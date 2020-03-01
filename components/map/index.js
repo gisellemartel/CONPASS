@@ -25,7 +25,6 @@ export default class TheMap extends Component {
   }
 
   render() {
-    // const { coordinate } =
     return (
       <View style={styles.container}>
         <MapView
@@ -60,7 +59,6 @@ export default class TheMap extends Component {
             description="description"
           />
         </MapView>
-
       </View>
     );
   }

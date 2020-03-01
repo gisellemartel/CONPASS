@@ -122,8 +122,8 @@ export default class WithinBuilding extends Component {
         this.state.campusDisplayName = 'Loyola';
       });
     } else {
-      this.state.campusDisplayName = 'NONE';
-      this.state.buildingDisplayName = 'NONE';
+      this.state.campusDisplayName = '';
+      this.state.buildingDisplayName = '';
     }
   }
 
