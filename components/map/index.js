@@ -1,7 +1,8 @@
+/* eslint-disable class-methods-use-this */
 /* eslint-disable react/no-unused-state */
 import React, { Component } from 'react';
-import MapView, { Polyline, Polygon, PROVIDER_GOOGLE } from 'react-native-maps';
 import { View } from 'react-native';
+import MapView, { Polygon, Polyline, PROVIDER_GOOGLE } from 'react-native-maps';
 import buildings from '../../assets/polygons/polygons';
 import styles from './styles';
 
@@ -13,13 +14,8 @@ export default class TheMap extends Component {
         latitude: 45.492409,
         longitude: -73.582153,
       },
-      // eslint-disable-next-line react/no-unused-state
-      // region: {
-      //   latitude: 45.492409,
-      //   longitude: -73.582153,
-      //   latitudeDelta: 0.04,
-      //   longitudeDelta: 0.04
-      // },
+      coordinates: '',
+      encryptedLine: ''
     };
   }
 
@@ -29,7 +25,6 @@ export default class TheMap extends Component {
   }
 
   render() {
-    // const { coordinate } =
     return (
       <View style={styles.container}>
         <MapView
@@ -63,6 +58,8 @@ export default class TheMap extends Component {
             title="title"
             description="description"
           />
+              }));
+          })}
         </MapView>
 
       </View>
