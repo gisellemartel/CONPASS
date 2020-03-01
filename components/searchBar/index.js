@@ -1,3 +1,5 @@
+/* eslint-disable react/no-unused-state */
+/* eslint-disable no-unused-expressions */
 import React, { Component } from 'react';
 import {
   View, Keyboard, TouchableOpacity, Text, TouchableHighlight,
@@ -48,7 +50,6 @@ export default class searchBar extends Component {
   }
 
   async getLatLong(prediction) {
-  // eslint-disable-next-line react/no-unused-state
     this.setState({ description: prediction });
     const key = 'AIzaSyCqNODizSqMIWbKbO8Iq3VWdBcK846n_3w';
     const geoUrl = `https://maps.googleapis.com/maps/api/place/details/json?key=${key}&placeid=${prediction}`;
@@ -57,7 +58,6 @@ export default class searchBar extends Component {
       const georesult = await fetch(geoUrl);
       const gjson = await georesult.json();
       const locations = gjson.result.geometry.location;
-      console.log(gjson.result.geometry.location);
       this.setState({
         region: {
           latitude: locations.lat,
@@ -66,7 +66,6 @@ export default class searchBar extends Component {
           longitudeDelta: 0.05
         }
       });
-      console.log(this.state.region);
       this.props.updateRegion(this.state.region);
     } catch (err) {
       console.error(err);
@@ -104,7 +103,8 @@ export default class searchBar extends Component {
             lightTheme
             placeholder={placeholder}
             onChangeText={(destination) => {
-              destination.length === 0 ? this.props.changeVisibilityTo(true) : this.props.changeVisibilityTo(false);
+              destination.length === 0
+                ? this.props.changeVisibilityTo(true) : this.props.changeVisibilityTo(false);
               return this.onChangeDestination(destination);
             }}
             value={this.state.destination}

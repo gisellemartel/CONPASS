@@ -3,6 +3,7 @@ import { View } from 'react-native';
 import { connect } from 'react-redux';
 import TheMap from '../map';
 import SearchBar from '../searchBar';
+import Shuttle from '../shuttleInformation';
 import styles from './styles';
 import SwitchCampuses from '../switchCampuses';
 
@@ -35,16 +36,36 @@ class Home extends Component {
     this.setState({ isVisible: boolean });
   }
 
+  updateCoordinates = (newCoordinates) => {
+    this.setState({
+      coordinates: newCoordinates
+    });
+  }
+
+  getPolylinePoint = (data) => {
+    this.setState({
+      encryptedLine: data
+    });
+  }
+
   render() {
     return (
       <View style={styles.container}>
-        <TheMap updatedRegion={this.state.region} />
+        <TheMap
+          updatedRegion={this.state.region}
+          updatedCoordinates={this.state.coordinates}
+          encryptedLine={this.state.encryptedLine}
+        />
         <SearchBar
           navigation={this.props.navigation}
           updateRegion={this.updateRegion}
           changeVisibilityTo={this.changeVisibilityTo}
         />
         <SwitchCampuses updateRegion={this.updateRegion} visiblityState={this.state.isVisible} />
+        <Shuttle
+          coordinateCallback={this.updateCoordinates}
+          getPolylinePoint={this.getPolylinePoint}
+        />
       </View>
     );
   }
