@@ -33,6 +33,9 @@ export default class searchBar extends Component {
     this.setState({ isMounted: true });
   }
 
+  // Function: When entering text searchbar, captures all the possible predictions from google's api
+  // Parameter: Text input from search bar
+
   async onChangeDestination(destination) {
     this.setState({ destination });
     const key = 'AIzaSyCqNODizSqMIWbKbO8Iq3VWdBcK846n_3w';
@@ -47,9 +50,10 @@ export default class searchBar extends Component {
       console.error(err);
     }
   }
+  // Function: gets the latitude and longitude of a chosen prediction
+  // Parameter: place_id of the chosen prediction
 
   async getLatLong(prediction) {
-  // eslint-disable-next-line react/no-unused-state
     this.setState({ description: prediction });
     const key = 'AIzaSyCqNODizSqMIWbKbO8Iq3VWdBcK846n_3w';
     const geoUrl = `https://maps.googleapis.com/maps/api/place/details/json?key=${key}&placeid=${prediction}`;
@@ -57,8 +61,7 @@ export default class searchBar extends Component {
     try {
       const georesult = await fetch(geoUrl);
       const gjson = await georesult.json();
-      const locations = gjson.result?.geometry?.location;
-      console.log(gjson.result?.geometry?.location);
+      const locations = gjson.result.geometry.location;
       this.setState({
         region: {
           latitude: locations ? locations.lat : 45.492409,
@@ -67,7 +70,6 @@ export default class searchBar extends Component {
           longitudeDelta: 0.05
         }
       });
-      console.log(this.state.region);
       this.props.updateRegion(this.state.region);
     } catch (err) {
       console.error(err);
@@ -78,6 +80,7 @@ export default class searchBar extends Component {
   render() {
     const placeholder = this.state.isMounted ? i18n.t('search') : 'Search...';
 
+    // Predictions mapped and formmated from the current state predictions
     const predictions = this.state.predictions.map((prediction) => {
       return (
         <View key={prediction.id} style={styles.view}>
