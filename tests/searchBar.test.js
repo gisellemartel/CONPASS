@@ -18,20 +18,18 @@ beforeEach(() => {
   };
   mockResult = {
     result:
-    [{
+    {
       geometry:
-      [
         {
-          lat: 45.492409,
-          lng: -73.582153
+          location: {
+            lat: 45.492409,
+            lng: -73.582153
+          }
         }
-      ]
     }
-    ]
   };
   updateR = jest.fn();
 });
-
 
 it('Should populate prediction state with content', async () => {
   // Mock API call retrieving search predictions.
@@ -66,8 +64,8 @@ it('Should populate LatLng state with content', async () => {
   });
   const searchBarComponent = renderer.create(<SearchBar updateRegion={updateR} />).getInstance();
   await searchBarComponent.getLatLong(mockPrediction.predictions[0].place_id);
-  expect(searchBarComponent.state.region.latitude).toBeLessThanOrEqual(mockResult.result[0].geometry[0].lat + searchBarComponent.state.region.latitudeDelta);
-  expect(searchBarComponent.state.region.latitude).toBeGreaterThanOrEqual(mockResult.result[0].geometry[0].lat - searchBarComponent.state.region.latitudeDelta);
-  expect(searchBarComponent.state.region.longitude).toBeLessThanOrEqual(mockResult.result[0].geometry[0].lng + searchBarComponent.state.region.latitudeDelta);
-  expect(searchBarComponent.state.region.longitude).toBeGreaterThanOrEqual(mockResult.result[0].geometry[0].lng - searchBarComponent.state.region.latitudeDelta);
+  expect(searchBarComponent.state.region.latitude).toBeLessThanOrEqual(mockResult.result.geometry.location.lat + searchBarComponent.state.region.latitudeDelta);
+  expect(searchBarComponent.state.region.latitude).toBeGreaterThanOrEqual(mockResult.result.geometry.location.lat - searchBarComponent.state.region.latitudeDelta);
+  expect(searchBarComponent.state.region.longitude).toBeLessThanOrEqual(mockResult.result.geometry.location.lng + searchBarComponent.state.region.latitudeDelta);
+  expect(searchBarComponent.state.region.longitude).toBeGreaterThanOrEqual(mockResult.result.geometry.location.lng - searchBarComponent.state.region.latitudeDelta);
 });
