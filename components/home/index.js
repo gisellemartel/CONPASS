@@ -20,7 +20,8 @@ class Home extends Component {
         latitudeDelta: 0.04,
         longitudeDelta: 0.04
       },
-      isVisible: false
+      isVisible: false,
+      isVisible2: true
     };
   }
 
@@ -40,6 +41,9 @@ class Home extends Component {
   changeVisibilityTo = boolean => {
     this.setState({ isVisible: boolean });
   };
+  changeVisibilityToSearch = boolean => {
+    this.setState({ isVisible2: boolean})
+  }
 
   updateRegion2 = newRegion2 => {
     this.setState({
@@ -76,6 +80,8 @@ class Home extends Component {
           navigation={this.props.navigation}
           updateRegion={this.updateRegion}
           changeVisibilityTo={this.changeVisibilityTo}
+          changeVisibilityToSearch={this.changeVisibilityToSearch}
+
         />
         <SwitchCampuses
           updateRegion={this.updateRegion}
@@ -86,14 +92,16 @@ class Home extends Component {
           coordinateCallback={this.updateCoordinates}
           getPolylinePoint={this.getPolylinePoint}
         />
-        {this.state.isVisible && (
-          <SearchBarDestination
+       
+         {this.state.isVisible2 && <SearchBarDestination
+          changeVisibilityTo={this.changeVisibilityTo}
+
             updatedRegion={this.state.region}
             callBack2={this.updateRegion2}
             coordinateCallback={this.updateCoordinates}
             getPolylinePoint={this.getPolylinePoint}
-          />
-        )}
+          /> }
+        
       </View>
     );
   }

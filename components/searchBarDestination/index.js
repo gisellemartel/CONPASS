@@ -1,41 +1,27 @@
-/* eslint-disable react/no-unused-state */
-/* eslint-disable no-unused-expressions */
 import React, { Component } from 'react';
 import {
-  View, Keyboard, TouchableOpacity, Text, TouchableHighlight,
-  Image
+  View, Keyboard, TouchableOpacity, Text
 } from 'react-native';
-import { SearchBar } from 'react-native-elements';
 import i18n from 'i18n-js';
+import { SearchBar } from 'react-native-elements';
+import decodePolyline from 'decode-google-map-polyline';
 import styles from './styles';
 
-import SetLocaleContext from '../../localization-context';
-import burger from './burger.png';
-
-export default class searchBar extends Component {
+export default class searchBarDestination extends Component {
   constructor(props) {
     super(props);
     this.state = {
       showPredictions: true,
       destination: '',
       predictions: [],
-      region: {
-        latitude: 45.492409,
-        longitude: -73.582153,
-        latitudeDelta: 0.0922,
-        longitudeDelta: 0.0421
-      },
-      isMounted: false,
+      locations: '',
+      region2: {
+        latitude: 0,
+        longitude: 0,
+  
+      }
     };
   }
-
-  componentDidMount() {
-    SetLocaleContext();
-    this.setState({ isMounted: true });
-  }
-
-  // Function: When entering text searchbar, captures all the possible predictions from google's api
-  // Parameter: Text input from search bar
 
   async onChangeDestination(destination) {
     this.setState({ destination });
@@ -51,10 +37,9 @@ export default class searchBar extends Component {
       console.error(err);
     }
   }
-  // Function: gets the latitude and longitude of a chosen prediction
-  // Parameter: place_id of the chosen prediction
 
   async getLatLong(prediction) {
+    // eslint-disable-next-line react/no-unused-state
     this.setState({ description: prediction });
     const key = 'AIzaSyCqNODizSqMIWbKbO8Iq3VWdBcK846n_3w';
     const geoUrl = `https://maps.googleapis.com/maps/api/place/details/json?key=${key}&placeid=${prediction}`;
@@ -62,16 +47,43 @@ export default class searchBar extends Component {
     try {
       const georesult = await fetch(geoUrl);
       const gjson = await georesult.json();
-      const locations = gjson.result.geometry.location;
+      this.setState({ locations: gjson.result.geometry.location });
       this.setState({
-        region: {
-          latitude: locations.lat,
-          longitude: locations.lng,
-          latitudeDelta: 0.05,
-          longitudeDelta: 0.05
+        region2: {
+          latitude: this.state.locations.lat,
+          longitude: this.state.locations.lng,
+
         }
+      });  
+      this.drawPath();
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+
+    async drawPath() {
+    const key = 'AIzaSyBsMjuj6q76Vcna8G5z9PDyTH2z16fNPDk'; 
+    const originLat= this.props.updatedRegion.latitude;
+    const originLong= this.props.updatedRegion.longitude;
+    const destinationLat=this.state.region2.latitude;
+    const destinationLong=this.state.region2.longitude;
+    const directionUrl = `https://maps.googleapis.com/maps/api/directions/json?key=${key}&origin=${originLat},${originLong}&destination=${destinationLat},${destinationLong}`;
+    try {
+      const result = await fetch(directionUrl);
+      const json = await result.json();
+      const encryptedPath = json.routes[0].overview_polyline.points;
+      this.props.getPolylinePoint(encryptedPath);
+      const rawPolylinePoints = decodePolyline(json.routes[0].overview_polyline.points);
+      // Incompatible field names for direct decode. Need to do a trivial conversion.
+      const waypoints = rawPolylinePoints.map((point) => {
+        return {
+          latitude: point.lat,
+          longitude: point.lng
+        };
       });
-      this.props.updateRegion(this.state.region);
+      // const { coordinateCallback } = this.props;
+      this.props.coordinateCallback(waypoints);
     } catch (err) {
       console.error(err);
     }
@@ -79,8 +91,7 @@ export default class searchBar extends Component {
 
 
   render() {
-    const placeholder = this.state.isMounted ? i18n.t('search') : 'Search...';
-    // Predictions mapped and formmated from the current state predictions
+    const placeholder = this.state.isMounted ? i18n.t('search') : 'where do you want to go to?';
     const predictions = this.state.predictions.map((prediction) => {
       return (
         <View key={prediction.id} style={styles.view}>
@@ -90,7 +101,6 @@ export default class searchBar extends Component {
               this.setState({ destination: prediction.description });
               this.getLatLong(prediction.place_id);
               this.setState({ showPredictions: false });
-              this.props.changeVisibilityTo(false);
               Keyboard.dismiss();
             }}
           >
@@ -104,45 +114,34 @@ export default class searchBar extends Component {
       <View style={styles.container}>
         <View>
           <SearchBar
-            searchIcon={<Icon navigation={this.props.navigation} />}
             lightTheme
             placeholder={placeholder}
             onChangeText={(destination) => {
-              destination.length === 0
-                ? this.props.changeVisibilityTo(true) && this.props.changeVisibilityToSearch(true) :this.props.changeVisibilityTo(false) && this.props.changeVisibilityToSearch(false) 
+                destination.length === 0
+                ? this.props.changeVisibilityTo(true) :this.props.changeVisibilityTo(false)
               return this.onChangeDestination(destination);
             }}
             value={this.state.destination}
             style={styles.SearchBar}
             onClear={() => {
               this.setState({ showPredictions: true });
-              this.props.changeVisibilityTo(false);
-              this.props.changeVisibilityToSearch(true);
+            this.props.changeVisibilityTo(false);
+
             }}
             onTouchStart={
               () => {
                 this.props.changeVisibilityTo(true);
-                this.props.changeVisibilityToSearch(false);
-
               }
             }
-            onBlur={() => { this.props.changeVisibilityToSearch(true); this.props.changeVisibilityTo(false); }}
+            onBlur={() => { this.props.changeVisibilityTo(false); }}
             blurOnSubmit
           />
         </View>
         {
           this.state.showPredictions
-            ? predictions: null
+            ? predictions : null
         }
       </View>
     );
   }
 }
-
-const Icon = (props) => {
-  return (
-    <TouchableHighlight onPress={() => { return props.navigation.navigate('Menu'); }}>
-      <Image style={styles.burger} source={burger} />
-    </TouchableHighlight>
-  );
-};
