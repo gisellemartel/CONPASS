@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import TheMap from '../map';
 import SearchBar from '../searchBar';
 import Shuttle from '../shuttleInformation';
+import SearchBarDestination from '../searchBarDestination';
 import styles from './styles';
 import SwitchCampuses from '../switchCampuses';
 
@@ -36,16 +37,33 @@ class Home extends Component {
     this.setState({ isVisible: boolean });
   }
 
-  updateCoordinates = (newCoordinates) => {
+
+
+  updateRegion2 = (newRegion2) => {
     this.setState({
-      coordinates: newCoordinates
+      region2: {
+        latitude: newRegion2.latitude,
+        longitude: newRegion2.longitude,
+        latitudeDelta: 0.05,
+        longitudeDelta: 0.05
+      }
     });
   }
+
+   updateCoordinates = (newCoordinates) => {
+     this.setState({
+       coordinates: newCoordinates
+     });
+   }
 
   getPolylinePoint = (data) => {
     this.setState({
       encryptedLine: data
     });
+  }
+
+  changeVisibilityTo = (boolie) => {
+    this.setState({ isVisible: boolie });
   }
 
   render() {
@@ -66,6 +84,14 @@ class Home extends Component {
           coordinateCallback={this.updateCoordinates}
           getPolylinePoint={this.getPolylinePoint}
         />
+        {this.state.isVisible && (
+        <SearchBarDestination
+          updatedRegion={this.state.region}
+          callBack2={this.updateRegion2}
+          coordinateCallback={this.updateCoordinates}
+          getPolylinePoint={this.getPolylinePoint}
+        />
+        )}
       </View>
     );
   }
