@@ -26,3 +26,23 @@ it('Should get no buildings with invalid argument', async () => {
   let invalidBuildings = withinBuildingComponent.formatPolygonsObjs('UgaBuga');
   expect(invalidBuildings).toStrictEqual([]);
 });
+
+it('Polygon should define points close to edges as inside', async () => {
+  const withinBuildingComponent = renderer.create(<WithinBuilding />).getInstance();
+  let bottomLeftPartition = withinBuildingComponent.isInPolygon(4, [0.0, 0.0, 1.0, 1.0], [0.0, 1.0, 0.0, 1.0], 0.1, 0.1);
+  let topRightPartition = withinBuildingComponent.isInPolygon(4, [0.0, 0.0, 1.0, 1.0], [0.0, 1.0, 0.0, 1.0], 0.9, 0.9);
+  expect(bottomLeftPartition).toBe(true);
+  expect(topRightPartition).toBe(true);
+});
+
+it('Polygon should define points outside of edges as outside', async () => {
+  const withinBuildingComponent = renderer.create(<WithinBuilding />).getInstance();
+  let leftPartition = withinBuildingComponent.isInPolygon(4, [0.0, 0.0, 1.0, 1.0], [0.0, 1.0, 0.0, 1.0], -0.1, 0.1);
+  let rightPartition = withinBuildingComponent.isInPolygon(4, [0.0, 0.0, 1.0, 1.0], [0.0, 1.0, 0.0, 1.0], 1.1, 0.9);
+  let bottomPartition = withinBuildingComponent.isInPolygon(4, [0.0, 0.0, 1.0, 1.0], [0.0, 1.0, 0.0, 1.0], 0.1, -0.1);
+  let topPartition = withinBuildingComponent.isInPolygon(4, [0.0, 0.0, 1.0, 1.0], [0.0, 1.0, 0.0, 1.0], 0.9, 1.1);
+  expect(leftPartition).toBe(false);
+  expect(rightPartition).toBe(false);
+  expect(bottomPartition).toBe(false);
+  expect(topPartition).toBe(false);
+});
