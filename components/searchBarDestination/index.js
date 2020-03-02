@@ -15,7 +15,7 @@ export default class searchBarDestination extends Component {
       destination: '',
       predictions: [],
       locations: '',
-      region2: {
+      destinationRegion: {
         latitude: 0,
         longitude: 0,
   
@@ -49,7 +49,7 @@ export default class searchBarDestination extends Component {
       const gjson = await georesult.json();
       this.setState({ locations: gjson.result.geometry.location });
       this.setState({
-        region2: {
+        destinationRegion: {
           latitude: this.state.locations.lat,
           longitude: this.state.locations.lng,
 
@@ -66,8 +66,8 @@ export default class searchBarDestination extends Component {
     const key = 'AIzaSyBsMjuj6q76Vcna8G5z9PDyTH2z16fNPDk'; 
     const originLat= this.props.updatedRegion.latitude;
     const originLong= this.props.updatedRegion.longitude;
-    const destinationLat=this.state.region2.latitude;
-    const destinationLong=this.state.region2.longitude;
+    const destinationLat=this.state.destinationRegion.latitude;
+    const destinationLong=this.state.destinationRegion.longitude;
     const directionUrl = `https://maps.googleapis.com/maps/api/directions/json?key=${key}&origin=${originLat},${originLong}&destination=${destinationLat},${destinationLong}`;
     try {
       const result = await fetch(directionUrl);

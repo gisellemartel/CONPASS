@@ -21,7 +21,7 @@ class Home extends Component {
         longitudeDelta: 0.04
       },
       isVisible: false,
-      isVisible2: true
+      isSearchVisible: true
     };
   }
 
@@ -38,12 +38,13 @@ class Home extends Component {
     });
   };
 
-  changeVisibilityTo = boolean => {
-    this.setState({ isVisible: boolean });
+  changeVisibilityTo = visibility => {
+    this.setState({ isVisible: visibility });
   };
-  changeVisibilityToSearch = boolean => {
-    this.setState({ isVisible2: boolean})
-  }
+
+  changeVisibilityToSearch = visibility => {
+    this.setState({ isSearchVisible: visibility})
+  };
 
   updateRegion2 = newRegion2 => {
     this.setState({
@@ -93,7 +94,7 @@ class Home extends Component {
           getPolylinePoint={this.getPolylinePoint}
         />
        
-         {this.state.isVisible2 && <SearchBarDestination
+         {this.state.isSearchVisible && <SearchBarDestination
           changeVisibilityTo={this.changeVisibilityTo}
 
             updatedRegion={this.state.region}
