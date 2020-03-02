@@ -1,0 +1,101 @@
+{
+    "env": {
+        "browser": true,
+        "jest": true
+    },
+    "extends": [
+        "eslint:recommended",
+        "plugin:react/recommended",
+        "airbnb"
+    ],
+    "parser": "babel-eslint",
+    "globals": {
+        "fetch": false
+    },
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "ecmaVersion": 2018
+    },
+    "plugins": [
+        "react"
+    ],
+    "rules": {
+        "react/jsx-filename-extension": [
+            2,
+            {
+                "extensions": [
+                    ".js",
+                    ".jsx"
+                ]
+            }
+        ],
+        "no-use-before-define": "off",
+        "react/jsx-props-no-spreading": "off",
+        "react/destructuring-assignment": "off",
+        "react/prop-types": "off",
+        "max-classes-per-file": "off",
+        "class-methods-use-this": "off",
+        "no-console": "off",
+        "comma-dangle": "off",
+        "react/forbid-prop-types": [
+            0
+        ],
+        "react/require-default-props": [
+            0
+        ],
+        "react/prefer-stateless-function": 0,
+        "global-require": [
+            0
+        ],
+        "no-underscore-dangle": [
+            0
+        ],
+        "curly": [
+            "error",
+            "all"
+        ],
+        "semi": [
+            "error",
+            "always"
+        ],
+        "arrow-body-style": [
+            "error",
+            "always"
+        ],
+        "arrow-parens": [
+            "error",
+            "always"
+        ],
+        "arrow-spacing": "error",
+        "prefer-const": "error",
+        "no-const-assign": "error",
+        "no-var": "error",
+        "no-mixed-spaces-and-tabs": "error",
+        "spaced-comment": [
+            "error",
+            "always",
+            {
+                "exceptions": [
+                    "-",
+                    "+"
+                ]
+            }
+        ],
+        "space-before-blocks": "error",
+        "quotes": [
+            "error",
+            "single"
+        ],
+        "switch-colon-spacing": [
+            "error",
+            {
+                "after": true,
+                "before": false
+            }
+        ],
+        "no-multiple-empty-lines": "error",
+        "no-trailing-spaces": "error"
+    }
+}
