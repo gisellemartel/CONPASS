@@ -10,15 +10,17 @@ const styles = StyleSheet.create({
     height: 50,
     borderRadius: 50,
     backgroundColor: '#9CD3D7',
-    flexDirection: 'row-reverse',
-
   },
   container: {
-    alignSelf: 'flex-end',
-    bottom: 60,
+
+    bottom: 40,
     right: 10,
     position: 'absolute',
 
+  },
+  directions: {
+    width: 50,
+    resizeMode: 'contain',
   }
 
 });

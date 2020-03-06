@@ -7,7 +7,6 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 0
   },
-
   sectionHeader: {
     paddingTop: 2,
     paddingLeft: 10,

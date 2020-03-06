@@ -1,19 +1,22 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
-import { TouchableHighlight } from 'react-native-gesture-handler';
+import { View, Image } from 'react-native';
+import { TouchableHighlight, TouchableOpacity } from 'react-native-gesture-handler';
 import styles from './styles';
+import directions from './directions.png';
+
 
 export default class toCircle extends Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <View style={styles.touch}>
-          <TouchableHighlight>
-            <Text>To</Text>
-          </TouchableHighlight>
-        </View>
-      </View>
+    onPress = () => {
+      console.log('ay');
+    }
 
-    );
-  }
+    render() {
+      return (
+        <View style={styles.container}>
+          <TouchableOpacity onPress={() => { return console.log('hello'); }}>
+            <Image style={styles.directions} source={directions} />
+          </TouchableOpacity>
+        </View>
+      );
+    }
 }
