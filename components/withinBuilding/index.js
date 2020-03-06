@@ -141,7 +141,8 @@ export default class WithinBuilding extends Component {
 
 const styles = StyleSheet.create({
   userFinalLoc: {
-    marginBottom: 10,
+    bottom: 80,
     backgroundColor: 'pink',
+    position: 'absolute',
   },
 });
