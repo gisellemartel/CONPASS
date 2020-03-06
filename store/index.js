@@ -6,15 +6,9 @@ const initialState = {
 };
 
 // Redux Reducer1, this receives actions that are being DISPATCHED
-// remove comment es-lint comment after setting action
+// Remove eslint comment below when adding action to the reducer.
 // eslint-disable-next-line no-unused-vars
 const reducer = (state = initialState, action) => {
-  // set action type here example:
-  // if (action.type === 'CHANGE_LANGUAGE') {
-  //   return {
-  //     language: action.payload.language
-  //   };
-  // }
   return state;
 };
 
