@@ -1,13 +1,14 @@
-import React, { Component } from "react";
-import { View } from "react-native";
-import { connect } from "react-redux";
-import TheMap from "../map";
-import SearchBar from "../searchBar";
-import Shuttle from "../shuttleInformation";
-import SearchBarDestination from "../searchBarDestination";
-import styles from "./styles";
-import SwitchCampuses from "../switchCampuses";
-import WithinBuilding from "../withinBuilding";
+import React, { Component } from 'react';
+import { View } from 'react-native';
+import { connect } from 'react-redux';
+import TheMap from '../map';
+import SearchBar from '../searchBar';
+import Shuttle from '../shuttleInformation';
+import SearchBarDestination from '../searchBarDestination';
+import styles from './styles';
+import SwitchCampuses from '../switchCampuses';
+import WithinBuilding from '../withinBuilding';
+import ToCircle from '../searchBar/toCircle';
 
 class Home extends Component {
   constructor(props) {
@@ -27,7 +28,7 @@ class Home extends Component {
 
   // Function : updates the currently set region to a new region
   // parameter : a region object to be set to
-  updateRegion = newRegion => {
+  updateRegion = (newRegion) => {
     this.setState({
       region: {
         latitude: newRegion.latitude,
@@ -38,15 +39,15 @@ class Home extends Component {
     });
   };
 
-  changeVisibilityTo = visibility => {
+  changeVisibilityTo = (visibility) => {
     this.setState({ isVisible: visibility });
   };
 
-  changeVisibilityToSearch = visibility => {
-    this.setState({ isSearchVisible: visibility})
+  changeVisibilityToSearch = (visibility) => {
+    this.setState({ isSearchVisible: visibility });
   };
 
-  updateRegion2 = newRegion2 => {
+  updateRegion2 = (newRegion2) => {
     this.setState({
       region2: {
         latitude: newRegion2.latitude,
@@ -57,13 +58,13 @@ class Home extends Component {
     });
   };
 
-  updateCoordinates = newCoordinates => {
+  updateCoordinates = (newCoordinates) => {
     this.setState({
       coordinates: newCoordinates
     });
   };
 
-  getPolylinePoint = data => {
+  getPolylinePoint = (data) => {
     this.setState({
       encryptedLine: data
     });
@@ -88,21 +89,25 @@ class Home extends Component {
           updateRegion={this.updateRegion}
           visiblityState={this.state.isVisible}
         />
+
         <WithinBuilding />
         <Shuttle
           coordinateCallback={this.updateCoordinates}
           getPolylinePoint={this.getPolylinePoint}
         />
-       
-         {this.state.isSearchVisible && <SearchBarDestination
+
+        {this.state.isSearchVisible && (
+        <SearchBarDestination
           changeVisibilityTo={this.changeVisibilityTo}
 
-            updatedRegion={this.state.region}
-            callBack2={this.updateRegion2}
-            coordinateCallback={this.updateCoordinates}
-            getPolylinePoint={this.getPolylinePoint}
-          /> }
-        
+          updatedRegion={this.state.region}
+          callBack2={this.updateRegion2}
+          coordinateCallback={this.updateCoordinates}
+          getPolylinePoint={this.getPolylinePoint}
+        />
+        )}
+        <ToCircle />
+
       </View>
     );
   }
@@ -112,7 +117,7 @@ class Home extends Component {
  * Redux store listener. This function will update
  * the connected component state whenever the store updates.
  */
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return { language: state.language };
 };
 
