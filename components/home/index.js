@@ -24,7 +24,8 @@ class Home extends Component {
         longitudeDelta: 0.04
       },
       isVisible: false,
-      isSearchVisible: true
+      isSearchVisible: true,
+      isGoVisible: false
     };
   }
 
@@ -48,6 +49,10 @@ class Home extends Component {
   changeVisibilityToSearch = (visibility) => {
     this.setState({ isSearchVisible: visibility });
   };
+
+  changeVisibilityToGo = (visibility) => {
+    this.setState({ isGoVisible: visibility });
+  }
 
   updateRegion2 = (newRegion2) => {
     this.setState({
@@ -75,6 +80,7 @@ class Home extends Component {
   render() {
     return (
       <View style={styles.container}>
+
         <TheMap
           updatedRegion={this.state.region}
           updatedCoordinates={this.state.coordinates}
@@ -109,9 +115,9 @@ class Home extends Component {
         />
         )} */}
         <ToCircle
-          navigation={this.props.navigation}
+          visibilityState={this.changeVisibilityToGo}
         />
-
+        {this.state.isGoVisible && <Addresses /> }
       </View>
     );
   }

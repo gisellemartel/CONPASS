@@ -2,7 +2,7 @@
 /* eslint-disable no-unused-expressions */
 import React, { Component } from 'react';
 import {
-  View, Keyboard, TouchableOpacity, Text,TextInput, TouchableHighlight,
+  View, Keyboard, TouchableOpacity, Text, TextInput, TouchableHighlight,
   Image
 } from 'react-native';
 import { SearchBar } from 'react-native-elements';
@@ -105,10 +105,10 @@ export default class searchBar extends Component {
       <View style={styles.container}>
         <View>
           <SearchBar
-       platform='android'
-        autoCorrect={false}
-        padding={5}
-        returnKeyType={'search'}
+            platform="android"
+            autoCorrect={false}
+            padding={5}
+            returnKeyType="search"
             lightTheme
             searchIcon={<Icon navigation={this.props.navigation} />}
             placeholder={placeholder}
