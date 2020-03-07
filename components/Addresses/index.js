@@ -33,17 +33,8 @@ export default class Addresses extends Component {
 
     render() {
     return (
-    //     <View>
-        
-    //      <View style={{backgroundColor:'Black',top:-25,height:10,marginTop:-30}}/>
 
-    //     <View style={{ position:'absolute', top:25, width:'95%',marginTop:-30,  marginLeft: -190}}>  
-    //     <SearchBar/>
-    //     <SearchBarDestination/>
-    //  </View>
-
-    //     </View>
-    <View style={{position:'absolute',top:0,backgroundColor:'white',width:'100%',height:180}}>
+    <View style={{position:'absolute',top:0,backgroundColor:'white',width:'100%',height:180,borderBottomLeftRadius:10,borderBottomRightRadius:10}}>
     <View style={{alignItems: 'center'}}>
     <SearchBar updateRegion={this.updateRegion} navigation={this.props.navigation}/>
     <SearchBarDestination/>

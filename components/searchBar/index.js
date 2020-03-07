@@ -2,10 +2,12 @@
 /* eslint-disable no-unused-expressions */
 import React, { Component } from 'react';
 import {
-  View, Keyboard, TouchableOpacity, Text, TouchableHighlight,
+  View, Keyboard, TouchableOpacity, Text,TextInput, TouchableHighlight,
   Image
 } from 'react-native';
 import { SearchBar } from 'react-native-elements';
+// import SearchBar from 'react-native-material-design-searchbar';
+// import SearchBar from 'react-native-search-box';
 import i18n from 'i18n-js';
 import styles from './styles';
 import SetLocaleContext from '../../localization-context';
@@ -103,8 +105,12 @@ export default class searchBar extends Component {
       <View style={styles.container}>
         <View>
           <SearchBar
-            searchIcon={<Icon navigation={this.props.navigation} />}
+       platform='android'
+        autoCorrect={false}
+        padding={5}
+        returnKeyType={'search'}
             lightTheme
+            searchIcon={<Icon navigation={this.props.navigation} />}
             placeholder={placeholder}
             onChangeText={(destination) => {
               // destination.length === 0
