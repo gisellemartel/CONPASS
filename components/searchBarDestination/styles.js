@@ -2,11 +2,11 @@ import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'white',
+
     position: 'absolute',
     top: 75,
-    width: '95%',
-    borderRadius: 10
+    width: '100%',
+  
   },
   view: {
     borderRadius: 15
@@ -43,12 +43,14 @@ const styles = StyleSheet.create({
     marginLeft: 5,
     marginRight: 5,
   },
-  searchBar: {
-    color: 'white',
-    borderWidth: 0.5,
-    width: '95%',
-    marginLeft: 5,
-    marginRight: 5
+  SearchBar: {
+      margin: 20,
+      height: 40,
+
+      borderColor: '#9CD3D7',
+      borderWidth: 1,
+      borderRadius:10,
+      borderWidth:2
   }
 });
 

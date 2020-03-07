@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-  View, Keyboard, TouchableOpacity, Text
+  View, Keyboard, TouchableOpacity,TextInput, Text
 } from 'react-native';
 import i18n from 'i18n-js';
 import { SearchBar } from 'react-native-elements';
@@ -114,6 +114,7 @@ export default class searchBarDestination extends Component {
       <View style={styles.container}>
         <View>
           <SearchBar
+          platform='android'
             lightTheme
             placeholder={placeholder}
             onChangeText={(destination) => {
