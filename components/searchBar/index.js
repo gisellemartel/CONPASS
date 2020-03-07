@@ -8,7 +8,6 @@ import {
 import { SearchBar } from 'react-native-elements';
 import i18n from 'i18n-js';
 import styles from './styles';
-
 import SetLocaleContext from '../../localization-context';
 import burger from './burger.png';
 
@@ -108,25 +107,25 @@ export default class searchBar extends Component {
             lightTheme
             placeholder={placeholder}
             onChangeText={(destination) => {
-              destination.length === 0
-                ? this.props.changeVisibilityTo(true) && this.props.changeVisibilityToSearch(true) :this.props.changeVisibilityTo(false) && this.props.changeVisibilityToSearch(false) 
+              // destination.length === 0
+                // ? this.props.changeVisibilityTo(true) && this.props.changeVisibilityToSearch(true) :this.props.changeVisibilityTo(false) && this.props.changeVisibilityToSearch(false) 
               return this.onChangeDestination(destination);
             }}
             value={this.state.destination}
             style={styles.SearchBar}
             onClear={() => {
               this.setState({ showPredictions: true });
-              this.props.changeVisibilityTo(false);
-              this.props.changeVisibilityToSearch(true);
+              // this.props.changeVisibilityTo(false);
+              // this.props.changeVisibilityToSearch(true);
             }}
-            onTouchStart={
-              () => {
-                this.props.changeVisibilityTo(true);
-                this.props.changeVisibilityToSearch(false);
+            // onTouchStart={
+            //   () => {
+            //     // this.props.changeVisibilityTo(true);
+            //     // this.props.changeVisibilityToSearch(false);
 
-              }
-            }
-            onBlur={() => { this.props.changeVisibilityToSearch(true); this.props.changeVisibilityTo(false); }}
+            //   }
+            // }
+            // onBlur={() => { this.props.changeVisibilityToSearch(true); this.props.changeVisibilityTo(false); }}
             blurOnSubmit
           />
         </View>
