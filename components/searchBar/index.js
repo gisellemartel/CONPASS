@@ -108,7 +108,7 @@ export default class searchBar extends Component {
             placeholder={placeholder}
             onChangeText={(destination) => {
               // destination.length === 0
-                // ? this.props.changeVisibilityTo(true) && this.props.changeVisibilityToSearch(true) :this.props.changeVisibilityTo(false) && this.props.changeVisibilityToSearch(false) 
+              // ? this.props.changeVisibilityTo(true) && this.props.changeVisibilityToSearch(true) :this.props.changeVisibilityTo(false) && this.props.changeVisibilityToSearch(false)
               return this.onChangeDestination(destination);
             }}
             value={this.state.destination}
@@ -131,7 +131,7 @@ export default class searchBar extends Component {
         </View>
         {
           this.state.showPredictions
-            ? predictions: null
+            ? predictions : null
         }
       </View>
     );

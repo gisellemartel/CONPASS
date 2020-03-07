@@ -8,8 +8,8 @@ import SearchBarDestination from '../searchBarDestination';
 import styles from './styles';
 import SwitchCampuses from '../switchCampuses';
 import WithinBuilding from '../withinBuilding';
-import ToCircle from '../searchBar/toCircle';
-import Addresses from '../Addresses';
+import ToCircle from '../toCircle';
+import Addresses from '../addresses';
 
 
 class Home extends Component {
@@ -80,14 +80,13 @@ class Home extends Component {
           updatedCoordinates={this.state.coordinates}
           encryptedLine={this.state.encryptedLine}
         />
-        <Addresses/>
-        {/* <SearchBar
+        <SearchBar
           navigation={this.props.navigation}
           updateRegion={this.updateRegion}
           changeVisibilityTo={this.changeVisibilityTo}
           changeVisibilityToSearch={this.changeVisibilityToSearch}
 
-        /> */}
+        />
         <SwitchCampuses
           updateRegion={this.updateRegion}
           visiblityState={this.state.isVisible}
@@ -109,7 +108,9 @@ class Home extends Component {
           getPolylinePoint={this.getPolylinePoint}
         />
         )} */}
-        <ToCircle />
+        <ToCircle
+          navigation={this.props.navigation}
+        />
 
       </View>
     );
