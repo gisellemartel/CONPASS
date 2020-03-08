@@ -6,7 +6,7 @@ import i18n from 'i18n-js';
 import Home from './components/home';
 import Menu from './components/home/menu';
 import Language from './components/home/menu/Language';
-import Addresses from './components/addresses';
+import Addresses from './components/Addresses';
 import store from './store';
 
 const Stack = createStackNavigator();

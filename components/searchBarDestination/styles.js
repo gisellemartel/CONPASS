@@ -5,14 +5,14 @@ const styles = StyleSheet.create({
 
     position: 'absolute',
     top: 75,
-    width: '100%',
+    width: '95%',
   
   },
   view: {
     borderRadius: 15
   },
   Bar: {
-    width: '100%',
+    width: '90%',
     height: '100%',
     display: 'flex',
     flexDirection: 'row',

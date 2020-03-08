@@ -9,7 +9,7 @@ import styles from './styles';
 import SwitchCampuses from '../switchCampuses';
 import WithinBuilding from '../withinBuilding';
 import ToCircle from '../toCircle';
-import Addresses from '../addresses';
+import Addresses from '../Addresses';
 
 
 class Home extends Component {

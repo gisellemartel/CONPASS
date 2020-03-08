@@ -4,7 +4,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     position: 'absolute',
     top: 25,
-    width: '100%',
+    width:'95%',
+    
     borderRadius: 10
   },
   view: {
