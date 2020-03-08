@@ -9,7 +9,7 @@ import styles from './styles';
 import SwitchCampuses from '../switchCampuses';
 import WithinBuilding from '../withinBuilding';
 import ToCircle from '../toCircle';
-import Addresses from '../Addresses';
+import Addresses from '../addresses';
 
 
 class Home extends Component {
@@ -77,10 +77,11 @@ class Home extends Component {
     });
   };
 
-    getRegionFromAddresses=(region)=>{
-    this.updateRegion(region);
-  };
-  getCoordinatesFromAddresses=(coordinates)=>{
+    getRegionFromAddresses=(region) => {
+      this.updateRegion(region);
+    };
+
+  getCoordinatesFromAddresses=(coordinates) => {
     this.updateCoordinates(coordinates);
   }
 
