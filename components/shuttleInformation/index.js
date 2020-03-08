@@ -5,7 +5,7 @@
 
 import React, { Component } from 'react';
 import {
-  Modal, ScrollView, View, Button, Alert, SectionList, Text
+  Modal, ScrollView, View, Button, Alert, SectionList, Text, Linking
 } from 'react-native';
 import decodePolyline from 'decode-google-map-polyline';
 import * as Location from 'expo-location';
@@ -20,7 +20,6 @@ export default class Shuttle extends Component {
     super(props);
     this.state = {
       location: '',
-      errorMessage: null,
       modalVisible: false,
     };
     this.getCurrentLocation();
@@ -41,9 +40,7 @@ export default class Shuttle extends Component {
   async getCurrentLocation() {
     const { status } = await Permissions.askAsync(Permissions.LOCATION);
     if (status !== 'granted') {
-      this.setState({
-        errorMessage: 'Permission to access location was denied',
-      });
+      this.displayErrorAlert();
       return;
     }
     const location = await Location.getCurrentPositionAsync({});
@@ -52,6 +49,15 @@ export default class Shuttle extends Component {
 
   setModalVisible(visible) {
     this.setState({ modalVisible: visible });
+  }
+
+  // Method that will be called in the event that the user has their location services disabled
+  displayErrorAlert() {
+    Alert.alert('Location Services Required',
+      'Location services has not been enabled. Please allow this app to use your location.',
+      [
+        { text: 'Open Settings', onPress: () => { Linking.openURL('app-settings:'); } }
+      ]);
   }
 
   // Function: Draws a polyline on the map from an origin to a destination
