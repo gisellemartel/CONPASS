@@ -6,11 +6,12 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 25,
     width: '95%',
-
+    zIndex: 4,
     borderRadius: 10
   },
   view: {
-    borderRadius: 15
+    borderRadius: 15,
+    zIndex: 4
   },
   Bar: {
     width: '100%',

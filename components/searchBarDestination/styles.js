@@ -6,10 +6,12 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 75,
     width: '95%',
-  
+    zIndex: 3
+
   },
   view: {
-    borderRadius: 15
+    borderRadius: 15,
+    zIndex: 3
   },
   Bar: {
     width: '90%',
@@ -44,13 +46,13 @@ const styles = StyleSheet.create({
     marginRight: 5,
   },
   SearchBar: {
-      margin: 20,
-      height: 40,
+    margin: 20,
+    height: 40,
 
-      borderColor: '#9CD3D7',
-      borderWidth: 1,
-      borderRadius:10,
-      borderWidth:2
+    borderColor: '#9CD3D7',
+    borderWidth: 1,
+    borderRadius: 10,
+    borderWidth: 2
   }
 });
 
