@@ -9,13 +9,16 @@ const styles = StyleSheet.create({
     height: 160, 
     borderBottomLeftRadius: 10,
     borderBottomRightRadius: 10
-
-  
-    
-
   },
-  searchBars: {
-    alignItems: 'center'
+
+  startBar:{
+    alignItems: 'center', 
+    width:'500%'
+  },
+  
+  destinationBar: {
+    alignItems: 'center', 
+    width:'500%'
   },
 
 });
