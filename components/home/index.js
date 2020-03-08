@@ -9,7 +9,7 @@ import styles from './styles';
 import SwitchCampuses from '../switchCampuses';
 import WithinBuilding from '../withinBuilding';
 import ToCircle from '../toCircle';
-import Addresses from '../Addresses';
+import Addresses from '../addresses';
 
 
 class Home extends Component {
@@ -117,7 +117,7 @@ class Home extends Component {
         <ToCircle
           visibilityState={this.changeVisibilityToGo}
         />
-        {this.state.isGoVisible && <Addresses /> }
+        {this.state.isGoVisible && <Addresses visiblityState={this.changeVisibilityToGo} /> }
       </View>
     );
   }
