@@ -120,11 +120,10 @@ export default class searchBar extends Component {
               borderRadius: 10,
               borderWidth: 1,
               height: 45,
-              top: 5,
+
               justifyContent: 'center'
 
             }}
-            placeholderTextColor="black"
             searchIcon={this.state.hideMenu && <Icon navigation={this.props.navigation} />}
             placeholder={placeholder}
             onChangeText={(destination) => {

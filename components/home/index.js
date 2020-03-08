@@ -86,13 +86,14 @@ class Home extends Component {
           updatedCoordinates={this.state.coordinates}
           encryptedLine={this.state.encryptedLine}
         />
+        {!this.state.isGoVisible && (
         <SearchBar
           navigation={this.props.navigation}
           updateRegion={this.updateRegion}
           changeVisibilityTo={this.changeVisibilityTo}
           changeVisibilityToSearch={this.changeVisibilityToSearch}
-
         />
+        )}
         <SwitchCampuses
           updateRegion={this.updateRegion}
           visiblityState={this.state.isVisible}

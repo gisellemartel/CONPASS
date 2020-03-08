@@ -10,6 +10,13 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 10,
     borderBottomRightRadius: 10
   },
+  searchContainer: {
+
+    alignItems: 'center',
+    width: '87%',
+    left: 48,
+
+  }
 
 });
 
