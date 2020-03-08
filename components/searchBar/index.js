@@ -2,7 +2,7 @@
 /* eslint-disable no-unused-expressions */
 import React, { Component } from 'react';
 import {
-  View, Keyboard, TouchableOpacity, Text, TextInput, TouchableHighlight,
+  View, Keyboard, TouchableOpacity, Text, TouchableHighlight,
   Image
 } from 'react-native';
 import { SearchBar } from 'react-native-elements';
@@ -116,6 +116,15 @@ export default class searchBar extends Component {
             padding={5}
             returnKeyType="search"
             lightTheme
+            containerStyle={{
+              borderRadius: 10,
+              borderWidth: 1,
+              height: 45,
+              top: 5,
+              justifyContent: 'center'
+
+            }}
+            placeholderTextColor="black"
             searchIcon={this.state.hideMenu && <Icon navigation={this.props.navigation} />}
             placeholder={placeholder}
             onChangeText={(destination) => {

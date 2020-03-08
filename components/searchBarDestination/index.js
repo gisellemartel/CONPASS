@@ -117,6 +117,12 @@ export default class searchBarDestination extends Component {
             platform="android"
             lightTheme
             searchIcon={null}
+            containerStyle={{
+              borderRadius: 10,
+              borderWidth: 1,
+              height: 45,
+              justifyContent: 'center'
+            }}
             placeholder={placeholder}
             onChangeText={(destination) => {
               destination.length === 0
