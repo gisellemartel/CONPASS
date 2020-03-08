@@ -6,14 +6,9 @@ const styles = StyleSheet.create({
     top: 0,
     backgroundColor: 'white',
     width: '100%',
-    height: 160,
+    height: 170,
     borderBottomLeftRadius: 10,
     borderBottomRightRadius: 10
-
-
-  },
-  searchBars: {
-    alignItems: 'center'
   },
 
 });
