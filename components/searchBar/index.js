@@ -27,12 +27,18 @@ export default class searchBar extends Component {
         longitudeDelta: 0.0421
       },
       isMounted: false,
+      showMenu: true
     };
   }
 
   componentDidMount() {
     SetLocaleContext();
     this.setState({ isMounted: true });
+    if (this.props.hideMenu === undefined) {
+      this.setState({ hideMenu: true });
+    } else {
+      this.setState({ hideMenu: false });
+    }
   }
 
   // Function: When entering text searchbar, captures all the possible predictions from google's api
@@ -110,7 +116,7 @@ export default class searchBar extends Component {
             padding={5}
             returnKeyType="search"
             lightTheme
-            searchIcon={<Icon navigation={this.props.navigation} />}
+            searchIcon={this.state.hideMenu && <Icon navigation={this.props.navigation} />}
             placeholder={placeholder}
             onChangeText={(destination) => {
               // destination.length === 0

@@ -7,11 +7,6 @@ import directions from './directions.png';
 
 
 export default class toCircle extends Component {
-  constructor(props) {
-    super(props);
-    console.log(this.props);
-  }
-
   render() {
     return (
       <View style={styles.container}>

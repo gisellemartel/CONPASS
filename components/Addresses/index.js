@@ -8,16 +8,17 @@ import styles from './styles';
 export default class Addresses extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      hide: true
+    };
   }
 
   render() {
-    console.log(this.props.visiblityState);
-
     return (
       <View style={styles.container}>
 
         <View style={{ alignItems: 'center', width: '500%' }}>
-          <SearchBar updateRegion={this.updateRegion} />
+          <SearchBar updateRegion={this.updateRegion} hideMenu={this.state.hide} />
         </View>
 
         <View style={{ alignItems: 'center', width: '500%' }}>

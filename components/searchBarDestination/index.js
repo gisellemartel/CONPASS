@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-  View, Keyboard, TouchableOpacity,TextInput, Text
+  View, Keyboard, TouchableOpacity, TextInput, Text
 } from 'react-native';
 import i18n from 'i18n-js';
 import { SearchBar } from 'react-native-elements';
@@ -18,7 +18,7 @@ export default class searchBarDestination extends Component {
       destinationRegion: {
         latitude: 0,
         longitude: 0,
-  
+
       }
     };
   }
@@ -54,7 +54,7 @@ export default class searchBarDestination extends Component {
           longitude: this.state.locations.lng,
 
         }
-      });  
+      });
       this.drawPath();
     } catch (err) {
       console.error(err);
@@ -62,12 +62,12 @@ export default class searchBarDestination extends Component {
   }
 
 
-    async drawPath() {
-    const key = 'AIzaSyBsMjuj6q76Vcna8G5z9PDyTH2z16fNPDk'; 
-    const originLat= this.props.updatedRegion.latitude;
-    const originLong= this.props.updatedRegion.longitude;
-    const destinationLat=this.state.destinationRegion.latitude;
-    const destinationLong=this.state.destinationRegion.longitude;
+  async drawPath() {
+    const key = 'AIzaSyBsMjuj6q76Vcna8G5z9PDyTH2z16fNPDk';
+    const originLat = this.props.updatedRegion.latitude;
+    const originLong = this.props.updatedRegion.longitude;
+    const destinationLat = this.state.destinationRegion.latitude;
+    const destinationLong = this.state.destinationRegion.longitude;
     const directionUrl = `https://maps.googleapis.com/maps/api/directions/json?key=${key}&origin=${originLat},${originLong}&destination=${destinationLat},${destinationLong}`;
     try {
       const result = await fetch(directionUrl);
@@ -114,20 +114,20 @@ export default class searchBarDestination extends Component {
       <View style={styles.container}>
         <View>
           <SearchBar
-          platform='android'
+            platform="android"
             lightTheme
+            searchIcon={null}
             placeholder={placeholder}
             onChangeText={(destination) => {
-                destination.length === 0
-                ? this.props.changeVisibilityTo(true) :this.props.changeVisibilityTo(false)
+              destination.length === 0
+                ? this.props.changeVisibilityTo(true) : this.props.changeVisibilityTo(false);
               return this.onChangeDestination(destination);
             }}
             value={this.state.destination}
             style={styles.SearchBar}
             onClear={() => {
               this.setState({ showPredictions: true });
-            this.props.changeVisibilityTo(false);
-
+              this.props.changeVisibilityTo(false);
             }}
             onTouchStart={
               () => {
