@@ -126,21 +126,21 @@ export default class searchBarDestination extends Component {
             placeholder={placeholder}
             onChangeText={(destination) => {
               destination.length === 0
-                ? this.props.changeVisibilityTo(true) : this.props.changeVisibilityTo(false);
+                // ? this.props.changeVisibilityTo(true) : this.props.changeVisibilityTo(false);
               return this.onChangeDestination(destination);
             }}
             value={this.state.destination}
             style={styles.SearchBar}
             onClear={() => {
               this.setState({ showPredictions: true });
-              this.props.changeVisibilityTo(false);
+              // this.props.changeVisibilityTo(false);
             }}
             onTouchStart={
               () => {
-                this.props.changeVisibilityTo(true);
+                // this.props.changeVisibilityTo(true);
               }
             }
-            onBlur={() => { this.props.changeVisibilityTo(false); }}
+            // onBlur={() => { this.props.changeVisibilityTo(false); }}
             blurOnSubmit
           />
         </View>

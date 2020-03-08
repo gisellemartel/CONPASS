@@ -97,7 +97,7 @@ export default class searchBar extends Component {
               this.setState({ destination: prediction.description });
               this.getLatLong(prediction.place_id);
               this.setState({ showPredictions: false });
-              this.props.changeVisibilityTo(false);
+              // this.props.changeVisibilityTo(false);
               Keyboard.dismiss();
             }}
           >
