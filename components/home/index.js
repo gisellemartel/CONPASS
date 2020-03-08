@@ -9,7 +9,7 @@ import styles from './styles';
 import SwitchCampuses from '../switchCampuses';
 import WithinBuilding from '../withinBuilding';
 import ToCircle from '../toCircle';
-import Addresses from '../addresses';
+import Addresses from '../Addresses';
 
 
 class Home extends Component {
@@ -77,6 +77,13 @@ class Home extends Component {
     });
   };
 
+    getRegionFromAddresses=(region)=>{
+    this.updateRegion(region);
+  };
+  getCoordinatesFromAddresses=(coordinates)=>{
+    this.updateCoordinates(coordinates);
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -118,7 +125,7 @@ class Home extends Component {
         <ToCircle
           visibilityState={this.changeVisibilityToGo}
         />
-        {this.state.isGoVisible && <Addresses visiblityState={this.changeVisibilityToGo} /> }
+        {this.state.isGoVisible && <Addresses getRegion={this.getRegionFromAddresses} getCoordinates={this.getCoordinatesFromAddresses} visiblityState={this.changeVisibilityToGo} /> }
       </View>
     );
   }
