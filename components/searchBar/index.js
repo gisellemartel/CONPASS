@@ -27,7 +27,8 @@ export default class searchBar extends Component {
         longitudeDelta: 0.0421
       },
       isMounted: false,
-      showMenu: true
+      showMenu: true,
+      checkUnidentified: true
     };
   }
 
@@ -38,6 +39,9 @@ export default class searchBar extends Component {
       this.setState({ hideMenu: true });
     } else {
       this.setState({ hideMenu: false });
+    }
+    if (this.props.changeVisibilityTo === undefined || this.props.changeVisibilityToSearch === undefined) {
+      this.setState({ checkUnidentified: false });
     }
   }
 
@@ -97,7 +101,9 @@ export default class searchBar extends Component {
               this.setState({ destination: prediction.description });
               this.getLatLong(prediction.place_id);
               this.setState({ showPredictions: false });
-              // this.props.changeVisibilityTo(false);
+              if (this.state.checkUnidentified) {
+                this.props.changeVisibilityTo(false);
+              }
               Keyboard.dismiss();
             }}
           >
@@ -127,25 +133,36 @@ export default class searchBar extends Component {
             searchIcon={this.state.hideMenu && <Icon navigation={this.props.navigation} />}
             placeholder={placeholder}
             onChangeText={(destination) => {
-              // destination.length === 0
-              // ? this.props.changeVisibilityTo(true) && this.props.changeVisibilityToSearch(true) :this.props.changeVisibilityTo(false) && this.props.changeVisibilityToSearch(false)
+              if (this.state.checkUnidentified) {
+                destination.length === 0
+                  // eslint-disable-next-line max-len
+                  ? this.props.changeVisibilityTo(true) && this.props.changeVisibilityToSearch(true) : this.props.changeVisibilityTo(false) && this.props.changeVisibilityToSearch(false);
+              }
               return this.onChangeDestination(destination);
             }}
             value={this.state.destination}
             style={styles.SearchBar}
             onClear={() => {
               this.setState({ showPredictions: true });
-              // this.props.changeVisibilityTo(false);
-              // this.props.changeVisibilityToSearch(true);
+              if (this.state.checkUnidentified) {
+                this.props.changeVisibilityTo(false);
+                this.props.changeVisibilityToSearch(true);
+              }
             }}
-            // onTouchStart={
-            //   () => {
-            //     // this.props.changeVisibilityTo(true);
-            //     // this.props.changeVisibilityToSearch(false);
-
-            //   }
-            // }
-            // onBlur={() => { this.props.changeVisibilityToSearch(true); this.props.changeVisibilityTo(false); }}
+            onTouchStart={
+               () => {
+                 if (this.state.checkUnidentified) {
+                   this.props.changeVisibilityTo(true);
+                   this.props.changeVisibilityToSearch(false);
+                 }
+               }
+             }
+            onBlur={() => {
+              if (this.state.checkUnidentified) {
+                this.props.changeVisibilityToSearch(true);
+                this.props.changeVisibilityTo(false);
+              }
+            }}
             blurOnSubmit
           />
         </View>

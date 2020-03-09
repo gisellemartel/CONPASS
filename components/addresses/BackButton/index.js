@@ -9,7 +9,7 @@ export default class BackButton extends Component {
     return (
 
       <View style={styles.container}>
-        <TouchableOpacity onPress={() => { this.props.visiblityState(false); }}>
+        <TouchableOpacity onPress={() => { this.props.visiblityState(false); this.props.changeVisibilityToSwitchCampus(true); }}>
           <Entypo name="chevron-left" size={32} color="black" />
         </TouchableOpacity>
       </View>

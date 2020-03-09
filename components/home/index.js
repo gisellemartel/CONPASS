@@ -25,7 +25,8 @@ class Home extends Component {
       },
       isVisible: false,
       isSearchVisible: true,
-      isGoVisible: false
+      isGoVisible: false,
+      isSwitchAvailableIndestination: true
     };
   }
 
@@ -52,6 +53,10 @@ class Home extends Component {
 
   changeVisibilityToGo = (visibility) => {
     this.setState({ isGoVisible: visibility });
+  }
+
+  changeVisibilityToSwitchCampus = (visibility) => {
+    this.setState({ isSwitchAvailableIndestination: visibility });
   }
 
   updateRegion2 = (newRegion2) => {
@@ -105,6 +110,7 @@ class Home extends Component {
         <SwitchCampuses
           updateRegion={this.updateRegion}
           visiblityState={this.state.isVisible}
+          isSwitchAvailableIndestination={this.state.isSwitchAvailableIndestination}
         />
 
         <WithinBuilding />
@@ -124,9 +130,18 @@ class Home extends Component {
         />
         )} */}
         <ToCircle
+          changeVisibilityToSwitchCampus={this.changeVisibilityToSwitchCampus}
           visibilityState={this.changeVisibilityToGo}
         />
-        {this.state.isGoVisible && <Addresses getRegion={this.getRegionFromAddresses} getCoordinates={this.getCoordinatesFromAddresses} visiblityState={this.changeVisibilityToGo} /> }
+        {this.state.isGoVisible
+        && (
+        <Addresses
+          changeVisibilityToSwitchCampus={this.changeVisibilityToSwitchCampus}
+          getRegion={this.getRegionFromAddresses}
+          getCoordinates={this.getCoordinatesFromAddresses}
+          visiblityState={this.changeVisibilityToGo}
+        />
+        ) }
       </View>
     );
   }

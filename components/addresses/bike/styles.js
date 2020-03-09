@@ -6,6 +6,8 @@ const styles = StyleSheet.create({
     top: 130,
     left: 150,
 
+    zIndex: 2,
+
   },
   currentLocation: {
     width: 25,

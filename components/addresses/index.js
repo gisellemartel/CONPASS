@@ -45,16 +45,14 @@ export default class Addresses extends Component {
       this.props.getCoordinates(newCoordinates);
     };
 
-  getPolylinePoint = (data) => {
-    this.setState({
-      encryptedLine: data
-    });
-  };
+    getPolylinePoint = (data) => {
+      this.setState({
+        encryptedLine: data
+      });
+    };
 
-
-  render() {
-    return (
-      <View style={styles.container}>
+    render() {
+      return (
         <View style={styles.searchContainer}>
           <SearchBar updateRegion={this.updateRegion} hideMenu={this.state.hide} />
           <SearchBarDestination
@@ -67,14 +65,17 @@ export default class Addresses extends Component {
           <Bus />
           <Bike />
           <Walking />
+          <View style={styles.container}>
+            <BackButton
+              visiblityState={this.props.visiblityState}
+              changeVisibilityToSwitchCampus={this.props.changeVisibilityToSwitchCampus}
+            />
+            <CurrentLocation />
+            <Destination />
+          </View>
         </View>
-        <BackButton visiblityState={this.props.visiblityState} />
-        <CurrentLocation />
 
-        <Destination />
-        <View />
-      </View>
 
-    );
-  }
+      );
+    }
 }

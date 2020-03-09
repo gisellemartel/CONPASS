@@ -125,12 +125,11 @@ export default class searchBarDestination extends Component {
             }}
             placeholder={placeholder}
             onChangeText={(destination) => {
-              destination.length === 0
-                // ? this.props.changeVisibilityTo(true) : this.props.changeVisibilityTo(false);
+              destination.length === 0;
+              // ? this.props.changeVisibilityTo(true) : this.props.changeVisibilityTo(false);
               return this.onChangeDestination(destination);
             }}
             value={this.state.destination}
-            style={styles.SearchBar}
             onClear={() => {
               this.setState({ showPredictions: true });
               // this.props.changeVisibilityTo(false);

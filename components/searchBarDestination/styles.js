@@ -3,22 +3,16 @@ import { StyleSheet } from 'react-native';
 const styles = StyleSheet.create({
   container: {
     backgroundColor: 'white',
-
     position: 'absolute',
     top: 75,
     width: '95%',
     zIndex: 3
-
   },
   view: {
     borderRadius: 15,
     zIndex: 3
   },
   Bar: {
-    width: '90%',
-    height: '100%',
-    display: 'flex',
-    flexDirection: 'row',
     alignItems: 'center'
   },
   Touch: {
@@ -26,35 +20,9 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     padding: 10,
     margin: 1,
+    zIndex: 30,
     borderRadius: 5,
   },
-  burger: {
-    resizeMode: 'contain',
-    width: 25,
-    height: 250,
-    margin: 10
-  },
-  sug: {
-    backgroundColor: '#F1F7FC',
-    height: '100%',
-  },
-  suggestions: {
-    color: 'black',
-    padding: 5,
-    width: '90%',
-    borderWidth: 0.5,
-    marginLeft: 5,
-    marginRight: 5,
-  },
-  SearchBar: {
-    margin: 20,
-    height: 40,
-
-    borderColor: '#9CD3D7',
-    borderWidth: 1,
-    borderRadius: 10,
-    borderWidth: 2
-  }
 });
 
 export default styles;

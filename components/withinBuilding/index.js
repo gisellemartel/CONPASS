@@ -42,6 +42,7 @@ export default class WithinBuilding extends Component {
     const { status } = await Permissions.askAsync(Permissions.LOCATION);
     if (status !== 'granted') {
       this.setState({
+        // eslint-disable-next-line react/no-unused-state
         errorMessage: 'Permission to access location was denied',
       });
       return;
