@@ -2,13 +2,16 @@
 /* eslint-disable react/no-unused-state */
 import React, { Component } from 'react';
 import { View } from 'react-native';
-import MapView, { Polygon, Polyline, PROVIDER_GOOGLE } from 'react-native-maps';
+import MapView, { Polygon, Polyline, PROVIDER_GOOGLE, } from 'react-native-maps';
 import buildings from '../../assets/polygons/polygons';
 import styles from './styles';
+
 
 export default class TheMap extends Component {
   constructor(props) {
     super(props);
+    this.mapRef = null;
+    this.focusOnBuilding = this.focusOnBuilding.bind(this);
     this.state = {
       coordinate: {
         latitude: 45.492409,
@@ -21,14 +24,24 @@ export default class TheMap extends Component {
 
   componentDidMount() {
     const { description } = this.props.updatedRegion;
-    this.setState({ region: description });
+    this.setState({ region: description, mapRef: this.mapRef });
+  }
+
+  focusOnBuilding(coordinates) {
+    this.state.mapRef.fitToCoordinates(coordinates, {
+      edgePadding: {
+        top: 10, right: 10, bottom: 10, left: 10
+      }
+    });
   }
 
   render() {
     return (
       <View style={styles.container}>
         <MapView
+          ref={(ref) => { this.mapRef = ref; }}
           provider={PROVIDER_GOOGLE}
+          key="map"
           region={this.props.updatedRegion}
           style={styles.mapStyle}
         >
@@ -43,6 +56,7 @@ export default class TheMap extends Component {
                 return (
                   <CustomPolygon
                     key={polygon.name}
+                    focusOnBuilding={this.focusOnBuilding}
                     coordinates={polygon.coordinates}
                     fillColor="rgba(255,135,135,0.5)"
                   />
@@ -64,14 +78,20 @@ export default class TheMap extends Component {
   }
 }
 
-function CustomPolygon({ onLayout, ...props }) {
-  const ref = React.useRef();
-
-  function onLayoutPolygon() {
-    if (ref.current) {
-      ref.current.setNativeProps({ fillColor: props.fillColor });
-    }
-    // call onLayout() from the props if you need it
+class CustomPolygon extends Component {
+  zoomBuilding(coordinates) {
+    this.props.focusOnBuilding(coordinates);
   }
-  return <Polygon ref={ref} onLayout={onLayoutPolygon} {...props} />;
+
+  render() {
+    return (
+      <Polygon
+        {...this.props}
+        tappable
+        onPress={() => {
+          this.zoomBuilding(this.props.coordinates);
+        }}
+      />
+    );
+  }
 }
