@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unused-state */
 /* eslint-disable no-unused-expressions */
 import React, { Component } from 'react';
 import {
@@ -65,8 +64,8 @@ export default class searchBar extends Component {
       const locations = gjson.result.geometry.location;
       this.setState({
         region: {
-          latitude: locations.lat,
-          longitude: locations.lng,
+          latitude: locations ? locations.lat : 45.492409,
+          longitude: locations ? locations.lng : -73.582153,
           latitudeDelta: 0.05,
           longitudeDelta: 0.05
         }
