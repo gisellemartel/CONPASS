@@ -77,7 +77,7 @@ export default class TheMap extends Component {
   focusOnBuilding(coordinates) {
     this.state.mapRef.fitToCoordinates(coordinates, {
       edgePadding: {
-        top: 10, right: 10, bottom: 10, left: 10
+        top: 10, right: 20, bottom: 10, left: 20
       }
     });
   }
