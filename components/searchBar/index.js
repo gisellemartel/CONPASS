@@ -39,7 +39,8 @@ export default class searchBar extends Component {
     } else {
       this.setState({ hideMenu: false });
     }
-    if (this.props.changeVisibilityTo === undefined || this.props.changeVisibilityToSearch === undefined) {
+    if (this.props.changeVisibilityTo === undefined
+      || this.props.changeVisibilityToSearch === undefined) {
       this.setState({ checkUnidentified: false });
     }
   }

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-  View, Keyboard, TouchableOpacity, TextInput, Text
+  View, Keyboard, TouchableOpacity, Text
 } from 'react-native';
 import i18n from 'i18n-js';
 import { SearchBar } from 'react-native-elements';
@@ -14,7 +14,6 @@ export default class searchBarDestination extends Component {
       showPredictions: true,
       destination: '',
       predictions: [],
-      locations: '',
       destinationRegion: {
         latitude: 0,
         longitude: 0,
@@ -47,11 +46,10 @@ export default class searchBarDestination extends Component {
     try {
       const georesult = await fetch(geoUrl);
       const gjson = await georesult.json();
-      this.setState({ locations: gjson.result.geometry.location });
       this.setState({
         destinationRegion: {
-          latitude: this.state.locations.lat,
-          longitude: this.state.locations.lng,
+          latitude: gjson.result.geometry.location.lat,
+          longitude: gjson.result.geometry.location.lng,
 
         }
       });
@@ -91,7 +89,7 @@ export default class searchBarDestination extends Component {
 
 
   render() {
-    const placeholder = this.state.isMounted ? i18n.t('search') : 'where do you want to go to?';
+    const placeholder = this.state.isMounted ? i18n.t('search') : 'Where do you want to go to?';
     const predictions = this.state.predictions.map((prediction) => {
       return (
         <View key={prediction.id} style={styles.view}>
@@ -125,8 +123,6 @@ export default class searchBarDestination extends Component {
             }}
             placeholder={placeholder}
             onChangeText={(destination) => {
-              destination.length === 0;
-              // ? this.props.changeVisibilityTo(true) : this.props.changeVisibilityTo(false);
               return this.onChangeDestination(destination);
             }}
             value={this.state.destination}
