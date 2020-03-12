@@ -3,9 +3,13 @@ import { View } from 'react-native';
 import TheMap from '../map';
 import SearchBar from '../searchBar';
 import Shuttle from '../shuttleInformation';
+import SearchBarDestination from '../searchBarDestination';
 import styles from './styles';
 import SwitchCampuses from '../switchCampuses';
 import WithinBuilding from '../withinBuilding';
+import ToCircle from '../toCircle';
+import Addresses from '../addresses';
+
 
 class Home extends Component {
   constructor(props) {
@@ -16,9 +20,12 @@ class Home extends Component {
         latitude: 45.492409,
         longitude: -73.582153,
         latitudeDelta: 0.04,
-        longitudeDelta: 0.04,
+        longitudeDelta: 0.04
       },
-      isVisible: true,
+      isVisible: false,
+      isSearchVisible: true,
+      isGoVisible: false,
+      isSwitchAvailableIndestination: true
     };
   }
 
@@ -33,47 +40,107 @@ class Home extends Component {
         longitudeDelta: 0.05
       }
     });
-  }
+  };
 
-  // Function : change the visiblity of the switchCampuses component
-  // parameter: boolean to set the visibility (false: unvisible)
   changeVisibilityTo = (visibility) => {
     this.setState({ isVisible: visibility });
+  };
+
+  changeVisibilityToSearch = (visibility) => {
+    this.setState({ isSearchVisible: visibility });
+  };
+
+  changeVisibilityToGo = (visibility) => {
+    this.setState({ isGoVisible: visibility });
   }
 
-  // Function: Updates coordinates state to draw polyline
-  // Parameter: object with latitudes and longitudes
+  changeVisibilityToSwitchCampus = (visibility) => {
+    this.setState({ isSwitchAvailableIndestination: visibility });
+  }
+
+  updateRegion2 = (newRegion2) => {
+    this.setState({
+      region2: {
+        latitude: newRegion2.latitude,
+        longitude: newRegion2.longitude,
+        latitudeDelta: 0.05,
+        longitudeDelta: 0.05
+      }
+    });
+  };
+
   updateCoordinates = (newCoordinates) => {
     this.setState({
       coordinates: newCoordinates
     });
-  }
+  };
 
   getPolylinePoint = (data) => {
     this.setState({
       encryptedLine: data
     });
+  };
+
+    getRegionFromAddresses=(region) => {
+      this.updateRegion(region);
+    };
+
+  getCoordinatesFromAddresses=(coordinates) => {
+    this.updateCoordinates(coordinates);
   }
 
   render() {
     return (
       <View style={styles.container}>
+
         <TheMap
           updatedRegion={this.state.region}
           updatedCoordinates={this.state.coordinates}
           encryptedLine={this.state.encryptedLine}
         />
+        {!this.state.isGoVisible && (
         <SearchBar
           navigation={this.props.navigation}
           updateRegion={this.updateRegion}
           changeVisibilityTo={this.changeVisibilityTo}
+          changeVisibilityToSearch={this.changeVisibilityToSearch}
         />
-        <SwitchCampuses updateRegion={this.updateRegion} visiblityState={this.state.isVisible} />
+        )}
+        <SwitchCampuses
+          updateRegion={this.updateRegion}
+          visiblityState={this.state.isVisible}
+          isSwitchAvailableIndestination={this.state.isSwitchAvailableIndestination}
+        />
+
         <WithinBuilding />
         <Shuttle
           coordinateCallback={this.updateCoordinates}
           getPolylinePoint={this.getPolylinePoint}
         />
+
+        {/* {this.state.isSearchVisible && (
+        <SearchBarDestination
+          changeVisibilityTo={this.changeVisibilityTo}
+
+          updatedRegion={this.state.region}
+          callBack2={this.updateRegion2}
+          coordinateCallback={this.updateCoordinates}
+          getPolylinePoint={this.getPolylinePoint}
+        />
+        )} */}
+        <ToCircle
+          changeVisibilityToSwitchCampus={this.changeVisibilityToSwitchCampus}
+          visibilityState={this.changeVisibilityToGo}
+        />
+        {this.state.isGoVisible
+        && (
+        <Addresses
+          changeVisibilityToSwitchCampus={this.changeVisibilityToSwitchCampus}
+          getRegion={this.getRegionFromAddresses}
+          getCoordinates={this.getCoordinatesFromAddresses}
+          visiblityState={this.changeVisibilityToGo}
+        />
+        ) }
       </View>
     );
   }

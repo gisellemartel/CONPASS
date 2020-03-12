@@ -5,9 +5,10 @@ import {
   Image
 } from 'react-native';
 import { SearchBar } from 'react-native-elements';
+// import SearchBar from 'react-native-material-design-searchbar';
+// import SearchBar from 'react-native-search-box';
 import i18n from 'i18n-js';
 import styles from './styles';
-
 import SetLocaleContext from '../../localization-context';
 import burger from './burger.png';
 
@@ -25,12 +26,23 @@ export default class searchBar extends Component {
         longitudeDelta: 0.0421
       },
       isMounted: false,
+      showMenu: true,
+      checkUnidentified: true
     };
   }
 
   componentDidMount() {
     SetLocaleContext();
     this.setState({ isMounted: true });
+    if (this.props.hideMenu === undefined) {
+      this.setState({ hideMenu: true });
+    } else {
+      this.setState({ hideMenu: false });
+    }
+    if (this.props.changeVisibilityTo === undefined
+      || this.props.changeVisibilityToSearch === undefined) {
+      this.setState({ checkUnidentified: false });
+    }
   }
 
   // Function: When entering text searchbar, captures all the possible predictions from google's api
@@ -79,7 +91,6 @@ export default class searchBar extends Component {
 
   render() {
     const placeholder = this.state.isMounted ? i18n.t('search') : 'Search...';
-
     // Predictions mapped and formmated from the current state predictions
     const predictions = this.state.predictions.map((prediction) => {
       return (
@@ -90,7 +101,9 @@ export default class searchBar extends Component {
               this.setState({ destination: prediction.description });
               this.getLatLong(prediction.place_id);
               this.setState({ showPredictions: false });
-              this.props.changeVisibilityTo(false);
+              if (this.state.checkUnidentified) {
+                this.props.changeVisibilityTo(false);
+              }
               Keyboard.dismiss();
             }}
           >
@@ -104,26 +117,52 @@ export default class searchBar extends Component {
       <View style={styles.container}>
         <View>
           <SearchBar
-            searchIcon={<Icon navigation={this.props.navigation} />}
+            platform="android"
+            autoCorrect={false}
+            padding={5}
+            returnKeyType="search"
             lightTheme
+            containerStyle={{
+              borderRadius: 10,
+              borderWidth: 1,
+              height: 45,
+
+              justifyContent: 'center'
+
+            }}
+            searchIcon={this.state.hideMenu && <Icon navigation={this.props.navigation} />}
             placeholder={placeholder}
             onChangeText={(destination) => {
-              destination.length === 0
-                ? this.props.changeVisibilityTo(true) : this.props.changeVisibilityTo(false);
+              if (this.state.checkUnidentified) {
+                destination.length === 0
+                  // eslint-disable-next-line max-len
+                  ? this.props.changeVisibilityTo(true) && this.props.changeVisibilityToSearch(true) : this.props.changeVisibilityTo(false) && this.props.changeVisibilityToSearch(false);
+              }
               return this.onChangeDestination(destination);
             }}
             value={this.state.destination}
             style={styles.SearchBar}
             onClear={() => {
               this.setState({ showPredictions: true });
-              this.props.changeVisibilityTo(false);
+              if (this.state.checkUnidentified) {
+                this.props.changeVisibilityTo(false);
+                this.props.changeVisibilityToSearch(true);
+              }
             }}
             onTouchStart={
-              () => {
-                this.props.changeVisibilityTo(true);
+               () => {
+                 if (this.state.checkUnidentified) {
+                   this.props.changeVisibilityTo(true);
+                   this.props.changeVisibilityToSearch(false);
+                 }
+               }
+             }
+            onBlur={() => {
+              if (this.state.checkUnidentified) {
+                this.props.changeVisibilityToSearch(true);
+                this.props.changeVisibilityTo(false);
               }
-            }
-            onBlur={() => { this.props.changeVisibilityTo(false); }}
+            }}
             blurOnSubmit
           />
         </View>
