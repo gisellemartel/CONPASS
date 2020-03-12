@@ -85,6 +85,8 @@ export default class WithinBuilding extends Component {
   }
 
   // finds if a pair of coordinates are inside a polygon
+  // Algorithm comes from: https://stackoverflow.com/questions/11716268/point-in-polygon-algorithm?lq=1
+  // Date Consulted: February 29th, 2020
   isInPolygon(nvert, vertx, verty, testx, testy) {
     let i;
     let j;
