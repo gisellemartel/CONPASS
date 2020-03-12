@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
-import { connect } from 'react-redux';
 import TheMap from '../map';
 import SearchBar from '../searchBar';
 import Shuttle from '../shuttleInformation';
@@ -147,12 +146,4 @@ class Home extends Component {
   }
 }
 
-/**
- * Redux store listener. This function will update
- * the connected component state whenever the store updates.
- */
-const mapStateToProps = (state) => {
-  return { language: state.language };
-};
-
-export default connect(mapStateToProps)(Home);
+export default Home;
