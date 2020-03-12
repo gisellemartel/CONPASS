@@ -4,7 +4,9 @@ import MapView, {
   Polygon, Polyline, PROVIDER_GOOGLE
 } from 'react-native-maps';
 import buildings from '../../assets/polygons/polygons';
+import CustomPolygon from './customPolygon';
 import styles from './styles';
+import Building from './building/index';
 
 export default class TheMap extends Component {
   /**
@@ -21,6 +23,10 @@ export default class TheMap extends Component {
         longitude: -73.582153,
       },
       nearbyMarkers: []
+      coordinates: '',
+      encryptedLine: '',
+      interiorMode: false,
+
     };
     this.selectPoi = this.selectPoi.bind(this);
   }
@@ -81,10 +87,13 @@ export default class TheMap extends Component {
         top: 10, right: 20, bottom: 10, left: 20
       }
     });
+    this.setState({ interiorMode: true });
   }
 
+  // do not put conponents that dont belong to react-native-maps API inside the MapView
   render() {
     const currRef = (ref) => { this.mapRef = ref; };
+    const { interiorMode } = this.state;
     return (
       <View style={styles.container}>
         <MapView
@@ -105,20 +114,17 @@ export default class TheMap extends Component {
           />
           )}
           {buildings.map((building) => {
+            const { polygon } = building;
             return (
-              building.polygons.map((polygon) => {
-                return (
-                  <CustomPolygon
-                    key={polygon.name}
-                    focusOnBuilding={this.focusOnBuilding}
-                    coordinates={polygon.coordinates}
-                    fillColor="rgba(255,135,135,0.5)"
-                  />
-                );
-              })
+              <CustomPolygon
+                key={building.name}
+                {...building}
+                focusOnBuilding={this.focusOnBuilding}
+                coordinates={polygon.coordinates}
+                fillColor="rgba(255,135,135,0.5)"
+              />
             );
           })}
-
           {
             // Add different colored marker at location if nothing is nearby
             this.props.nearbyMarkers.length > 0
