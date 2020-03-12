@@ -1,6 +1,6 @@
 /* eslint-disable react/no-unused-state */
 import React, { Component } from 'react';
-import { View} from 'react-native';
+import { View } from 'react-native';
 import TheMap from '../map';
 import SearchBar from '../searchBar';
 import Location from '../location';
@@ -8,6 +8,8 @@ import SwitchCampuses from '../switchCampuses';
 import SetPath from '../setPath';
 import Addresses from '../addresses';
 import styles from './styles';
+import WithinBuilding from '../withinBuilding';
+import Building from '../map/building/index';
 
 class Home extends Component {
   constructor(props) {
@@ -39,7 +41,15 @@ class Home extends Component {
 
       showDirectionsMenu: false,
       showCampusToggle: false
+      isVisible: true,
+      interiorMode: false,
     };
+    this.setBuilding = this.setBuilding.bind(this);
+  }
+
+  setBuilding(building, region) {
+    console.log(building, region);
+    this.setState({region, interiorMode: true});
   }
 
   /**
@@ -165,6 +175,7 @@ class Home extends Component {
   };
 
 
+
   render() {
     return (
       <View style={styles.container}>
@@ -175,6 +186,8 @@ class Home extends Component {
           getDestinationIfSet={this.getDestinationIfSet}
           updateRegionCloser={this.updateRegionCloser}
           nearbyMarkers={this.state.nearbyMarkers}
+          encryptedLine={this.state.encryptedLine}
+          setBuilding={this.setBuilding}
         />
         {!this.state.showDirectionsMenu && (
         <SearchBar
@@ -212,6 +225,7 @@ class Home extends Component {
             currentBuildingPred={this.state.currentBuildingAddress}
           />
         )}
+        {this.state.interiorMode && <Building />}
       </View>
     );
   }
