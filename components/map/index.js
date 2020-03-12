@@ -33,7 +33,6 @@ export default class TheMap extends Component {
     return (
       <View style={styles.container}>
         <MapView
-
           provider={PROVIDER_GOOGLE}
           region={this.props.updatedRegion}
           style={styles.mapStyle}

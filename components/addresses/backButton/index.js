@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import { View, TouchableOpacity } from 'react-native';
-import { Entypo } from '@expo/vector-icons';
-import styles from './styles';
+import React, { Component } from 'react';
+import { View, TouchableOpacity } from 'react-native';
+import { Entypo } from '@expo/vector-icons';
+import styles from './styles';
 
 
 export default class BackButton extends Component {
@@ -9,7 +9,11 @@ export default class BackButton extends Component {
     return (
 
       <View style={styles.container}>
-        <TouchableOpacity onPress={() => { this.props.visiblityState(false); this.props.changeVisibilityToSwitchCampus(true); }}>
+        <TouchableOpacity onPress={() => {
+          this.props.visiblityState(false);
+          this.props.changeVisibilityToSwitchCampus(true);
+        }}
+        >
           <Entypo name="chevron-left" size={32} color="black" />
         </TouchableOpacity>
       </View>

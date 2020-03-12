@@ -3,12 +3,12 @@ import { View } from 'react-native';
 import TheMap from '../map';
 import SearchBar from '../searchBar';
 import Shuttle from '../shuttleInformation';
-import SearchBarDestination from '../searchBarDestination';
 import styles from './styles';
 import SwitchCampuses from '../switchCampuses';
 import WithinBuilding from '../withinBuilding';
 import ToCircle from '../toCircle';
 import Addresses from '../addresses';
+import Location from '../location';
 
 
 class Home extends Component {
@@ -58,17 +58,6 @@ class Home extends Component {
     this.setState({ isSwitchAvailableIndestination: visibility });
   }
 
-  updateRegion2 = (newRegion2) => {
-    this.setState({
-      region2: {
-        latitude: newRegion2.latitude,
-        longitude: newRegion2.longitude,
-        latitudeDelta: 0.05,
-        longitudeDelta: 0.05
-      }
-    });
-  };
-
   updateCoordinates = (newCoordinates) => {
     this.setState({
       coordinates: newCoordinates
@@ -92,7 +81,6 @@ class Home extends Component {
   render() {
     return (
       <View style={styles.container}>
-
         <TheMap
           updatedRegion={this.state.region}
           updatedCoordinates={this.state.coordinates}
@@ -117,21 +105,11 @@ class Home extends Component {
           coordinateCallback={this.updateCoordinates}
           getPolylinePoint={this.getPolylinePoint}
         />
-
-        {/* {this.state.isSearchVisible && (
-        <SearchBarDestination
-          changeVisibilityTo={this.changeVisibilityTo}
-
-          updatedRegion={this.state.region}
-          callBack2={this.updateRegion2}
-          coordinateCallback={this.updateCoordinates}
-          getPolylinePoint={this.getPolylinePoint}
-        />
-        )} */}
         <ToCircle
           changeVisibilityToSwitchCampus={this.changeVisibilityToSwitchCampus}
           visibilityState={this.changeVisibilityToGo}
         />
+        <Location updateRegion={this.updateRegion} />
         {this.state.isGoVisible
         && (
         <Addresses
