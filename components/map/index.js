@@ -1,28 +1,25 @@
 /* eslint-disable class-methods-use-this */
 /* eslint-disable react/no-unused-state */
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
 import MapView, { Polyline, PROVIDER_GOOGLE, } from 'react-native-maps';
 import buildings from '../../assets/polygons/polygons';
 import CustomPolygon from './customPolygon';
 import styles from './styles';
-import Building from './building/index';
 
+let region = '';
 
 export default class TheMap extends Component {
   constructor(props) {
     super(props);
     this.mapRef = null;
     this.focusOnBuilding = this.focusOnBuilding.bind(this);
+    this.onRegionChange = this.onRegionChange.bind(this);
     this.state = {
       coordinate: {
         latitude: 45.492409,
         longitude: -73.582153,
-      },
-      coordinates: '',
-      encryptedLine: '',
-      interiorMode: false,
-
+      }
     };
   }
 
@@ -31,18 +28,29 @@ export default class TheMap extends Component {
     this.setState({ region: description, mapRef: this.mapRef });
   }
 
-  focusOnBuilding(coordinates) {
+  onRegionChange(newRegion) {
+    region = newRegion;
+  }
+
+  focusOnBuilding(building) {
+    const { coordinates } = building.polygon;
+
     this.state.mapRef.fitToCoordinates(coordinates, {
       edgePadding: {
         top: 10, right: 20, bottom: 10, left: 20
       }
     });
-    this.setState({ interiorMode: true });
+    
+    // they do not provide a callback when the fitToCoordinates is complete. Setting at imer for the animation to finish
+    setTimeout(() => {
+      const getRegion = region;
+      this.props.setBuilding(building, getRegion);
+    }, 500);
   }
+
 
   // do not put conponents that dont belong to react-native-maps API inside the MapView
   render() {
-    const { interiorMode } = this.state;
     return (
       <View style={styles.container}>
         <MapView
@@ -50,6 +58,7 @@ export default class TheMap extends Component {
           provider={PROVIDER_GOOGLE}
           key="map"
           region={this.props.updatedRegion}
+          onRegionChange={this.onRegionChange}
           style={styles.mapStyle}
         >
           <Polyline
@@ -58,13 +67,11 @@ export default class TheMap extends Component {
             strokeColor="black"
           />
           {buildings.map((building) => {
-            const { polygon } = building;
             return (
               <CustomPolygon
                 key={building.name}
-                {...building}
+                building={building}
                 focusOnBuilding={this.focusOnBuilding}
-                coordinates={polygon.coordinates}
                 fillColor="rgba(255,135,135,0.5)"
               />
             );
@@ -78,7 +85,6 @@ export default class TheMap extends Component {
             description="description"
           />
         </MapView>
-        {<Building /> }
       </View>
     );
   }

@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { View} from 'react-native';
+import { View } from 'react-native';
 import TheMap from '../map';
 import SearchBar from '../searchBar';
 import Shuttle from '../shuttleInformation';
 import styles from './styles';
 import SwitchCampuses from '../switchCampuses';
 import WithinBuilding from '../withinBuilding';
+import Building from '../map/building/index';
 
 class Home extends Component {
   constructor(props) {
@@ -19,7 +20,14 @@ class Home extends Component {
         longitudeDelta: 0.04,
       },
       isVisible: true,
+      interiorMode: false,
     };
+    this.setBuilding = this.setBuilding.bind(this);
+  }
+
+  setBuilding(building, region) {
+    console.log(building, region);
+    this.setState({region, interiorMode: true});
   }
 
   // Function : updates the currently set region to a new region
@@ -55,6 +63,7 @@ class Home extends Component {
     });
   }
 
+
   render() {
     return (
       <View style={styles.container}>
@@ -62,6 +71,7 @@ class Home extends Component {
           updatedRegion={this.state.region}
           updatedCoordinates={this.state.coordinates}
           encryptedLine={this.state.encryptedLine}
+          setBuilding={this.setBuilding}
         />
         <SearchBar
           navigation={this.props.navigation}
@@ -74,6 +84,7 @@ class Home extends Component {
           coordinateCallback={this.updateCoordinates}
           getPolylinePoint={this.getPolylinePoint}
         />
+        {this.state.interiorMode && <Building />}
       </View>
     );
   }

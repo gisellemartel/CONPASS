@@ -2,20 +2,20 @@ import React, { Component } from 'react';
 import { Polygon } from 'react-native-maps';
 
 class CustomPolygon extends Component {
-  
-  zoomBuilding(coordinates) {
-    this.props.focusOnBuilding(coordinates);
+
+  zoomBuilding() {
+    const { building } = this.props;
+    this.props.focusOnBuilding(building);
   }
 
   render() {
-    console.log(this.props);
-    const { coordinates } = this.props;
+    const { building } = this.props;
     return (
       <Polygon
-        coordinates={coordinates}
+        coordinates={building.polygon.coordinates}
         tappable
         onPress={() => {
-          this.zoomBuilding(coordinates);
+          this.zoomBuilding();
         }}
       />
     );
