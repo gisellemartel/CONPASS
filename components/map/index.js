@@ -1,10 +1,12 @@
 /* eslint-disable class-methods-use-this */
 /* eslint-disable react/no-unused-state */
 import React, { Component } from 'react';
-import { View } from 'react-native';
-import MapView, { Polygon, Polyline, PROVIDER_GOOGLE, } from 'react-native-maps';
+import { View, Text } from 'react-native';
+import MapView, { Polyline, PROVIDER_GOOGLE, } from 'react-native-maps';
 import buildings from '../../assets/polygons/polygons';
+import CustomPolygon from './customPolygon';
 import styles from './styles';
+import Building from './building/index';
 
 
 export default class TheMap extends Component {
@@ -18,7 +20,9 @@ export default class TheMap extends Component {
         longitude: -73.582153,
       },
       coordinates: '',
-      encryptedLine: ''
+      encryptedLine: '',
+      interiorMode: false,
+
     };
   }
 
@@ -33,9 +37,12 @@ export default class TheMap extends Component {
         top: 10, right: 20, bottom: 10, left: 20
       }
     });
+    this.setState({ interiorMode: true });
   }
 
+  // do not put conponents that dont belong to react-native-maps API inside the MapView
   render() {
+    const { interiorMode } = this.state;
     return (
       <View style={styles.container}>
         <MapView
@@ -51,17 +58,15 @@ export default class TheMap extends Component {
             strokeColor="black"
           />
           {buildings.map((building) => {
+            const { polygon } = building;
             return (
-              building.polygons.map((polygon) => {
-                return (
-                  <CustomPolygon
-                    key={polygon.name}
-                    focusOnBuilding={this.focusOnBuilding}
-                    coordinates={polygon.coordinates}
-                    fillColor="rgba(255,135,135,0.5)"
-                  />
-                );
-              })
+              <CustomPolygon
+                key={building.name}
+                {...building}
+                focusOnBuilding={this.focusOnBuilding}
+                coordinates={polygon.coordinates}
+                fillColor="rgba(255,135,135,0.5)"
+              />
             );
           })}
           <MapView.Marker
@@ -73,25 +78,8 @@ export default class TheMap extends Component {
             description="description"
           />
         </MapView>
+        {<Building /> }
       </View>
-    );
-  }
-}
-
-class CustomPolygon extends Component {
-  zoomBuilding(coordinates) {
-    this.props.focusOnBuilding(coordinates);
-  }
-
-  render() {
-    return (
-      <Polygon
-        {...this.props}
-        tappable
-        onPress={() => {
-          this.zoomBuilding(this.props.coordinates);
-        }}
-      />
     );
   }
 }
