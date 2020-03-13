@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import {
   View, Image, Alert, Linking
 } from 'react-native';
+import i18n from 'i18n-js';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import * as Permissions from 'expo-permissions';
 import * as ExpoLocation from 'expo-location';
 import styles from './styles';
 import locateMe from './locate-me.png';
-
 
 export default class Location extends Component {
   constructor(props) {
@@ -36,12 +36,13 @@ export default class Location extends Component {
     }, () => { this.props.updateRegion(this.state.region); });
   }
 
+
   // Method that will be called in the event that the user has their location services disabled
   displayErrorAlert() {
-    Alert.alert('Location Services Required',
-      'Location services has not been enabled. Please allow this app to use your location.',
+    Alert.alert(i18n.t('LOCATION_ALERT_TITLE'),
+      i18n.t('LOCATION_ALERT_MESSAGE'),
       [
-        { text: 'Open Settings', onPress: () => { Linking.openURL('app-settings:'); } }
+        { text: i18n.t('LOCATION_ALERT_BUTTON'), onPress: () => { Linking.openURL('app-settings:'); } }
       ]);
   }
 
