@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { View } from 'react-native';
 import TheMap from '../map';
 import SearchBar from '../searchBar';
-import Shuttle from '../shuttleInformation';
 import styles from './styles';
 import SwitchCampuses from '../switchCampuses';
 import WithinBuilding from '../withinBuilding';
@@ -112,10 +111,6 @@ class Home extends Component {
         />
 
         <WithinBuilding />
-        <Shuttle
-          coordinateCallback={this.updateCoordinates}
-          getPolylinePoint={this.getPolylinePoint}
-        />
         <ToCircle
           changeVisibilityToSwitchCampus={this.changeVisibilityToSwitchCampus}
           visibilityState={this.changeVisibilityToGo}
