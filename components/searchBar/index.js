@@ -66,7 +66,6 @@ export default class searchBar extends Component {
   // Parameter: place_id of the chosen prediction
 
   async getLatLong(prediction) {
-    this.setState({ description: prediction });
     const key = 'AIzaSyCqNODizSqMIWbKbO8Iq3VWdBcK846n_3w';
     const geoUrl = `https://maps.googleapis.com/maps/api/place/details/json?key=${key}&placeid=${prediction}`;
 
