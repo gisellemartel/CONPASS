@@ -42,6 +42,17 @@ class Home extends Component {
     });
   };
 
+  updateDestinationRegion = (newRegion) => {
+    this.setState({
+      region2: {
+        latitude: newRegion.latitude,
+        longitude: newRegion.longitude,
+        latitudeDelta: 0.05,
+        longitudeDelta: 0.05
+      }
+    });
+  };
+
   changeVisibilityTo = (visibility) => {
     this.setState({ isVisible: visibility });
   };
