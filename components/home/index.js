@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unused-state */
 import React, { Component } from 'react';
 import { View } from 'react-native';
 import TheMap from '../map';
@@ -43,7 +44,7 @@ class Home extends Component {
 
   updateDestinationRegion = (newRegion) => {
     this.setState({
-      region2: {
+      region: {
         latitude: newRegion.latitude,
         longitude: newRegion.longitude,
         latitudeDelta: 0.05,
@@ -123,6 +124,7 @@ class Home extends Component {
           getRegion={this.getRegionFromAddresses}
           getCoordinates={this.getCoordinatesFromAddresses}
           visiblityState={this.changeVisibilityToGo}
+          navigation={this.props.navigation}
         />
         ) }
       </View>
