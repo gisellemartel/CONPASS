@@ -62,7 +62,7 @@ export default class Addresses extends Component {
             getPolylinePoint={this.getPolylinePoint}
           />
           <Car />
-          <Bus />
+          <Bus navigation={this.props.navigation} />
           <Bike />
           <Walking />
           <View style={styles.container}>
