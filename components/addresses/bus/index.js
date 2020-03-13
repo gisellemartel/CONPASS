@@ -9,7 +9,10 @@ export default class Bus extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => {
+          // return this.props.navigation.navigate('');
+        }}
+        >
           <Image style={styles.currentLocation} source={bus} />
         </TouchableOpacity>
       </View>

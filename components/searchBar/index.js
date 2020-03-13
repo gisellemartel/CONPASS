@@ -123,7 +123,6 @@ export default class searchBar extends Component {
               borderRadius: 10,
               borderWidth: 1,
               height: 45,
-
               justifyContent: 'center'
 
             }}
