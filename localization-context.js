@@ -7,6 +7,7 @@ const SetLocaleContext = () => {
     en: {
       welcome: 'Hello',
       search: 'Search...',
+      shuttleBusSchedule: 'Shuttle Bus Schedule',
       calendar: 'Calendar',
       accessibility: 'Accessibility',
       help: 'Help',
@@ -16,6 +17,7 @@ const SetLocaleContext = () => {
       welcome: 'Bonjour',
       search: 'Chercher...',
       calendar: 'Calendrier',
+      shuttleBusSchedule: 'Horaire des Navettes',
       accessibility: 'Accessibilité',
       help: 'Aide',
       back: 'Retour'
@@ -24,6 +26,7 @@ const SetLocaleContext = () => {
       welcome: 'Hola',
       search: 'Buscar...',
       calendar: 'Calendario',
+      shuttleBusSchedule: 'Horario de Autobuses',
       accessibility: 'Accesibilidad',
       help: 'Ayuda',
       back: 'Atrás'
