@@ -1,12 +1,17 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, Button, TouchableOpacity } from 'react-native';
 import styles from './styles';
 
 class Building extends Component {
+
+  end() {
+    console.log('okkkk');
+  }
+
   render() {
     return (
       <View style={styles.container}>
-        <Text>Whats the word word</Text>
+        <Button title={'quit'} onPress={() => { this.end()}} />
       </View>
     );
   }

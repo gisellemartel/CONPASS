@@ -92,8 +92,9 @@ export default class TheMap extends Component {
         top: 10, right: 20, bottom: 10, left: 20
       }
     });
-    
-    // they do not provide a callback when the fitToCoordinates is complete. Setting at imer for the animation to finish
+
+    // they do not provide a callback when the fitToCoordinates is complete.
+    // Setting at timer for the animation to finish
     setTimeout(() => {
       const getRegion = region;
       this.props.setBuilding(building, getRegion);
@@ -128,7 +129,7 @@ export default class TheMap extends Component {
           {buildings.map((building) => {
             return (
               <CustomPolygon
-                key={building.name}
+                key={building.buildingName + building.address}
                 building={building}
                 focusOnBuilding={this.focusOnBuilding}
                 fillColor="rgba(255,135,135,0.5)"

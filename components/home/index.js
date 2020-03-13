@@ -44,13 +44,10 @@ class Home extends Component {
       isVisible: true,
       interiorMode: false,
     };
-    this.setBuilding = this.setBuilding.bind(this);
+    this.interiorModeOn = this.interiorModeOn.bind(this);
+    this.interiorModeOff = this.interiorModeOff.bind(this);
   }
 
-  setBuilding(building, region) {
-    console.log(building, region);
-    this.setState({region, interiorMode: true});
-  }
 
   /**
    * updates region and passes the new region 'map' component.
@@ -175,10 +172,20 @@ class Home extends Component {
   };
 
 
+  // Activates interior mode when building is clicked on
+  // use the building data to render floors
+  interiorModeOn(building, region) {
+    this.setState({ region, interiorMode: true });
+  }
+
+  interiorModeOff() {
+    this.setState({ interiorMode: false });
+  }
 
   render() {
     return (
       <View style={styles.container}>
+        {/* zIndex=1 */}
         <TheMap
           updatedCoordinates={this.state.coordinates}
           updatedRegion={this.state.presetRegion}
@@ -187,9 +194,9 @@ class Home extends Component {
           updateRegionCloser={this.updateRegionCloser}
           nearbyMarkers={this.state.nearbyMarkers}
           encryptedLine={this.state.encryptedLine}
-          setBuilding={this.setBuilding}
+          setBuilding={this.interiorModeOn}
         />
-        {!this.state.showDirectionsMenu && (
+        {(!this.showDirectionsMenu &&
         <SearchBar
           getDestinationIfSet={this.getDestinationIfSet}
           navigation={this.props.navigation}
