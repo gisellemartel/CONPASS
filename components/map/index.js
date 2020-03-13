@@ -18,7 +18,6 @@ export default class TheMap extends Component {
         longitude: -73.582153,
       },
       coordinates: '',
-      encryptedLine: ''
     };
   }
 

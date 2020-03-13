@@ -3,12 +3,11 @@ import { View } from 'react-native';
 import TheMap from '../map';
 import SearchBar from '../searchBar';
 import Shuttle from '../shuttleInformation';
-import SearchBarDestination from '../searchBarDestination';
-import styles from './styles';
 import SwitchCampuses from '../switchCampuses';
 import WithinBuilding from '../withinBuilding';
 import ToCircle from '../toCircle';
 import Addresses from '../addresses';
+import styles from './styles';
 
 
 class Home extends Component {
@@ -23,6 +22,7 @@ class Home extends Component {
         longitudeDelta: 0.04
       },
       isVisible: false,
+      // eslint-disable-next-line react/no-unused-state
       isSearchVisible: true,
       isGoVisible: false,
       isSwitchAvailableIndestination: true
@@ -47,6 +47,7 @@ class Home extends Component {
   };
 
   changeVisibilityToSearch = (visibility) => {
+    // eslint-disable-next-line react/no-unused-state
     this.setState({ isSearchVisible: visibility });
   };
 
@@ -81,9 +82,9 @@ class Home extends Component {
     });
   };
 
-    getRegionFromAddresses=(region) => {
-      this.updateRegion(region);
-    };
+  getRegionFromAddresses=(region) => {
+    this.updateRegion(region);
+  };
 
   getCoordinatesFromAddresses=(coordinates) => {
     this.updateCoordinates(coordinates);
@@ -111,23 +112,11 @@ class Home extends Component {
           visiblityState={this.state.isVisible}
           isSwitchAvailableIndestination={this.state.isSwitchAvailableIndestination}
         />
-
         <WithinBuilding />
         <Shuttle
           coordinateCallback={this.updateCoordinates}
           getPolylinePoint={this.getPolylinePoint}
         />
-
-        {/* {this.state.isSearchVisible && (
-        <SearchBarDestination
-          changeVisibilityTo={this.changeVisibilityTo}
-
-          updatedRegion={this.state.region}
-          callBack2={this.updateRegion2}
-          coordinateCallback={this.updateCoordinates}
-          getPolylinePoint={this.getPolylinePoint}
-        />
-        )} */}
         <ToCircle
           changeVisibilityToSwitchCampus={this.changeVisibilityToSwitchCampus}
           visibilityState={this.changeVisibilityToGo}

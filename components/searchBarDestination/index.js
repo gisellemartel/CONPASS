@@ -15,10 +15,9 @@ export default class searchBarDestination extends Component {
       destination: '',
       predictions: [],
       destinationRegion: {
-        latitude: 0,
-        longitude: 0,
-
-      }
+        latitude: 45.492409,
+        longitude: -73.582153,
+      },
     };
   }
 
@@ -37,7 +36,7 @@ export default class searchBarDestination extends Component {
     }
   }
 
-  async getLatLong(prediction) {
+  async drawPath(prediction) {
     // eslint-disable-next-line react/no-unused-state
     this.setState({ description: prediction });
     const key = 'AIzaSyCqNODizSqMIWbKbO8Iq3VWdBcK846n_3w';
@@ -53,40 +52,34 @@ export default class searchBarDestination extends Component {
 
         }
       });
-      this.drawPath();
+      // eslint-disable-next-line no-shadow
+      const key = 'AIzaSyBsMjuj6q76Vcna8G5z9PDyTH2z16fNPDk';
+      const originLat = this.props.updatedRegion.latitude;
+      const originLong = this.props.updatedRegion.longitude;
+      const destinationLat = this.state.destinationRegion.latitude;
+      const destinationLong = this.state.destinationRegion.longitude;
+      const directionUrl = `https://maps.googleapis.com/maps/api/directions/json?key=${key}&origin=${originLat},${originLong}&destination=${destinationLat},${destinationLong}`;
+      try {
+        const result = await fetch(directionUrl);
+        const json = await result.json();
+        const encryptedPath = json.routes[0].overview_polyline.points;
+        const rawPolylinePoints = decodePolyline(encryptedPath);
+
+        // Incompatible field names for direct decode. Need to do a trivial conversion.
+        const waypoints = rawPolylinePoints.map((point) => {
+          return {
+            latitude: point.lat,
+            longitude: point.lng
+          };
+        });
+        this.props.coordinateCallback(waypoints);
+      } catch (err) {
+        console.error(err);
+      }
     } catch (err) {
       console.error(err);
     }
   }
-
-
-  async drawPath() {
-    const key = 'AIzaSyBsMjuj6q76Vcna8G5z9PDyTH2z16fNPDk';
-    const originLat = this.props.updatedRegion.latitude;
-    const originLong = this.props.updatedRegion.longitude;
-    const destinationLat = this.state.destinationRegion.latitude;
-    const destinationLong = this.state.destinationRegion.longitude;
-    const directionUrl = `https://maps.googleapis.com/maps/api/directions/json?key=${key}&origin=${originLat},${originLong}&destination=${destinationLat},${destinationLong}`;
-    try {
-      const result = await fetch(directionUrl);
-      const json = await result.json();
-      const encryptedPath = json.routes[0].overview_polyline.points;
-      this.props.getPolylinePoint(encryptedPath);
-      const rawPolylinePoints = decodePolyline(json.routes[0].overview_polyline.points);
-      // Incompatible field names for direct decode. Need to do a trivial conversion.
-      const waypoints = rawPolylinePoints.map((point) => {
-        return {
-          latitude: point.lat,
-          longitude: point.lng
-        };
-      });
-      // const { coordinateCallback } = this.props;
-      this.props.coordinateCallback(waypoints);
-    } catch (err) {
-      console.error(err);
-    }
-  }
-
 
   render() {
     const placeholder = this.state.isMounted ? i18n.t('search') : 'Where do you want to go to?';
@@ -97,7 +90,7 @@ export default class searchBarDestination extends Component {
             style={styles.Touch}
             onPress={() => {
               this.setState({ destination: prediction.description });
-              this.getLatLong(prediction.place_id);
+              this.drawPath(prediction.place_id);
               this.setState({ showPredictions: false });
               Keyboard.dismiss();
             }}
@@ -128,14 +121,7 @@ export default class searchBarDestination extends Component {
             value={this.state.destination}
             onClear={() => {
               this.setState({ showPredictions: true });
-              // this.props.changeVisibilityTo(false);
             }}
-            onTouchStart={
-              () => {
-                // this.props.changeVisibilityTo(true);
-              }
-            }
-            // onBlur={() => { this.props.changeVisibilityTo(false); }}
             blurOnSubmit
           />
         </View>

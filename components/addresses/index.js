@@ -1,15 +1,16 @@
+/* eslint-disable react/no-unused-state */
 import React, { Component } from 'react';
 import { View } from 'react-native';
 import SearchBar from '../searchBar';
 import SearchBarDestination from '../searchBarDestination';
 import BackButton from './backButton';
-import styles from './styles';
 import CurrentLocation from './currentLocation';
 import Destination from './destination';
 import Car from './car';
 import Bus from './bus';
 import Walking from './walking';
 import Bike from './bike';
+import styles from './styles';
 
 export default class Addresses extends Component {
   constructor(props) {
