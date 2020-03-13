@@ -5,8 +5,6 @@ import {
   Image
 } from 'react-native';
 import { SearchBar } from 'react-native-elements';
-// import SearchBar from 'react-native-material-design-searchbar';
-// import SearchBar from 'react-native-search-box';
 import i18n from 'i18n-js';
 import styles from './styles';
 import SetLocaleContext from '../../localization-context';
@@ -26,7 +24,6 @@ export default class searchBar extends Component {
         longitudeDelta: 0.0421
       },
       isMounted: false,
-      showMenu: true,
       checkUnidentified: true
     };
   }
