@@ -57,7 +57,7 @@ export default class Addresses extends Component {
           <SearchBar updateRegion={this.updateRegion} hideMenu={this.state.hide} />
           <SearchBarDestination
             updatedRegion={this.state.region}
-            callBack2={this.updateRegion2}
+            callBack2={this.updateDestinationRegion}
             coordinateCallback={this.updateCoordinates}
             getPolylinePoint={this.getPolylinePoint}
           />
