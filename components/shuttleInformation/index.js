@@ -5,22 +5,19 @@
 
 import React, { Component } from 'react';
 import {
-  Modal, ScrollView, View, Button, Alert, SectionList, Text, Linking
+  View, Button, Alert
 } from 'react-native';
 import decodePolyline from 'decode-google-map-polyline';
 import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
 import shuttleLocationInformation from './shuttleLocationService';
-import shuttleScheduleInformation from './shuttleScheduleService';
 import styles from './styles';
-
 
 export default class Shuttle extends Component {
   constructor(props) {
     super(props);
     this.state = {
       location: '',
-      modalVisible: false,
     };
     this.getCurrentLocation();
   }
@@ -51,15 +48,6 @@ export default class Shuttle extends Component {
     this.setState({ modalVisible: visible });
   }
 
-  // Method that will be called in the event that the user has their location services disabled
-  displayErrorAlert() {
-    Alert.alert('Location Services Required',
-      'Location services has not been enabled. Please allow this app to use your location.',
-      [
-        { text: 'Open Settings', onPress: () => { Linking.openURL('app-settings:'); } }
-      ]);
-  }
-
   // Function: Draws a polyline on the map from an origin to a destination
   // Parameter: origin point and desired destination as an array of lat,long
   async drawPath(origin, destination) {
@@ -87,65 +75,24 @@ export default class Shuttle extends Component {
   }
 
   render() {
-    const { modalVisible } = this.state;
     return (
       <View style={styles.container}>
-        <Modal
-          animationType="slide"
-          transparent={false}
-          visible={modalVisible}
-        >
-          <View>
-            <Button
-              title="Close"
-              onPress={() => { this.setModalVisible(false); }}
-            />
-            <ScrollView horizontal contentContainerStyle={styles.contentContainer}>
-              <View>
-                <Text style={styles.title}>Shuttle Bus Schedule</Text>
-                <SectionList
-                  sections={[
-                    {
-                      title: 'Sir George Williams Campus',
-                      data: shuttleScheduleInformation.Mon_Thu.SGW
-                    },
-                    {
-                      title: 'Loyola Campus',
-                      data: shuttleScheduleInformation.Mon_Thu.LOY
-                    },
-                  ]}
-                  renderItem={({ item }) => { return <Text style={styles.item}>{item}</Text>; }}
-                  renderSectionHeader={
-                    ({ section }) => {
-                      return <Text style={styles.sectionHeader}>{section.title}</Text>;
-                    }
-}
-                  keyExtractor={(item, index) => { return index; }}
-                />
-              </View>
-            </ScrollView>
-          </View>
-        </Modal>
-        <View style={styles.shuttle}>
-          <Button
-            title="Shuttle Bus Information"
-            onPress={() => { this.setModalVisible(true); }}
-          />
-          <Button
-            title="Get Shuttle Bus Directions"
-            onPress={() => {
-              Alert.alert(
-                'Select the Campus',
-                'Which campus would you like to get directions to the Shuttle Bus Stop?',
-                [
-                  { text: 'SGW', onPress: () => { this.getDirectionsToShuttleBusStop('SGW'); } },
-                  { text: 'LOY', onPress: () => { this.getDirectionsToShuttleBusStop('LOY'); } }
-                ],
-                { cancelable: false }
-              );
-            }}
-          />
-        </View>
+
+        <Button
+          title="Get Shuttle Bus Directions"
+          onPress={() => {
+            Alert.alert(
+              'Select the Campus',
+              'Which campus would you like to get directions to the Shuttle Bus Stop?',
+              [
+                { text: 'SGW', onPress: () => { this.getDirectionsToShuttleBusStop('SGW'); } },
+                { text: 'LOY', onPress: () => { this.getDirectionsToShuttleBusStop('LOY'); } }
+              ],
+              { cancelable: false }
+            );
+          }}
+        />
+
       </View>
     );
   }
