@@ -59,16 +59,6 @@ class Home extends Component {
     this.setState({ isSwitchAvailableIndestination: visibility });
   }
 
-  updateRegion2 = (newRegion2) => {
-    this.setState({
-      region2: {
-        latitude: newRegion2.latitude,
-        longitude: newRegion2.longitude,
-        latitudeDelta: 0.05,
-        longitudeDelta: 0.05
-      }
-    });
-  };
 
   updateCoordinates = (newCoordinates) => {
     this.setState({
