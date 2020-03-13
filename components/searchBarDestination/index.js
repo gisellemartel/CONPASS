@@ -54,28 +54,25 @@ export default class searchBarDestination extends Component {
       });
       // eslint-disable-next-line no-shadow
       const key = 'AIzaSyBsMjuj6q76Vcna8G5z9PDyTH2z16fNPDk';
-      const originLat = this.props.updatedRegion.latitude;
-      const originLong = this.props.updatedRegion.longitude;
+      // change to current location later
+      const originLat = this.props.updatedRegion.latitude === 0 ? 45.4656851 : this.props.updatedRegion.latitude;
+      const originLong = this.props.updatedRegion.longitude === 0 ? -73.7454814 : this.props.updatedRegion.longitude;
       const destinationLat = this.state.destinationRegion.latitude;
       const destinationLong = this.state.destinationRegion.longitude;
       const directionUrl = `https://maps.googleapis.com/maps/api/directions/json?key=${key}&origin=${originLat},${originLong}&destination=${destinationLat},${destinationLong}`;
-      try {
-        const result = await fetch(directionUrl);
-        const json = await result.json();
-        const encryptedPath = json.routes[0].overview_polyline.points;
-        const rawPolylinePoints = decodePolyline(encryptedPath);
+      const result = await fetch(directionUrl);
+      const json = await result.json();
+      const encryptedPath = json.routes[0].overview_polyline.points;
+      const rawPolylinePoints = decodePolyline(encryptedPath);
 
-        // Incompatible field names for direct decode. Need to do a trivial conversion.
-        const waypoints = rawPolylinePoints.map((point) => {
-          return {
-            latitude: point.lat,
-            longitude: point.lng
-          };
-        });
-        this.props.coordinateCallback(waypoints);
-      } catch (err) {
-        console.error(err);
-      }
+      // Incompatible field names for direct decode. Need to do a trivial conversion.
+      const waypoints = rawPolylinePoints.map((point) => {
+        return {
+          latitude: point.lat,
+          longitude: point.lng
+        };
+      });
+      this.props.coordinateCallback(waypoints);
     } catch (err) {
       console.error(err);
     }
