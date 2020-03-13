@@ -22,13 +22,10 @@ class Home extends Component {
       isVisible: true,
       interiorMode: false,
     };
-    this.setBuilding = this.setBuilding.bind(this);
+    this.interiorModeOn = this.interiorModeOn.bind(this);
+    this.interiorModeOff = this.interiorModeOff.bind(this);
   }
 
-  setBuilding(building, region) {
-    console.log(building, region);
-    this.setState({region, interiorMode: true});
-  }
 
   // Function : updates the currently set region to a new region
   // parameter : a region object to be set to
@@ -63,28 +60,42 @@ class Home extends Component {
     });
   }
 
+  // Activates interior mode when building is clicked on
+  // use the building data to render floors
+  interiorModeOn(building, region) {
+    this.setState({ region, interiorMode: true });
+  }
+
+  interiorModeOff() {
+    this.setState({ interiorMode: false });
+  }
 
   render() {
     return (
       <View style={styles.container}>
+        {/* zIndex=1 */}
         <TheMap
           updatedRegion={this.state.region}
           updatedCoordinates={this.state.coordinates}
           encryptedLine={this.state.encryptedLine}
-          setBuilding={this.setBuilding}
+          setBuilding={this.interiorModeOn}
         />
+        {/* zIndex=5 */}
         <SearchBar
           navigation={this.props.navigation}
           updateRegion={this.updateRegion}
           changeVisibilityTo={this.changeVisibilityTo}
         />
+        {/* zIndex=5 */}
         <SwitchCampuses updateRegion={this.updateRegion} visiblityState={this.state.isVisible} />
+        {/* zIndex=5 */}
         <WithinBuilding />
         <Shuttle
           coordinateCallback={this.updateCoordinates}
           getPolylinePoint={this.getPolylinePoint}
         />
-        {this.state.interiorMode && <Building />}
+        {/* zIndex=2 */}
+        {this.state.interiorMode && <Building interiorModeOff={this.interiorModeOff} />}
       </View>
     );
   }
