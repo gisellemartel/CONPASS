@@ -45,7 +45,7 @@ export default class TheMap extends Component {
     // Setting at timer for the animation to finish
     setTimeout(() => {
       const getRegion = region;
-      this.props.setBuilding(building, getRegion);
+      this.props.interiorModeOn(building, getRegion);
     }, 500);
   }
 

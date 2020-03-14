@@ -63,11 +63,11 @@ class Home extends Component {
   // Activates interior mode when building is clicked on
   // use the building data to render floors
   interiorModeOn(building, region) {
-    this.setState({ region, interiorMode: true });
+    this.setState({ region, interiorMode: true, building: building });
   }
 
   interiorModeOff() {
-    this.setState({ interiorMode: false });
+    this.setState({ interiorMode: false, building: null });
   }
 
   render() {
@@ -78,7 +78,7 @@ class Home extends Component {
           updatedRegion={this.state.region}
           updatedCoordinates={this.state.coordinates}
           encryptedLine={this.state.encryptedLine}
-          setBuilding={this.interiorModeOn}
+          interiorModeOn={this.interiorModeOn}
         />
         {/* zIndex=5 */}
         <SearchBar
@@ -95,7 +95,7 @@ class Home extends Component {
           getPolylinePoint={this.getPolylinePoint}
         />
         {/* zIndex=2 */}
-        {this.state.interiorMode && <Building interiorModeOff={this.interiorModeOff} />}
+        {this.state.interiorMode && <Building building={this.state.building} interiorModeOff={this.interiorModeOff} />}
       </View>
     );
   }
