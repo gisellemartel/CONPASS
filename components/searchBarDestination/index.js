@@ -6,6 +6,8 @@ import i18n from 'i18n-js';
 import { SearchBar } from 'react-native-elements';
 import decodePolyline from 'decode-google-map-polyline';
 import styles from './styles';
+import * as Location from 'expo-location';
+import * as Permissions from 'expo-permissions';
 
 export default class searchBarDestination extends Component {
   constructor(props) {
@@ -36,15 +38,33 @@ export default class searchBarDestination extends Component {
     }
   }
 
+    async getCurrentLocation() {
+    const { status } = await Permissions.askAsync(Permissions.LOCATION);
+    if (status !== 'granted') {
+      this.setState({
+        // eslint-disable-next-line react/no-unused-state
+        errorMessage: 'Permission to access location was denied',
+      });
+      return;
+    }
+    const location = await Location.getCurrentPositionAsync({});
+    this.setState({ location });
+  }
+
   async drawPath(prediction) {
+
     // eslint-disable-next-line react/no-unused-state
     this.setState({ description: prediction });
     const key = 'AIzaSyCqNODizSqMIWbKbO8Iq3VWdBcK846n_3w';
     const geoUrl = `https://maps.googleapis.com/maps/api/place/details/json?key=${key}&placeid=${prediction}`;
 
     try {
-      const georesult = await fetch(geoUrl);
-      const gjson = await georesult.json();
+        await this.getCurrentLocation();
+        const { location } = this.state;
+        const urLatitude=location.coords.latitude;
+        const urLongitude=location.coords.longitude; 
+        const georesult = await fetch(geoUrl);
+        const gjson = await georesult.json();
       this.setState({
         destinationRegion: {
           latitude: gjson.result.geometry.location.lat,
@@ -55,8 +75,8 @@ export default class searchBarDestination extends Component {
       // eslint-disable-next-line no-shadow
       const key = 'AIzaSyBsMjuj6q76Vcna8G5z9PDyTH2z16fNPDk';
       // change to current location later
-      const originLat = this.props.updatedRegion.latitude === 0 ? 45.4656851 : this.props.updatedRegion.latitude;
-      const originLong = this.props.updatedRegion.longitude === 0 ? -73.7454814 : this.props.updatedRegion.longitude;
+      const originLat = this.props.updatedRegion.latitude === 0 ? urLatitude : this.props.updatedRegion.latitude;
+      const originLong = this.props.updatedRegion.longitude === 0 ? urLongitude : this.props.updatedRegion.longitude;
       const destinationLat = this.state.destinationRegion.latitude;
       const destinationLong = this.state.destinationRegion.longitude;
       const directionUrl = `https://maps.googleapis.com/maps/api/directions/json?key=${key}&origin=${originLat},${originLong}&destination=${destinationLat},${destinationLong}`;

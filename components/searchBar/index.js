@@ -130,7 +130,7 @@ export default class searchBar extends Component {
 
             }}
             searchIcon={this.state.hideMenu && <Icon navigation={this.props.navigation} />}
-            placeholder={placeholder}
+            placeholder={this.props.value!=="" ? this.props.value: placeholder}
             onChangeText={(destination) => {
               if (this.state.checkUnidentified) {
                 destination.length === 0

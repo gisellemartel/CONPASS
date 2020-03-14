@@ -52,6 +52,8 @@ export default class Addresses extends Component {
       });
     };
 
+  
+
     render() {
       return (
         <View style={styles.searchContainer}>
@@ -69,7 +71,8 @@ export default class Addresses extends Component {
           <View style={styles.container}>
             <BackButton
               visiblityState={this.props.visiblityState}
-              changeVisibilityToSwitchCampus={this.props.changeVisibilityToSwitchCampus}
+              changeVisibilityToSwitchCampus={this.props.changeVisibilityToSwitchCampus}  
+              value={this.props.value}
             />
             <CurrentLocation />
             <Destination />

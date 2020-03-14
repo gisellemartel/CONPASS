@@ -15,6 +15,7 @@ class Home extends Component {
     super(props);
     this.state = {
       // Set Initial region of the map
+      value:"",
       region: {
         latitude: 45.492409,
         longitude: -73.582153,
@@ -53,12 +54,13 @@ class Home extends Component {
 
   changeVisibilityToGo = (visibility) => {
     this.setState({ isGoVisible: visibility });
+
+
   }
 
   changeVisibilityToSwitchCampus = (visibility) => {
     this.setState({ isSwitchAvailableIndestination: visibility });
   }
-
 
   updateCoordinates = (newCoordinates) => {
     this.setState({
@@ -67,6 +69,7 @@ class Home extends Component {
   };
 
   getPolylinePoint = (data) => {
+ 
     this.setState({
       encryptedLine: data
     });
@@ -80,6 +83,13 @@ class Home extends Component {
     this.updateCoordinates(coordinates);
   }
 
+  getPlaceHolderValue=(newPlaceHolder)=>{
+    this.setState({
+      value: newPlaceHolder
+    });
+  }  
+
+
   render() {
     return (
       <View style={styles.container}>
@@ -91,6 +101,7 @@ class Home extends Component {
         />
         {!this.state.isGoVisible && (
         <SearchBar
+          value={this.state.value}
           navigation={this.props.navigation}
           updateRegion={this.updateRegion}
           changeVisibilityTo={this.changeVisibilityTo}
@@ -108,6 +119,7 @@ class Home extends Component {
           getPolylinePoint={this.getPolylinePoint}
         />
         <ToCircle
+          value={this.getPlaceHolderValue}
           changeVisibilityToSwitchCampus={this.changeVisibilityToSwitchCampus}
           visibilityState={this.changeVisibilityToGo}
         />
@@ -118,6 +130,7 @@ class Home extends Component {
           getRegion={this.getRegionFromAddresses}
           getCoordinates={this.getCoordinatesFromAddresses}
           visiblityState={this.changeVisibilityToGo}
+          value={this.getPlaceHolderValue}
         />
         ) }
       </View>
