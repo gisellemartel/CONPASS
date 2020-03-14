@@ -51,16 +51,12 @@ export default class TheMap extends Component {
   render() {
     const buildingFocus = buildings.map((building) => {
       return (
-        building.polygons.map((polygon) => {
-          return (
-            <BuildingPolygon
-              key={polygon.name}
-              focusOnBuilding={this.focusOnBuilding}
-              coordinates={polygon.coordinates}
-              fillColor="rgba(255,135,135,0.5)"
-            />
-          );
-        })
+        <CustomPolygon
+          key={building.buildingName + building.address}
+          building={building}
+          focusOnBuilding={this.focusOnBuilding}
+          fillColor="rgba(255,135,135,0.5)"
+        />
       );
     });
 
@@ -81,16 +77,7 @@ export default class TheMap extends Component {
             strokeWidth={4}
             strokeColor="black"
           />
-          {buildings.map((building) => {
-            return (
-              <CustomPolygon
-                key={building.buildingName + building.address}
-                building={building}
-                focusOnBuilding={this.focusOnBuilding}
-                fillColor="rgba(255,135,135,0.5)"
-              />
-            );
-          })}
+          {buildingFocus}
           <MapView.Marker
             coordinate={{
               latitude: this.props.updatedRegion.latitude,

@@ -89,7 +89,7 @@ class Home extends Component {
         {/* zIndex=5 */}
         <SwitchCampuses updateRegion={this.updateRegion} visiblityState={this.state.isVisible} />
         {/* zIndex=5 */}
-        <WithinBuilding />
+        {/* <WithinBuilding /> */}
         <Shuttle
           coordinateCallback={this.updateCoordinates}
           getPolylinePoint={this.getPolylinePoint}
