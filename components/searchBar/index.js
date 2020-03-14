@@ -32,7 +32,6 @@ export default class searchBar extends Component {
   }
 
   componentDidMount() {
-
     SetLocaleContext();
     this.setState({ isMounted: true });
     if (this.props.hideMenu === undefined) {
@@ -43,6 +42,9 @@ export default class searchBar extends Component {
     if (this.props.changeVisibilityTo === undefined
       || this.props.changeVisibilityToSearch === undefined) {
       this.setState({ checkUnidentified: false });
+    }
+    if (this.props.urCurentLocation !== undefined) {
+      this.setState({ destination: this.props.urCurentLocation });
     }
   }
 
@@ -140,7 +142,7 @@ export default class searchBar extends Component {
               }
               return this.onChangeDestination(destination);
             }}
-            value={this.state.destination==='' ? this.props.urCurentLocation: this.state.destination}
+            value={this.state.destination}
             style={styles.SearchBar}
             onClear={() => {
               this.setState({ showPredictions: true });
