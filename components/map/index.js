@@ -2,7 +2,8 @@
 /* eslint-disable react/no-unused-state */
 import React, { Component } from 'react';
 import { View } from 'react-native';
-import MapView, { Polygon, Polyline, PROVIDER_GOOGLE, } from 'react-native-maps';
+import MapView, { Polyline, PROVIDER_GOOGLE, } from 'react-native-maps';
+import BuildingPolygon from './buildingPolygon';
 import buildings from '../../assets/polygons/polygons';
 import styles from './styles';
 
@@ -54,7 +55,7 @@ export default class TheMap extends Component {
             return (
               building.polygons.map((polygon) => {
                 return (
-                  <CustomPolygon
+                  <BuildingPolygon
                     key={polygon.name}
                     focusOnBuilding={this.focusOnBuilding}
                     coordinates={polygon.coordinates}
@@ -74,24 +75,6 @@ export default class TheMap extends Component {
           />
         </MapView>
       </View>
-    );
-  }
-}
-
-class CustomPolygon extends Component {
-  zoomBuilding(coordinates) {
-    this.props.focusOnBuilding(coordinates);
-  }
-
-  render() {
-    return (
-      <Polygon
-        {...this.props}
-        tappable
-        onPress={() => {
-          this.zoomBuilding(this.props.coordinates);
-        }}
-      />
     );
   }
 }
