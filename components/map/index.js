@@ -107,7 +107,7 @@ export default class TheMap extends Component {
             return (
               building.polygons.map((polygon) => {
                 return (
-                  <CustomPolygon
+                  <BuildingPolygon
                     key={polygon.name}
                     focusOnBuilding={this.focusOnBuilding}
                     coordinates={polygon.coordinates}
@@ -145,24 +145,6 @@ export default class TheMap extends Component {
 
         </MapView>
       </View>
-    );
-  }
-}
-
-class CustomPolygon extends Component {
-  zoomBuilding(coordinates) {
-    this.props.focusOnBuilding(coordinates);
-  }
-
-  render() {
-    return (
-      <Polygon
-        {...this.props}
-        tappable
-        onPress={() => {
-          this.zoomBuilding(this.props.coordinates);
-        }}
-      />
     );
   }
 }
