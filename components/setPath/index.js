@@ -5,11 +5,11 @@ import styles from './styles';
 import directions from './directions.png';
 
 
-export default class toCircle extends Component {
+export default class setPath extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <TouchableOpacity onPress={() => {this.props.value('Your Location'); this.props.changeVisibilityToSwitchCampus(false); this.props.visibilityState(true); }}>
+        <TouchableOpacity onPress={() => { this.props.changeVisibilityToSwitchCampus(false); this.props.visibilityState(true); }}>
           <Image style={styles.directions} source={directions} />
         </TouchableOpacity>
       </View>

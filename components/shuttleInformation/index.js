@@ -64,7 +64,6 @@ export default class Shuttle extends Component {
       const json = await result.json();
       const encryptedPath = json.routes[0].overview_polyline.points;
       const { getPolylinePoint } = this.props;
-      getPolylinePoint(encryptedPath);
       const rawPolylinePoints = decodePolyline(json.routes[0].overview_polyline.points);
       // Incompatible field names for direct decode. Need to do a trivial conversion
       const waypoints = rawPolylinePoints.map((point) => {

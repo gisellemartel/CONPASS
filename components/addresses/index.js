@@ -39,18 +39,11 @@ export default class Addresses extends Component {
       this.props.getRegion(newRegion);
     };
 
-
     updateCoordinates = (newCoordinates) => {
       this.setState({
         coordinates: newCoordinates
       });
       this.props.getCoordinates(newCoordinates);
-    };
-
-    getPolylinePoint = (data) => {
-      this.setState({
-        encryptedLine: data
-      });
     };
 
     render() {
@@ -59,9 +52,7 @@ export default class Addresses extends Component {
           <SearchBar updateRegion={this.updateRegion} urCurentLocation={this.state.value} hideMenu={this.state.hide} />
           <SearchBarDestination
             updatedRegion={this.state.region}
-            callBack2={this.updateRegion2}
             coordinateCallback={this.updateCoordinates}
-            getPolylinePoint={this.getPolylinePoint}
           />
           <Car />
           <Bus />
@@ -70,7 +61,8 @@ export default class Addresses extends Component {
           <View style={styles.container}>
             <BackButton
               visiblityState={this.props.visiblityState}
-              changeVisibilityToSwitchCampus={this.props.changeVisibilityToSwitchCampus}  
+              changeVisibilityToSwitchCampus={this.props.changeVisibilityToSwitchCampus}
+              coordinateCallback={this.updateCoordinates}          
             />
             <CurrentLocation />
             <Destination />

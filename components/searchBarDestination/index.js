@@ -52,7 +52,6 @@ export default class searchBarDestination extends Component {
   }
 
   async drawPath(prediction) {
-
     // eslint-disable-next-line react/no-unused-state
     this.setState({ description: prediction });
     const key = 'AIzaSyCqNODizSqMIWbKbO8Iq3VWdBcK846n_3w';
@@ -69,7 +68,6 @@ export default class searchBarDestination extends Component {
         destinationRegion: {
           latitude: gjson.result.geometry.location.lat,
           longitude: gjson.result.geometry.location.lng,
-
         }
       });
       // eslint-disable-next-line no-shadow
@@ -84,7 +82,6 @@ export default class searchBarDestination extends Component {
       const json = await result.json();
       const encryptedPath = json.routes[0].overview_polyline.points;
       const rawPolylinePoints = decodePolyline(encryptedPath);
-
       // Incompatible field names for direct decode. Need to do a trivial conversion.
       const waypoints = rawPolylinePoints.map((point) => {
         return {
@@ -92,6 +89,7 @@ export default class searchBarDestination extends Component {
           longitude: point.lng
         };
       });
+      console.log(waypoints);
       this.props.coordinateCallback(waypoints);
     } catch (err) {
       console.error(err);
@@ -99,7 +97,7 @@ export default class searchBarDestination extends Component {
   }
 
   render() {
-    const placeholder = this.state.isMounted ? i18n.t('search') : 'Where do you want to go to?';
+    const placeholder = this.state.isMounted ? i18n.t('search') : 'Choose your destination';
     const predictions = this.state.predictions.map((prediction) => {
       return (
         <View key={prediction.id} style={styles.view}>

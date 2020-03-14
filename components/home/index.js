@@ -5,7 +5,7 @@ import SearchBar from '../searchBar';
 import Shuttle from '../shuttleInformation';
 import SwitchCampuses from '../switchCampuses';
 import WithinBuilding from '../withinBuilding';
-import ToCircle from '../toCircle';
+import SetPath from '../setPath';
 import Addresses from '../addresses';
 import styles from './styles';
 
@@ -54,8 +54,6 @@ class Home extends Component {
 
   changeVisibilityToGo = (visibility) => {
     this.setState({ isGoVisible: visibility });
-
-
   }
 
   changeVisibilityToSwitchCampus = (visibility) => {
@@ -68,13 +66,6 @@ class Home extends Component {
     });
   };
 
-  getPolylinePoint = (data) => {
- 
-    this.setState({
-      encryptedLine: data
-    });
-  };
-
   getRegionFromAddresses=(region) => {
     this.updateRegion(region);
   };
@@ -82,10 +73,6 @@ class Home extends Component {
   getCoordinatesFromAddresses=(coordinates) => {
     this.updateCoordinates(coordinates);
   }
-  getPlaceHolderValue=(newPlaceHolder)=>{
-    this.setState({
-      value: "newPlaceHolder"});
-  };  
 
   render() {
     return (
@@ -94,11 +81,9 @@ class Home extends Component {
         <TheMap
           updatedRegion={this.state.region}
           updatedCoordinates={this.state.coordinates}
-          encryptedLine={this.state.encryptedLine}
         />
         {!this.state.isGoVisible && (
-        <SearchBar
-       
+        <SearchBar       
           navigation={this.props.navigation}
           updateRegion={this.updateRegion}
           changeVisibilityTo={this.changeVisibilityTo}
@@ -113,10 +98,8 @@ class Home extends Component {
         <WithinBuilding />
         <Shuttle
           coordinateCallback={this.updateCoordinates}
-          getPolylinePoint={this.getPolylinePoint}
         />
-        <ToCircle
-          value={this.getPlaceHolderValue}
+        <SetPath
           changeVisibilityToSwitchCampus={this.changeVisibilityToSwitchCampus}
           visibilityState={this.changeVisibilityToGo}
           newValue={this.state.value}
