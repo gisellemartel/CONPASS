@@ -1,17 +1,29 @@
 import React, { Component } from 'react';
-import { View, Text, Button, TouchableOpacity } from 'react-native';
+import {
+  View, Button, Text
+} from 'react-native';
 import styles from './styles';
 
 class Building extends Component {
-
-  end() {
-    console.log('okkkk');
+  interiorModeOff() {
+    this.props.interiorModeOff();
   }
 
   render() {
+    const { building } = this.props;
     return (
       <View style={styles.container}>
-        <Button title={'quit'} onPress={() => { this.end()}} />
+        <Text>Interior Mode: On</Text>
+        <Text>
+          building:
+          {building.buildingName}
+        </Text>
+        <Text>
+          campus:
+          {building.campus}
+        </Text>
+
+        <Button title="quit" onPress={() => { this.interiorModeOff(); }} />
       </View>
     );
   }

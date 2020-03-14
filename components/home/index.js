@@ -175,11 +175,11 @@ class Home extends Component {
   // Activates interior mode when building is clicked on
   // use the building data to render floors
   interiorModeOn(building, region) {
-    this.setState({ region, interiorMode: true });
+    this.setState({ region, interiorMode: true, building: building });
   }
 
   interiorModeOff() {
-    this.setState({ interiorMode: false });
+    this.setState({ interiorMode: false, building: null });
   }
 
   render() {
@@ -194,7 +194,7 @@ class Home extends Component {
           updateRegionCloser={this.updateRegionCloser}
           nearbyMarkers={this.state.nearbyMarkers}
           encryptedLine={this.state.encryptedLine}
-          setBuilding={this.interiorModeOn}
+          interiorModeOn={this.interiorModeOn}
         />
         {(!this.showDirectionsMenu &&
         <SearchBar
@@ -233,6 +233,8 @@ class Home extends Component {
           />
         )}
         {this.state.interiorMode && <Building />}
+        {/* zIndex=2 */}
+        {this.state.interiorMode && <Building building={this.state.building} interiorModeOff={this.interiorModeOff} />}
       </View>
     );
   }

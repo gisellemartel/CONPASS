@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
     left: 0,
     bottom: 0,
     alignItems: 'center',
-    backgroundColor: 'red',
+    backgroundColor: 'orange',
     position: 'absolute',
   },
   button: {
