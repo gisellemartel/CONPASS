@@ -7,7 +7,6 @@ import {
 import { SearchBar } from 'react-native-elements';
 import i18n from 'i18n-js';
 import styles from './styles';
-
 import SetLocaleContext from '../../localization-context';
 import burger from './burger.png';
 
