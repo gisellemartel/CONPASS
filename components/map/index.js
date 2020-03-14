@@ -1,5 +1,3 @@
-/* eslint-disable class-methods-use-this */
-/* eslint-disable react/no-unused-state */
 import React, { Component } from 'react';
 import { View } from 'react-native';
 import MapView, {
@@ -7,7 +5,6 @@ import MapView, {
 } from 'react-native-maps';
 import buildings from '../../assets/polygons/polygons';
 import styles from './styles';
-
 
 export default class TheMap extends Component {
   /**
@@ -74,6 +71,10 @@ export default class TheMap extends Component {
     this.setState({ region: description, mapRef: this.mapRef });
   }
 
+  componentDidMount() {
+    this.setState({ mapRef: this.mapRef });
+  }
+
   focusOnBuilding(coordinates) {
     this.state.mapRef.fitToCoordinates(coordinates, {
       edgePadding: {
@@ -107,7 +108,7 @@ export default class TheMap extends Component {
             return (
               building.polygons.map((polygon) => {
                 return (
-                  <BuildingPolygon
+                  <CustomPolygon
                     key={polygon.name}
                     focusOnBuilding={this.focusOnBuilding}
                     coordinates={polygon.coordinates}
