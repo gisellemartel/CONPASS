@@ -6,6 +6,7 @@ import Shuttle from '../shuttleInformation';
 import styles from './styles';
 import SwitchCampuses from '../switchCampuses';
 import WithinBuilding from '../withinBuilding';
+import Building from '../map/building/index';
 
 class Home extends Component {
   constructor(props) {
@@ -19,8 +20,12 @@ class Home extends Component {
         longitudeDelta: 0.04,
       },
       isVisible: true,
+      interiorMode: false,
     };
+    this.interiorModeOn = this.interiorModeOn.bind(this);
+    this.interiorModeOff = this.interiorModeOff.bind(this);
   }
+
 
   // Function : updates the currently set region to a new region
   // parameter : a region object to be set to
@@ -55,25 +60,42 @@ class Home extends Component {
     });
   }
 
+  // Activates interior mode when building is clicked on
+  // use the building data to render floors
+  interiorModeOn(building, region) {
+    this.setState({ region, interiorMode: true, building: building });
+  }
+
+  interiorModeOff() {
+    this.setState({ interiorMode: false, building: null });
+  }
+
   render() {
     return (
       <View style={styles.container}>
+        {/* zIndex=1 */}
         <TheMap
           updatedRegion={this.state.region}
           updatedCoordinates={this.state.coordinates}
           encryptedLine={this.state.encryptedLine}
+          interiorModeOn={this.interiorModeOn}
         />
+        {/* zIndex=5 */}
         <SearchBar
           navigation={this.props.navigation}
           updateRegion={this.updateRegion}
           changeVisibilityTo={this.changeVisibilityTo}
         />
+        {/* zIndex=5 */}
         <SwitchCampuses updateRegion={this.updateRegion} visiblityState={this.state.isVisible} />
+        {/* zIndex=5 */}
         <WithinBuilding />
         <Shuttle
           coordinateCallback={this.updateCoordinates}
           getPolylinePoint={this.getPolylinePoint}
         />
+        {/* zIndex=2 */}
+        {this.state.interiorMode && <Building building={this.state.building} interiorModeOff={this.interiorModeOff} />}
       </View>
     );
   }

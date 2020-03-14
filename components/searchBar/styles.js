@@ -6,7 +6,8 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 25,
     width: '95%',
-    borderRadius: 10
+    borderRadius: 10,
+    zIndex: 5,
   },
   view: {
     borderRadius: 15
