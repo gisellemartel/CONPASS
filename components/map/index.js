@@ -104,6 +104,17 @@ export default class TheMap extends Component {
 
   // do not put conponents that dont belong to react-native-maps API inside the MapView
   render() {
+    const buildingFocus = buildings.map((building) => {
+      return (
+        <CustomPolygon
+          key={building.buildingName + building.address}
+          building={building}
+          focusOnBuilding={this.focusOnBuilding}
+          fillColor="rgba(255,135,135,0.5)"
+        />
+      );
+    });
+
     const currRef = (ref) => { this.mapRef = ref; };
     const { interiorMode } = this.state;
     return (
