@@ -16,6 +16,7 @@ export default class Addresses extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      value:'Your Current Location',
       region: {
         latitude: 0,
         longitude: 0,
@@ -52,12 +53,10 @@ export default class Addresses extends Component {
       });
     };
 
-  
-
     render() {
       return (
         <View style={styles.searchContainer}>
-          <SearchBar updateRegion={this.updateRegion} hideMenu={this.state.hide} />
+          <SearchBar updateRegion={this.updateRegion} urCurentLocation={this.state.value} hideMenu={this.state.hide} />
           <SearchBarDestination
             updatedRegion={this.state.region}
             callBack2={this.updateRegion2}
@@ -72,7 +71,6 @@ export default class Addresses extends Component {
             <BackButton
               visiblityState={this.props.visiblityState}
               changeVisibilityToSwitchCampus={this.props.changeVisibilityToSwitchCampus}  
-              value={this.props.value}
             />
             <CurrentLocation />
             <Destination />
