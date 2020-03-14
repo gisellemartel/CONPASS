@@ -5,8 +5,6 @@ import {
   Image
 } from 'react-native';
 import { SearchBar } from 'react-native-elements';
-// import SearchBar from 'react-native-material-design-searchbar';
-// import SearchBar from 'react-native-search-box';
 import i18n from 'i18n-js';
 import styles from './styles';
 import SetLocaleContext from '../../localization-context';
@@ -92,7 +90,7 @@ export default class searchBar extends Component {
 
 
   render() {
-    const placeholder = this.state.isMounted ? i18n.t('search') : 'Search...';
+    const placeholder = this.state.isMounted ? i18n.t('search') : 'search';
     // Predictions mapped and formmated from the current state predictions
     const predictions = this.state.predictions.map((prediction) => {
       return (
@@ -128,9 +126,7 @@ export default class searchBar extends Component {
               borderRadius: 10,
               borderWidth: 1,
               height: 45,
-
               justifyContent: 'center'
-
             }}
             searchIcon={this.state.hideMenu && <Icon navigation={this.props.navigation} />}
             placeholder={placeholder}

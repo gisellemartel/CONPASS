@@ -6,19 +6,21 @@ const SetLocaleContext = () => {
   i18n.translations = {
     en: {
       welcome: 'Hello',
-      search: 'Search...',
+      search: 'Search for a place',
       calendar: 'Calendar',
       accessibility: 'Accessibility',
       help: 'Help',
-      back: 'Back'
+      back: 'Back',
+      destinationSearch:'Choose your destination'
     },
     fr: {
       welcome: 'Bonjour',
-      search: 'Chercher...',
+      search: 'Rechercher un lieu',
       calendar: 'Calendrier',
       accessibility: 'Accessibilité',
       help: 'Aide',
-      back: 'Retour'
+      back: 'Retour',
+      destinationSearch:'Choisissez votre destination'
     },
     sp: {
       welcome: 'Hola',
@@ -26,7 +28,8 @@ const SetLocaleContext = () => {
       calendar: 'Calendario',
       accessibility: 'Accesibilidad',
       help: 'Ayuda',
-      back: 'Atrás'
+      back: 'Atrás',
+      destinationSearch:'Elige tu destino'
     }
   };
 

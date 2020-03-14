@@ -13,6 +13,7 @@ export default class searchBarDestination extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      isMounted: false,
       showPredictions: true,
       destination: '',
       predictions: [],
@@ -22,6 +23,9 @@ export default class searchBarDestination extends Component {
       },
     };
   }
+
+   componentDidMount() {
+    this.setState({ isMounted: true });}
 
   async onChangeDestination(destination) {
     this.setState({ destination });
@@ -97,7 +101,7 @@ export default class searchBarDestination extends Component {
   }
 
   render() {
-    const placeholder = this.state.isMounted ? i18n.t('search') : 'Choose your destination';
+    const placeholder = this.state.isMounted ? i18n.t('destinationSearch') : 'Choose your destination';
     const predictions = this.state.predictions.map((prediction) => {
       return (
         <View key={prediction.id} style={styles.view}>
