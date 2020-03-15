@@ -28,7 +28,7 @@ class Home extends Component {
       isGoVisible: false,
       isSwitchAvailableIndestination: true,
       // current Concordia a user is in
-      currentBuilding: ''
+      currentBuildingAddress: ''
     };
   }
 
@@ -82,13 +82,13 @@ class Home extends Component {
     });
   }
 
-  updateCurrentBuilding = (childCurrentBuilding) =>{
+  updateCurrentBuildingAddress = (childCurrentBuilding) =>{
     this.setState({
-      currentBuilding: childCurrentBuilding
+      currentBuildingAddress: childCurrentBuilding
     });
   }
   render() {
-    console.log('current Building: ',this.state.currentBuilding);
+    console.log('Home::: ',this.state.currentBuildingAddress);
     return (
       <View style={styles.container}>
         <TheMap
@@ -101,6 +101,7 @@ class Home extends Component {
           updateRegion={this.updateRegion}
           changeVisibilityTo={this.changeVisibilityTo}
           changeVisibilityToSearch={this.changeVisibilityToSearch}
+          currentBuildingPred={this.state.currentBuildingAddress}
         />
         )}
         <SwitchCampuses
@@ -108,7 +109,7 @@ class Home extends Component {
           visiblityState={this.state.isVisible}
           isSwitchAvailableIndestination={this.state.isSwitchAvailableIndestination}
         />
-        <WithinBuilding updateCurrentBuildingCallBack={this.updateCurrentBuilding}/>
+        <WithinBuilding updateCurrentBuildingCallBack={this.updateCurrentBuildingAddress}/>
         <Shuttle
           coordinateCallback={this.updateCoordinates}
         />

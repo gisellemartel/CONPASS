@@ -91,6 +91,7 @@ export default class searchBar extends Component {
 
 
   render() {
+    console.log('SearchBar::: ',this.props.currentBuildingPred);
     const placeholder = this.state.isMounted ? i18n.t('search') : 'search';
     // Predictions mapped and formmated from the current state predictions
     const predictions = this.state.predictions.map((prediction) => {
