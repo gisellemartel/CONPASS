@@ -13,12 +13,6 @@ export default class TheMap extends Component {
     this.mapRef = null;
     this.focusOnBuilding = this.focusOnBuilding.bind(this);
     this.onRegionChange = this.onRegionChange.bind(this);
-    this.state = {
-      coordinate: {
-        latitude: 45.492409,
-        longitude: -73.582153,
-      }
-    };
   }
 
   componentDidMount() {

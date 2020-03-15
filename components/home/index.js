@@ -63,7 +63,7 @@ class Home extends Component {
   // Activates interior mode when building is clicked on
   // use the building data to render floors
   interiorModeOn(building, region) {
-    this.setState({ region, interiorMode: true, building: building });
+    this.setState({ region, interiorMode: true, building });
   }
 
   interiorModeOff() {
@@ -90,10 +90,10 @@ class Home extends Component {
         <SwitchCampuses updateRegion={this.updateRegion} visiblityState={this.state.isVisible} />
         {/* zIndex=5 */}
         {/* <WithinBuilding /> */}
-        <Shuttle
+        {/* <Shuttle
           coordinateCallback={this.updateCoordinates}
           getPolylinePoint={this.getPolylinePoint}
-        />
+        /> */}
         {/* zIndex=2 */}
         {this.state.interiorMode && <Building building={this.state.building} interiorModeOff={this.interiorModeOff} />}
       </View>
