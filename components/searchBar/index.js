@@ -47,9 +47,10 @@ export default class searchBar extends Component {
     }
   }
 
-  // Function: When entering text searchbar, captures all the possible predictions from google's api
-  // Parameter: Text input from search bar
-
+  /**
+  * Retrieves predictions through google's from text entered in searchbar.
+  * @param {string} destination - Text input from search bar
+  */
   async onChangeDestination(destination) {
     this.setState({ destination });
     const key = 'AIzaSyCqNODizSqMIWbKbO8Iq3VWdBcK846n_3w';
@@ -64,9 +65,11 @@ export default class searchBar extends Component {
       console.error(err);
     }
   }
-  // Function: gets the latitude and longitude of a chosen prediction
-  // Parameter: place_id of the chosen prediction
 
+  /**
+  * Gets the latitude and longitude of a chosen prediction.
+  * @param {string} prediction - placeid of the prediction to get latitude and longitude.
+  */
   async getLatLong(prediction) {
     const key = 'AIzaSyCqNODizSqMIWbKbO8Iq3VWdBcK846n_3w';
     const geoUrl = `https://maps.googleapis.com/maps/api/place/details/json?key=${key}&placeid=${prediction}`;

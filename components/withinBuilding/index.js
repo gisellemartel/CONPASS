@@ -37,7 +37,7 @@ export default class WithinBuilding extends Component {
     };
   }
 
-  // retrieves the users' current location
+  /** Retrieves the current location of a user. */
   async getCurrentLocation() {
     const { status } = await Permissions.askAsync(Permissions.LOCATION);
     if (status !== 'granted') {
@@ -51,7 +51,10 @@ export default class WithinBuilding extends Component {
     this.setState({ location });
   }
 
-  // Format SGW or Loyola buildings to be used by isInPolygon function
+  /**
+  * Format SGW or Loyola buildings to be used by isInPolygon function
+  * @param {string} campus - New region to be passed.
+  */
   formatPolygonsObjs(campus) {
     if (campus !== 'SGW' && campus !== 'LOY') {
       return [];
@@ -59,7 +62,7 @@ export default class WithinBuilding extends Component {
 
     const formattedBuildings = [];
 
-    // filter only the buildings that belong to the current campus
+    /** filter only the buildings that belong to the current campus. */
     const formattedBuildingsTemp = buildings.filter((building) => {
       return building.campus === campus;
     });
@@ -84,9 +87,17 @@ export default class WithinBuilding extends Component {
     return formattedBuildings;
   }
 
-  // finds if a pair of coordinates are inside a polygon
-  // Algorithm comes from: https://stackoverflow.com/questions/11716268/point-in-polygon-algorithm?lq=1
-  // Date Consulted: February 29th, 2020
+
+  /**
+  * finds if a pair of coordinates are inside a polygon
+  *Algorithm comes from: https://stackoverflow.com/questions/11716268/point-in-polygon-algorithm?lq=1
+  *Date Consulted: February 29th, 2020
+  * @param {int} nvert - Number of vertices in the polygon.
+  * @param {array} vertx - Array containing the x-coordinates fo the polygon's vertices.
+  * @param {array} verty - Array containing the y-coordinates fo the polygon's vertices.
+  * @param {double} testx - X-coordinate of the test point.
+  * @param {double} testy - Y-coordinate of the test point.
+  */
   isInPolygon(nvert, vertx, verty, testx, testy) {
     let i;
     let j;

@@ -8,8 +8,11 @@ import MapView, {
 import buildings from '../../assets/polygons/polygons';
 import styles from './styles';
 
-
 export default class TheMap extends Component {
+  /**
+ * Represents a map.
+ * @constructor
+ */
   constructor(props) {
     super(props);
     this.state = {

@@ -30,8 +30,10 @@ class Home extends Component {
     };
   }
 
-  // Function : updates the currently set region to a new region
-  // parameter : a region object to be set to
+  /**
+  * updates region and passes the new region 'map' component.
+  * @param {object} newRegion - New region to be passed.
+  */
   updateRegion = (newRegion) => {
     this.setState({
       region: {
@@ -60,20 +62,36 @@ class Home extends Component {
     this.setState({ isSwitchAvailableIndestination: visibility });
   }
 
+  /**
+  * updates coordinates and passes new coordinates 'Map' component.
+  * @param {object} newCoordinates - New coordinates to be passed.
+  */
   updateCoordinates = (newCoordinates) => {
     this.setState({
       coordinates: newCoordinates
     });
   };
 
+  /**
+  * gets new region from 'Addresses' component and updates region state
+  * @param {object} region - New region to be passed.
+  */
   getRegionFromAddresses=(region) => {
     this.updateRegion(region);
   };
 
+  /**
+  * gets new coordinates from 'Addresses' component and updates coordinates state
+  * @param {object} coordinates - New coordinates to be passed.
+  */
   getCoordinatesFromAddresses=(coordinates) => {
     this.updateCoordinates(coordinates);
   }
 
+  /**
+  * gets path to be deleted from 'Addresses' component
+  * @param {object} setPath - path to be deleted.
+  */
   clearPath = (setPath) => {
     this.setState({
       coordinates: setPath

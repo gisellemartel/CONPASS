@@ -29,6 +29,10 @@ export default class searchBarDestination extends Component {
     this.setState({ isMounted: true });
   }
 
+  /**
+  * Retrieves predictions through google's from text entered in searchbar.
+  * @param {string} destination - Text input from search bar
+  */
   async onChangeDestination(destination) {
     this.setState({ destination });
     const key = 'AIzaSyCqNODizSqMIWbKbO8Iq3VWdBcK846n_3w';
@@ -44,6 +48,7 @@ export default class searchBarDestination extends Component {
     }
   }
 
+  /** Retrieves the current location of a user. */
   async getCurrentLocation() {
     const { status } = await Permissions.askAsync(Permissions.LOCATION);
     if (status !== 'granted') {
@@ -57,6 +62,10 @@ export default class searchBarDestination extends Component {
     this.setState({ location });
   }
 
+  /**
+  * Draws path between two selected locations.
+  * @param {string} prediction - placeid of destination to get path to.
+  */
   async drawPath(prediction) {
     // eslint-disable-next-line react/no-unused-state
     this.setState({ description: prediction });

@@ -27,6 +27,10 @@ export default class Addresses extends Component {
     };
   }
 
+  /**
+  * updates region and passes the new region 'Home' component.
+  * @param {object} newRegion - New region to be passed.
+  */
     updateRegion = (newRegion) => {
       this.setState({
         region: {
@@ -39,6 +43,10 @@ export default class Addresses extends Component {
       this.props.getRegion(newRegion);
     };
 
+    /**
+    * updates coordinates and passes new coordinates 'Home' component.
+    * @param {object} newCoordinates - New coordinates to be passed.
+    */
     updateCoordinates = (newCoordinates) => {
       this.setState({
         coordinates: newCoordinates
@@ -49,7 +57,11 @@ export default class Addresses extends Component {
     render() {
       return (
         <View style={styles.searchContainer}>
-          <SearchBar updateRegion={this.updateRegion} urCurentLocation={this.state.value} hideMenu={this.state.hide} />
+          <SearchBar
+            updateRegion={this.updateRegion}
+            urCurentLocation={this.state.value}
+            hideMenu={this.state.hide}
+          />
           <SearchBarDestination
             updatedRegion={this.state.region}
             coordinateCallback={this.updateCoordinates}

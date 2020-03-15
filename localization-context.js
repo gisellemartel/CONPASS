@@ -11,7 +11,7 @@ const SetLocaleContext = () => {
       accessibility: 'Accessibility',
       help: 'Help',
       back: 'Back',
-      destinationSearch:'Choose your destination'
+      destinationSearch: 'Choose your destination'
     },
     fr: {
       welcome: 'Bonjour',
@@ -20,7 +20,7 @@ const SetLocaleContext = () => {
       accessibility: 'Accessibilité',
       help: 'Aide',
       back: 'Retour',
-      destinationSearch:'Choisissez votre destination'
+      destinationSearch: 'Choisissez votre destination'
     },
     sp: {
       welcome: 'Hola',
@@ -29,7 +29,7 @@ const SetLocaleContext = () => {
       accessibility: 'Accesibilidad',
       help: 'Ayuda',
       back: 'Atrás',
-      destinationSearch:'Elige tu destino'
+      destinationSearch: 'Elige tu destino'
     }
   };
 
