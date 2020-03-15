@@ -175,7 +175,7 @@ class Home extends Component {
   // Activates interior mode when building is clicked on
   // use the building data to render floors
   interiorModeOn(building, region) {
-    this.setState({ region, interiorMode: true, building: building });
+    this.setState({ region, interiorMode: true, building });
   }
 
   interiorModeOff() {

@@ -11,7 +11,12 @@ const styles = StyleSheet.create({
     bottom: 0,
     alignItems: 'center',
     backgroundColor: 'orange',
-    position: 'absolute',
+    position: 'absolute'
+  },
+  buildingInfo: {
+    padding: 10,
+    backgroundColor: 'white',
+    width: 100,
   },
   button: {
     zIndex: 6,
