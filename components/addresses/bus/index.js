@@ -17,32 +17,33 @@ export default class Bus extends Component {
     };
   }
 
+  /**
+ * Returns the time of the next shuttle bus.
+ * @param {string} campus - Either SGW or LOY.
+ * If any other string is passed, by default it will be the SGW campus.
+ *
+ */
   getNextShuttleBus(campus) {
     const hours = new Date().getHours();
     let min = new Date().getMinutes();
-    if (min % 5 !== 0) {
-      min = min - (min % 5) + 5;
-    }
-    const time = `${hours}:${min < 10 ? `0${min}` : min}`;
-    console.log(time);
 
-    const secHours = hours * 3600;
-    const secMin = min * 60;
-    const secTotal = secHours + secMin;
-    let dataArray;
-    if (campus === 'LOY') {
-      dataArray = shuttleScheduleInformation.Mon_Thu.LOY;
-    } else if (campus === 'SGW') {
-      dataArray = shuttleScheduleInformation.Mon_Thu.SGW;
-    }
+    // We know that the shuttle busses only come at times that are divisible by 5.
+    min = (min % 5 !== 0) ? (min - (min % 5) + 5) : min;
+
+    const totalSeconds = (hours * 3600) + (min * 60); // Converting the current time in seconds
+    const dataArray = campus === 'LOY' ? shuttleScheduleInformation.Mon_Thu.LOY : shuttleScheduleInformation.Mon_Thu.SGW; // Default SGW
+
     for (let i = 0; i < dataArray.length; i++) {
       const arrayVal = dataArray[i];
-      const totalsecInarr = (Number(arrayVal.split(':')[0]) * 3600) + (Number(arrayVal.split(':')[1] * 60));
-      if ((totalsecInarr - secTotal) > 0) { return arrayVal; }
+      const totalSecInData = (Number(arrayVal.split(':')[0]) * 3600) + (Number(arrayVal.split(':')[1] * 60)); // Converting data to seconds
+      if ((totalSecInData - totalSeconds) >= 0) { return arrayVal; } // a positive difference
     }
-    return dataArray[0];
+    return dataArray[0]; // Otherwise, return the first shuttle bus
   }
 
+  /**
+ * Returns the current time (military style).
+ */
   getCurrentTime() {
     const hours = new Date().getHours(); // Current Hours
     const min = new Date().getMinutes(); // Current Minutes

@@ -16,12 +16,19 @@ export default class ShuttleSchedule extends Component {
     this.updateButtonIndex = this.updateButtonIndex.bind(this);
   }
 
+  /** The function will return the appropriate schedule.
+   * Button index is as follows: 0 -> SGW and 1->LOY
+   * @param {Number} selectedButtonIndex - index of the button, either 0 or 1
+   */
   getShuttleCampusInformation(selectedButtonIndex) {
     if (selectedButtonIndex === 1) { return shuttleScheduleInformation.Mon_Thu.LOY; }
     return shuttleScheduleInformation.Mon_Thu.SGW;
   }
 
-  // Button index is as follows: 0 -> SGW and 1->LOY
+  /** The function will update the state, indicating which button is selected.
+   * Button index is as follows: 0 -> SGW and 1->LOY
+   * @param {Number} selectedButtonIndex - index of the button, either 0 or 1
+   */
   updateButtonIndex(selectedButtonIndex) {
     this.setState({ selectedButtonIndex });
   }
