@@ -15,7 +15,7 @@ class Home extends Component {
     super(props);
     this.state = {
       // Set Initial region of the map
-      value:'',
+      value: '',
       region: {
         latitude: 45.492409,
         longitude: -73.582153,
@@ -74,16 +74,21 @@ class Home extends Component {
     this.updateCoordinates(coordinates);
   }
 
+  clearPath = (setPath) => {
+    this.setState({
+      coordinates: setPath
+    });
+  }
+
   render() {
     return (
       <View style={styles.container}>
-
         <TheMap
           updatedRegion={this.state.region}
           updatedCoordinates={this.state.coordinates}
         />
         {!this.state.isGoVisible && (
-        <SearchBar       
+        <SearchBar
           navigation={this.props.navigation}
           updateRegion={this.updateRegion}
           changeVisibilityTo={this.changeVisibilityTo}
@@ -107,11 +112,11 @@ class Home extends Component {
         {this.state.isGoVisible
         && (
         <Addresses
+          clearPath={this.clearPath}
           changeVisibilityToSwitchCampus={this.changeVisibilityToSwitchCampus}
           getRegion={this.getRegionFromAddresses}
           getCoordinates={this.getCoordinatesFromAddresses}
           visiblityState={this.changeVisibilityToGo}
-          
         />
         ) }
       </View>

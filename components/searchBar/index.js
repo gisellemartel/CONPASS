@@ -24,6 +24,7 @@ export default class searchBar extends Component {
         longitudeDelta: 0.0421
       },
       isMounted: false,
+      // eslint-disable-next-line react/no-unused-state
       showMenu: true,
       checkUnidentified: true
     };

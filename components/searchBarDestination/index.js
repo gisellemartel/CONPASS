@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import React, { Component } from 'react';
 import {
   View, Keyboard, TouchableOpacity, Text
@@ -5,9 +6,9 @@ import {
 import i18n from 'i18n-js';
 import { SearchBar } from 'react-native-elements';
 import decodePolyline from 'decode-google-map-polyline';
-import styles from './styles';
 import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
+import styles from './styles';
 
 export default class searchBarDestination extends Component {
   constructor(props) {
@@ -24,8 +25,9 @@ export default class searchBarDestination extends Component {
     };
   }
 
-   componentDidMount() {
-    this.setState({ isMounted: true });}
+  componentDidMount() {
+    this.setState({ isMounted: true });
+  }
 
   async onChangeDestination(destination) {
     this.setState({ destination });
@@ -42,7 +44,7 @@ export default class searchBarDestination extends Component {
     }
   }
 
-    async getCurrentLocation() {
+  async getCurrentLocation() {
     const { status } = await Permissions.askAsync(Permissions.LOCATION);
     if (status !== 'granted') {
       this.setState({
@@ -62,12 +64,12 @@ export default class searchBarDestination extends Component {
     const geoUrl = `https://maps.googleapis.com/maps/api/place/details/json?key=${key}&placeid=${prediction}`;
 
     try {
-        await this.getCurrentLocation();
-        const { location } = this.state;
-        const urLatitude=location.coords.latitude;
-        const urLongitude=location.coords.longitude; 
-        const georesult = await fetch(geoUrl);
-        const gjson = await georesult.json();
+      await this.getCurrentLocation();
+      const { location } = this.state;
+      const urLatitude = location.coords.latitude;
+      const urLongitude = location.coords.longitude;
+      const georesult = await fetch(geoUrl);
+      const gjson = await georesult.json();
       this.setState({
         destinationRegion: {
           latitude: gjson.result.geometry.location.lat,
@@ -76,7 +78,6 @@ export default class searchBarDestination extends Component {
       });
       // eslint-disable-next-line no-shadow
       const key = 'AIzaSyBsMjuj6q76Vcna8G5z9PDyTH2z16fNPDk';
-      // change to current location later
       const originLat = this.props.updatedRegion.latitude === 0 ? urLatitude : this.props.updatedRegion.latitude;
       const originLong = this.props.updatedRegion.longitude === 0 ? urLongitude : this.props.updatedRegion.longitude;
       const destinationLat = this.state.destinationRegion.latitude;

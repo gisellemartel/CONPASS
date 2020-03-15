@@ -16,7 +16,7 @@ export default class Addresses extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      value:'Your Current Location',
+      value: 'Your Current Location',
       region: {
         latitude: 0,
         longitude: 0,
@@ -62,7 +62,8 @@ export default class Addresses extends Component {
             <BackButton
               visiblityState={this.props.visiblityState}
               changeVisibilityToSwitchCampus={this.props.changeVisibilityToSwitchCampus}
-              coordinateCallback={this.updateCoordinates}          
+              coordinateCallback={this.updateCoordinates}
+              clearPath={this.props.clearPath}
             />
             <CurrentLocation />
             <Destination />
