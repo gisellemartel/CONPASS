@@ -5,7 +5,6 @@ import TheMap from '../map';
 import SearchBar from '../searchBar';
 import styles from './styles';
 import SwitchCampuses from '../switchCampuses';
-import WithinBuilding from '../withinBuilding';
 import ToCircle from '../toCircle';
 import Addresses from '../addresses';
 import Location from '../location';
@@ -110,8 +109,6 @@ class Home extends Component {
           visiblityState={this.state.isVisible}
           isSwitchAvailableIndestination={this.state.isSwitchAvailableIndestination}
         />
-
-        <WithinBuilding />
         <ToCircle
           changeVisibilityToSwitchCampus={this.changeVisibilityToSwitchCampus}
           visibilityState={this.changeVisibilityToGo}
