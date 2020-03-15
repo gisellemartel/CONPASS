@@ -70,18 +70,21 @@ export default class searchBarDestination extends Component {
     try {
       const result = await fetch(directionUrl);
       const json = await result.json();
-      const encryptedPath = json.routes[0].overview_polyline.points;
-      this.props.getPolylinePoint(encryptedPath);
-      const rawPolylinePoints = decodePolyline(json.routes[0].overview_polyline.points);
-      // Incompatible field names for direct decode. Need to do a trivial conversion.
-      const waypoints = rawPolylinePoints.map((point) => {
-        return {
-          latitude: point.lat,
-          longitude: point.lng
-        };
-      });
-      // const { coordinateCallback } = this.props;
-      this.props.coordinateCallback(waypoints);
+      let encryptedPath = '';
+      if (json.routes.length > 0) {
+        encryptedPath = json.routes[0].overview_polyline.points;
+        this.props.getPolylinePoint(encryptedPath);
+        const rawPolylinePoints = decodePolyline(encryptedPath);
+        // Incompatible field names for direct decode. Need to do a trivial conversion.
+        const waypoints = rawPolylinePoints.map((point) => {
+          return {
+            latitude: point.lat,
+            longitude: point.lng
+          };
+        });
+        // const { coordinateCallback } = this.props;
+        this.props.coordinateCallback(waypoints);
+      }
     } catch (err) {
       console.error(err);
     }
