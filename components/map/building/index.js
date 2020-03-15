@@ -3,44 +3,24 @@ import React, { Component } from 'react';
 import {
   View, Button, Text
 } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import styles from './styles';
 
-import CC1 from '../../../assets/svg/cc-1.svg';
-import Hall1 from '../../../assets/svg/hall-1.svg';
-import Hall2 from '../../../assets/svg/hall-2.svg';
-import Hall8 from '../../../assets/svg/hall-8.svg';
-// import Hall9 from '../../../assets/svg/hall-9.svg';
-import MB1 from '../../../assets/svg/mb-1.svg';
-import MBS2 from '../../../assets/svg/mb-s2.svg';
-import VE1 from '../../../assets/svg/ve-1.svg';
-import VE2 from '../../../assets/svg/ve-2.svg';
-import VL1 from '../../../assets/svg/vl-1.svg';
-import VL2 from '../../../assets/svg/vl-2.svg';
-
 class Building extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      floor: this.props.buildingFloorPlans[0]
+    };
+  }
+
   interiorModeOff() {
     this.props.interiorModeOff();
   }
 
-  whichBuilding(name) {
-    switch (name) {
-      case 'H':
-        return <Hall1 width={250} height={250} />;
-      case 'MB':
-        return <MB1 width={250} height={250} />;
-      case 'VE':
-        return <VE1 width={250} height={250} />;
-      case 'VL':
-        return <VL1 width={250} height={250} />;
-      case 'CC':
-        return <CC1 width={250} height={250} />;
-      default:
-        return null;
-    }
-  }
-
-  whichFloor(floor) {
-
+  changeFloor(lvl) {
+    const index = this.props.buildingFloorPlans.findIndex((i) => { return i.floor === lvl; });
+    this.setState({ floor: this.props.buildingFloorPlans[index] });
   }
 
   render() {
@@ -48,26 +28,41 @@ class Building extends Component {
     const currentBuilding = building.polygon.name;
     const currentCampus = building.campus;
 
-    const buildingSvg = this.whichBuilding(building.building);
-
+    const { floor } = this.state;
     return (
-      (buildingSvg
+      (floor
         ? (
           <View style={styles.container}>
-            {buildingSvg}
-            <View style={{ width: 50, height: 50 }} />
-            <View style={styles.buildingInfo}>
-              <Button title="quit" onPress={() => { this.interiorModeOff(); }} />
-              <Text>Interior Mode</Text>
+            <TouchableOpacity style={styles.quitButton} onPress={() => { return this.props.interiorModeOff(); }}>
               <Text>
-                {currentBuilding}
+                quit interior mode
               </Text>
-              <Text>
-                {currentCampus}
-              </Text>
+            </TouchableOpacity>
+            <View style={styles.buildingContainer}>
+              {floor.component}
+            </View>
+            <View style={styles.switcher}>
+              {this.props.buildingFloorPlans.map((lvl) => {
+                return (
+                  <TouchableOpacity onPress={() => { return this.changeFloor(lvl.floor); }}>
+                    <Text style={styles.lvl}>
+                      {lvl.floor}
+                    </Text>
+                  </TouchableOpacity>
+                );
+              })}
             </View>
           </View>
-        ) : null)
+        )
+        : (
+          <View style={styles.container}>
+            <TouchableOpacity style={styles.quitButton} onPress={() => { return this.props.interiorModeOff(); }}>
+              <Text>
+                no floors available, press to quit
+              </Text>
+            </TouchableOpacity>
+          </View>
+        ))
     );
   }
 }

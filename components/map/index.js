@@ -85,6 +85,7 @@ export default class TheMap extends Component {
   }
 
   focusOnBuilding(building) {
+    console.log('activate');
     const { coordinates } = building.polygon;
 
     this.state.mapRef.fitToCoordinates(coordinates, {
