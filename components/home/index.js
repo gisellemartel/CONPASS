@@ -26,7 +26,9 @@ class Home extends Component {
       // eslint-disable-next-line react/no-unused-state
       isSearchVisible: true,
       isGoVisible: false,
-      isSwitchAvailableIndestination: true
+      isSwitchAvailableIndestination: true,
+      // current Concordia a user is in
+      currentBuilding: ''
     };
   }
 
@@ -80,7 +82,13 @@ class Home extends Component {
     });
   }
 
+  updateCurrentBuilding = (childCurrentBuilding) =>{
+    this.setState({
+      currentBuilding: childCurrentBuilding
+    });
+  }
   render() {
+    console.log('current Building: ',this.state.currentBuilding);
     return (
       <View style={styles.container}>
         <TheMap
@@ -100,7 +108,7 @@ class Home extends Component {
           visiblityState={this.state.isVisible}
           isSwitchAvailableIndestination={this.state.isSwitchAvailableIndestination}
         />
-        <WithinBuilding />
+        <WithinBuilding updateCurrentBuildingCallBack={this.updateCurrentBuilding}/>
         <Shuttle
           coordinateCallback={this.updateCoordinates}
         />

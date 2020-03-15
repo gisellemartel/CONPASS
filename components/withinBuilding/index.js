@@ -77,6 +77,7 @@ export default class WithinBuilding extends Component {
 
       formattedBuildings.push({
         name: building.buildingName,
+        address: building.address,
         xCoords: xCoordinates,
         yCoords: yCoordinates
       });
@@ -128,10 +129,34 @@ export default class WithinBuilding extends Component {
       this.state.buildingDisplayName = '';
     }
   }
+  shouldComponentUpdate(){
+    return false;
+  }
 
+  componentDidMount(){
+    if(this.state.campusDisplayName == 'Loyola'){
+      if(this.state.buildingDisplayName.length > 0)
+        this.props.updateCurrentBuildingCallBack(this.state.loyBuildings.filter((building)=>{
+        return building.name == this.state.buildingDisplayName;
+        })[0].address);
+      else
+        this.props.updateCurrentBuildingCallBack('');
+    }else if(this.state.campusDisplayName == 'SGW'){
+      if(this.state.buildingDisplayName.length > 0)
+        this.props.updateCurrentBuildingCallBack(this.state.sgwBuildings.filter((building)=>{
+        return building.name == this.state.buildingDisplayName;
+      })[0].address);
+      else
+        this.props.updateCurrentBuildingCallBack('');
+    }else
+        this.props.updateCurrentBuildingCallBack('');
+  }
   render() {
     this.buildingName();
-
+    //remove b4 merging... It's just for testing purposes
+    this.state.campusDisplayName = 'SGW';
+    this.state.buildingDisplayName = 'Webster Library Building';
+    console.log('-->',this.state.campusDisplayName);
     return (
       <View style={styles.userFinalLoc}>
         <Text>{this.state.campusDisplayName}</Text>
