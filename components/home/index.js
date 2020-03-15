@@ -7,6 +7,8 @@ import styles from './styles';
 import SwitchCampuses from '../switchCampuses';
 import WithinBuilding from '../withinBuilding';
 import Building from '../map/building/index';
+import generateBuilding from '../../assets/svgReactNative/buildingRepository';
+
 
 class Home extends Component {
   constructor(props) {
@@ -95,7 +97,7 @@ class Home extends Component {
           getPolylinePoint={this.getPolylinePoint}
         /> */}
         {/* zIndex=2 */}
-        {this.state.interiorMode && <Building building={this.state.building} interiorModeOff={this.interiorModeOff} />}
+        {this.state.interiorMode && <Building building={this.state.building} buildingFloorPlans={generateBuilding(this.state.building.building)} interiorModeOff={this.interiorModeOff} />}
       </View>
     );
   }

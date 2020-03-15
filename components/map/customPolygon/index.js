@@ -3,6 +3,7 @@ import { Polygon } from 'react-native-maps';
 
 class CustomPolygon extends Component {
   zoomBuilding() {
+    console.log('click');
     const { building } = this.props;
     this.props.focusOnBuilding(building);
   }
