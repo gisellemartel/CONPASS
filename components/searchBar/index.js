@@ -26,7 +26,7 @@ export default class searchBar extends Component {
       isMounted: false,
       // eslint-disable-next-line react/no-unused-state
       showMenu: true,
-      checkUnidentified: true
+      checkUnidentified: true,
     };
   }
 
@@ -45,6 +45,8 @@ export default class searchBar extends Component {
     if (this.props.urCurentLocation !== undefined) {
       this.setState({ destination: this.props.urCurentLocation });
     }
+    console.log('xxx');
+    //this.updatePreds();
   }
 
   // Function: When entering text searchbar, captures all the possible predictions from google's api
@@ -59,6 +61,24 @@ export default class searchBar extends Component {
       const json = await result.json();
       this.setState({
         predictions: json.predictions
+      });
+
+    }catch (err) {
+      console.error(err);
+    }
+    if(this.state.predictions.length>0)
+      this.updatePreds();
+  }
+
+  async updatePreds(){
+    const key = 'AIzaSyCqNODizSqMIWbKbO8Iq3VWdBcK846n_3w';
+    const apiUrl = `https://maps.googleapis.com/maps/api/place/autocomplete/json?key=${key}&input=${this.props.currentBuildingPred}&location=45.492409, -73.582153&radius=2000`;
+    try {
+      const result = await fetch(apiUrl);
+      const json = await result.json();
+
+      this.setState({
+        predictions : [json.predictions[0],...this.state.predictions]
       });
     } catch (err) {
       console.error(err);
@@ -91,7 +111,6 @@ export default class searchBar extends Component {
 
 
   render() {
-    console.log('SearchBar::: ',this.props.currentBuildingPred);
     const placeholder = this.state.isMounted ? i18n.t('search') : 'search';
     // Predictions mapped and formmated from the current state predictions
     const predictions = this.state.predictions.map((prediction) => {

@@ -156,7 +156,6 @@ export default class WithinBuilding extends Component {
     //remove b4 merging... It's just for testing purposes
     this.state.campusDisplayName = 'SGW';
     this.state.buildingDisplayName = 'Webster Library Building';
-    console.log('-->',this.state.campusDisplayName);
     return (
       <View style={styles.userFinalLoc}>
         <Text>{this.state.campusDisplayName}</Text>
