@@ -77,9 +77,12 @@ export default class searchBar extends Component {
       const result = await fetch(apiUrl);
       const json = await result.json();
 
-      this.setState({
-        predictions : [json.predictions[0],...this.state.predictions]
-      });
+      if(json.predictions.length> 0){
+        this.state.predictions.pop();
+        this.setState({
+          predictions : [json.predictions[0],...this.state.predictions]
+        });
+    }
     } catch (err) {
       console.error(err);
     }
