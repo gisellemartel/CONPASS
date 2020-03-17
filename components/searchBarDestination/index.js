@@ -103,7 +103,7 @@ export default class searchBarDestination extends Component {
           longitude: point.lng
         };
       });
-      console.log(waypoints);
+      // console.log(waypoints);
       this.props.coordinateCallback(waypoints);
     } catch (err) {
       console.error(err);

@@ -17,6 +17,7 @@ class Home extends Component {
     this.state = {
       // Set Initial region of the map
       value: '',
+      coordinates: [],
       region: {
         latitude: 45.492409,
         longitude: -73.582153,
