@@ -15,6 +15,7 @@ export default class TheMap extends Component {
  */
   constructor(props) {
     super(props);
+    this.mapRef = null;
     this.state = {
       coordinate: {
         latitude: 45.492409,
@@ -23,21 +24,34 @@ export default class TheMap extends Component {
     };
   }
 
-
   componentDidMount() {
-    const { description } = this.props.updatedRegion;
-    this.setState({
-      region: description,
+    this.setState({ mapRef: this.mapRef },
+      () => { this.fitScreenToPath(this.props.updatedCoordinates); });
+  }
+
+  componentDidUpdate(prevProps) {
+    const coordinates = this.props.updatedCoordinates;
+    if (prevProps.updatedCoordinates !== coordinates) {
+      this.fitScreenToPath(coordinates);
+    }
+  }
+
+  fitScreenToPath(coordinates) {
+    this.state.mapRef.fitToCoordinates(coordinates, {
+      edgePadding: {
+        top: 180, right: 20, bottom: 10, left: 20
+      }
     });
   }
 
 
   render() {
-    const coordinates = this.props.updatedCoordinates ? this.props.updatedCoordinates : [];
+    const currRef = (ref) => { this.mapRef = ref; };
     return (
       <View style={styles.container}>
         <MapView
           showsUserLocation
+          ref={currRef}
           provider={PROVIDER_GOOGLE}
           region={this.props.updatedRegion}
           style={styles.mapStyle}
@@ -45,7 +59,7 @@ export default class TheMap extends Component {
           {this.props.polylineVisibility
           && (
           <Polyline
-            coordinates={coordinates}
+            coordinates={this.props.updatedCoordinates}
             strokeWidth={4}
             strokeColor="black"
           />

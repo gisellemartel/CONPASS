@@ -23,15 +23,14 @@ export default class searchBar extends Component {
         latitudeDelta: 0.0922,
         longitudeDelta: 0.0421
       },
-      isMounted: false,
-      checkUnidentified: true
+      isMounted: false
     };
   }
 
   componentDidMount() {
     SetLocaleContext();
     this.setState({ isMounted: true });
-    if (this.props.hideMenu === undefined) {
+    if (this.props.hideMenu === undefined || this.props.setCampusToggleVisibility === undefined) {
       this.setState({ hideMenu: true });
     } else {
       this.setState({ hideMenu: false });
@@ -101,9 +100,6 @@ export default class searchBar extends Component {
               this.props.getDestinationIfSet ? this.props.getDestinationIfSet(prediction.description) : '';
               this.getLatLong(prediction.place_id);
               this.setState({ showPredictions: false });
-              if (this.state.checkUnidentified) {
-                // this.props.changeVisibilityTo();
-              }
               Keyboard.dismiss();
             }}
           >
@@ -122,9 +118,6 @@ export default class searchBar extends Component {
      * manages contextual text entry
      */
     const onChangeText = (destination) => {
-      if (this.state.checkUnidentified && destination.length === 0) {
-        // this.props.changeVisibilityTo();
-      }
       return this.onChangeDestination(destination);
     };
 
@@ -134,9 +127,6 @@ export default class searchBar extends Component {
      */
     const onClear = () => {
       this.setState({ showPredictions: true });
-      if (this.state.checkUnidentified) {
-        // this.props.changeVisibilityTo();
-      }
     };
 
     /**
@@ -144,18 +134,14 @@ export default class searchBar extends Component {
      * Defines UI behaviour of component when triggered by touch event
      */
     const onTouchStart = () => {
-      if (this.state.checkUnidentified) {
-        // this.props.changeVisibilityTo();
-      }
+      this.props.setCampusToggleVisibility(true);
     };
 
     /**
      * Controller function for searchBar component
      */
     const onBlur = () => {
-      if (this.state.checkUnidentified) {
-        // this.props.changeVisibilityTo();
-      }
+      this.props.setCampusToggleVisibility(false);
     };
 
     const containerStyle = {

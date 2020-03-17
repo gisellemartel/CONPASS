@@ -17,6 +17,7 @@ class Home extends Component {
     this.state = {
       // Set Initial region of the map
       value: '',
+      coordinates: [],
       region: {
         latitude: '',
         longitude: '',
@@ -31,7 +32,7 @@ class Home extends Component {
       },
 
       showDirectionsMenu: false,
-      coordinates: []
+      showCampusToggle: false
     };
   }
 
@@ -77,6 +78,12 @@ class Home extends Component {
     });
   };
 
+  setCampusToggleVisibility = (showCampusToggle) => {
+    this.setState({
+      showCampusToggle
+    });
+  }
+
   /**
   * updates coordinates and passes new coordinates 'Map' component.
   * @param {object} newCoordinates - New coordinates to be passed.
@@ -103,14 +110,8 @@ class Home extends Component {
     this.updateCoordinates(coordinates);
   }
 
-  /**
-  * gets path to be deleted from 'Addresses' component
-  * @param {object} setPath - path to be deleted.
-  */
-  clearPath = () => {
-    this.setState({
-      coordinates: []
-    });
+  clearPolyLine = () => {
+
   }
 
   render() {
@@ -127,9 +128,10 @@ class Home extends Component {
           navigation={this.props.navigation}
           updateRegion={this.updateRegion}
           changeVisibilityTo={this.changeVisibilityTo}
+          setCampusToggleVisibility={this.setCampusToggleVisibility}
         />
         )}
-        {!this.state.showDirectionsMenu && (
+        {this.state.showCampusToggle && (
         <SwitchCampuses
           updateRegion={this.updateRegion}
           visiblityState={!this.state.showDirectionsMenu}
@@ -153,6 +155,7 @@ class Home extends Component {
           getRegionFromSearch={this.state.region}
           getCoordinates={this.getCoordinatesFromAddresses}
           changeVisibilityTo={this.changeVisibilityTo}
+          polylineVisibility={this.clearPolyLine}
         />
         ) }
       </View>
