@@ -53,6 +53,7 @@ export default class searchBar extends Component {
   // Parameter: Text input from search bar
 
   async onChangeDestination(destination) {
+    this.setState({ destination });
     try {
       if(this.props.currentBuildingPred!==this.state.prevCurrentBuilding){
         this.setState({
@@ -66,7 +67,6 @@ export default class searchBar extends Component {
       this.setState({
         predictions: finalPredictions
       });
-
     }catch (err) {
       console.error(err);
     }
@@ -95,7 +95,6 @@ export default class searchBar extends Component {
    * @returns {Promise} - Promise object represents Google's API json response
    */
   async getPredictions(destination){
-    this.setState({ destination });
     const key = 'AIzaSyCqNODizSqMIWbKbO8Iq3VWdBcK846n_3w';
     const apiUrl = `https://maps.googleapis.com/maps/api/place/autocomplete/json?key=${key}&input=${destination}&location=45.492409, -73.582153&radius=2000`;
 
