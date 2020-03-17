@@ -7,6 +7,7 @@ import shuttleScheduleInformation from './shuttleScheduleService';
 import styles from './styles';
 
 const buttons = ['SGW', 'LOY'];
+const DAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 export default class ShuttleSchedule extends Component {
   constructor() {
     super();
@@ -21,8 +22,22 @@ export default class ShuttleSchedule extends Component {
    * @param {Number} selectedButtonIndex - index of the button, either 0 or 1
    */
   getShuttleCampusInformation(selectedButtonIndex) {
-    if (selectedButtonIndex === 1) { return shuttleScheduleInformation.Mon_Thu.LOY; }
-    return shuttleScheduleInformation.Mon_Thu.SGW;
+    if (DAYS[new Date().getDay()] === 'Saturday' || DAYS[new Date().getDay()] === 'Sunday') {
+      return ['N/A'];
+    }
+    if (selectedButtonIndex === 1) {
+      if (DAYS[new Date().getDay()] === 'Friday') {
+        return shuttleScheduleInformation.Fri.LOY;
+      }
+      return shuttleScheduleInformation.Mon_Thu.LOY;
+    }
+    if (selectedButtonIndex === 0) {
+      if (DAYS[new Date().getDay()] === 'Friday') {
+        return shuttleScheduleInformation.Fri.SGW;
+      }
+      return shuttleScheduleInformation.Mon_Thu.SGW;
+    }
+    return ['N/A'];
   }
 
   /** The function will update the state, indicating which button is selected.
