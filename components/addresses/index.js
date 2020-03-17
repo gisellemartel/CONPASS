@@ -78,7 +78,7 @@ export default class Addresses extends Component {
             coordinateCallback={this.updateCoordinates}
           />
           <Car />
-          <Bus />
+          <Bus navigation={this.props.navigation} />
           <Bike />
           <Walking />
           <View style={styles.container}>

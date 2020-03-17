@@ -1,15 +1,15 @@
+/* eslint-disable react/no-unused-state */
 import React, { Component } from 'react';
 import { View } from 'react-native';
 import TheMap from '../map';
 import SearchBar from '../searchBar';
-import Shuttle from '../shuttleInformation';
+
 import SwitchCampuses from '../switchCampuses';
 // TODO: uncomment once #93 is merged
 // import WithinBuilding from '../withinBuilding';
 import SetPath from '../setPath';
 import Addresses from '../addresses';
 import styles from './styles';
-
 
 class Home extends Component {
   constructor(props) {
@@ -135,15 +135,12 @@ class Home extends Component {
         {this.state.showCampusToggle && (
         <SwitchCampuses
           updateRegion={this.updateRegion}
-          visiblityState={!this.state.showDirectionsMenu}
-        />
-        )}
-        {/* TODO: uncomment once #93 is merged */}
-        {/* <WithinBuilding /> */}
-        <Shuttle
-          coordinateCallback={this.updateCoordinates}
-        />
-        <SetPath
+          visiblityState={!this.state.showDirectionsMenu}        />
+        
+        <Location updateRegion={this.updateRegion} />		
+
+
+		<SetPath
           changeVisibilityTo={this.changeVisibilityTo}
           newValue={this.state.value}
         />
@@ -155,6 +152,7 @@ class Home extends Component {
           getRegionFromSearch={this.state.region}
           getCoordinates={this.getCoordinatesFromAddresses}
           changeVisibilityTo={this.changeVisibilityTo}
+          navigation={this.props.navigation}
         />
         ) }
       </View>
