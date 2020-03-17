@@ -24,7 +24,8 @@ class Home extends Component {
         latitudeDelta: 0.04,
         longitudeDelta: 0.04
       },
-      showDirectionsMenu: false
+      showDirectionsMenu: false,
+      showCampusToggle: false
     };
   }
 
@@ -48,6 +49,12 @@ class Home extends Component {
       showDirectionsMenu
     });
   };
+
+  setCampusToggleVisibility = (showCampusToggle) => {
+    this.setState({
+      showCampusToggle
+    });
+  }
 
   /**
   * updates coordinates and passes new coordinates 'Map' component.
@@ -75,6 +82,10 @@ class Home extends Component {
     this.updateCoordinates(coordinates);
   }
 
+  clearPolyLine = () => {
+
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -88,9 +99,10 @@ class Home extends Component {
           navigation={this.props.navigation}
           updateRegion={this.updateRegion}
           changeVisibilityTo={this.changeVisibilityTo}
+          setCampusToggleVisibility={this.setCampusToggleVisibility}
         />
         )}
-        {!this.state.showDirectionsMenu && (
+        {this.state.showCampusToggle && (
         <SwitchCampuses
           updateRegion={this.updateRegion}
           visiblityState={!this.state.showDirectionsMenu}
@@ -111,6 +123,7 @@ class Home extends Component {
           getRegion={this.getRegionFromAddresses}
           getCoordinates={this.getCoordinatesFromAddresses}
           changeVisibilityTo={this.changeVisibilityTo}
+          polylineVisibility={this.clearPolyLine}
         />
         ) }
       </View>
