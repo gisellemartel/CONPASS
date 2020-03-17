@@ -24,8 +24,6 @@ export default class searchBar extends Component {
         longitudeDelta: 0.0421
       },
       isMounted: false,
-      // eslint-disable-next-line react/no-unused-state
-      showMenu: true,
       checkUnidentified: true
     };
   }
@@ -37,10 +35,6 @@ export default class searchBar extends Component {
       this.setState({ hideMenu: true });
     } else {
       this.setState({ hideMenu: false });
-    }
-    if (this.props.changeVisibilityTo === undefined
-      || this.props.changeVisibilityToSearch === undefined) {
-      this.setState({ checkUnidentified: false });
     }
     if (this.props.urCurentLocation !== undefined) {
       this.setState({ destination: this.props.urCurentLocation });
@@ -108,7 +102,7 @@ export default class searchBar extends Component {
               this.getLatLong(prediction.place_id);
               this.setState({ showPredictions: false });
               if (this.state.checkUnidentified) {
-                this.props.changeVisibilityTo(false);
+                // this.props.changeVisibilityTo();
               }
               Keyboard.dismiss();
             }}
@@ -128,10 +122,8 @@ export default class searchBar extends Component {
      * manages contextual text entry
      */
     const onChangeText = (destination) => {
-      if (this.state.checkUnidentified) {
-        destination.length === 0
-          // eslint-disable-next-line max-len
-          ? this.props.changeVisibilityTo(true) && this.props.changeVisibilityToSearch(true) : this.props.changeVisibilityTo(false) && this.props.changeVisibilityToSearch(false);
+      if (this.state.checkUnidentified && destination.length === 0) {
+        // this.props.changeVisibilityTo();
       }
       return this.onChangeDestination(destination);
     };
@@ -143,8 +135,7 @@ export default class searchBar extends Component {
     const onClear = () => {
       this.setState({ showPredictions: true });
       if (this.state.checkUnidentified) {
-        this.props.changeVisibilityTo(false);
-        this.props.changeVisibilityToSearch(true);
+        // this.props.changeVisibilityTo();
       }
     };
 
@@ -154,8 +145,7 @@ export default class searchBar extends Component {
      */
     const onTouchStart = () => {
       if (this.state.checkUnidentified) {
-        this.props.changeVisibilityTo(true);
-        this.props.changeVisibilityToSearch(false);
+        // this.props.changeVisibilityTo();
       }
     };
 
@@ -164,8 +154,7 @@ export default class searchBar extends Component {
      */
     const onBlur = () => {
       if (this.state.checkUnidentified) {
-        this.props.changeVisibilityToSearch(true);
-        this.props.changeVisibilityTo(false);
+        // this.props.changeVisibilityTo();
       }
     };
 

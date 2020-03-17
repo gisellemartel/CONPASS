@@ -23,11 +23,8 @@ class Home extends Component {
         latitudeDelta: 0.04,
         longitudeDelta: 0.04
       },
-      isVisible: false,
-      // eslint-disable-next-line react/no-unused-state
-      isSearchVisible: true,
-      isGoVisible: false,
-      isSwitchAvailableIndestination: true
+      showDirectionsMenu: false,
+      coordinates: []
     };
   }
 
@@ -57,15 +54,13 @@ class Home extends Component {
   changeVisibilityToSearch = (visibility) => {
     // eslint-disable-next-line react/no-unused-state
     this.setState({ isSearchVisible: visibility });
+  }
+
+  changeVisibilityTo = (showDirectionsMenu) => {
+    this.setState({
+      showDirectionsMenu
+    });
   };
-
-  changeVisibilityToGo = (visibility) => {
-    this.setState({ isGoVisible: visibility });
-  }
-
-  changeVisibilityToSwitchCampus = (visibility) => {
-    this.setState({ isSwitchAvailableIndestination: visibility });
-  }
 
   /**
   * updates coordinates and passes new coordinates 'Map' component.
@@ -97,9 +92,9 @@ class Home extends Component {
   * gets path to be deleted from 'Addresses' component
   * @param {object} setPath - path to be deleted.
   */
-  clearPath = (setPath) => {
+  clearPath = () => {
     this.setState({
-      coordinates: setPath
+      coordinates: []
     });
   }
 
@@ -109,41 +104,40 @@ class Home extends Component {
         <TheMap
           updatedCoordinates={this.state.coordinates}
           updatedRegion={this.state.region}
+          polylineVisibility={this.state.showDirectionsMenu}
         />
-        {!this.state.isGoVisible && (
+        {!this.state.showDirectionsMenu && (
         <SearchBar
           getDestinationIfSet={this.getDestinationIfSet}
           navigation={this.props.navigation}
           updateRegion={this.updateRegion}
           changeVisibilityTo={this.changeVisibilityTo}
-          changeVisibilityToSearch={this.changeVisibilityToSearch}
         />
         )}
+        {!this.state.showDirectionsMenu && (
         <SwitchCampuses
           updateRegion={this.updateRegion}
-          visiblityState={this.state.isVisible}
-          isSwitchAvailableIndestination={this.state.isSwitchAvailableIndestination}
+          visiblityState={!this.state.showDirectionsMenu}
         />
+        )}
         {/* TODO: uncomment once #93 is merged */}
         {/* <WithinBuilding /> */}
         <Shuttle
           coordinateCallback={this.updateCoordinates}
         />
         <SetPath
-          changeVisibilityToSwitchCampus={this.changeVisibilityToSwitchCampus}
-          visibilityState={this.changeVisibilityToGo}
+          changeVisibilityTo={this.changeVisibilityTo}
           newValue={this.state.value}
         />
-        {this.state.isGoVisible
+        {this.state.showDirectionsMenu
         && (
         <Addresses
           getDestinationIfSet={this.state.destinationToGo}
           clearPath={this.clearPath}
-          changeVisibilityToSwitchCampus={this.changeVisibilityToSwitchCampus}
           getRegion={this.getRegionFromAddresses}
           getRegionFromSearch={this.state.region}
           getCoordinates={this.getCoordinatesFromAddresses}
-          visiblityState={this.changeVisibilityToGo}
+          changeVisibilityTo={this.changeVisibilityTo}
         />
         ) }
       </View>
