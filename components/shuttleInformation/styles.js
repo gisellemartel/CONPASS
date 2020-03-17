@@ -4,10 +4,8 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: '#fff',
     alignItems: 'center',
-  },
-  contentContainer: {
-    flex: 1,
-    paddingTop: 2,
+    position: 'absolute',
+    bottom: 0
   },
   sectionHeader: {
     paddingTop: 2,

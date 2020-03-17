@@ -2,9 +2,12 @@
 /* eslint-disable react/no-unused-state */
 import React, { Component } from 'react';
 import { View } from 'react-native';
-import MapView, { Polygon, Polyline, PROVIDER_GOOGLE } from 'react-native-maps';
+import MapView, {
+  Polygon, Polyline, PROVIDER_GOOGLE, Marker
+} from 'react-native-maps';
 import buildings from '../../assets/polygons/polygons';
 import styles from './styles';
+
 
 export default class TheMap extends Component {
   constructor(props) {
@@ -19,10 +22,12 @@ export default class TheMap extends Component {
     };
   }
 
+
   componentDidMount() {
     const { description } = this.props.updatedRegion;
     this.setState({ region: description });
   }
+
 
   render() {
     return (
@@ -50,7 +55,8 @@ export default class TheMap extends Component {
               })
             );
           })}
-          <MapView.Marker
+
+          <Marker
             coordinate={{
               latitude: this.props.updatedRegion.latitude,
               longitude: this.props.updatedRegion.longitude
