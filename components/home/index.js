@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { View } from 'react-native';
 import TheMap from '../map';
 import SearchBar from '../searchBar';
-
+import Location from '../location';
 import SwitchCampuses from '../switchCampuses';
 // TODO: uncomment once #93 is merged
 // import WithinBuilding from '../withinBuilding';
@@ -135,12 +135,14 @@ class Home extends Component {
         {this.state.showCampusToggle && (
         <SwitchCampuses
           updateRegion={this.updateRegion}
-          visiblityState={!this.state.showDirectionsMenu}        />
-        
-        <Location updateRegion={this.updateRegion} />		
+          visiblityState={!this.state.showDirectionsMenu}
+        />
+        )}
+
+        <Location updateRegion={this.updateRegion} />
 
 
-		<SetPath
+        <SetPath
           changeVisibilityTo={this.changeVisibilityTo}
           newValue={this.state.value}
         />
