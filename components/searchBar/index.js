@@ -28,6 +28,7 @@ export default class searchBar extends Component {
   }
 
   componentDidMount() {
+    console.log(this.props.hideMenu);
     SetLocaleContext();
     this.setState({ isMounted: true });
     if (this.props.hideMenu === undefined || this.props.setCampusToggleVisibility === undefined) {
@@ -167,7 +168,7 @@ export default class searchBar extends Component {
             returnKeyType="search"
             lightTheme
             containerStyle={containerStyle}
-            searchIcon={searchIcon}
+            searchIcon={!this.props.hideMenu && searchIcon}
             placeholder={placeholder}
             onChangeText={onChangeText}
             value={this.state.destination}
