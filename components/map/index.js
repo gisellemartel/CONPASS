@@ -19,19 +19,21 @@ export default class TheMap extends Component {
       coordinate: {
         latitude: 45.492409,
         longitude: -73.582153,
-      },
-      coordinates: '',
+      }
     };
   }
 
 
   componentDidMount() {
     const { description } = this.props.updatedRegion;
-    this.setState({ region: description });
+    this.setState({
+      region: description,
+    });
   }
 
 
   render() {
+    const coordinates = this.props.updatedCoordinates ? this.props.updatedCoordinates : [];
     return (
       <View style={styles.container}>
         <MapView
@@ -40,11 +42,14 @@ export default class TheMap extends Component {
           region={this.props.updatedRegion}
           style={styles.mapStyle}
         >
+          {this.props.polylineVisibility
+          && (
           <Polyline
-            coordinates={this.props.updatedCoordinates ? this.props.updatedCoordinates : []}
+            coordinates={coordinates}
             strokeWidth={4}
             strokeColor="black"
           />
+          )}
           {buildings.map((building) => {
             return (
               building.polygons.map((polygon) => {

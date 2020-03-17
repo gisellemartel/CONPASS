@@ -23,8 +23,8 @@ class Home extends Component {
         latitudeDelta: 0.04,
         longitudeDelta: 0.04
       },
-      searchBarVisibilityToggle: false,
-      isSwitchAvailableIndestination: true
+      showDirectionsMenu: false,
+      coordinates: []
     };
   }
 
@@ -43,13 +43,11 @@ class Home extends Component {
     });
   };
 
-  changeVisibilityTo = (toggle) => {
-    this.setState({ searchBarVisibilityToggle: toggle });
+  changeVisibilityTo = (showDirectionsMenu) => {
+    this.setState({
+      showDirectionsMenu
+    });
   };
-
-  changeVisibilityToSwitchCampus = (visibility) => {
-    this.setState({ isSwitchAvailableIndestination: visibility });
-  }
 
   /**
   * updates coordinates and passes new coordinates 'Map' component.
@@ -93,37 +91,37 @@ class Home extends Component {
         <TheMap
           updatedRegion={this.state.region}
           updatedCoordinates={this.state.coordinates}
+          polylineVisibility={this.state.showDirectionsMenu}
         />
-        {!this.state.searchBarVisibilityToggle && (
+        {!this.state.showDirectionsMenu && (
         <SearchBar
           navigation={this.props.navigation}
           updateRegion={this.updateRegion}
           changeVisibilityTo={this.changeVisibilityTo}
         />
         )}
+        {!this.state.showDirectionsMenu && (
         <SwitchCampuses
           updateRegion={this.updateRegion}
-          visiblityState={this.state.isVisible}
-          isSwitchAvailableIndestination={this.state.isSwitchAvailableIndestination}
+          visiblityState={!this.state.showDirectionsMenu}
         />
+        )}
         {/* TODO: uncomment once #93 is merged */}
         {/* <WithinBuilding /> */}
         <Shuttle
           coordinateCallback={this.updateCoordinates}
         />
         <SetPath
-          changeVisibilityToSwitchCampus={this.changeVisibilityToSwitchCampus}
-          visibilityState={this.changeVisibilityTo}
+          changeVisibilityTo={this.changeVisibilityTo}
           newValue={this.state.value}
         />
-        {this.state.searchBarVisibilityToggle
+        {this.state.showDirectionsMenu
         && (
         <Addresses
           clearPath={this.clearPath}
-          changeVisibilityToSwitchCampus={this.changeVisibilityToSwitchCampus}
           getRegion={this.getRegionFromAddresses}
           getCoordinates={this.getCoordinatesFromAddresses}
-          visiblityState={this.changeVisibilityTo}
+          changeVisibilityTo={this.changeVisibilityTo}
         />
         ) }
       </View>
