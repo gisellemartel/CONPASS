@@ -117,6 +117,63 @@ export default class searchBar extends Component {
       );
     });
 
+    const searchIcon = this.state.hideMenu && <Icon navigation={this.props.navigation} />;
+
+    /**
+     *
+     * @param {*} destination
+     * Controller function for searchBar component
+     * manages contextual text entry
+     */
+    const onChangeText = (destination) => {
+      if (this.state.checkUnidentified) {
+        destination.length === 0
+          // eslint-disable-next-line max-len
+          ? this.props.changeVisibilityTo(true) && this.props.changeVisibilityToSearch(true) : this.props.changeVisibilityTo(false) && this.props.changeVisibilityToSearch(false);
+      }
+      return this.onChangeDestination(destination);
+    };
+
+    /**
+     * Controller function for searchBar component
+     * sets state when search bar is cleared
+     */
+    const onClear = () => {
+      this.setState({ showPredictions: true });
+      if (this.state.checkUnidentified) {
+        this.props.changeVisibilityTo(false);
+        this.props.changeVisibilityToSearch(true);
+      }
+    };
+
+    /**
+     * Controller function for searchBar component
+     * Defines UI behaviour of component when triggered by touch event
+     */
+    const onTouchStart = () => {
+      if (this.state.checkUnidentified) {
+        this.props.changeVisibilityTo(true);
+        this.props.changeVisibilityToSearch(false);
+      }
+    };
+
+    /**
+     * Controller function for searchBar component
+     */
+    const onBlur = () => {
+      if (this.state.checkUnidentified) {
+        this.props.changeVisibilityToSearch(true);
+        this.props.changeVisibilityTo(false);
+      }
+    };
+
+    const containerStyle = {
+      borderRadius: 10,
+      borderWidth: 1,
+      height: 45,
+      justifyContent: 'center'
+    };
+
     return (
       <View style={styles.container}>
         <View>
@@ -126,45 +183,15 @@ export default class searchBar extends Component {
             padding={5}
             returnKeyType="search"
             lightTheme
-            containerStyle={{
-              borderRadius: 10,
-              borderWidth: 1,
-              height: 45,
-              justifyContent: 'center'
-            }}
-            searchIcon={this.state.hideMenu && <Icon navigation={this.props.navigation} />}
+            containerStyle={containerStyle}
+            searchIcon={searchIcon}
             placeholder={placeholder}
-            onChangeText={(destination) => {
-              if (this.state.checkUnidentified) {
-                destination.length === 0
-                  // eslint-disable-next-line max-len
-                  ? this.props.changeVisibilityTo(true) && this.props.changeVisibilityToSearch(true) : this.props.changeVisibilityTo(false) && this.props.changeVisibilityToSearch(false);
-              }
-              return this.onChangeDestination(destination);
-            }}
+            onChangeText={onChangeText}
             value={this.state.destination}
             style={styles.SearchBar}
-            onClear={() => {
-              this.setState({ showPredictions: true });
-              if (this.state.checkUnidentified) {
-                this.props.changeVisibilityTo(false);
-                this.props.changeVisibilityToSearch(true);
-              }
-            }}
-            onTouchStart={
-               () => {
-                 if (this.state.checkUnidentified) {
-                   this.props.changeVisibilityTo(true);
-                   this.props.changeVisibilityToSearch(false);
-                 }
-               }
-             }
-            onBlur={() => {
-              if (this.state.checkUnidentified) {
-                this.props.changeVisibilityToSearch(true);
-                this.props.changeVisibilityTo(false);
-              }
-            }}
+            onClear={onClear}
+            onTouchStart={onTouchStart}
+            onBlur={onBlur}
             blurOnSubmit
           />
         </View>

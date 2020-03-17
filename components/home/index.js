@@ -4,7 +4,8 @@ import TheMap from '../map';
 import SearchBar from '../searchBar';
 import Shuttle from '../shuttleInformation';
 import SwitchCampuses from '../switchCampuses';
-import WithinBuilding from '../withinBuilding';
+// TODO: uncomment once #93 is merged
+// import WithinBuilding from '../withinBuilding';
 import SetPath from '../setPath';
 import Addresses from '../addresses';
 import styles from './styles';
@@ -118,7 +119,8 @@ class Home extends Component {
           visiblityState={this.state.isVisible}
           isSwitchAvailableIndestination={this.state.isSwitchAvailableIndestination}
         />
-        <WithinBuilding />
+        {/* TODO: uncomment once #93 is merged */}
+        {/* <WithinBuilding /> */}
         <Shuttle
           coordinateCallback={this.updateCoordinates}
         />
