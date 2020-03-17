@@ -138,10 +138,7 @@ class Home extends Component {
           visiblityState={!this.state.showDirectionsMenu}
         />
         )}
-
         <Location updateRegion={this.updateRegion} />
-
-
         <SetPath
           changeVisibilityTo={this.changeVisibilityTo}
           newValue={this.state.value}
