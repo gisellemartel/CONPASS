@@ -21,9 +21,8 @@ const styles = StyleSheet.create({
   item: {
     width: '100%',
     flex: 1,
-    padding: 35,
-    fontSize: 29,
-    height: 44,
+    padding: '6%',
+    fontSize: 29
   },
 });
 
