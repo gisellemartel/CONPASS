@@ -26,7 +26,6 @@ export default class searchBarDestination extends Component {
   }
 
   componentDidMount() {
-    console.log(this.props);
     this.setState({ isMounted: true });
     if (this.props.getRegionFromSearch && this.props.getRegionFromSearch.latitude !== '') {
       this.setState({
@@ -35,6 +34,13 @@ export default class searchBarDestination extends Component {
           longitude: this.props.getRegionFromSearch.longitude
         }
       });
+      this.drawPath();
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.drawPath !== this.props.drawPath) {
+      console.log('h');
       this.drawPath();
     }
   }
@@ -93,6 +99,7 @@ export default class searchBarDestination extends Component {
   }
 
   async drawPath() {
+    console.log('im called');
     // eslint-disable-next-line no-shadow
     try {
       await this.getCurrentLocation();
@@ -103,7 +110,6 @@ export default class searchBarDestination extends Component {
       const originLat = this.props.updatedRegion.latitude === 0 ? urLatitude : this.props.updatedRegion.latitude;
       const originLong = this.props.updatedRegion.longitude === 0 ? urLongitude : this.props.updatedRegion.longitude;
       const destinationLat = this.state.destinationRegion.latitude;
-      console.log(destinationLat);
       const destinationLong = this.state.destinationRegion.longitude;
       const directionUrl = `https://maps.googleapis.com/maps/api/directions/json?key=${key}&origin=${originLat},${originLong}&destination=${destinationLat},${destinationLong}`;
       const result = await fetch(directionUrl);

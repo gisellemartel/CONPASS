@@ -114,6 +114,7 @@ class Home extends Component {
     this.updateCoordinates(coordinates);
   }
 
+
   render() {
     return (
       <View style={styles.container}>

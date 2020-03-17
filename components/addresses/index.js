@@ -24,7 +24,13 @@ export default class Addresses extends Component {
         longitudeDelta: 0.05
       },
       hide: true,
+      drawPath: true
     };
+  }
+
+  drawPath =() => {
+    console.log(this.state.drawPath);
+    this.setState((prevState) => { return { drawPath: !prevState.drawPath }; });
   }
 
   /**
@@ -61,8 +67,11 @@ export default class Addresses extends Component {
             updateRegion={this.updateRegion}
             urCurentLocation={this.state.value}
             hideMenu={this.state.hide}
+            drawPath={this.drawPath}
+
           />
           <SearchBarDestination
+            drawPath={this.state.drawPath}
             getRegionFromSearch={this.props.getRegionFromSearch}
             getDestinationIfSet={this.props.getDestinationIfSet}
             updatedRegion={this.state.region}

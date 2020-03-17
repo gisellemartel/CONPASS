@@ -59,6 +59,7 @@ export default class searchBar extends Component {
     }
   }
 
+
   /**
   * Gets the latitude and longitude of a chosen prediction.
   * @param {string} prediction - placeid of the prediction to get latitude and longitude.
@@ -80,11 +81,13 @@ export default class searchBar extends Component {
         }
       });
       this.props.updateRegion(this.state.region);
+      if (this.props.drawPath) {
+        this.props.drawPath();
+      }
     } catch (err) {
       console.error(err);
     }
   }
-
 
   render() {
     const placeholder = this.state.isMounted ? i18n.t('search') : 'search';
@@ -95,7 +98,6 @@ export default class searchBar extends Component {
           <TouchableOpacity
             style={styles.Touch}
             onPress={() => {
-              console.log(prediction.description);
               this.setState({ destination: prediction.description });
               this.props.getDestinationIfSet ? this.props.getDestinationIfSet(prediction.description) : '';
               this.getLatLong(prediction.place_id);
@@ -134,14 +136,18 @@ export default class searchBar extends Component {
      * Defines UI behaviour of component when triggered by touch event
      */
     const onTouchStart = () => {
-      this.props.setCampusToggleVisibility(true);
+      if (this.props.setCampusToggleVisibility) {
+        this.props.setCampusToggleVisibility(true);
+      }
     };
 
     /**
      * Controller function for searchBar component
      */
     const onBlur = () => {
-      this.props.setCampusToggleVisibility(false);
+      if (this.props.setCampusToggleVisibility) {
+        this.props.setCampusToggleVisibility(false);
+      }
     };
 
     const containerStyle = {
