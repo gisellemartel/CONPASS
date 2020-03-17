@@ -1,14 +1,15 @@
+/* eslint-disable no-mixed-operators */
 /* eslint-disable max-len */
 /* eslint-disable no-plusplus */
 import React, { Component } from 'react';
 import {
   View,
-  Text,
-  StyleSheet
+  Text
 } from 'react-native';
 import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
 import buildings from '../../assets/polygons/polygons';
+import styles from './styles';
 
 export default class WithinBuilding extends Component {
   constructor(props) {
@@ -37,7 +38,8 @@ export default class WithinBuilding extends Component {
     };
   }
 
-  // retrieves the users' current location
+  /** @async
+   * Retrieves the users' current location */
   async getCurrentLocation() {
     const { status } = await Permissions.askAsync(Permissions.LOCATION);
     if (status !== 'granted') {
@@ -51,7 +53,8 @@ export default class WithinBuilding extends Component {
     this.setState({ location });
   }
 
-  // Format SGW or Loyola buildings to be used by isInPolygon function
+  /** @param {string} campus - either 'SGW' or 'LOY'
+   *  Format SGW or Loyola buildings to be used by isInPolygon function */
   formatPolygonsObjs(campus) {
     if (campus !== 'SGW' && campus !== 'LOY') {
       return [];
@@ -85,9 +88,14 @@ export default class WithinBuilding extends Component {
     return formattedBuildings;
   }
 
-  // finds if a pair of coordinates are inside a polygon
-  // Algorithm comes from: https://stackoverflow.com/questions/11716268/point-in-polygon-algorithm?lq=1
-  // Date Consulted: February 29th, 2020
+  /** @param {number} nvert
+   * @param {number} vertx
+   * @param {number} verty
+   * @param {number} testx
+   * @param {number} testy
+   * Finds if a pair of coordinates are inside a polygon
+   * Algorithm comes from: https://stackoverflow.com/questions/11716268/point-in-polygon-algorithm?lq=1
+   * Date Consulted: February 29th, 2020 */
   isInPolygon(nvert, vertx, verty, testx, testy) {
     let i;
     let j;
@@ -99,7 +107,8 @@ export default class WithinBuilding extends Component {
     return c;
   }
 
-  // returns the name of building the user is currently located in
+  /** @async
+   * Returns the name of building the user is currently located in */
   async buildingName() {
     await this.getCurrentLocation();
 
@@ -141,11 +150,3 @@ export default class WithinBuilding extends Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  userFinalLoc: {
-    bottom: 80,
-    backgroundColor: 'pink',
-    position: 'absolute',
-  },
-});
