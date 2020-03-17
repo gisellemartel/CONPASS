@@ -44,6 +44,19 @@ class Home extends Component {
     });
   };
 
+  getDestinationIfSet = (destination) => {
+    this.setState({ destinationToGo: destination });
+  }
+
+  changeVisibilityTo = (visibility) => {
+    this.setState({ isVisible: visibility });
+  };
+
+  changeVisibilityToSearch = (visibility) => {
+    // eslint-disable-next-line react/no-unused-state
+    this.setState({ isSearchVisible: visibility });
+  }
+
   changeVisibilityTo = (showDirectionsMenu) => {
     this.setState({
       showDirectionsMenu
@@ -90,12 +103,13 @@ class Home extends Component {
     return (
       <View style={styles.container}>
         <TheMap
-          updatedRegion={this.state.region}
           updatedCoordinates={this.state.coordinates}
+          updatedRegion={this.state.region}
           polylineVisibility={this.state.showDirectionsMenu}
         />
         {!this.state.showDirectionsMenu && (
         <SearchBar
+          getDestinationIfSet={this.getDestinationIfSet}
           navigation={this.props.navigation}
           updateRegion={this.updateRegion}
           changeVisibilityTo={this.changeVisibilityTo}
@@ -120,7 +134,10 @@ class Home extends Component {
         {this.state.showDirectionsMenu
         && (
         <Addresses
+          getDestinationIfSet={this.state.destinationToGo}
+          clearPath={this.clearPath}
           getRegion={this.getRegionFromAddresses}
+          getRegionFromSearch={this.state.region}
           getCoordinates={this.getCoordinatesFromAddresses}
           changeVisibilityTo={this.changeVisibilityTo}
           polylineVisibility={this.clearPolyLine}
