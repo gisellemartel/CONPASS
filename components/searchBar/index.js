@@ -27,6 +27,8 @@ export default class searchBar extends Component {
       // eslint-disable-next-line react/no-unused-state
       showMenu: true,
       checkUnidentified: true,
+      prevCurrentBuilding: '',
+      currentBuilding: null
     };
   }
 
@@ -45,8 +47,6 @@ export default class searchBar extends Component {
     if (this.props.urCurentLocation !== undefined) {
       this.setState({ destination: this.props.urCurentLocation });
     }
-    console.log('xxx');
-    //this.updatePreds();
   }
 
   // Function: When entering text searchbar, captures all the possible predictions from google's api
@@ -57,17 +57,23 @@ export default class searchBar extends Component {
     const key = 'AIzaSyCqNODizSqMIWbKbO8Iq3VWdBcK846n_3w';
     const apiUrl = `https://maps.googleapis.com/maps/api/place/autocomplete/json?key=${key}&input=${destination}&location=45.492409, -73.582153&radius=2000`;
     try {
+      if(this.props.currentBuildingPred!==this.state.prevCurrentBuilding){//invoke updatePreds when currentBuildingPred props is updated
+        this.setState({
+          prevCurrentBuilding : this.props.currentBuildingPred
+        });
+        await this.updatePreds();
+      }
+
       const result = await fetch(apiUrl);
       const json = await result.json();
+      const finalPredictions = (this.state.currentBuilding!==null && destination!=='') ? [this.state.currentBuilding,...json.predictions.slice(0,json.predictions.length-1)]:json.predictions;
       this.setState({
-        predictions: json.predictions
+        predictions: finalPredictions
       });
 
     }catch (err) {
       console.error(err);
     }
-    if(this.state.predictions.length>0)
-      this.updatePreds();
   }
 
   async updatePreds(){
@@ -78,9 +84,8 @@ export default class searchBar extends Component {
       const json = await result.json();
 
       if(json.predictions.length> 0){
-        this.state.predictions.pop();
         this.setState({
-          predictions : [json.predictions[0],...this.state.predictions]
+          currentBuilding: json.predictions[0]
         });
     }
     } catch (err) {
