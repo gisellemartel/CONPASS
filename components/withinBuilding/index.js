@@ -150,6 +150,9 @@ export default class WithinBuilding extends Component {
     this.updateCurrentBuildingProp();
   }
 
+  componentDidUpdate(){
+    this.updateCurrentBuildingProp();
+  }
   render() {
     this.buildingName();
     //remove b4 merging... It's just for testing purposes
