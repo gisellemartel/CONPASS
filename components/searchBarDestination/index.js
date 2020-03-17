@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import React, { Component } from 'react';
 import {
   View, Keyboard, TouchableOpacity, Text
@@ -5,23 +6,48 @@ import {
 import i18n from 'i18n-js';
 import { SearchBar } from 'react-native-elements';
 import decodePolyline from 'decode-google-map-polyline';
+import * as Location from 'expo-location';
+import * as Permissions from 'expo-permissions';
 import styles from './styles';
 
 export default class searchBarDestination extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      isMounted: false,
       showPredictions: true,
-      destination: '',
+      destination: this.props.getDestinationIfSet,
       predictions: [],
       destinationRegion: {
-        latitude: 0,
-        longitude: 0,
-
-      }
+        latitude: '',
+        longitude: '',
+      },
     };
   }
 
+  componentDidMount() {
+    this.setState({ isMounted: true });
+    if (this.props.getRegionFromSearch && this.props.getRegionFromSearch.latitude !== '') {
+      this.setState({
+        destinationRegion: {
+          latitude: this.props.getRegionFromSearch.latitude,
+          longitude: this.props.getRegionFromSearch.longitude
+        }
+      });
+      this.drawPath();
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.drawPath !== this.props.drawPath) {
+      this.drawPath();
+    }
+  }
+
+  /**
+  * Retrieves predictions through google's from text entered in searchbar.
+  * @param {string} destination - Text input from search bar
+  */
   async onChangeDestination(destination) {
     this.setState({ destination });
     const key = 'AIzaSyCqNODizSqMIWbKbO8Iq3VWdBcK846n_3w';
@@ -37,62 +63,72 @@ export default class searchBarDestination extends Component {
     }
   }
 
+  /** Retrieves the current location of a user. */
+  async getCurrentLocation() {
+    const { status } = await Permissions.askAsync(Permissions.LOCATION);
+    if (status !== 'granted') {
+      this.setState({
+        // eslint-disable-next-line react/no-unused-state
+        errorMessage: 'Permission to access location was denied',
+      });
+      return;
+    }
+    const location = await Location.getCurrentPositionAsync({});
+    this.setState({ location });
+  }
+
+  /**
+  * Draws path between two selected locations.
+  * @param {string} prediction - placeid of destination to get path to.
+  */
   async getLatLong(prediction) {
     // eslint-disable-next-line react/no-unused-state
     this.setState({ description: prediction });
     const key = 'AIzaSyCqNODizSqMIWbKbO8Iq3VWdBcK846n_3w';
     const geoUrl = `https://maps.googleapis.com/maps/api/place/details/json?key=${key}&placeid=${prediction}`;
-
-    try {
-      const georesult = await fetch(geoUrl);
-      const gjson = await georesult.json();
-      this.setState({
-        destinationRegion: {
-          latitude: gjson.result.geometry.location.lat,
-          longitude: gjson.result.geometry.location.lng,
-
-        }
-      });
-      this.drawPath();
-    } catch (err) {
-      console.error(err);
-    }
+    const georesult = await fetch(geoUrl);
+    const gjson = await georesult.json();
+    this.setState({
+      destinationRegion: {
+        latitude: gjson.result.geometry.location.lat,
+        longitude: gjson.result.geometry.location.lng,
+      }
+    });
+    this.drawPath();
   }
-
 
   async drawPath() {
-    const key = 'AIzaSyBsMjuj6q76Vcna8G5z9PDyTH2z16fNPDk';
-    const originLat = this.props.updatedRegion.latitude;
-    const originLong = this.props.updatedRegion.longitude;
-    const destinationLat = this.state.destinationRegion.latitude;
-    const destinationLong = this.state.destinationRegion.longitude;
-    const directionUrl = `https://maps.googleapis.com/maps/api/directions/json?key=${key}&origin=${originLat},${originLong}&destination=${destinationLat},${destinationLong}`;
+    // eslint-disable-next-line no-shadow
     try {
+      await this.getCurrentLocation();
+      const { location } = this.state;
+      const urLatitude = location.coords.latitude;
+      const urLongitude = location.coords.longitude;
+      const key = 'AIzaSyBsMjuj6q76Vcna8G5z9PDyTH2z16fNPDk';
+      const originLat = this.props.updatedRegion.latitude === 0 ? urLatitude : this.props.updatedRegion.latitude;
+      const originLong = this.props.updatedRegion.longitude === 0 ? urLongitude : this.props.updatedRegion.longitude;
+      const destinationLat = this.state.destinationRegion.latitude;
+      const destinationLong = this.state.destinationRegion.longitude;
+      const directionUrl = `https://maps.googleapis.com/maps/api/directions/json?key=${key}&origin=${originLat},${originLong}&destination=${destinationLat},${destinationLong}`;
       const result = await fetch(directionUrl);
       const json = await result.json();
-      let encryptedPath = '';
-      if (json.routes.length > 0) {
-        encryptedPath = json.routes[0].overview_polyline.points;
-        this.props.getPolylinePoint(encryptedPath);
-        const rawPolylinePoints = decodePolyline(encryptedPath);
-        // Incompatible field names for direct decode. Need to do a trivial conversion.
-        const waypoints = rawPolylinePoints.map((point) => {
-          return {
-            latitude: point.lat,
-            longitude: point.lng
-          };
-        });
-        // const { coordinateCallback } = this.props;
-        this.props.coordinateCallback(waypoints);
-      }
+      const encryptedPath = json.routes[0].overview_polyline.points;
+      const rawPolylinePoints = decodePolyline(encryptedPath);
+      // Incompatible field names for direct decode. Need to do a trivial conversion.
+      const waypoints = rawPolylinePoints.map((point) => {
+        return {
+          latitude: point.lat,
+          longitude: point.lng
+        };
+      });
+      this.props.coordinateCallback(waypoints);
     } catch (err) {
       console.error(err);
     }
   }
 
-
   render() {
-    const placeholder = this.state.isMounted ? i18n.t('search') : 'Where do you want to go to?';
+    const placeholder = this.state.isMounted ? i18n.t('destinationSearch') : 'Choose your destination';
     const predictions = this.state.predictions.map((prediction) => {
       return (
         <View key={prediction.id} style={styles.view}>
@@ -131,14 +167,7 @@ export default class searchBarDestination extends Component {
             value={this.state.destination}
             onClear={() => {
               this.setState({ showPredictions: true });
-              // this.props.changeVisibilityTo(false);
             }}
-            onTouchStart={
-              () => {
-                // this.props.changeVisibilityTo(true);
-              }
-            }
-            // onBlur={() => { this.props.changeVisibilityTo(false); }}
             blurOnSubmit
           />
         </View>

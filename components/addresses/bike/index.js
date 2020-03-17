@@ -4,7 +4,6 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import styles from './styles';
 import bike from './bike.png';
 
-
 export default class Bike extends Component {
   render() {
     return (

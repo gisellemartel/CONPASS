@@ -1,20 +1,22 @@
+/* eslint-disable react/no-unused-state */
 import React, { Component } from 'react';
 import { View } from 'react-native';
 import SearchBar from '../searchBar';
 import SearchBarDestination from '../searchBarDestination';
 import BackButton from './backButton';
-import styles from './styles';
 import CurrentLocation from './currentLocation';
 import Destination from './destination';
 import Car from './car';
 import Bus from './bus';
 import Walking from './walking';
 import Bike from './bike';
+import styles from './styles';
 
 export default class Addresses extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      value: 'Your Current Location',
       region: {
         latitude: 0,
         longitude: 0,
@@ -22,9 +24,19 @@ export default class Addresses extends Component {
         longitudeDelta: 0.05
       },
       hide: true,
+      drawPath: true
     };
   }
 
+  drawPath =() => {
+    console.log(this.state.drawPath);
+    this.setState((prevState) => { return { drawPath: !prevState.drawPath }; });
+  }
+
+  /**
+  * updates region and passes the new region 'Home' component.
+  * @param {object} newRegion - New region to be passed.
+  */
     updateRegion = (newRegion) => {
       this.setState({
         region: {
@@ -37,7 +49,10 @@ export default class Addresses extends Component {
       this.props.getRegion(newRegion);
     };
 
-
+    /**
+    * updates coordinates and passes new coordinates 'Home' component.
+    * @param {object} newCoordinates - New coordinates to be passed.
+    */
     updateCoordinates = (newCoordinates) => {
       this.setState({
         coordinates: newCoordinates
@@ -45,21 +60,22 @@ export default class Addresses extends Component {
       this.props.getCoordinates(newCoordinates);
     };
 
-    getPolylinePoint = (data) => {
-      this.setState({
-        encryptedLine: data
-      });
-    };
-
     render() {
       return (
         <View style={styles.searchContainer}>
-          <SearchBar updateRegion={this.updateRegion} hideMenu={this.state.hide} />
+          <SearchBar
+            updateRegion={this.updateRegion}
+            urCurentLocation={this.state.value}
+            hideMenu={this.state.hide}
+            drawPath={this.drawPath}
+
+          />
           <SearchBarDestination
+            drawPath={this.state.drawPath}
+            getRegionFromSearch={this.props.getRegionFromSearch}
+            getDestinationIfSet={this.props.getDestinationIfSet}
             updatedRegion={this.state.region}
-            callBack2={this.updateDestinationRegion}
             coordinateCallback={this.updateCoordinates}
-            getPolylinePoint={this.getPolylinePoint}
           />
           <Car />
           <Bus navigation={this.props.navigation} />
@@ -67,8 +83,8 @@ export default class Addresses extends Component {
           <Walking />
           <View style={styles.container}>
             <BackButton
-              visiblityState={this.props.visiblityState}
-              changeVisibilityToSwitchCampus={this.props.changeVisibilityToSwitchCampus}
+              changeVisibilityTo={this.props.changeVisibilityTo}
+              coordinateCallback={this.updateCoordinates}
             />
             <CurrentLocation />
             <Destination />

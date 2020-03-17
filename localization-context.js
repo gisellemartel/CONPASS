@@ -12,6 +12,7 @@ const SetLocaleContext = () => {
       accessibility: 'Accessibility',
       help: 'Help',
       back: 'Back',
+      destinationSearch: 'Choose your destination',
       LOCATION_ALERT_TITLE: 'Location Services Required',
       LOCATION_ALERT_MESSAGE: 'Location services has not been enabled. Please allow this app to use your location.',
       LOCATION_ALERT_BUTTON: 'Open Settings'
