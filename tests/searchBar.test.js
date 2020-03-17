@@ -69,3 +69,17 @@ it('Should populate LatLng state with content', async () => {
   expect(searchBarComponent.state.region.longitude).toBeLessThanOrEqual(mockResult.result.geometry.location.lng + searchBarComponent.state.region.latitudeDelta);
   expect(searchBarComponent.state.region.longitude).toBeGreaterThanOrEqual(mockResult.result.geometry.location.lng - searchBarComponent.state.region.latitudeDelta);
 });
+
+it('Should Update the currentBuilding state with given a prediction from Google\'s API', async () => {
+  const searchBarComponent = renderer.create(<SearchBar currentBuildingPred ={'1400 DeMaisonneuve W'}/>).getInstance();
+  await searchBarComponent.updateCurrentBuilding();
+  expect(searchBarComponent.state.currentBuilding.description).toBe('1400 de Maisonneuve West, Maisonneuve Boulevard West, Montreal, QC, Canada');
+  expect(searchBarComponent.state.currentBuilding.id).toBe('ef79953defce3e028c4d5ec50e1b42677556cb8f');
+  expect(searchBarComponent.state.currentBuilding.place_id).toBe('ChIJz2SwbmoayUwR5_D4CXsr5eM');
+});
+
+it('Should keep the currentBuilding state null', async () => {
+  const searchBarComponent = renderer.create(<SearchBar currentBuildingPred ={''}/>).getInstance();
+  await searchBarComponent.updateCurrentBuilding();
+  expect(searchBarComponent.state.currentBuilding.description).toBeNull();
+});
