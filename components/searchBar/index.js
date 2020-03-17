@@ -102,7 +102,9 @@ export default class searchBar extends Component {
           <TouchableOpacity
             style={styles.Touch}
             onPress={() => {
+              console.log(prediction.description);
               this.setState({ destination: prediction.description });
+              this.props.getDestinationIfSet ? this.props.getDestinationIfSet(prediction.description) : '';
               this.getLatLong(prediction.place_id);
               this.setState({ showPredictions: false });
               if (this.state.checkUnidentified) {

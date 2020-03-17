@@ -63,6 +63,8 @@ export default class Addresses extends Component {
             hideMenu={this.state.hide}
           />
           <SearchBarDestination
+            getRegionFromSearch={this.props.getRegionFromSearch}
+            getDestinationIfSet={this.props.getDestinationIfSet}
             updatedRegion={this.state.region}
             coordinateCallback={this.updateCoordinates}
           />

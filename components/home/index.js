@@ -46,6 +46,10 @@ class Home extends Component {
     });
   };
 
+  getDestinationIfSet = (destination) => {
+    this.setState({ destinationToGo: destination });
+  }
+
   changeVisibilityTo = (visibility) => {
     this.setState({ isVisible: visibility });
   };
@@ -103,11 +107,12 @@ class Home extends Component {
     return (
       <View style={styles.container}>
         <TheMap
-          updatedRegion={this.state.region}
           updatedCoordinates={this.state.coordinates}
+          updatedRegion={this.state.region}
         />
         {!this.state.isGoVisible && (
         <SearchBar
+          getDestinationIfSet={this.getDestinationIfSet}
           navigation={this.props.navigation}
           updateRegion={this.updateRegion}
           changeVisibilityTo={this.changeVisibilityTo}
@@ -132,9 +137,11 @@ class Home extends Component {
         {this.state.isGoVisible
         && (
         <Addresses
+          getDestinationIfSet={this.state.destinationToGo}
           clearPath={this.clearPath}
           changeVisibilityToSwitchCampus={this.changeVisibilityToSwitchCampus}
           getRegion={this.getRegionFromAddresses}
+          getRegionFromSearch={this.state.region}
           getCoordinates={this.getCoordinatesFromAddresses}
           visiblityState={this.changeVisibilityToGo}
         />
