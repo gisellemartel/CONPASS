@@ -8,7 +8,8 @@ import shuttleScheduleInformation from '../../home/menu/shuttleBusSchedule/shutt
 import styles from './styles';
 import bus from './bus.png';
 
-
+const HOUR_IN_SECONDS = 3600;
+const MINUTE_IN_SECONDS = 60;
 export default class Bus extends Component {
   constructor(props) {
     super(props);
@@ -29,13 +30,13 @@ export default class Bus extends Component {
 
     // We know that the shuttle busses only come at times that are divisible by 5.
     min = (min % 5 !== 0) ? (min - (min % 5) + 5) : min;
-
-    const totalSeconds = (hours * 3600) + (min * 60); // Converting the current time in seconds
+    // Converting the current time in seconds
+    const totalSeconds = (hours * HOUR_IN_SECONDS) + (min * MINUTE_IN_SECONDS);
     const dataArray = campus === 'LOY' ? shuttleScheduleInformation.Mon_Thu.LOY : shuttleScheduleInformation.Mon_Thu.SGW; // Default SGW
 
     for (let i = 0; i < dataArray.length; i++) {
       const arrayVal = dataArray[i];
-      const totalSecInData = (Number(arrayVal.split(':')[0]) * 3600) + (Number(arrayVal.split(':')[1] * 60)); // Converting data to seconds
+      const totalSecInData = (Number(arrayVal.split(':')[0]) * HOUR_IN_SECONDS) + (Number(arrayVal.split(':')[1] * MINUTE_IN_SECONDS)); // Converting data to seconds
       if ((totalSecInData - totalSeconds) >= 0) { return arrayVal; } // a positive difference
     }
     return dataArray[0]; // Otherwise, return the first shuttle bus
