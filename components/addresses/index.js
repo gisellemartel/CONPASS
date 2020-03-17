@@ -75,7 +75,7 @@ export default class Addresses extends Component {
               visiblityState={this.props.visiblityState}
               changeVisibilityToSwitchCampus={this.props.changeVisibilityToSwitchCampus}
               coordinateCallback={this.updateCoordinates}
-              clearPath={this.props.clearPath}
+              clearPath={() => { return this.props.clearPath; }}
             />
             <CurrentLocation />
             <Destination />

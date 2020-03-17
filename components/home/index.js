@@ -23,10 +23,7 @@ class Home extends Component {
         latitudeDelta: 0.04,
         longitudeDelta: 0.04
       },
-      isVisible: false,
-      // eslint-disable-next-line react/no-unused-state
-      isSearchVisible: true,
-      isGoVisible: false,
+      searchBarVisibilityToggle: false,
       isSwitchAvailableIndestination: true
     };
   }
@@ -46,18 +43,9 @@ class Home extends Component {
     });
   };
 
-  changeVisibilityTo = (visibility) => {
-    this.setState({ isVisible: visibility });
+  changeVisibilityTo = (toggle) => {
+    this.setState({ searchBarVisibilityToggle: toggle });
   };
-
-  changeVisibilityToSearch = (visibility) => {
-    // eslint-disable-next-line react/no-unused-state
-    this.setState({ isSearchVisible: visibility });
-  };
-
-  changeVisibilityToGo = (visibility) => {
-    this.setState({ isGoVisible: visibility });
-  }
 
   changeVisibilityToSwitchCampus = (visibility) => {
     this.setState({ isSwitchAvailableIndestination: visibility });
@@ -93,9 +81,9 @@ class Home extends Component {
   * gets path to be deleted from 'Addresses' component
   * @param {object} setPath - path to be deleted.
   */
-  clearPath = (setPath) => {
+  clearPath = () => {
     this.setState({
-      coordinates: setPath
+      coordinates: []
     });
   }
 
@@ -106,12 +94,11 @@ class Home extends Component {
           updatedRegion={this.state.region}
           updatedCoordinates={this.state.coordinates}
         />
-        {!this.state.isGoVisible && (
+        {!this.state.searchBarVisibilityToggle && (
         <SearchBar
           navigation={this.props.navigation}
           updateRegion={this.updateRegion}
           changeVisibilityTo={this.changeVisibilityTo}
-          changeVisibilityToSearch={this.changeVisibilityToSearch}
         />
         )}
         <SwitchCampuses
@@ -126,17 +113,17 @@ class Home extends Component {
         />
         <SetPath
           changeVisibilityToSwitchCampus={this.changeVisibilityToSwitchCampus}
-          visibilityState={this.changeVisibilityToGo}
+          visibilityState={this.changeVisibilityTo}
           newValue={this.state.value}
         />
-        {this.state.isGoVisible
+        {this.state.searchBarVisibilityToggle
         && (
         <Addresses
           clearPath={this.clearPath}
           changeVisibilityToSwitchCampus={this.changeVisibilityToSwitchCampus}
           getRegion={this.getRegionFromAddresses}
           getCoordinates={this.getCoordinatesFromAddresses}
-          visiblityState={this.changeVisibilityToGo}
+          visiblityState={this.changeVisibilityTo}
         />
         ) }
       </View>
