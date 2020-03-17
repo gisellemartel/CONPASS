@@ -19,16 +19,16 @@ export default class searchBarDestination extends Component {
       destination: this.props.getDestinationIfSet,
       predictions: [],
       destinationRegion: {
-        latitude: 45.492409,
-        longitude: -73.582153,
+        latitude: '',
+        longitude: '',
       },
     };
   }
 
   componentDidMount() {
-    console.log(this.props.getRegionFromSearch);
+    console.log(this.props);
     this.setState({ isMounted: true });
-    if (this.props.getRegionFromSearch) {
+    if (this.props.getRegionFromSearch && this.props.getRegionFromSearch.latitude !== '') {
       this.setState({
         destinationRegion: {
           latitude: this.props.getRegionFromSearch.latitude,
@@ -103,6 +103,7 @@ export default class searchBarDestination extends Component {
       const originLat = this.props.updatedRegion.latitude === 0 ? urLatitude : this.props.updatedRegion.latitude;
       const originLong = this.props.updatedRegion.longitude === 0 ? urLongitude : this.props.updatedRegion.longitude;
       const destinationLat = this.state.destinationRegion.latitude;
+      console.log(destinationLat);
       const destinationLong = this.state.destinationRegion.longitude;
       const directionUrl = `https://maps.googleapis.com/maps/api/directions/json?key=${key}&origin=${originLat},${originLong}&destination=${destinationLat},${destinationLong}`;
       const result = await fetch(directionUrl);

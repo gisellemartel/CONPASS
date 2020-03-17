@@ -18,11 +18,18 @@ class Home extends Component {
       // Set Initial region of the map
       value: '',
       region: {
-        latitude: 45.492409,
+        latitude: '',
+        longitude: '',
+        latitudeDelta: '',
+        longitudeDelta: ''
+      },
+      presetRegion: {
+        latitude: 45.492408,
         longitude: -73.582153,
         latitudeDelta: 0.04,
         longitudeDelta: 0.04
       },
+
       showDirectionsMenu: false,
       coordinates: []
     };
@@ -33,6 +40,14 @@ class Home extends Component {
   * @param {object} newRegion - New region to be passed.
   */
   updateRegion = (newRegion) => {
+    this.setState({
+      presetRegion: {
+        latitude: newRegion.latitude,
+        longitude: newRegion.longitude,
+        latitudeDelta: 0.05,
+        longitudeDelta: 0.05
+      }
+    });
     this.setState({
       region: {
         latitude: newRegion.latitude,
@@ -103,7 +118,7 @@ class Home extends Component {
       <View style={styles.container}>
         <TheMap
           updatedCoordinates={this.state.coordinates}
-          updatedRegion={this.state.region}
+          updatedRegion={this.state.presetRegion}
           polylineVisibility={this.state.showDirectionsMenu}
         />
         {!this.state.showDirectionsMenu && (
