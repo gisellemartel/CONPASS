@@ -48,7 +48,7 @@ export default class Bus extends Component {
   getCurrentTime() {
     const hours = new Date().getHours(); // Current Hours
     const min = new Date().getMinutes(); // Current Minutes
-    return `${hours}:${min < 10 ? `0${min}` : min}`;
+    return `${hours}:${min < 10 ? `0${min}` : min}`; // Adds a 0 to the minutes if minutes is less than 10
   }
 
   render() {
