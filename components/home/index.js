@@ -44,25 +44,29 @@ class Home extends Component {
     });
   };
 
+  /**
+   * Fetches the currently searched destination in order to automatically populate
+   * destination option in directions mode
+   * @param {object} destination - current selected destination
+   */
   getDestinationIfSet = (destination) => {
     this.setState({ destinationToGo: destination });
   }
 
-  changeVisibilityTo = (visibility) => {
-    this.setState({ isVisible: visibility });
-  };
-
-  changeVisibilityToSearch = (visibility) => {
-    // eslint-disable-next-line react/no-unused-state
-    this.setState({ isSearchVisible: visibility });
-  }
-
+  /**
+   * Changes visibility of directions search menus depending on context
+   * @param {*} showDirectionsMenu - desired visibility boolean
+   */
   changeVisibilityTo = (showDirectionsMenu) => {
     this.setState({
       showDirectionsMenu
     });
   };
 
+  /**
+   * Changes visibility of campus toggle when search bar is focused/blurred
+   * @param {*} showCampusToggle - desired visibility boolean
+   */
   setCampusToggleVisibility = (showCampusToggle) => {
     this.setState({
       showCampusToggle
@@ -93,10 +97,6 @@ class Home extends Component {
   */
   getCoordinatesFromAddresses=(coordinates) => {
     this.updateCoordinates(coordinates);
-  }
-
-  clearPolyLine = () => {
-
   }
 
   render() {
@@ -135,12 +135,10 @@ class Home extends Component {
         && (
         <Addresses
           getDestinationIfSet={this.state.destinationToGo}
-          clearPath={this.clearPath}
           getRegion={this.getRegionFromAddresses}
           getRegionFromSearch={this.state.region}
           getCoordinates={this.getCoordinatesFromAddresses}
           changeVisibilityTo={this.changeVisibilityTo}
-          polylineVisibility={this.clearPolyLine}
         />
         ) }
       </View>
