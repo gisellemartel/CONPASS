@@ -24,7 +24,7 @@ class Home extends Component {
       isVisible: false,
       isSearchVisible: true,
       isGoVisible: false,
-      isSwitchAvailableIndestination: true
+      isSwitchAvailableInDestination: true
     };
   }
 
@@ -107,7 +107,7 @@ class Home extends Component {
         <SwitchCampuses
           updateRegion={this.updateRegion}
           visiblityState={this.state.isVisible}
-          isSwitchAvailableIndestination={this.state.isSwitchAvailableIndestination}
+          isSwitchAvailableInDestination={this.state.isSwitchAvailableInDestination}
         />
         <ToCircle
           changeVisibilityToSwitchCampus={this.changeVisibilityToSwitchCampus}
