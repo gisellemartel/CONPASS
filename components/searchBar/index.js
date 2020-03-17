@@ -53,19 +53,15 @@ export default class searchBar extends Component {
   // Parameter: Text input from search bar
 
   async onChangeDestination(destination) {
-    this.setState({ destination });
-    const key = 'AIzaSyCqNODizSqMIWbKbO8Iq3VWdBcK846n_3w';
-    const apiUrl = `https://maps.googleapis.com/maps/api/place/autocomplete/json?key=${key}&input=${destination}&location=45.492409, -73.582153&radius=2000`;
     try {
-      if(this.props.currentBuildingPred!==this.state.prevCurrentBuilding){//invoke updatePreds when currentBuildingPred props is updated
+      if(this.props.currentBuildingPred!==this.state.prevCurrentBuilding){
         this.setState({
           prevCurrentBuilding : this.props.currentBuildingPred
         });
-        await this.updatePreds();
+        await this.updateCurrentBuilding();
       }
 
-      const result = await fetch(apiUrl);
-      const json = await result.json();
+      const json = await this.getPredictions(destination);
       const finalPredictions = (this.state.currentBuilding!==null && destination!=='') ? [this.state.currentBuilding,...json.predictions.slice(0,json.predictions.length-1)]:json.predictions;
       this.setState({
         predictions: finalPredictions
@@ -76,12 +72,9 @@ export default class searchBar extends Component {
     }
   }
 
-  async updatePreds(){
-    const key = 'AIzaSyCqNODizSqMIWbKbO8Iq3VWdBcK846n_3w';
-    const apiUrl = `https://maps.googleapis.com/maps/api/place/autocomplete/json?key=${key}&input=${this.props.currentBuildingPred}&location=45.492409, -73.582153&radius=2000`;
+  async updateCurrentBuilding(){
     try {
-      const result = await fetch(apiUrl);
-      const json = await result.json();
+      const json = await this.getPredictions(this.props.currentBuildingPred);
 
       if(json.predictions.length> 0){
         this.setState({
@@ -92,6 +85,20 @@ export default class searchBar extends Component {
       console.error(err);
     }
   }
+
+  async getPredictions(destination){
+    this.setState({ destination });
+    const key = 'AIzaSyCqNODizSqMIWbKbO8Iq3VWdBcK846n_3w';
+    const apiUrl = `https://maps.googleapis.com/maps/api/place/autocomplete/json?key=${key}&input=${destination}&location=45.492409, -73.582153&radius=2000`;
+
+    try{
+      const result = await fetch(apiUrl);
+      return await result.json();
+    }catch (err){
+      console.error(err);
+    }
+  }
+
   // Function: gets the latitude and longitude of a chosen prediction
   // Parameter: place_id of the chosen prediction
 
