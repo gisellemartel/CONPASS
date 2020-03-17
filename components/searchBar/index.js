@@ -71,7 +71,10 @@ export default class searchBar extends Component {
       console.error(err);
     }
   }
-
+  
+  /**
+   * Sets currentBuilding state with a prediction of the current building the user is in
+   */
   async updateCurrentBuilding(){
     try {
       const json = await this.getPredictions(this.props.currentBuildingPred);
@@ -86,6 +89,11 @@ export default class searchBar extends Component {
     }
   }
 
+  /**
+   * Retrieves predictions through Google's API for a given string
+   * @param {String} destination - String to get predictions for
+   * @returns {Promise} - Promise object represents Google's API json response
+   */
   async getPredictions(destination){
     this.setState({ destination });
     const key = 'AIzaSyCqNODizSqMIWbKbO8Iq3VWdBcK846n_3w';
