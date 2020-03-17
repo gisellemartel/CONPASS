@@ -74,7 +74,6 @@ export default class Addresses extends Component {
             <BackButton
               changeVisibilityTo={this.props.changeVisibilityTo}
               coordinateCallback={this.updateCoordinates}
-              clearPath={this.props.clearPath}
             />
             <CurrentLocation />
             <Destination />

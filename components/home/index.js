@@ -24,8 +24,7 @@ class Home extends Component {
         latitudeDelta: 0.04,
         longitudeDelta: 0.04
       },
-      showDirectionsMenu: false,
-      coordinates: []
+      showDirectionsMenu: false
     };
   }
 
@@ -76,16 +75,6 @@ class Home extends Component {
     this.updateCoordinates(coordinates);
   }
 
-  /**
-  * gets path to be deleted from 'Addresses' component
-  * @param {object} setPath - path to be deleted.
-  */
-  clearPath = () => {
-    this.setState({
-      coordinates: []
-    });
-  }
-
   render() {
     return (
       <View style={styles.container}>
@@ -119,7 +108,6 @@ class Home extends Component {
         {this.state.showDirectionsMenu
         && (
         <Addresses
-          clearPath={this.clearPath}
           getRegion={this.getRegionFromAddresses}
           getCoordinates={this.getCoordinatesFromAddresses}
           changeVisibilityTo={this.changeVisibilityTo}

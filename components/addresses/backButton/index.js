@@ -10,7 +10,6 @@ export default class BackButton extends Component {
     return (
       <View style={styles.container}>
         <TouchableOpacity onPress={() => {
-          this.props.clearPath();
           this.props.changeVisibilityTo(false);
         }}
         >
