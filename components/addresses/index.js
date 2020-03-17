@@ -72,8 +72,7 @@ export default class Addresses extends Component {
           <Walking />
           <View style={styles.container}>
             <BackButton
-              visiblityState={this.props.visiblityState}
-              changeVisibilityToSwitchCampus={this.props.changeVisibilityToSwitchCampus}
+              changeVisibilityTo={this.props.changeVisibilityTo}
               coordinateCallback={this.updateCoordinates}
               clearPath={this.props.clearPath}
             />

@@ -20,7 +20,7 @@ export default class TheMap extends Component {
       coordinate: {
         latitude: 45.492409,
         longitude: -73.582153,
-      },
+      }
     };
   }
 
@@ -56,11 +56,14 @@ export default class TheMap extends Component {
           region={this.props.updatedRegion}
           style={styles.mapStyle}
         >
+          {this.props.polylineVisibility
+          && (
           <Polyline
             coordinates={this.props.updatedCoordinates}
             strokeWidth={4}
             strokeColor="black"
           />
+          )}
           {buildings.map((building) => {
             return (
               building.polygons.map((polygon) => {

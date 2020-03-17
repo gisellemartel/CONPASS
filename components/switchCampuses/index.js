@@ -35,7 +35,7 @@ export default class SwitchCampuses extends Component {
   }
 
   render() {
-    if (this.props.visiblityState && this.props.isSwitchAvailableIndestination) {
+    if (this.props.visiblityState) {
       return (
         <View style={styles.container}>
           <View style={styles.btn}>
