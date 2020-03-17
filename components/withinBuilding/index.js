@@ -129,28 +129,27 @@ export default class WithinBuilding extends Component {
       this.state.buildingDisplayName = '';
     }
   }
-  shouldComponentUpdate(){
-    return false;
-  }
 
-  componentDidMount(){
-    if(this.state.campusDisplayName == 'Loyola'){
-      if(this.state.buildingDisplayName.length > 0)
-        this.props.updateCurrentBuildingCallBack(this.state.loyBuildings.filter((building)=>{
-        return building.name == this.state.buildingDisplayName;
-        })[0].address);
-      else
-        this.props.updateCurrentBuildingCallBack('');
-    }else if(this.state.campusDisplayName == 'SGW'){
-      if(this.state.buildingDisplayName.length > 0)
-        this.props.updateCurrentBuildingCallBack(this.state.sgwBuildings.filter((building)=>{
-        return building.name == this.state.buildingDisplayName;
+  /**
+   * Updates currentBuilding prop passed from Home component
+   */
+  updateCurrentBuildingProp(){
+    if(this.state.campusDisplayName == 'Loyola' && this.state.buildingDisplayName.length > 0){
+      this.props.updateCurrentBuildingCallBack(this.state.loyBuildings.filter((building)=>{
+      return building.name == this.state.buildingDisplayName;
       })[0].address);
-      else
-        this.props.updateCurrentBuildingCallBack('');
+    }else if(this.state.campusDisplayName == 'SGW' && this.state.buildingDisplayName.length > 0){
+      this.props.updateCurrentBuildingCallBack(this.state.sgwBuildings.filter((building)=>{
+      return building.name == this.state.buildingDisplayName;
+      })[0].address);
     }else
         this.props.updateCurrentBuildingCallBack('');
   }
+
+  componentDidMount(){
+    this.updateCurrentBuildingProp();
+  }
+
   render() {
     this.buildingName();
     //remove b4 merging... It's just for testing purposes
