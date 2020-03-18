@@ -37,6 +37,7 @@ export default class TheMap extends Component {
     }
   }
 
+  /** Resize the map to see the path */
   fitScreenToPath(coordinates) {
     this.state.mapRef.fitToCoordinates(coordinates, {
       edgePadding: {
@@ -45,6 +46,7 @@ export default class TheMap extends Component {
     });
   }
 
+  /** Send the selected point of interest to the parent component */
   async selectPoi(poi) {
     const id = poi.nativeEvent.placeId;
     const key = 'AIzaSyCqNODizSqMIWbKbO8Iq3VWdBcK846n_3w';
@@ -66,7 +68,6 @@ export default class TheMap extends Component {
       }
     }
   }
-
 
   render() {
     const currRef = (ref) => { this.mapRef = ref; };
@@ -101,7 +102,6 @@ export default class TheMap extends Component {
               })
             );
           })}
-
           <Marker
             coordinate={{
               latitude: this.props.updatedRegion.latitude,
