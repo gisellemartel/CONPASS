@@ -65,11 +65,13 @@ class Home extends Component {
   }
 
 
-  getPlaces= (places) => {
-    console.log("places: ");
-    this.setState({ placesToGo: places });
+  getPlaces = (places) => {
+    console.log(places);
+    this.setState({
+      placesToGo: places
+    });
 
-    console.log("placesToGo" + this.state.placesToGo);
+    console.log(this.state.placesToGo);
   }
 
   // Activates interior mode when building is clicked on
@@ -82,7 +84,7 @@ class Home extends Component {
     this.setState({ interiorMode: false, building: null });
   }
 
-  refresh=()=>{
+  refresh=() => {
     this.setState({ refresh: true });
   }
 

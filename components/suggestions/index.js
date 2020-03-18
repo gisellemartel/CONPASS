@@ -22,23 +22,15 @@ class Suggestions extends Component {
 
   // }
 
-  UNSAFE_componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps(nextProps) {
   // You don't have to do this check first, but it can help prevent an unneeded render
-
-  console.log("1");
-  
-  if (nextProps.placesToGo !== this.state.content) {
-     const { placesToGo } = this.props.placesToGo;
-  console.log("2");
-  console.log(placesToGo);
     this.setState({
-      content: placesToGo,
-      refresh:!this.state.refresh   
+      refresh:!this.state.refresh
     });
-      console.log(this.state.content);
+
 
   }
-}
+
 
     _renderItem = ({ item }) => {
       return (
@@ -53,6 +45,8 @@ class Suggestions extends Component {
 
 
     render() {
+      const { content } = typeof this.props.placesToGo === 'undefined' ? this.state.content : this.props.placesToGo;
+      console.log("i am here"+content);
       return (
         <View style={styles.container}>
           <Text>Hall Building</Text>
@@ -77,8 +71,8 @@ class Suggestions extends Component {
 
           <FlatList
             horizontal
-            data={this.state.content}
-            extraData={this.state.refresh}
+            data={content}
+            extraData={!this.state.refresh}
             renderItem={this._renderItem}
           />
         </View>
