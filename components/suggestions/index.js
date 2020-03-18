@@ -16,10 +16,15 @@ class Suggestions extends Component {
   }
 
 
-    render() {
-      return ( 
+  render() {
+    return (
+      <View style={styles.container}>
+        <Text>Hall Building</Text>
+        <Text>Open</Text>
+        <Text>Tunnel Accessibility</Text>
+      </View>
 
-      );
+    );
   }
 }
 export default Suggestions;
