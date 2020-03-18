@@ -151,6 +151,8 @@ const buildings = [
     campus: 'LOY',
     building: 'CJ',
     buildingName: 'Communication Studies and Journalism Building',
+    placesToGo: [{ name: 'CJ Café', opening: ['8:00', '9:30'] }
+    ],
     address: '7141 Sherbrooke West',
     latitude: 45.457478,
     longitude: -73.640354,
@@ -288,6 +290,8 @@ const buildings = [
     campus: 'LOY',
     building: 'HB',
     buildingName: 'Hingston Hall Resisdence',
+    placesToGo: [{ name: 'Hingston Café', opening: ['8:00', '9:30'] }
+    ],
     address: '7141 Sherbrooke West',
     latitude: 45.459356,
     longitude: -73.641270,
@@ -643,6 +647,10 @@ const buildings = [
     campus: 'SGW',
     building: 'LB',
     buildingName: 'Webster Library Building',
+    placesToGo: [{ name: 'LB Café', opening: ['8:00', '9:30'] },
+      { name: 'Starbucks', opening: ['8:00', '9:30'] },
+      { name: 'Tim Hortons', opening: ['8:00', '9:30'] }
+    ],
     address: '1400 DeMaisonneuve W',
     latitude: 45.497050,
     longtitude: -73.578009,
@@ -661,6 +669,8 @@ const buildings = [
     campus: 'SGW',
     building: 'H',
     buildingName: 'Henry F. Hall Building',
+    placesToGo: [{ name: 'Hall 4 Café - The Green Beet', opening: ['8:00', '9:30'] }
+    ],
     address: '1455 DeMaisonneuve W',
     latitude: 45.497092,
     longtitude: -73.578800,
