@@ -15,6 +15,14 @@ class Suggestions extends Component {
     };
   }
 
+  _renderItem = ({ item }) => {
+    return (
+      <View style={styles.slide}>
+        <Image style={styles.image} source={item.image} />
+        <Text style={styles.name}>{ item.name }</Text>
+      </View>
+    );
+  }
 
   render() {
     return (
