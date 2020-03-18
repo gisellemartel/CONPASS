@@ -8,6 +8,7 @@ import SwitchCampuses from '../switchCampuses';
 import WithinBuilding from '../withinBuilding';
 import Building from '../map/building/index';
 import generateBuilding from '../../assets/svgReactNative/buildingRepository';
+import Suggestions from '../suggestions';
 
 
 class Home extends Component {
@@ -98,6 +99,7 @@ class Home extends Component {
         /> */}
         {/* zIndex=2 */}
         {this.state.interiorMode && <Building building={this.state.building} buildingFloorPlans={generateBuilding(this.state.building.building)} interiorModeOff={this.interiorModeOff} />}
+        <Suggestions />
       </View>
     );
   }
