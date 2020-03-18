@@ -134,16 +134,21 @@ export default class WithinBuilding extends Component {
    * Updates currentBuilding prop passed from Home component
    */
   updateCurrentBuildingProp(){
+    let buildingAddress = '';
     if(this.state.campusDisplayName == 'Loyola' && this.state.buildingDisplayName.length > 0){
-      this.props.updateCurrentBuildingCallBack(this.state.loyBuildings.filter((building)=>{
-      return building.name == this.state.buildingDisplayName;
-      })[0].address);
+      buildingAddress = this.state.loyBuildings.filter((building)=>{
+        return building.name == this.state.buildingDisplayName;
+        })[0].address;
+      this.props.updateCurrentBuildingCallBack(buildingAddress);
     }else if(this.state.campusDisplayName == 'SGW' && this.state.buildingDisplayName.length > 0){
-      this.props.updateCurrentBuildingCallBack(this.state.sgwBuildings.filter((building)=>{
-      return building.name == this.state.buildingDisplayName;
-      })[0].address);
+      buildingAddress = this.state.sgwBuildings.filter((building)=>{
+        return building.name == this.state.buildingDisplayName;
+        })[0].address;
+      this.props.updateCurrentBuildingCallBack(buildingAddress);
     }else
-        this.props.updateCurrentBuildingCallBack('');
+        this.props.updateCurrentBuildingCallBack(buildingAddress);
+    
+    return buildingAddress;
   }
 
   componentDidMount(){
