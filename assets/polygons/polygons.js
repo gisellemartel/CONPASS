@@ -648,10 +648,11 @@ const buildings = [
     campus: 'SGW',
     building: 'LB',
     buildingName: 'Webster Library Building',
-    placesToGo: [{ name: 'LB Café', opening: ['8:00', '9:30'] },
-      { name: 'Starbucks', opening: ['8:00', '9:30'] },
-      { name: 'Tim Hortons', opening: ['8:00', '9:30'] }
+    placesToGo: [{ name: 'LB Café', placeID: '', opening: ['8:00', '9:30'],image: require('') },
+      { name: 'Starbucks', placeID: '', opening: ['8:00', '9:30'],image: require('') },
+      { name: 'Tim Hortons', placeID: '', opening: ['8:00', '9:30'],image: require('') }
     ],
+        placesToGo: [{ name: 'Grey Nuns Dining Hall', placeID: '', opening: ['8:00', '9:30'],image: require('') }
     address: '1400 DeMaisonneuve W',
     latitude: 45.497050,
     longtitude: -73.578009,
