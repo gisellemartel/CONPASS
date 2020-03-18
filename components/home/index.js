@@ -82,6 +82,10 @@ class Home extends Component {
     this.setState({ interiorMode: false, building: null });
   }
 
+  refresh=()=>{
+    this.setState({ refresh: true });
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -92,6 +96,7 @@ class Home extends Component {
           encryptedLine={this.state.encryptedLine}
           interiorModeOn={this.interiorModeOn}
           places={this.getPlaces}
+          refresh={this.refresh}
         />
         {/* zIndex=5 */}
         <SearchBar
@@ -109,7 +114,7 @@ class Home extends Component {
         /> */}
         {/* zIndex=2 */}
         {this.state.interiorMode && <Building building={this.state.building} buildingFloorPlans={generateBuilding(this.state.building.building)} interiorModeOff={this.interiorModeOff} />}
-        <Suggestions placesToGo={this.state.placeToGo}/>
+        <Suggestions refresh={this.state.refresh} placesToGo={this.state.placeToGo} />
       </View>
     );
   }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Image, Dimensions } from 'react-native';
+import { View, Text, Image, Dimensions, FlatList } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
 import styles from './styles';
 
@@ -7,19 +7,39 @@ class Suggestions extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      refresh:true,
       content: [{ name: 'talal', image: require('./timeHortons.jpg') }]
     };
   }
 
-  ComponentDidMount=()=>{
-    console.log("I am here1"+this.props.placesToGo.name);
+  // componentDidMount() {
+  //   console.log( "I am here1");
+  //   this.setState({
+  //     content: this.props.placesToGo,
+  //     refresh:!this.state.refresh
+  //   });
+  //   console.log("I am here2 "+this.state.content);
+
+  // }
+
+  UNSAFE_componentWillReceiveProps(nextProps) {
+  // You don't have to do this check first, but it can help prevent an unneeded render
+
+  console.log("1");
+  
+  if (nextProps.placesToGo !== this.state.content) {
+     const { placesToGo } = this.props.placesToGo;
+  console.log("2");
+  console.log(placesToGo);
     this.setState({
-      content:this.props.placesToGo
+      content: placesToGo,
+      refresh:!this.state.refresh   
     });
-    console.log("I am here2"+this.state.content.name);
+      console.log(this.state.content);
 
   }
-  
+}
+
     _renderItem = ({ item }) => {
       return (
         <View style={styles.slide}>
@@ -31,24 +51,35 @@ class Suggestions extends Component {
       );
     }
 
+
     render() {
       return (
         <View style={styles.container}>
           <Text>Hall Building</Text>
           <Text>Open</Text>
           <Text>Tunnel Accessibility</Text>
-          <Carousel
+          {/* <Carousel
             ref={(c) => { this._carousel = c; }}
             data={this.state.content}
             containerCustomStyle={styles.carousel}
             renderItem={this._renderItem}
             sliderWidth={Dimensions.get('window').width}
             itemWidth={300}
-            loop
-            autoplay
+            loop={true}
+            autoplay={true}
             autoplayDelay={0}
-            enableMomentum
+            enableMomentum={true}
             lockScrollWhileSnapping={false}
+            autoplayInterval={
+                this.handleTimeReturn()
+            } 
+          /> */}
+
+          <FlatList
+            horizontal
+            data={this.state.content}
+            extraData={this.state.refresh}
+            renderItem={this._renderItem}
           />
         </View>
 
