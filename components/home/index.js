@@ -16,6 +16,7 @@ class Home extends Component {
     super(props);
     this.state = {
       // Set Initial region of the map
+      placesToGo: [],
       region: {
         latitude: 45.492409,
         longitude: -73.582153,
@@ -63,6 +64,14 @@ class Home extends Component {
     });
   }
 
+
+  getPlaces= (places) => {
+    console.log("places: ");
+    this.setState({ placesToGo: places });
+
+    console.log("placesToGo" + this.state.placesToGo);
+  }
+
   // Activates interior mode when building is clicked on
   // use the building data to render floors
   interiorModeOn(building, region) {
@@ -82,6 +91,7 @@ class Home extends Component {
           updatedCoordinates={this.state.coordinates}
           encryptedLine={this.state.encryptedLine}
           interiorModeOn={this.interiorModeOn}
+          places={this.getPlaces}
         />
         {/* zIndex=5 */}
         <SearchBar
@@ -99,7 +109,7 @@ class Home extends Component {
         /> */}
         {/* zIndex=2 */}
         {this.state.interiorMode && <Building building={this.state.building} buildingFloorPlans={generateBuilding(this.state.building.building)} interiorModeOff={this.interiorModeOff} />}
-        <Suggestions />
+        <Suggestions placesToGo={this.state.placeToGo}/>
       </View>
     );
   }

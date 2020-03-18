@@ -7,14 +7,19 @@ class Suggestions extends Component {
   constructor(props) {
     super(props);
     this.state = {
-            content: [
-        { image: require('./starbucks.jpg'), name: 'starbucks' },
-        { image: require('./timeHortons.jpg'), name: 'tim hortons' },
-        { image: require('./hallCafe.jpg'), name: 'hall cafe' }
-      ]
+      content: [{ name: 'talal', image: require('./timeHortons.jpg') }]
     };
   }
 
+  ComponentDidMount=()=>{
+    console.log("I am here1"+this.props.placesToGo.name);
+    this.setState({
+      content:this.props.placesToGo
+    });
+    console.log("I am here2"+this.state.content.name);
+
+  }
+  
     _renderItem = ({ item }) => {
       return (
         <View style={styles.slide}>
@@ -26,23 +31,28 @@ class Suggestions extends Component {
       );
     }
 
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text>Hall Building</Text>
-        <Text>Open</Text>
-        <Text>Tunnel Accessibility</Text>
-        <Carousel
-          ref={(c) => { this._carousel = c; }}
-          data={this.state.content}
-          containerCustomStyle={styles.carousel}
-          renderItem={this._renderItem}
-          sliderWidth={Dimensions.get('window').width}
-          itemWidth={300}
-        />
-      </View>
+    render() {
+      return (
+        <View style={styles.container}>
+          <Text>Hall Building</Text>
+          <Text>Open</Text>
+          <Text>Tunnel Accessibility</Text>
+          <Carousel
+            ref={(c) => { this._carousel = c; }}
+            data={this.state.content}
+            containerCustomStyle={styles.carousel}
+            renderItem={this._renderItem}
+            sliderWidth={Dimensions.get('window').width}
+            itemWidth={300}
+            loop
+            autoplay
+            autoplayDelay={0}
+            enableMomentum
+            lockScrollWhileSnapping={false}
+          />
+        </View>
 
-    );
-  }
+      );
+    }
 }
 export default Suggestions;
