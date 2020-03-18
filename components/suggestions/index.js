@@ -22,6 +22,14 @@ class Suggestions extends Component {
         <Text>Hall Building</Text>
         <Text>Open</Text>
         <Text>Tunnel Accessibility</Text>
+        <Carousel
+          ref={(c) => { this._carousel = c; }}
+          data={this.state.content}
+          containerCustomStyle={styles.carousel}
+          renderItem={this._renderItem}
+          sliderWidth={Dimensions.get('window').width}
+          itemWidth={300}
+        />
       </View>
 
     );
