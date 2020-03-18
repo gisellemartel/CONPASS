@@ -3,11 +3,11 @@ import { StyleSheet } from 'react-native';
 const styles = StyleSheet.create({
 
   container: {
-    left: 60,
+    left: 61,
     position: 'absolute',
 
     zIndex: 2,
-    top: 70
+    top: 90
   },
   currentLocation: {
     width: 10,
