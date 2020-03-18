@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
-import { Button } from 'react-native-elements';
+import { Button, TouchableOpacity } from 'react-native-elements';
 import styles from './styles';
 
 export default class SwitchCampuses extends Component {
@@ -38,14 +38,14 @@ export default class SwitchCampuses extends Component {
     if (this.props.visiblityState) {
       return (
         <View style={styles.container}>
-          <View style={styles.btn}>
+          <View style={styles.buttonLeft}>
             <Button
               title="Loyola"
               onPress={() => { this.setLoyola(); }}
             />
           </View>
 
-          <View style={styles.btn}>
+          <View style={styles.buttonRight}>
             <Button
               title="SGW"
               onPress={() => { this.setSGW(); }}
