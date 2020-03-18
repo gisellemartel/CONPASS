@@ -23,6 +23,11 @@ export default class TheMap extends Component {
     region = newRegion;
   }
 
+
+  getBuildingInformation(building) {
+    console.log(building);
+  }
+
   focusOnBuilding(building) {
     console.log('activate');
     const { coordinates } = building.polygon;
@@ -32,6 +37,7 @@ export default class TheMap extends Component {
         top: 10, right: 20, bottom: 10, left: 20
       }
     });
+
 
     // they do not provide a callback when the fitToCoordinates is complete.
     // Setting at timer for the animation to finish
@@ -49,6 +55,7 @@ export default class TheMap extends Component {
         <CustomPolygon
           key={building.buildingName + building.address}
           building={building}
+          getBuildingInformation={this.getBuildingInformation}
           focusOnBuilding={this.focusOnBuilding}
           fillColor="rgba(255,135,135,0.5)"
         />

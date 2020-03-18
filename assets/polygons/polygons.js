@@ -378,6 +378,8 @@ const buildings = [
     building: 'GN',
     buildingName: 'Grey Nuns',
     address: '1190 guy street',
+    placesToGo: [{ name: 'Grey Nuns Dining Hall', opening: ['8:00', '9:30'] }
+    ],
     latitude: '45.493484',
     longtitude: '-73.576748',
     polygon: {
@@ -678,6 +680,13 @@ const buildings = [
     building: 'EV',
     buildingName: 'Engineering, Computer Science and Visual Arts Inte',
     address: '1515 Ste-Catherine W',
+    department: ['Building, Civil and Environmental Engineering (BCEE)',
+      'Centre for Engineering in Society',
+      'Computer Science and Software Engineering (CSSE)',
+      'Concordia Institute for Information Systems Engineering (CIISE)',
+      'Chemical and Materials Engineering (CME)',
+      'Electrical and Computer Engineering (ECE)',
+      'Mechanical, Industrial and Aerospace Engineering (MIAE)'],
     latitude: 45.495376,
     longtitude: -73.577997,
     polygon: {
