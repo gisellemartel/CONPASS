@@ -59,6 +59,25 @@ class Home extends Component {
     });
   };
 
+  updateRegionCloser = (newRegion) => {
+    this.setState({
+      presetRegion: {
+        latitude: newRegion.latitude,
+        longitude: newRegion.longitude,
+        latitudeDelta: 0.001,
+        longitudeDelta: 0.001
+      }
+    });
+    this.setState({
+      region: {
+        latitude: newRegion.latitude,
+        longitude: newRegion.longitude,
+        latitudeDelta: 0.001,
+        longitudeDelta: 0.001
+      }
+    });
+  }
+
   /**
    * Fetches the currently searched destination in order to automatically populate
    * destination option in directions mode
@@ -122,6 +141,8 @@ class Home extends Component {
           updatedCoordinates={this.state.coordinates}
           updatedRegion={this.state.presetRegion}
           polylineVisibility={this.state.showDirectionsMenu}
+          getDestinationIfSet={this.getDestinationIfSet}
+          updateRegionCloser={this.updateRegionCloser}
         />
         {!this.state.showDirectionsMenu && (
         <SearchBar
