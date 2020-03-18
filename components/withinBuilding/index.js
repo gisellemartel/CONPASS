@@ -82,6 +82,7 @@ export default class WithinBuilding extends Component {
         yCoords: yCoordinates
       });
     });
+
     return formattedBuildings;
   }
 
