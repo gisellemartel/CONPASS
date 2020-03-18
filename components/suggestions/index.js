@@ -7,14 +7,18 @@ class Suggestions extends Component {
   constructor(props) {
     super(props);
     this.state = {
-
+            content: [
+        { image: require('./starbucks.jpg'), name: 'starbucks' },
+        { image: require('./timeHortons.jpg'), name: 'tim hortons' },
+        { image: require('./hallCafe.jpg'), name: 'hall cafe' }
+      ]
     };
   }
 
 
     render() {
       return ( 
-        
+
       );
   }
 }
