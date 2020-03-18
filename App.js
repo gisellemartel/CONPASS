@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import i18n from 'i18n-js';
 import Home from './components/home';
 import Menu from './components/home/menu';
+import ShuttleSchedule from './components/home/menu/shuttleBusSchedule';
 import store from './store';
 
 const Stack = createStackNavigator();
@@ -31,6 +32,7 @@ export default class App extends Component {
           >
             <Stack.Screen name="Home" options={{ headerShown: false }} component={Home} />
             <Stack.Screen name="Menu" options={{ gestureDirection: 'horizontal-inverted', headerShown: false }} component={Menu} />
+            <Stack.Screen name="ShuttleSchedule" options={{ gestureDirection: 'vertical-inverted', headerShown: true }} component={ShuttleSchedule}></Stack.Screen>
           </Stack.Navigator>
         </NavigationContainer>
       </Provider>

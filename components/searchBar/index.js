@@ -33,25 +33,23 @@ export default class searchBar extends Component {
   }
 
   componentDidMount() {
+    console.log(this.props.hideMenu);
     SetLocaleContext();
     this.setState({ isMounted: true });
-    if (this.props.hideMenu === undefined) {
+    if (this.props.hideMenu === undefined || this.props.setCampusToggleVisibility === undefined) {
       this.setState({ hideMenu: true });
     } else {
       this.setState({ hideMenu: false });
-    }
-    if (this.props.changeVisibilityTo === undefined
-      || this.props.changeVisibilityToSearch === undefined) {
-      this.setState({ checkUnidentified: false });
     }
     if (this.props.urCurentLocation !== undefined) {
       this.setState({ destination: this.props.urCurentLocation });
     }
   }
 
-  // Function: When entering text searchbar, captures all the possible predictions from google's api
-  // Parameter: Text input from search bar
-
+  /**
+  * Retrieves predictions through google's from text entered in searchbar.
+  * @param {string} destination - Text input from search bar
+  */
   async onChangeDestination(destination) {
     this.setState({ destination });
     try {
@@ -109,6 +107,11 @@ export default class searchBar extends Component {
   // Function: gets the latitude and longitude of a chosen prediction
   // Parameter: place_id of the chosen prediction
 
+
+  /**
+  * Gets the latitude and longitude of a chosen prediction.
+  * @param {string} prediction - placeid of the prediction to get latitude and longitude.
+  */
   async getLatLong(prediction) {
     const key = 'AIzaSyCqNODizSqMIWbKbO8Iq3VWdBcK846n_3w';
     const geoUrl = `https://maps.googleapis.com/maps/api/place/details/json?key=${key}&placeid=${prediction}`;
@@ -126,11 +129,13 @@ export default class searchBar extends Component {
         }
       });
       this.props.updateRegion(this.state.region);
+      if (this.props.drawPath) {
+        this.props.drawPath();
+      }
     } catch (err) {
       console.error(err);
     }
   }
-
 
   render() {
     const placeholder = this.state.isMounted ? i18n.t('search') : 'search';
@@ -142,11 +147,9 @@ export default class searchBar extends Component {
             style={styles.Touch}
             onPress={() => {
               this.setState({ destination: prediction.description });
+              this.props.getDestinationIfSet ? this.props.getDestinationIfSet(prediction.description) : '';
               this.getLatLong(prediction.place_id);
               this.setState({ showPredictions: false });
-              if (this.state.checkUnidentified) {
-                this.props.changeVisibilityTo(false);
-              }
               Keyboard.dismiss();
             }}
           >
@@ -155,6 +158,52 @@ export default class searchBar extends Component {
         </View>
       );
     });
+
+    const searchIcon = this.state.hideMenu && <Icon navigation={this.props.navigation} />;
+
+    /**
+     *
+     * @param {*} destination
+     * Controller function for searchBar component
+     * manages contextual text entry
+     */
+    const onChangeText = (destination) => {
+      return this.onChangeDestination(destination);
+    };
+
+    /**
+     * Controller function for searchBar component
+     * sets state when search bar is cleared
+     */
+    const onClear = () => {
+      this.setState({ showPredictions: true });
+    };
+
+    /**
+     * Controller function for searchBar component
+     * Defines UI behaviour of component when triggered by touch event
+     */
+    const onTouchStart = () => {
+      if (this.props.setCampusToggleVisibility) {
+        this.props.setCampusToggleVisibility(true);
+      }
+    };
+
+    /**
+     * Controller function for searchBar component
+     */
+    const onBlur = () => {
+      if (this.props.setCampusToggleVisibility) {
+        this.props.setCampusToggleVisibility(false);
+      }
+    };
+
+    const containerStyle = {
+      borderRadius: 10,
+      borderWidth: 1,
+      height: 45,
+      justifyContent: 'center'
+    };
 
     return (
       <View style={styles.container}>
@@ -165,45 +214,15 @@ export default class searchBar extends Component {
             padding={5}
             returnKeyType="search"
             lightTheme
-            containerStyle={{
-              borderRadius: 10,
-              borderWidth: 1,
-              height: 45,
-              justifyContent: 'center'
-            }}
-            searchIcon={this.state.hideMenu && <Icon navigation={this.props.navigation} />}
+            containerStyle={containerStyle}
+            searchIcon={!this.props.hideMenu && searchIcon}
             placeholder={placeholder}
-            onChangeText={(destination) => {
-              if (this.state.checkUnidentified) {
-                destination.length === 0
-                  // eslint-disable-next-line max-len
-                  ? this.props.changeVisibilityTo(true) && this.props.changeVisibilityToSearch(true) : this.props.changeVisibilityTo(false) && this.props.changeVisibilityToSearch(false);
-              }
-              return this.onChangeDestination(destination);
-            }}
+            onChangeText={onChangeText}
             value={this.state.destination}
             style={styles.SearchBar}
-            onClear={() => {
-              this.setState({ showPredictions: true });
-              if (this.state.checkUnidentified) {
-                this.props.changeVisibilityTo(false);
-                this.props.changeVisibilityToSearch(true);
-              }
-            }}
-            onTouchStart={
-               () => {
-                 if (this.state.checkUnidentified) {
-                   this.props.changeVisibilityTo(true);
-                   this.props.changeVisibilityToSearch(false);
-                 }
-               }
-             }
-            onBlur={() => {
-              if (this.state.checkUnidentified) {
-                this.props.changeVisibilityToSearch(true);
-                this.props.changeVisibilityTo(false);
-              }
-            }}
+            onClear={onClear}
+            onTouchStart={onTouchStart}
+            onBlur={onBlur}
             blurOnSubmit
           />
         </View>
