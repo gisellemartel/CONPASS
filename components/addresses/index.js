@@ -24,9 +24,19 @@ export default class Addresses extends Component {
         longitudeDelta: 0.05
       },
       hide: true,
+      drawPath: true
     };
   }
 
+  drawPath =() => {
+    console.log(this.state.drawPath);
+    this.setState((prevState) => { return { drawPath: !prevState.drawPath }; });
+  }
+
+  /**
+  * updates region and passes the new region 'Home' component.
+  * @param {object} newRegion - New region to be passed.
+  */
     updateRegion = (newRegion) => {
       this.setState({
         region: {
@@ -39,6 +49,10 @@ export default class Addresses extends Component {
       this.props.getRegion(newRegion);
     };
 
+    /**
+    * updates coordinates and passes new coordinates 'Home' component.
+    * @param {object} newCoordinates - New coordinates to be passed.
+    */
     updateCoordinates = (newCoordinates) => {
       this.setState({
         coordinates: newCoordinates
@@ -49,21 +63,28 @@ export default class Addresses extends Component {
     render() {
       return (
         <View style={styles.searchContainer}>
-          <SearchBar updateRegion={this.updateRegion} urCurentLocation={this.state.value} hideMenu={this.state.hide} />
+          <SearchBar
+            updateRegion={this.updateRegion}
+            urCurentLocation={this.state.value}
+            hideMenu={this.state.hide}
+            drawPath={this.drawPath}
+
+          />
           <SearchBarDestination
+            drawPath={this.state.drawPath}
+            getRegionFromSearch={this.props.getRegionFromSearch}
+            getDestinationIfSet={this.props.getDestinationIfSet}
             updatedRegion={this.state.region}
             coordinateCallback={this.updateCoordinates}
           />
           <Car />
-          <Bus />
+          <Bus navigation={this.props.navigation} />
           <Bike />
           <Walking />
           <View style={styles.container}>
             <BackButton
-              visiblityState={this.props.visiblityState}
-              changeVisibilityToSwitchCampus={this.props.changeVisibilityToSwitchCampus}
+              changeVisibilityTo={this.props.changeVisibilityTo}
               coordinateCallback={this.updateCoordinates}
-              clearPath={this.props.clearPath}
             />
             <CurrentLocation />
             <Destination />

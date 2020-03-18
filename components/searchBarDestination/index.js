@@ -16,19 +16,38 @@ export default class searchBarDestination extends Component {
     this.state = {
       isMounted: false,
       showPredictions: true,
-      destination: '',
+      destination: this.props.getDestinationIfSet,
       predictions: [],
       destinationRegion: {
-        latitude: 45.492409,
-        longitude: -73.582153,
+        latitude: '',
+        longitude: '',
       },
     };
   }
 
   componentDidMount() {
     this.setState({ isMounted: true });
+    if (this.props.getRegionFromSearch && this.props.getRegionFromSearch.latitude !== '') {
+      this.setState({
+        destinationRegion: {
+          latitude: this.props.getRegionFromSearch.latitude,
+          longitude: this.props.getRegionFromSearch.longitude
+        }
+      });
+      this.drawPath();
+    }
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.drawPath !== this.props.drawPath) {
+      this.drawPath();
+    }
+  }
+
+  /**
+  * Retrieves predictions through google's from text entered in searchbar.
+  * @param {string} destination - Text input from search bar
+  */
   async onChangeDestination(destination) {
     this.setState({ destination });
     const key = 'AIzaSyCqNODizSqMIWbKbO8Iq3VWdBcK846n_3w';
@@ -44,6 +63,7 @@ export default class searchBarDestination extends Component {
     }
   }
 
+  /** Retrieves the current location of a user. */
   async getCurrentLocation() {
     const { status } = await Permissions.askAsync(Permissions.LOCATION);
     if (status !== 'granted') {
@@ -57,26 +77,33 @@ export default class searchBarDestination extends Component {
     this.setState({ location });
   }
 
-  async drawPath(prediction) {
+  /**
+  * Draws path between two selected locations.
+  * @param {string} prediction - placeid of destination to get path to.
+  */
+  async getLatLong(prediction) {
     // eslint-disable-next-line react/no-unused-state
     this.setState({ description: prediction });
     const key = 'AIzaSyCqNODizSqMIWbKbO8Iq3VWdBcK846n_3w';
     const geoUrl = `https://maps.googleapis.com/maps/api/place/details/json?key=${key}&placeid=${prediction}`;
+    const georesult = await fetch(geoUrl);
+    const gjson = await georesult.json();
+    this.setState({
+      destinationRegion: {
+        latitude: gjson.result.geometry.location.lat,
+        longitude: gjson.result.geometry.location.lng,
+      }
+    });
+    this.drawPath();
+  }
 
+  async drawPath() {
+    // eslint-disable-next-line no-shadow
     try {
       await this.getCurrentLocation();
       const { location } = this.state;
       const urLatitude = location.coords.latitude;
       const urLongitude = location.coords.longitude;
-      const georesult = await fetch(geoUrl);
-      const gjson = await georesult.json();
-      this.setState({
-        destinationRegion: {
-          latitude: gjson.result.geometry.location.lat,
-          longitude: gjson.result.geometry.location.lng,
-        }
-      });
-      // eslint-disable-next-line no-shadow
       const key = 'AIzaSyBsMjuj6q76Vcna8G5z9PDyTH2z16fNPDk';
       const originLat = this.props.updatedRegion.latitude === 0 ? urLatitude : this.props.updatedRegion.latitude;
       const originLong = this.props.updatedRegion.longitude === 0 ? urLongitude : this.props.updatedRegion.longitude;
@@ -94,7 +121,6 @@ export default class searchBarDestination extends Component {
           longitude: point.lng
         };
       });
-      console.log(waypoints);
       this.props.coordinateCallback(waypoints);
     } catch (err) {
       console.error(err);
@@ -110,7 +136,7 @@ export default class searchBarDestination extends Component {
             style={styles.Touch}
             onPress={() => {
               this.setState({ destination: prediction.description });
-              this.drawPath(prediction.place_id);
+              this.getLatLong(prediction.place_id);
               this.setState({ showPredictions: false });
               Keyboard.dismiss();
             }}

@@ -1,15 +1,14 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 
-const styles = StyleSheet.create({
+const styles = StyleSheet.create({
 
-  container: {
+  container: {
     top: 29,
     left: 23,
     zIndex: 2,
-    position: 'absolute',
-
+    position: 'absolute',
   },
 
 });
 
-export default styles;
+export default styles;
