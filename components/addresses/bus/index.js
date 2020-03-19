@@ -58,6 +58,7 @@ export default class Bus extends Component {
           // return this.props.navigation.navigate('');
           const { clicked } = this.state;
           this.setState({ clicked: !clicked });
+          this.props.updateMode('transit');
         }}
         >
           <Image style={styles.currentLocation} source={bus} />
