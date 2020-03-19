@@ -80,13 +80,13 @@ export default class Addresses extends Component {
           <Car updateMode={this.props.updateMode} />
           <Bus
             navigation={this.props.navigation}
-            updateMode={this.updateMode}
+            updateMode={this.props.updateMode}
           />
           <Bike
-            updateMode={this.updateMode}
+            updateMode={this.props.updateMode}
           />
           <Walking
-            updateMode={this.updateMode}
+            updateMode={this.props.updateMode}
           />
           <View style={styles.container}>
             <BackButton
