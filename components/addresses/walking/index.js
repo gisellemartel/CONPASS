@@ -9,7 +9,7 @@ export default class Walking extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => { this.props.updateMode('walking'); }}>
           <Image style={styles.currentLocation} source={walk} />
         </TouchableOpacity>
       </View>
