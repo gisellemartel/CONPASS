@@ -8,7 +8,7 @@ export default class Bike extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => { this.props.updateMode('bicycling'); }}>
           <Image style={styles.currentLocation} source={bike} />
         </TouchableOpacity>
       </View>
