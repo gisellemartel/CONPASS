@@ -32,7 +32,8 @@ class Home extends Component {
       },
 
       showDirectionsMenu: false,
-      showCampusToggle: false
+      showCampusToggle: false,
+      mode: ''
     };
   }
 
@@ -114,16 +115,24 @@ class Home extends Component {
     this.updateCoordinates(coordinates);
   }
 
+  /**
+ * updates mode of transportation
+ * @param {string} mode - Mode of transport: driving, bicycling, transit or walking
+ */
+updateMode = (mode) => {
+  this.state.mode = mode;
+  console.log(`mode change to: ${mode}`);
+}
 
-  render() {
-    return (
-      <View style={styles.container}>
-        <TheMap
-          updatedCoordinates={this.state.coordinates}
-          updatedRegion={this.state.presetRegion}
-          polylineVisibility={this.state.showDirectionsMenu}
-        />
-        {!this.state.showDirectionsMenu && (
+render() {
+  return (
+    <View style={styles.container}>
+      <TheMap
+        updatedCoordinates={this.state.coordinates}
+        updatedRegion={this.state.presetRegion}
+        polylineVisibility={this.state.showDirectionsMenu}
+      />
+      {!this.state.showDirectionsMenu && (
         <SearchBar
           getDestinationIfSet={this.getDestinationIfSet}
           navigation={this.props.navigation}
@@ -131,21 +140,22 @@ class Home extends Component {
           changeVisibilityTo={this.changeVisibilityTo}
           setCampusToggleVisibility={this.setCampusToggleVisibility}
         />
-        )}
-        {this.state.showCampusToggle && (
+      )}
+      {this.state.showCampusToggle && (
         <SwitchCampuses
           updateRegion={this.updateRegion}
           visiblityState={!this.state.showDirectionsMenu}
         />
-        )}
-        <Location updateRegion={this.updateRegion} />
-        <SetPath
-          changeVisibilityTo={this.changeVisibilityTo}
-          newValue={this.state.value}
-        />
-        {this.state.showDirectionsMenu
+      )}
+      <Location updateRegion={this.updateRegion} />
+      <SetPath
+        changeVisibilityTo={this.changeVisibilityTo}
+        newValue={this.state.value}
+      />
+      {this.state.showDirectionsMenu
         && (
         <Addresses
+          updateMode={this.updateMode}
           getDestinationIfSet={this.state.destinationToGo}
           getRegion={this.getRegionFromAddresses}
           getRegionFromSearch={this.state.region}
@@ -154,9 +164,9 @@ class Home extends Component {
           navigation={this.props.navigation}
         />
         ) }
-      </View>
-    );
-  }
+    </View>
+  );
+}
 }
 
 export default Home;
