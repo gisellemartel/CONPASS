@@ -6,7 +6,7 @@ import SearchBar from '../searchBar';
 import Location from '../location';
 import SwitchCampuses from '../switchCampuses';
 // TODO: uncomment once #93 is merged
-// import WithinBuilding from '../withinBuilding';
+import WithinBuilding from '../withinBuilding';
 import SetPath from '../setPath';
 import Addresses from '../addresses';
 import styles from './styles';
@@ -154,6 +154,7 @@ class Home extends Component {
         />
         )}
         <Location updateRegion={this.updateRegion} />
+        <WithinBuilding updateCurrentBuildingCallBack={this.updateCurrentBuildingAddress} />
         <SetPath
           changeVisibilityTo={this.changeVisibilityTo}
           newValue={this.state.value}

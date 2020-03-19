@@ -1,3 +1,4 @@
+/* eslint-disable no-mixed-operators */
 /* eslint-disable max-len */
 /* eslint-disable no-plusplus */
 import React, { Component } from 'react';
@@ -35,6 +36,10 @@ export default class WithinBuilding extends Component {
       // Loyola buildings formatted for isInPolygon use
       loyBuildings: this.formatPolygonsObjs('LOY')
     };
+  }
+
+  componentDidMount() {
+    this.updateCurrentBuildingProp();
   }
 
   // retrieves the users' current location
@@ -134,31 +139,26 @@ export default class WithinBuilding extends Component {
   /**
    * Updates currentBuilding prop passed from Home component
    */
-  updateCurrentBuildingProp(){
+  updateCurrentBuildingProp() {
     let buildingAddress = '';
-    if(this.state.campusDisplayName == 'Loyola' && this.state.buildingDisplayName.length > 0){
-      buildingAddress = this.state.loyBuildings.filter((building)=>{
-        return building.name == this.state.buildingDisplayName;
-        })[0].address;
+    if (this.state.campusDisplayName === 'Loyola' && this.state.buildingDisplayName.length > 0) {
+      buildingAddress = this.state.loyBuildings.filter((building) => {
+        return building.name === this.state.buildingDisplayName;
+      })[0].address;
       this.props.updateCurrentBuildingCallBack(buildingAddress);
-    }else if(this.state.campusDisplayName == 'SGW' && this.state.buildingDisplayName.length > 0){
-      buildingAddress = this.state.sgwBuildings.filter((building)=>{
-        return building.name == this.state.buildingDisplayName;
-        })[0].address;
+    } else if (this.state.campusDisplayName === 'SGW' && this.state.buildingDisplayName.length > 0) {
+      buildingAddress = this.state.sgwBuildings.filter((building) => {
+        return building.name === this.state.buildingDisplayName;
+      })[0].address;
       this.props.updateCurrentBuildingCallBack(buildingAddress);
-    }else
-        this.props.updateCurrentBuildingCallBack(buildingAddress);
-    
-    return buildingAddress;
-  }
+    } else { this.props.updateCurrentBuildingCallBack(buildingAddress); }
 
-  componentDidMount(){
-    this.updateCurrentBuildingProp();
+    return buildingAddress;
   }
 
   render() {
     this.buildingName();
-    //remove b4 merging... It's just for testing purposes
+    // remove b4 merging... It's just for testing purposes
     this.state.campusDisplayName = 'SGW';
     this.state.buildingDisplayName = 'Webster Library Building';
     return (
