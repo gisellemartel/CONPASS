@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { View, Text, Image, Dimensions, FlatList } from 'react-native';
+import {
+  View, Text, Image, Dimensions, FlatList
+} from 'react-native';
 import Carousel from 'react-native-snap-carousel';
 import styles from './styles';
 
@@ -7,11 +9,15 @@ class Suggestions extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      refresh:true,
+      refresh: true,
       content: [{ name: 'talal', image: require('./timeHortons.jpg') }]
     };
   }
 
+
+  componentDidUpdate() {
+    console.log(this.props.suggestion.placesToGo);
+  }
   // componentDidMount() {
   //   console.log( "I am here1");
   //   this.setState({
@@ -22,14 +28,12 @@ class Suggestions extends Component {
 
   // }
 
-  componentWillReceiveProps(nextProps) {
-  // You don't have to do this check first, but it can help prevent an unneeded render
-    this.setState({
-      refresh:!this.state.refresh
-    });
-
-
-  }
+  // componentWillReceiveProps(nextProps) {
+  // // You don't have to do this check first, but it can help prevent an unneeded render
+  //   this.setState({
+  //     refresh: !this.state.refresh
+  //   });
+  // }
 
 
     _renderItem = ({ item }) => {
@@ -46,7 +50,6 @@ class Suggestions extends Component {
 
     render() {
       const { content } = typeof this.props.placesToGo === 'undefined' ? this.state.content : this.props.placesToGo;
-      console.log("i am here"+content);
       return (
         <View style={styles.container}>
           <Text>Hall Building</Text>
@@ -66,7 +69,7 @@ class Suggestions extends Component {
             lockScrollWhileSnapping={false}
             autoplayInterval={
                 this.handleTimeReturn()
-            } 
+            }
           /> */}
 
           <FlatList

@@ -152,7 +152,9 @@ const buildings = [
     building: 'CJ',
     buildingName: 'Communication Studies and Journalism Building',
     placesToGo: [
-      { name: 'CJ Café', placeID: 'ChIJJ4gBMS4XyUwR5Cxm6Yq7mhc', opening: ['8:00', '9:30'], image: require('./CjCafe.jpg') }
+      {
+        name: 'CJ Café', placeID: 'ChIJJ4gBMS4XyUwR5Cxm6Yq7mhc', opening: ['8:00', '9:30'], image: require('./CjCafe.jpg')
+      }
     ],
     address: '7141 Sherbrooke West',
     latitude: 45.457478,
@@ -291,7 +293,9 @@ const buildings = [
     campus: 'LOY',
     building: 'HB',
     buildingName: 'Hingston Hall Resisdence',
-    placesToGo: [{ name: 'Hingston Café', placeID: 'ChIJJ4gBMS4XyUwR5Cxm6Yq7mhc', opening: ['8:00', '9:30'], image: require('./HingstonCafe.jpg') }
+    placesToGo: [{
+      name: 'Hingston Café', placeID: 'ChIJJ4gBMS4XyUwR5Cxm6Yq7mhc', opening: ['8:00', '9:30'], image: require('./HingstonCafe.jpg')
+    }
     ],
     address: '7141 Sherbrooke West',
     latitude: 45.459356,
@@ -383,7 +387,9 @@ const buildings = [
     building: 'GN',
     buildingName: 'Grey Nuns',
     address: '1190 guy street',
-    placesToGo: [{ name: 'Grey Nuns Dining Hall', placeID: 'ChIJV-mGQ2kayUwRT2vvO_XjKtE', opening: ['8:00', '9:30'],image: require('./GreyNuns.jpg') }
+    placesToGo: [{
+      name: 'Grey Nuns Dining Hall', placeID: 'ChIJV-mGQ2kayUwRT2vvO_XjKtE', opening: ['8:00', '9:30'], image: require('./GreyNuns.jpg')
+    }
     ],
     latitude: '45.493484',
     longtitude: '-73.576748',
@@ -648,9 +654,15 @@ const buildings = [
     campus: 'SGW',
     building: 'LB',
     buildingName: 'Webster Library Building',
-    placesToGo: [{ name: 'LB Café', placeID: 'ChIJaX1tY2oayUwRx9YEeFhP2ns', opening: ['8:00', '9:30'],image: require('./LbCafe.jpeg') },
-      { name: 'Starbucks', placeID: 'ChIJaX1tY2oayUwRx9YEeFhP2ns', opening: ['8:00', '9:30'],image: require('./starbucks.jpg') },
-      { name: 'Tim Hortons', placeID: 'ChIJaX1tY2oayUwRx9YEeFhP2ns', opening: ['8:00', '9:30'],image: require('./TimHortons.jpg') }
+    placesToGo: [{
+      name: 'LB Café', placeID: 'ChIJaX1tY2oayUwRx9YEeFhP2ns', opening: ['8:00', '9:30'], image: require('./LbCafe.jpeg')
+    },
+    {
+      name: 'Starbucks', placeID: 'ChIJaX1tY2oayUwRx9YEeFhP2ns', opening: ['8:00', '9:30'], image: require('./starbucks.jpg')
+    },
+    {
+      name: 'Tim Hortons', placeID: 'ChIJaX1tY2oayUwRx9YEeFhP2ns', opening: ['8:00', '9:30'], image: require('./TimHortons.jpg')
+    }
     ],
     address: '1400 DeMaisonneuve W',
     latitude: 45.497050,
@@ -670,7 +682,9 @@ const buildings = [
     campus: 'SGW',
     building: 'H',
     buildingName: 'Henry F. Hall Building',
-    placesToGo: [{ name: 'Hall 4 Café - The Green Beet', placeID: 'ChIJtd6Zh2oayUwRAu_CnRIfoBw', opening: ['8:00', '9:30'], image: require('./hallCafe.jpg') }
+    placesToGo: [{
+      name: 'Hall 4 Café - The Green Beet', placeID: 'ChIJtd6Zh2oayUwRAu_CnRIfoBw', opening: ['8:00', '9:30'], image: require('./hallCafe.jpg')
+    }
     ],
     address: '1455 DeMaisonneuve W',
     latitude: 45.497092,

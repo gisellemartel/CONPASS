@@ -25,9 +25,7 @@ export default class TheMap extends Component {
 
 
   getBuildingInformation= (building) => {
-    this.props.places(building.placesToGo);
-    this.props.refresh();
-
+    this.props.getSuggestions(building);
   }
 
   focusOnBuilding(building) {

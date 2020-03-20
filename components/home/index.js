@@ -16,7 +16,7 @@ class Home extends Component {
     super(props);
     this.state = {
       // Set Initial region of the map
-      placesToGo: [],
+      suggestion: {},
       region: {
         latitude: 45.492409,
         longitude: -73.582153,
@@ -65,13 +65,10 @@ class Home extends Component {
   }
 
 
-  getPlaces = (places) => {
-    console.log(places);
+  getSuggestions = (suggestion) => {
     this.setState({
-      placesToGo: places
+      suggestion
     });
-
-    console.log(this.state.placesToGo);
   }
 
   // Activates interior mode when building is clicked on
@@ -97,7 +94,7 @@ class Home extends Component {
           updatedCoordinates={this.state.coordinates}
           encryptedLine={this.state.encryptedLine}
           interiorModeOn={this.interiorModeOn}
-          places={this.getPlaces}
+          getSuggestions={this.getSuggestions}
           refresh={this.refresh}
         />
         {/* zIndex=5 */}
@@ -116,7 +113,7 @@ class Home extends Component {
         /> */}
         {/* zIndex=2 */}
         {this.state.interiorMode && <Building building={this.state.building} buildingFloorPlans={generateBuilding(this.state.building.building)} interiorModeOff={this.interiorModeOff} />}
-        <Suggestions refresh={this.state.refresh} placesToGo={this.state.placeToGo} />
+        <Suggestions refresh={this.state.refresh} suggestion={this.state.suggestion} />
       </View>
     );
   }
