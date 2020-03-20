@@ -13,8 +13,8 @@ const styles = StyleSheet.create({
   },
 
   container: {
-    top: 146,
-    left: 115,
+    top: 130,
+    left: 105,
     position: 'absolute',
     zIndex: 2,
   },
