@@ -25,6 +25,15 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     position: "absolute",
     justifyContent: "center"
+  },
+  unPressed: {
+    width: "30%",
+    bottom: "70%",
+    borderBottomLeftRadius: 20,
+    borderBottomRightRadius: 0,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 0,
+    overflow: "hidden"
   }
 });
 
