@@ -2,12 +2,10 @@ import { StyleSheet, Dimensions } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
-    ...StyleSheet.absoluteFillObject,
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
-    zIndex: 1,
   },
   mapStyle: {
     width: Dimensions.get('window').width,

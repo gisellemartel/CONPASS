@@ -168,12 +168,10 @@ class Home extends Component {
         />
         )}
         <Location updateRegion={this.updateRegion} />
-        {!this.state.showSuggestionsList && (
         <SetPath
           changeVisibilityTo={this.changeVisibilityTo}
           newValue={this.state.value}
         />
-        )}
         {this.state.showDirectionsMenu
         && (
         <Addresses
