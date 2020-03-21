@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { View, Image } from 'react-native';
 import MapView, {
   Polyline, PROVIDER_GOOGLE,
 } from 'react-native-maps';
@@ -87,7 +87,13 @@ export default class TheMap extends Component {
             }}
             title="title"
             description="description"
-          />
+          >
+            <Image
+              source={require('./destination.png')}
+              style={{ width: 26, height: 28 }}
+              resizeMode="contain"
+            />
+          </MapView.Marker>
         </MapView>
       </View>
     );
