@@ -46,7 +46,7 @@ class Suggestions extends Component {
         return (`Address: ${this.props.suggestion.address}`);
       }
 
-    _renderItem = ({ item }) => {
+    renderItem = ({ item }) => {
       return (
         <View style={styles.slide}>
           <Image style={styles.image} source={item.image} />

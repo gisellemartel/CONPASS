@@ -122,7 +122,8 @@ class Home extends Component {
 
   getSuggestions = (suggestion) => {
     this.setState({
-      suggestion
+      suggestion,
+
     });
   }
 

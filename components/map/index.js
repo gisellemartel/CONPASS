@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
 import MapView, {
-  Polygon, Polyline, PROVIDER_GOOGLE, Marker
+  Polyline, PROVIDER_GOOGLE,
 } from 'react-native-maps';
 import CustomPolygon from './customPolygon';
 import buildings from '../../assets/polygons/polygons';
@@ -18,7 +18,6 @@ export default class TheMap extends Component {
     super(props);
     this.mapRef = null;
     this.state = {
-
     };
   }
 
@@ -37,6 +36,7 @@ export default class TheMap extends Component {
   getBuildingInformation= (building) => {
     this.props.getSuggestions(building);
   }
+
 
   fitScreenToPath(coordinates) {
     this.state.mapRef.fitToCoordinates(coordinates, {
