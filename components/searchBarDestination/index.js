@@ -99,6 +99,9 @@ export default class searchBarDestination extends Component {
 
   async drawPath() {
     // eslint-disable-next-line no-shadow
+    if (this.props.directionsId) {
+      this.getLatLong(this.props.directionsId);
+    }
     try {
       await this.getCurrentLocation();
       const { location } = this.state;

@@ -35,7 +35,7 @@ class Suggestions extends Component {
             <Text style={styles.name}>{'Open Hours: '+ item.opening[0] +'-'+ item.opening[1]}</Text>
           </View>
           <View style={styles.buttonContainer}>
-            <TouchableOpacity onPress={this.passDirections(item.placeId)}>
+            <TouchableOpacity onPress={() => { this.passDirections(item.placeID); }}>
               <Text style={styles.button}>Get Directions</Text>
             </TouchableOpacity>
           </View>

@@ -18,6 +18,7 @@ class Home extends Component {
     super(props);
     this.state = {
       // Set Initial region of the map
+      directionsId: '',
       suggestion: {},
       value: '',
       coordinates: [],
@@ -36,7 +37,8 @@ class Home extends Component {
       isVisible: true,
       interiorMode: false,
       showDirectionsMenu: false,
-      showCampusToggle: false
+      showCampusToggle: false,
+      showSuggestionsList: true
     };
   }
 
@@ -127,6 +129,15 @@ class Home extends Component {
     });
   }
 
+  setDirections = (id) => {
+    this.setState({
+      directionsId: id,
+      showDirectionsMenu: true,
+      showSuggestionsList: false
+    });
+    console.log(this.state.directionsId);
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -165,10 +176,12 @@ class Home extends Component {
           getCoordinates={this.getCoordinatesFromAddresses}
           changeVisibilityTo={this.changeVisibilityTo}
           navigation={this.props.navigation}
+          directionsId={this.state.directionsId}
         />
         ) }
-        <Suggestions suggestion={this.state.suggestion} />
-
+        {this.state.showSuggestionsList && (
+        <Suggestions getDirections={this.setDirections} suggestion={this.state.suggestion} />
+        ) }
       </View>
     );
   }
