@@ -5,12 +5,12 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     zIndex: 1,
     bottom: 20,
-    width: 440,
+    width: 430,
     right: 30,
     top: -32,
     borderBottomLeftRadius: 10,
     borderBottomRightRadius: 10,
-    height: 175
+    height: 165
 
   },
   searchContainer: {
