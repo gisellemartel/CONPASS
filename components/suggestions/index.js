@@ -23,23 +23,6 @@ class Suggestions extends Component {
     };
   }
 
-
-  componentDidUpdate(prevProps) {
-    const kontent = this.props.suggestion.placesToGo;
-    if (prevProps.suggestion.placesToGo !== kontent) {
-      console.log("am here");
-      this.updateRefresh();
-    }
-    console.log("in didUpdate " + this.state.refresh);
-  }
-
-  updateRefresh = () => {
-    this.setState({
-      refresh: this.state.refresh + 1
-    });
-    console.log("in refresh " + this.state.refresh);
-  }
-
       buildingName = () => {
         return (`${this.props.suggestion.buildingName} `);
       }
@@ -52,14 +35,10 @@ class Suggestions extends Component {
       }
 
       address = () => {
-        // this.setState({
-        //   refresh: !this.state.refresh
-        // });
         return (`Address: ${this.props.suggestion.address}`);
       }
 
     _renderItem = ({ item }) => {
-      console.log("**am in renderItem**");
       return (
         <View style={styles.slide}>
           <Image style={styles.image} source={item.image} />
@@ -72,8 +51,7 @@ class Suggestions extends Component {
 
 
     render() {
-      const content = this.props.suggestion.placesToGo ? this.props.suggestion.placesToGo:this.state.content;
-      console.log("here " + content);
+      const content = this.props.suggestion.placesToGo;
       return (
         <View style={styles.container}>
           <Text style={styles.buildingName}>
