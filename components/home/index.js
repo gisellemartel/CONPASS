@@ -127,11 +127,6 @@ class Home extends Component {
     });
   }
 
-  refresh=() => {
-    this.setState({ refresh: true });
-  }
-
-
   render() {
     return (
       <View style={styles.container}>
@@ -172,7 +167,7 @@ class Home extends Component {
           navigation={this.props.navigation}
         />
         ) }
-        <Suggestions refresh={this.state.refresh} suggestion={this.state.suggestion} />
+        <Suggestions suggestion={this.state.suggestion} />
 
       </View>
     );
