@@ -12,6 +12,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#9CD3D7',
   },
   container: {
+    zIndex: 100,
     bottom: 100,
     right: 10,
     position: 'absolute',
