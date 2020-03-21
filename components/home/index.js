@@ -167,21 +167,41 @@ class Home extends Component {
     this.setState({ nearbyMarkers: markers });
   }
 
-  updateCurrentBuildingAddress = (childCurrentBuilding) => {
+  /**
+   *
+   * @param {*} data
+   */
+  getPolylinePoint = (data) => {
     this.setState({
       currentBuildingAddress: childCurrentBuilding
     });
   };
 
 
-  // Activates interior mode when building is clicked on
-  // use the building data to render floors
+  /**
+   *
+   * @param {*} building
+   * @param {*} region
+   * Activates interior mode when building is clicked on
+   * Uses the building data to render floors
+   */
   interiorModeOn(building, region) {
-    this.setState({ region, interiorMode: true, building });
+    this.setState({
+      region,
+      interiorMode: true,
+      building
+    });
   }
 
+  /**
+   *
+   * Deactivates interior mode to return to outdoor map view
+   */
   interiorModeOff() {
-    this.setState({ interiorMode: false, building: null });
+    this.setState({
+      interiorMode: false,
+      building: null
+    });
   }
 
   render() {
@@ -236,7 +256,16 @@ class Home extends Component {
         )}
         {this.state.interiorMode && <Building />}
         {/* zIndex=2 */}
-        {this.state.interiorMode && <Building building={this.state.building} buildingFloorPlans={generateBuilding(this.state.building.building)} interiorModeOff={this.interiorModeOff} />}
+
+        {/* Building component contains all the interior floor views */}
+        {this.state.interiorMode
+        && (
+        <Building
+          building={this.state.building}
+          buildingFloorPlans={generateBuilding(this.state.building.building)}
+          interiorModeOff={this.interiorModeOff}
+        />
+        )}
       </View>
     );
   }

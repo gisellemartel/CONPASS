@@ -3,6 +3,11 @@ import {
   Hall8, Hall9, Vl1, Vl2
 } from './index';
 
+/**
+ *
+ * @param {*} buildingName - name of building to be be generated
+ * function generates React Building component which will contain data for indoor view
+ */
 function generateBuilding(buildingName) {
   const defaultAttributes = {
     height: '300',
