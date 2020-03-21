@@ -40,6 +40,20 @@ const styles = StyleSheet.create({
     width: 300,
     position: 'absolute',
     borderRadius: 10
+  },
+  buildingName: {
+    left: 20,
+    padding: 5,
+    fontSize: 20,
+    fontWeight: 'bold'
+  },
+  tunnelAccessiblity: {
+    left: 20,
+    padding: 5
+  },
+  address: {
+    left: 20,
+    padding: 5
   }
 });
 

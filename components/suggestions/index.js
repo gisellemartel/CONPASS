@@ -10,14 +10,10 @@ class Suggestions extends Component {
     super(props);
     this.state = {
       refresh: true,
-      content: [{ name: 'talal', image: require('./timeHortons.jpg') }]
     };
   }
 
 
-  componentDidUpdate() {
-    console.log(this.props.suggestion.placesToGo);
-  }
   // componentDidMount() {
   //   console.log( "I am here1");
   //   this.setState({
@@ -35,6 +31,20 @@ class Suggestions extends Component {
   //   });
   // }
 
+      buildingName = () => {
+        return (`${this.props.suggestion.buildingName} `);
+      }
+
+      tunnelAccessiblity = () => {
+        if (this.props.suggestion.tunnelAccessiblity === true) {
+          return ('Tunnel is accessible');
+        }
+        return ('Tunnel is not accessible');
+      }
+
+      address = () => {
+        return (`Address: ${this.props.suggestion.address}`);
+      }
 
     _renderItem = ({ item }) => {
       return (
@@ -49,12 +59,16 @@ class Suggestions extends Component {
 
 
     render() {
-      const { content } = typeof this.props.placesToGo === 'undefined' ? this.state.content : this.props.placesToGo;
       return (
         <View style={styles.container}>
-          <Text>Hall Building</Text>
-          <Text>Open</Text>
-          <Text>Tunnel Accessibility</Text>
+          <Text style={styles.buildingName}>
+            {this.buildingName()}
+            (
+            {this.props.suggestion.building}
+            )
+          </Text>
+          <Text style={styles.tunnelAccessiblity}>{this.tunnelAccessiblity()}</Text>
+          <Text style={styles.address}>{this.address()}</Text>
           {/* <Carousel
             ref={(c) => { this._carousel = c; }}
             data={this.state.content}
@@ -74,7 +88,7 @@ class Suggestions extends Component {
 
           <FlatList
             horizontal
-            data={content}
+            // data={content}
             extraData={!this.state.refresh}
             renderItem={this._renderItem}
           />
