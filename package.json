@@ -12,6 +12,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "@expo/vector-icons": "^10.0.6",
     "@react-native-community/masked-view": "0.1.5",
     "@react-navigation/native": "^5.0.8",
     "@react-navigation/stack": "^5.1.0",
@@ -35,7 +36,9 @@
     "react-dom": "~16.9.0",
     "react-native": "^0.61.5",
     "react-native-app-intro-slider": "^3.0.0",
+    "react-native-dynamic-search-bar": "^0.3.1",
     "react-native-elements": "^1.2.7",
+    "react-native-geolocation-service": "^4.0.0",
     "react-native-gesture-handler": "~1.5.0",
     "react-native-google-places-autocomplete": "^1.4.1",
     "react-native-locale-listener": "^1.0.8",
@@ -49,6 +52,7 @@
     "react-native-svg": "^9.13.3",
     "react-native-web": "~0.11.7",
     "react-redux": "^7.2.0",
+    "react-test-renderer": "^16.13.0",
     "redux": "^4.0.5"
   },
   "devDependencies": {

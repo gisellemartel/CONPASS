@@ -1,17 +1,19 @@
 import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
-  btn: {
-    width: '30%',
-    bottom: '80%',
-    marginHorizontal: 5,
-  },
+
   container: {
-    zIndex: 2,
-    flexDirection: 'row',
+    left: 60,
     position: 'absolute',
-    justifyContent: 'center',
+
+    zIndex: 2,
+    top: 70
   },
+  currentLocation: {
+    width: 10,
+    resizeMode: 'contain',
+  }
+
 });
 
 export default styles;
