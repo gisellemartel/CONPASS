@@ -7,7 +7,6 @@ import styles from './styles';
 
 class Suggestions extends Component {
 
-
       buildingName = () => {
         return (`${this.props.suggestion.buildingName} `);
       }
@@ -29,12 +28,14 @@ class Suggestions extends Component {
           <Image style={styles.image} source={item.image} />
           <View style={styles.information}>
             <Text style={styles.name}>{ item.name }</Text>
-            <Text style={styles.name}>{ item.name }</Text>
+            <Text style={styles.name}>{ item.opening[0] + item.opening[1]  }</Text>
           </View>
         </View>
       );
     }
-
+// {
+//       name: 'LB Café', id: '4', placeID: 'ChIJaX1tY2oayUwRx9YEeFhP2ns', opening: ['8:00', '9:30'], image: require('./images/LbCafe.jpeg')
+//     }
 
     render() {
       const content = this.props.suggestion.placesToGo ? this.props.suggestion.placesToGo : [];
