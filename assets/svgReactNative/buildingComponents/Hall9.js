@@ -12,7 +12,7 @@ function SvgHall9(props) {
     >
       <G stroke="#000">
         <Path
-          fill="#f7d6d6"
+          fill="#FF8787"
           strokeWidth={2.012}
           d="M8.592 48.342h1007.164v927.043H8.592z"
           transform="matrix(-.99583 0 0 -.9924 1021.687 1021.48)"
