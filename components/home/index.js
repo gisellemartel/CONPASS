@@ -2,10 +2,8 @@ import React, { Component } from 'react';
 import { View } from 'react-native';
 import TheMap from '../map';
 import SearchBar from '../searchBar';
-import Shuttle from '../shuttleInformation';
 import styles from './styles';
 import SwitchCampuses from '../switchCampuses';
-import WithinBuilding from '../withinBuilding';
 import Building from '../map/building/index';
 import generateBuilding from '../../assets/svgReactNative/buildingRepository';
 
@@ -29,8 +27,11 @@ class Home extends Component {
   }
 
 
-  // Function : updates the currently set region to a new region
-  // parameter : a region object to be set to
+  /**
+   *
+   * @param {*} newRegion -  a region object to be set to
+   * Updates the currently set region to a new region
+   */
   updateRegion = (newRegion) => {
     this.setState({
       region: {
@@ -42,34 +43,60 @@ class Home extends Component {
     });
   }
 
-  // Function : change the visiblity of the switchCampuses component
-  // parameter: boolean to set the visibility (false: unvisible)
+  /**
+   *
+   * @param {*} visibility - boolean to set the visibility (false: unvisible)
+   * Change the visiblity of the switchCampuses component
+   */
   changeVisibilityTo = (visibility) => {
     this.setState({ isVisible: visibility });
   }
 
-  // Function: Updates coordinates state to draw polyline
-  // Parameter: object with latitudes and longitudes
+  /**
+   *
+   *  @param {*} newCoordinates - object with latitudes and longitudes
+   * Updates coordinates state to draw polyline
+   */
   updateCoordinates = (newCoordinates) => {
     this.setState({
       coordinates: newCoordinates
     });
   }
 
+  /**
+   *
+   * @param {*} data
+   */
   getPolylinePoint = (data) => {
     this.setState({
       encryptedLine: data
     });
   }
 
-  // Activates interior mode when building is clicked on
-  // use the building data to render floors
+  /**
+   *
+   * @param {*} building
+   * @param {*} region
+   * Activates interior mode when building is clicked on
+   * Uses the building data to render floors
+   */
   interiorModeOn(building, region) {
-    this.setState({ region, interiorMode: true, building });
+    this.setState({
+      region,
+      interiorMode: true,
+      building
+    });
   }
 
+  /**
+   *
+   * Deactivates interior mode to return to outdoor map view
+   */
   interiorModeOff() {
-    this.setState({ interiorMode: false, building: null });
+    this.setState({
+      interiorMode: false,
+      building: null
+    });
   }
 
   render() {
@@ -97,7 +124,16 @@ class Home extends Component {
           getPolylinePoint={this.getPolylinePoint}
         /> */}
         {/* zIndex=2 */}
-        {this.state.interiorMode && <Building building={this.state.building} buildingFloorPlans={generateBuilding(this.state.building.building)} interiorModeOff={this.interiorModeOff} />}
+
+        {/* Building component contains all the interior floor views */}
+        {this.state.interiorMode
+        && (
+        <Building
+          building={this.state.building}
+          buildingFloorPlans={generateBuilding(this.state.building.building)}
+          interiorModeOff={this.interiorModeOff}
+        />
+        )}
       </View>
     );
   }

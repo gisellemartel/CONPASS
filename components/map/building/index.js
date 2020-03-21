@@ -14,37 +14,66 @@ class Building extends Component {
     };
   }
 
+  /**
+   * Exits Interior mode to return to external map view
+   */
   interiorModeOff() {
     this.props.interiorModeOff();
   }
 
+  /**
+   *
+   * @param {*} lvl - desired floor level of selected building
+   * Switches to lvl selected by floor switcher component
+   */
   changeFloor(lvl) {
-    const index = this.props.buildingFloorPlans.findIndex((i) => { return i.floor === lvl; });
-    this.setState({ floor: this.props.buildingFloorPlans[index] });
+    const index = this.props.buildingFloorPlans.findIndex((i) => {
+      return i.floor === lvl;
+    });
+
+    this.setState({
+      floor: this.props.buildingFloorPlans[index]
+    });
   }
 
   render() {
     const { building } = this.props;
     const currentBuilding = building.polygon.name;
     const currentCampus = building.campus;
-
     const { floor } = this.state;
+
     return (
       (floor
         ? (
           <View style={styles.container}>
-            <TouchableOpacity style={styles.quitButton} onPress={() => { return this.props.interiorModeOff(); }}>
+            <TouchableOpacity
+              style={styles.quitButton}
+              onPress={
+                () => {
+                  return this.props.interiorModeOff();
+                }
+              }
+            >
               <Text>
-                quit interior mode
+                quit interior View
               </Text>
             </TouchableOpacity>
+
+            {/* Renders map for current floor in building */}
             <View style={styles.buildingContainer}>
               {floor.component}
             </View>
+
+            {/* Renders floor switcher button for each available in current building */}
             <View style={styles.switcher}>
               {this.props.buildingFloorPlans.map((lvl) => {
                 return (
-                  <TouchableOpacity onPress={() => { return this.changeFloor(lvl.floor); }}>
+                  <TouchableOpacity onPress={
+                      () => {
+                        return this.changeFloor(lvl.floor);
+                      }
+                    }
+                  >
                     <Text style={styles.lvl}>
                       {lvl.floor}
                     </Text>
@@ -56,7 +85,12 @@ class Building extends Component {
         )
         : (
           <View style={styles.container}>
-            <TouchableOpacity style={styles.quitButton} onPress={() => { return this.props.interiorModeOff(); }}>
+            <TouchableOpacity
+              style={styles.quitButton}
+              onPress={() => {
+                return this.props.interiorModeOff();
+              }}
+            >
               <Text>
                 no floors available, press to quit
               </Text>
