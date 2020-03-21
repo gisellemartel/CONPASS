@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-  View, Text, Image, Dimensions, FlatList
+  View, Text, Image, Dimensions, TouchableOpacity
 } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
 import styles from './styles';
@@ -22,20 +22,31 @@ class Suggestions extends Component {
         return (`Address: ${this.props.suggestion.address}`);
       }
 
+      passDirections = (id) => {
+        this.props.getDirections(id);
+      }
+
     _renderItem = ({ item }) => {
       return (
         <View style={styles.slide}>
           <Image style={styles.image} source={item.image} />
           <View style={styles.information}>
             <Text style={styles.name}>{ item.name }</Text>
-            <Text style={styles.name}>{ item.opening[0] + item.opening[1]  }</Text>
+            <Text style={styles.name}>{'Open Hours: '+ item.opening[0] +'-'+ item.opening[1]}</Text>
+          </View>
+          <View style={styles.buttonContainer}>
+            <TouchableOpacity onPress={this.passDirections(item.placeId)}>
+              <Text style={styles.button}>Get Directions</Text>
+            </TouchableOpacity>
           </View>
         </View>
       );
     }
-// {
-//       name: 'LB Café', id: '4', placeID: 'ChIJaX1tY2oayUwRx9YEeFhP2ns', opening: ['8:00', '9:30'], image: require('./images/LbCafe.jpeg')
-//     }
+
+    passDestination = ({ destination }) => {
+      // this.props.getDestination(destination);
+      console.log("hellloo");
+    }
 
     render() {
       const content = this.props.suggestion.placesToGo ? this.props.suggestion.placesToGo : [];

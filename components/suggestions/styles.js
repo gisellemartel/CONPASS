@@ -15,11 +15,11 @@ const styles = StyleSheet.create({
     borderColor: 'rgba(0,0,0,0)',
     bottom: 0,
     marginBottom: 48,
-    borderRadius: 10
+    borderRadius: 10,
   },
   slide: {
-    backgroundColor: 'rgba(0,0,0,.1)',
-    height: 200,
+    backgroundColor: '#9CD3D7',
+    height: 185,
     width: 300,
     padding: 24,
     borderRadius: 24,
@@ -54,6 +54,23 @@ const styles = StyleSheet.create({
   address: {
     left: 20,
     padding: 5
+  },
+  buttonContainer: {
+    height: 180,
+  },
+  name: {
+    color: 'white'
+  },
+  buttonContainer: {
+    bottom: 10,
+    left: 15,
+    position: 'absolute'
+  },
+  button: {
+    borderRadius: 5,
+    borderWidth: 2,
+    borderColor: 'white',
+    color: 'white'
   }
 });
 
