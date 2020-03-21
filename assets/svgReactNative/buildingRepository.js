@@ -4,17 +4,18 @@ import {
   Hall8, Hall9, Vl1, Vl2, Ve1, Ve2, Mb1, MbS2
 } from './index';
 
+/**
+ * Makes floor map component zoomable
+ * @param {*} floorComponent - floor JSX element to be nested in zoomable component
+ */
 function generateZoomableFloorComponent(floorComponent) {
   return (
     <ReactNativeZoomableView
-      maxZoom={1.5}
-      minZoom={0.5}
+      maxZoom={2}
+      minZoom={1}
       zoomStep={0.5}
       initialZoom={1}
       bindToBorders
-      style={{
-        padding: 10,
-      }}
     >
       {floorComponent}
     </ReactNativeZoomableView>
