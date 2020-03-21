@@ -2,9 +2,10 @@ import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
   buttonLeft: {
-    width: '45%',
+    position: 'relative',
+    width: 180,
     height: 40,
-    bottom: '92%',
+    bottom: 220,
     borderBottomLeftRadius: 20,
     borderBottomRightRadius: 0,
     borderTopLeftRadius: 20,
@@ -17,9 +18,10 @@ const styles = StyleSheet.create({
   },
 
   buttonRight: {
-    width: '45%',
+    position: 'relative',
+    width: 180,
     height: 40,
-    bottom: '92%',
+    bottom: 220,
     borderBottomLeftRadius: 0,
     borderBottomRightRadius: 20,
     borderTopLeftRadius: 0,
@@ -37,9 +39,10 @@ const styles = StyleSheet.create({
 
   },
   buttonPressedLeft: {
-    width: '45%',
+    position: 'relative',
+    width: 180,
     height: 40,
-    bottom: '92%',
+    bottom: 220,
     borderBottomLeftRadius: 20,
     borderBottomRightRadius: 0,
     borderTopLeftRadius: 20,
@@ -55,9 +58,10 @@ const styles = StyleSheet.create({
 
   },
   buttonPressedRight: {
-    width: '45%',
+    position: 'relative',
+    width: 180,
     height: 40,
-    bottom: '92%',
+    bottom: 220,
     borderBottomLeftRadius: 0,
     borderBottomRightRadius: 20,
     borderTopLeftRadius: 0,
