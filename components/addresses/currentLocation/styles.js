@@ -6,7 +6,6 @@ const styles = StyleSheet.create({
     left: 58,
     top: 10,
     position: 'absolute',
-    zIndex: 2,
   },
   currentLocation: {
     width: 19,

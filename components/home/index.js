@@ -181,7 +181,7 @@ class Home extends Component {
           getCoordinates={this.getCoordinatesFromAddresses}
           changeVisibilityTo={this.changeVisibilityTo}
           navigation={this.props.navigation}
-          directionsId={this.state.directionsId}
+          // directionsId={this.state.directionsId}
         />
         )}
         {this.state.showSuggestionsList && (
