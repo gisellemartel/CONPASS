@@ -6,22 +6,7 @@ import Carousel from 'react-native-snap-carousel';
 import styles from './styles';
 
 class Suggestions extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      refresh: 0,
-      content: [{
-        name: 'LB Café', id: '4', placeID: 'ChIJaX1tY2oayUwRx9YEeFhP2ns', opening: ['8:00', '9:30'], image: require('/Users/talalbazerbachi/Documents/GitHub/CONPASS/assets/polygons/images//LbCafe.jpeg')
-      },
-      {
-        name: 'Starbucks', id: '5', placeID: 'ChIJaX1tY2oayUwRx9YEeFhP2ns', opening: ['8:00', '9:30'], image: require('/Users/talalbazerbachi/Documents/GitHub/CONPASS/assets/polygons/images//starbucks.jpg')
-      },
-      {
-        name: 'Tim Hortons', id: '6', placeID: 'ChIJaX1tY2oayUwRx9YEeFhP2ns', opening: ['8:00', '9:30'], image: require('/Users/talalbazerbachi/Documents/GitHub/CONPASS/assets/polygons/images//TimHortons.jpg')
-      }
-      ]
-    };
-  }
+
 
       buildingName = () => {
         return (`${this.props.suggestion.buildingName} `);
@@ -44,6 +29,7 @@ class Suggestions extends Component {
           <Image style={styles.image} source={item.image} />
           <View style={styles.information}>
             <Text style={styles.name}>{ item.name }</Text>
+            <Text style={styles.name}>{ item.name }</Text>
           </View>
         </View>
       );
@@ -51,7 +37,7 @@ class Suggestions extends Component {
 
 
     render() {
-      const content = this.props.suggestion.placesToGo;
+      const content = this.props.suggestion.placesToGo ? this.props.suggestion.placesToGo : [];
       return (
         <View style={styles.container}>
           <Text style={styles.buildingName}>
