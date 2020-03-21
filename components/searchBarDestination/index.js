@@ -36,10 +36,21 @@ export default class searchBarDestination extends Component {
       });
       this.drawPath();
     }
+
+    if (this.props.directionsId) {
+      console.log(this.props.directionsId);
+      this.getLatLong(this.props.directionsId);
+    }
   }
 
   componentDidUpdate(prevProps) {
     if (prevProps.drawPath !== this.props.drawPath) {
+      this.drawPath();
+    }
+    console.log("---I am here---");
+    if (prevProps.directionsId !== this.props.directionsId) {
+      console.log("--I am here--");
+      this.getLatLong(this.props.directionsId);
       this.drawPath();
     }
   }
@@ -97,11 +108,10 @@ export default class searchBarDestination extends Component {
     this.drawPath();
   }
 
+
   async drawPath() {
     // eslint-disable-next-line no-shadow
-    if (this.props.directionsId) {
-      this.getLatLong(this.props.directionsId);
-    }
+
     try {
       await this.getCurrentLocation();
       const { location } = this.state;
