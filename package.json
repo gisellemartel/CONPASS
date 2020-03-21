@@ -12,6 +12,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "@dudigital/react-native-zoomable-view": "^1.0.15",
     "@react-native-community/masked-view": "0.1.5",
     "@react-navigation/native": "^5.0.8",
     "@react-navigation/stack": "^5.1.0",
