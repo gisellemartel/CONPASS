@@ -9,27 +9,36 @@ class Suggestions extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      refresh: true,
+      refresh: 0,
+      content: [{
+        name: 'LB Café', id: '4', placeID: 'ChIJaX1tY2oayUwRx9YEeFhP2ns', opening: ['8:00', '9:30'], image: require('/Users/talalbazerbachi/Documents/GitHub/CONPASS/assets/polygons/images//LbCafe.jpeg')
+      },
+      {
+        name: 'Starbucks', id: '5', placeID: 'ChIJaX1tY2oayUwRx9YEeFhP2ns', opening: ['8:00', '9:30'], image: require('/Users/talalbazerbachi/Documents/GitHub/CONPASS/assets/polygons/images//starbucks.jpg')
+      },
+      {
+        name: 'Tim Hortons', id: '6', placeID: 'ChIJaX1tY2oayUwRx9YEeFhP2ns', opening: ['8:00', '9:30'], image: require('/Users/talalbazerbachi/Documents/GitHub/CONPASS/assets/polygons/images//TimHortons.jpg')
+      }
+      ]
     };
   }
 
 
-  // componentDidMount() {
-  //   console.log( "I am here1");
-  //   this.setState({
-  //     content: this.props.placesToGo,
-  //     refresh:!this.state.refresh
-  //   });
-  //   console.log("I am here2 "+this.state.content);
+  componentDidUpdate(prevProps) {
+    const kontent = this.props.suggestion.placesToGo;
+    if (prevProps.suggestion.placesToGo !== kontent) {
+      console.log("am here");
+      this.updateRefresh();
+    }
+    console.log("in didUpdate " + this.state.refresh);
+  }
 
-  // }
-
-  // componentWillReceiveProps(nextProps) {
-  // // You don't have to do this check first, but it can help prevent an unneeded render
-  //   this.setState({
-  //     refresh: !this.state.refresh
-  //   });
-  // }
+  updateRefresh = () => {
+    this.setState({
+      refresh: this.state.refresh + 1
+    });
+    console.log("in refresh " + this.state.refresh);
+  }
 
       buildingName = () => {
         return (`${this.props.suggestion.buildingName} `);
@@ -43,10 +52,14 @@ class Suggestions extends Component {
       }
 
       address = () => {
+        // this.setState({
+        //   refresh: !this.state.refresh
+        // });
         return (`Address: ${this.props.suggestion.address}`);
       }
 
-    renderItem = ({ item }) => {
+    _renderItem = ({ item }) => {
+      console.log("**am in renderItem**");
       return (
         <View style={styles.slide}>
           <Image style={styles.image} source={item.image} />
@@ -59,6 +72,8 @@ class Suggestions extends Component {
 
 
     render() {
+      const content = this.props.suggestion.placesToGo ? this.props.suggestion.placesToGo:this.state.content;
+      console.log("here " + content);
       return (
         <View style={styles.container}>
           <Text style={styles.buildingName}>
@@ -69,28 +84,15 @@ class Suggestions extends Component {
           </Text>
           <Text style={styles.tunnelAccessiblity}>{this.tunnelAccessiblity()}</Text>
           <Text style={styles.address}>{this.address()}</Text>
-          {/* <Carousel
-            ref={(c) => { this._carousel = c; }}
-            data={this.state.content}
-            containerCustomStyle={styles.carousel}
+          <Carousel
+            data={content}
+            extraData={content}
             renderItem={this._renderItem}
+            keyExtractor={item => item.id}
+            horizontal
             sliderWidth={Dimensions.get('window').width}
             itemWidth={300}
-            loop={true}
-            autoplay={true}
-            autoplayDelay={0}
-            enableMomentum={true}
-            lockScrollWhileSnapping={false}
-            autoplayInterval={
-                this.handleTimeReturn()
-            }
-          /> */}
-
-          <FlatList
-            horizontal
-            // data={content}
-            extraData={!this.state.refresh}
-            renderItem={this._renderItem}
+            containerCustomStyle={styles.carousel}
           />
         </View>
 

@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
     width: '100%',
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
-    height: 250,
+    height: 350,
     position: 'absolute'
   },
   carousel: {
