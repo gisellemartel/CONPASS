@@ -68,7 +68,6 @@ export default class Addresses extends Component {
             urCurentLocation={this.state.value}
             hideMenu={this.state.hide}
             drawPath={this.drawPath}
-
           />
           <SearchBarDestination
             drawPath={this.state.drawPath}
@@ -91,8 +90,6 @@ export default class Addresses extends Component {
             <Destination />
           </View>
         </View>
-
-
       );
     }
 }

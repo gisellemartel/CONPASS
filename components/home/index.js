@@ -38,7 +38,7 @@ class Home extends Component {
       interiorMode: false,
       showDirectionsMenu: false,
       showCampusToggle: false,
-      showSuggestionsList: true
+      showSuggestionsList: false
     };
   }
 
@@ -125,7 +125,7 @@ class Home extends Component {
   getSuggestions = (suggestion) => {
     this.setState({
       suggestion,
-
+      showSuggestionsList: true
     });
   }
 
@@ -135,7 +135,12 @@ class Home extends Component {
       showDirectionsMenu: true,
       showSuggestionsList: false
     });
-    console.log(this.state.directionsId);
+  }
+
+  setSuggestionVisibility = () => {
+    this.setState({
+      showSuggestionsList: false
+    });
   }
 
   render() {
@@ -163,10 +168,12 @@ class Home extends Component {
         />
         )}
         <Location updateRegion={this.updateRegion} />
+        {!this.state.showSuggestionsList && (
         <SetPath
           changeVisibilityTo={this.changeVisibilityTo}
           newValue={this.state.value}
         />
+        )}
         {this.state.showDirectionsMenu
         && (
         <Addresses
@@ -178,10 +185,14 @@ class Home extends Component {
           navigation={this.props.navigation}
           directionsId={this.state.directionsId}
         />
-        ) }
+        )}
         {this.state.showSuggestionsList && (
-        <Suggestions getDirections={this.setDirections} suggestion={this.state.suggestion} />
-        ) }
+        <Suggestions
+          changeSuggestionVisibility={this.setSuggestionVisibility}
+          getDirections={this.setDirections}
+          suggestion={this.state.suggestion}
+        />
+        )}
       </View>
     );
   }

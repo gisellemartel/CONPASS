@@ -4,6 +4,7 @@ import {
 } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
 import styles from './styles';
+import CloseBUtton from './closeButton';
 
 class Suggestions extends Component {
 
@@ -52,6 +53,7 @@ class Suggestions extends Component {
       const content = this.props.suggestion.placesToGo ? this.props.suggestion.placesToGo : [];
       return (
         <View style={styles.container}>
+          <CloseBUtton changeSuggestionVisibility={this.props.changeSuggestionVisibility} />
           <Text style={styles.buildingName}>
             {this.buildingName()}
             (
