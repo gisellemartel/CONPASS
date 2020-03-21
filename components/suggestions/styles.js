@@ -3,18 +3,17 @@ import { StyleSheet } from 'react-native';
 const styles = StyleSheet.create({
   container: {
     backgroundColor: 'white',
-    zIndex: 1,
     bottom: -1,
     width: '100%',
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
-    height: 350,
+    height: 300,
     position: 'absolute'
   },
   carousel: {
     borderColor: 'rgba(0,0,0,0)',
     bottom: 0,
-    marginBottom: 48,
+    marginBottom: 15,
     borderRadius: 10,
   },
   slide: {
