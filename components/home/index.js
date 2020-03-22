@@ -168,6 +168,7 @@ class Home extends Component {
           getCoordinates={this.getCoordinatesFromAddresses}
           changeVisibilityTo={this.changeVisibilityTo}
           navigation={this.props.navigation}
+          currentBuildingPred={this.state.currentBuildingAddress}
         />
         ) }
       </View>
