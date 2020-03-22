@@ -3,9 +3,9 @@ import { StyleSheet } from "react-native";
 const styles = StyleSheet.create({
   buttonLeft: {
     position: 'relative',
-    width: 180,
-    height: 40,
-    bottom: 220,
+    width: '45%',
+    height: '110%',
+    bottom: '70%',
     borderBottomLeftRadius: 20,
     borderBottomRightRadius: 0,
     borderTopLeftRadius: 20,
@@ -19,9 +19,9 @@ const styles = StyleSheet.create({
 
   buttonRight: {
     position: 'relative',
-    width: 180,
-    height: 40,
-    bottom: 220,
+    width: '45%',
+    height: '110%',
+    bottom: '70%',
     borderBottomLeftRadius: 0,
     borderBottomRightRadius: 20,
     borderTopLeftRadius: 0,
@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
     opacity: 0.75,
     backgroundColor: '#ffffff',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   container: {
     flexDirection: "row",
@@ -40,9 +40,9 @@ const styles = StyleSheet.create({
   },
   buttonPressedLeft: {
     position: 'relative',
-    width: 180,
-    height: 40,
-    bottom: 220,
+    width: '45%',
+    height: '110%',
+    bottom: '70%',
     borderBottomLeftRadius: 20,
     borderBottomRightRadius: 0,
     borderTopLeftRadius: 20,
@@ -54,14 +54,14 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     backgroundColor: '#ffffff',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
 
   },
   buttonPressedRight: {
     position: 'relative',
-    width: 180,
-    height: 40,
-    bottom: 220,
+    width: '45%',
+    height: '110%',
+    bottom: '70%',
     borderBottomLeftRadius: 0,
     borderBottomRightRadius: 20,
     borderTopLeftRadius: 0,
