@@ -49,7 +49,8 @@
     "react-native-svg": "^9.13.3",
     "react-native-web": "~0.11.7",
     "react-redux": "^7.2.0",
-    "redux": "^4.0.5"
+    "redux": "^4.0.5",
+    "svg-parser": "^2.0.4"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
