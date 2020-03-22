@@ -20,6 +20,11 @@ const styles = StyleSheet.create({
   location: {
     width: 50,
     resizeMode: 'contain',
+  },
+  userFinalLoc: {
+    bottom: 80,
+    backgroundColor: 'pink',
+    position: 'absolute',
   }
 
 });

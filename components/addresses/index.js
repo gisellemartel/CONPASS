@@ -29,7 +29,6 @@ export default class Addresses extends Component {
   }
 
   drawPath =() => {
-    console.log(this.state.drawPath);
     this.setState((prevState) => { return { drawPath: !prevState.drawPath }; });
   }
 

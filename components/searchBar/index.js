@@ -28,7 +28,6 @@ export default class searchBar extends Component {
   }
 
   componentDidMount() {
-    console.log(this.props.hideMenu);
     SetLocaleContext();
     this.setState({ isMounted: true });
     if (this.props.hideMenu === undefined || this.props.setCampusToggleVisibility === undefined) {
