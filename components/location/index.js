@@ -1,23 +1,18 @@
-/* eslint-disable max-len */
+/* eslint-disable no-mixed-operators */
 /* eslint-disable no-plusplus */
 import React, { Component } from 'react';
-import {
-  View,
-  Text,
-  StyleSheet
-} from 'react-native';
-import * as Location from 'expo-location';
-import * as Permissions from 'expo-permissions';
+import { View, Image, Text } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import getCurrentLocation from './LocationServices';
 import buildings from '../../assets/polygons/polygons';
+import styles from './styles';
+import locateMe from './locate-me.png';
 
-export default class WithinBuilding extends Component {
+export default class Location extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      // user's current location
-      location: {},
-
       // to display information
       campusDisplayName: '',
       buildingDisplayName: '',
@@ -37,20 +32,9 @@ export default class WithinBuilding extends Component {
     };
   }
 
-  // retrieves the users' current location
-  async getCurrentLocation() {
-    const { status } = await Permissions.askAsync(Permissions.LOCATION);
-    if (status !== 'granted') {
-      this.setState({
-        errorMessage: 'Permission to access location was denied',
-      });
-      return;
-    }
-    const location = await Location.getCurrentPositionAsync({});
-    this.setState({ location });
-  }
 
-  // Format SGW or Loyola buildings to be used by isInPolygon function
+  /** @param {string} campus - either 'SGW' or 'LOY'
+   *  Format SGW or Loyola buildings to be used by isInPolygon function */
   formatPolygonsObjs(campus) {
     if (campus !== 'SGW' && campus !== 'LOY') {
       return [];
@@ -84,43 +68,58 @@ export default class WithinBuilding extends Component {
     return formattedBuildings;
   }
 
-  // finds if a pair of coordinates are inside a polygon
-  // Algorithm comes from: https://stackoverflow.com/questions/11716268/point-in-polygon-algorithm?lq=1
-  // Date Consulted: February 29th, 2020
+  /** @param {number} nvert
+   * @param {number} vertx
+   * @param {number} verty
+   * @param {number} testx
+   * @param {number} testy
+   * Finds if a pair of coordinates are inside a polygon
+   * Algorithm comes from: https://stackoverflow.com/questions/11716268/point-in-polygon-algorithm?lq=1
+   * Date Consulted: February 29th, 2020 */
   isInPolygon(nvert, vertx, verty, testx, testy) {
     let i;
     let j;
     let c = false;
     for (i = 0, j = nvert - 1; i < nvert; j = i++) {
       if (((verty[i] > testy) !== (verty[j] > testy))
-            && (testx < (vertx[j] - vertx[i]) * (testy - verty[i]) / (verty[j] - verty[i]) + vertx[i])) { c = !c; }
+            && (testx < (vertx[j] - vertx[i])
+            * (testy - verty[i])
+            / (verty[j] - verty[i]) + vertx[i])) { c = !c; }
     }
     return c;
   }
 
-  // returns the name of building the user is currently located in
-  async buildingName() {
-    await this.getCurrentLocation();
+  /** @async
+   * Will update the view to position the map at the user's current location
+   *and Returns the name of building the user is currently located in (if the user is on campus) */
+  async locateMe() {
+    await getCurrentLocation(this);
 
-    const { location } = this.state;
+    const x = this.state.region.longitude;
+    const y = this.state.region.latitude;
 
-    const x = location.coords.longitude;
-    const y = location.coords.latitude;
-
-    if (this.isInPolygon((this.state.xSGWCoordinates).length, this.state.xSGWCoordinates, this.state.ySGWCoordinates, x, y)) {
+    if (this.isInPolygon((this.state.xSGWCoordinates).length,
+      this.state.xSGWCoordinates,
+      this.state.ySGWCoordinates, x, y)) {
       this.state.campusDisplayName = 'SGW';
       this.state.buildingDisplayName = '';
       (this.state.sgwBuildings).forEach((sgwBuilding) => {
-        if (this.isInPolygon((sgwBuilding.xCoords).length, sgwBuilding.xCoords, sgwBuilding.yCoords, x, y)) {
+        if (this.isInPolygon((sgwBuilding.xCoords).length,
+          sgwBuilding.xCoords,
+          sgwBuilding.yCoords, x, y)) {
           this.state.buildingDisplayName = sgwBuilding.name;
           this.state.campusDisplayName = 'SGW';
         }
       });
-    } else if (this.isInPolygon((this.state.xLOYCoordinates).length, this.state.xLOYCoordinates, this.state.yLOYCoordinates, x, y)) {
+    } else if (this.isInPolygon((this.state.xLOYCoordinates).length,
+      this.state.xLOYCoordinates,
+      this.state.yLOYCoordinates, x, y)) {
       this.state.campusDisplayName = 'Loyola';
       this.state.buildingDisplayName = '';
       (this.state.loyBuildings).forEach((loyBuilding) => {
-        if (this.isInPolygon((loyBuilding.xCoords).length, loyBuilding.xCoords, loyBuilding.yCoords, x, y)) { this.state.buildingDisplayName = loyBuilding.name; }
+        if (this.isInPolygon((loyBuilding.xCoords).length,
+          loyBuilding.xCoords,
+          loyBuilding.yCoords, x, y)) { this.state.buildingDisplayName = loyBuilding.name; }
         this.state.campusDisplayName = 'Loyola';
       });
     } else {
@@ -130,20 +129,18 @@ export default class WithinBuilding extends Component {
   }
 
   render() {
-    this.buildingName();
-
     return (
-      <View style={styles.userFinalLoc}>
-        <Text>{this.state.campusDisplayName}</Text>
-        <Text>{this.state.buildingDisplayName}</Text>
+      <View style={styles.container}>
+        <TouchableOpacity
+          onPress={() => {
+            this.locateMe();
+          }}
+        >
+          <Text>{this.state.campusDisplayName}</Text>
+          <Text>{this.state.buildingDisplayName}</Text>
+          <Image style={styles.location} source={locateMe} />
+        </TouchableOpacity>
       </View>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  userFinalLoc: {
-    marginBottom: 10,
-    backgroundColor: 'pink',
-  },
-});

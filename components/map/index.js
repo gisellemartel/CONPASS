@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
-import MapView, { Polyline, PROVIDER_GOOGLE, } from 'react-native-maps';
+import MapView, { Polyline, PROVIDER_GOOGLE, Marker } from 'react-native-maps';
 import buildings from '../../assets/polygons/polygons';
 import CustomPolygon from './customPolygon';
 import styles from './styles';
@@ -8,6 +8,10 @@ import styles from './styles';
 let region = '';
 
 export default class TheMap extends Component {
+  /**
+   * Represents a map.
+   * @constructor
+   */
   constructor(props) {
     super(props);
     this.mapRef = null;
@@ -16,7 +20,15 @@ export default class TheMap extends Component {
   }
 
   componentDidMount() {
-    this.setState({ mapRef: this.mapRef });
+    this.setState({ mapRef: this.mapRef },
+      () => { this.fitScreenToPath(this.props.updatedCoordinates); });
+  }
+
+  componentDidUpdate(prevProps) {
+    const coordinates = this.props.updatedCoordinates;
+    if (prevProps.updatedCoordinates !== coordinates) {
+      this.fitScreenToPath(coordinates);
+    }
   }
 
   onRegionChange(newRegion) {
@@ -39,6 +51,14 @@ export default class TheMap extends Component {
       const getRegion = region;
       this.props.interiorModeOn(building, getRegion);
     }, 500);
+  }
+
+  fitScreenToPath(coordinates) {
+    this.state.mapRef.fitToCoordinates(coordinates, {
+      edgePadding: {
+        top: 180, right: 20, bottom: 10, left: 20
+      }
+    });
   }
 
 
@@ -73,7 +93,7 @@ export default class TheMap extends Component {
             strokeColor="black"
           />
           {buildingFocus}
-          <MapView.Marker
+          <Marker
             coordinate={{
               latitude: this.props.updatedRegion.latitude,
               longitude: this.props.updatedRegion.longitude
