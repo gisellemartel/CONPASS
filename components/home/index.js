@@ -33,7 +33,7 @@ class Home extends Component {
 
       showDirectionsMenu: false,
       showCampusToggle: false,
-      mode: ''
+      mode: 'driving'
     };
   }
 
@@ -155,6 +155,7 @@ render() {
       {this.state.showDirectionsMenu
         && (
         <Addresses
+          getMode={this.state.mode}
           updateMode={this.updateMode}
           getDestinationIfSet={this.state.destinationToGo}
           getRegion={this.getRegionFromAddresses}

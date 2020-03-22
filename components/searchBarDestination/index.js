@@ -101,6 +101,8 @@ export default class searchBarDestination extends Component {
     // eslint-disable-next-line no-shadow
     try {
       await this.getCurrentLocation();
+      const mode = this.props.getMode;
+      console.log(mode);
       const { location } = this.state;
       const urLatitude = location.coords.latitude;
       const urLongitude = location.coords.longitude;
@@ -109,7 +111,7 @@ export default class searchBarDestination extends Component {
       const originLong = this.props.updatedRegion.longitude === 0 ? urLongitude : this.props.updatedRegion.longitude;
       const destinationLat = this.state.destinationRegion.latitude;
       const destinationLong = this.state.destinationRegion.longitude;
-      const directionUrl = `https://maps.googleapis.com/maps/api/directions/json?key=${key}&origin=${originLat},${originLong}&destination=${destinationLat},${destinationLong}`;
+      const directionUrl = `https://maps.googleapis.com/maps/api/directions/json?key=${key}&origin=${originLat},${originLong}&destination=${destinationLat},${destinationLong}&mode=${mode}`;
       const result = await fetch(directionUrl);
       const json = await result.json();
       const encryptedPath = json.routes[0].overview_polyline.points;

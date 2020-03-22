@@ -76,6 +76,7 @@ export default class Addresses extends Component {
             getDestinationIfSet={this.props.getDestinationIfSet}
             updatedRegion={this.state.region}
             coordinateCallback={this.updateCoordinates}
+            getMode={this.props.getMode}
           />
           <Car updateMode={this.props.updateMode} />
           <Bus
