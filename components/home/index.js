@@ -129,7 +129,6 @@ class Home extends Component {
   }
 
   render() {
-    console.log('Home::: ', this.state.currentBuildingAddress);
     return (
       <View style={styles.container}>
         <TheMap
