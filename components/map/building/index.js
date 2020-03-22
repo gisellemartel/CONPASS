@@ -55,7 +55,7 @@ class Building extends Component {
               }
             >
               <Text>
-                quit interior View
+                return
               </Text>
             </TouchableOpacity>
 
