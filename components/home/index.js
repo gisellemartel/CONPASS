@@ -28,7 +28,8 @@ class Home extends Component {
         latitudeDelta: 0.04,
         longitudeDelta: 0.04
       },
-      nearbyMarkers: [],      isVisible: false,
+      nearbyMarkers: [],
+      isVisible: false,
       // eslint-disable-next-line react/no-unused-state
       isSearchVisible: true,
       isGoVisible: false,
@@ -140,7 +141,7 @@ class Home extends Component {
 
   /**
    * gets marker objects created from the SearchBar component to nearbyMarker state.
-   * Also being pased to the Map component
+   * Also being passed to the Map component
    * @param {object} markers - pins of nearby locations.
    *      markers [{
    *        id: string,
@@ -156,6 +157,7 @@ class Home extends Component {
   getNearbyMarkers=(markers) => {
     this.setState({ nearbyMarkers: markers });
   }
+
   updateCurrentBuildingAddress = (childCurrentBuilding) => {
     this.setState({
       currentBuildingAddress: childCurrentBuilding
@@ -181,7 +183,7 @@ class Home extends Component {
           updateRegion={this.updateRegion}
           changeVisibilityTo={this.changeVisibilityTo}
           setCampusToggleVisibility={this.setCampusToggleVisibility}
-		currentBuildingPred={this.state.currentBuildingAddress}
+          currentBuildingPred={this.state.currentBuildingAddress}
           nearbyMarkers={this.getNearbyMarkers}
         />
         )}
