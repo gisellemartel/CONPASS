@@ -10,7 +10,7 @@ const buildings = [
     address: '7141 Sherbrooke W',
     latitude: 45.459026,
     longitude: -73.638606,
-    image: require('./images/vlBuilding.png'),
+    image: [{ image: require('./images/vlBuilding.png') }],
     polygon: {
       name: 'Vanier Library building',
       coordinates:
@@ -43,7 +43,7 @@ const buildings = [
     address: '7141 Sherbrooke W',
     latitude: 45.458938,
     longitude: -73.640467,
-    image: require('./images/pyBuilding.jpg'),
+    image: [{ image: require('./images/pyBuilding.jpg') }],
     polygon: {
       name: 'Psychology Building',
       coordinates:
@@ -62,7 +62,7 @@ const buildings = [
     address: '7141 Sherbrooke West',
     latitude: 45.458493,
     longitude: -73.639287,
-    image: require('./images/fcBuilding.jpg'),
+    image: [{ image: require('./images/fcBuilding.jpg') }],
     polygon: {
       name: 'F.C. Smith Building',
       coordinates:
@@ -81,7 +81,7 @@ const buildings = [
     address: '7141 Sherbrooke W',
     latitude: 45.457881,
     longitude: -73.641565,
-    image: require('./images/spBuilding.jpg'),
+    image: [{ image: require('./images/spBuilding.jpg') }],
     polygon: {
       name: 'Richard J. Renaud Science Complex',
       coordinates:
@@ -106,7 +106,7 @@ const buildings = [
     address: '7141 Sherbrooke West',
     latitude: 45.458204,
     longitude: -73.640300,
-    image: require('./images/centralBuilding.jpg'),
+    image: [{ image: require('./images/centralBuilding.jpg') }],
     polygon: {
       name: 'Central Building',
       coordinates:
@@ -165,7 +165,7 @@ const buildings = [
     address: '7141 Sherbrooke West',
     latitude: 45.457478,
     longitude: -73.640354,
-    image: require('./images/cjBuilding.jpg'),
+    image: [{ image: require('./images/cjBuilding.jpg') }],
     polygon: {
       name: 'Communications & Journalism building',
       coordinates:
@@ -200,7 +200,7 @@ const buildings = [
     address: '7141 Sherbrooke West',
     latitude: 45.457017,
     longitude: -73.640432,
-    image: require('./images/geBuilding.jpg'),
+    image: [{ image: require('./images/geBuilding.jpg') }],
     polygon: {
       name: 'GE building',
       coordinates:
@@ -225,7 +225,7 @@ const buildings = [
     address: '7079 Terrebonne',
     latitude: 45.459992,
     longitude: -73.640897,
-    image: require('./images/taBuilding.jpg'),
+    image: [{ image: require('./images/taBuilding.jpg') }],
     polygon: {
       name: 'Terrebonne Building',
       coordinates:
@@ -245,7 +245,7 @@ const buildings = [
     address: '7141 Sherbrooke West',
     latitude: 45.458432,
     longitude: -73.643235,
-    image: require('./images/jrBuilding.jpg'),
+    image: [{ image: require('./images/jrBuilding.jpg') }],
     polygon: {
       name: 'Jesuit Residence',
       coordinates:
@@ -270,7 +270,7 @@ const buildings = [
     address: '3500 Bermore Avenue',
     latitude: 45.459819,
     longitude: -73.639152,
-    image: require('./images/bhBuilding.jpg'),
+    image: [{ image: require('./images/bhBuilding.jpg') }],
     polygon: {
       name: 'BH Building',
       coordinates:
@@ -289,7 +289,7 @@ const buildings = [
     address: '7141, Sherbrooke W',
     latitude: 45.458513,
     longitude: -73.641921,
-    image: require('./images/huBuilding.jpg'),
+    image: [{ image: require('./images/huBuilding.jpg') }],
     polygon: {
       name: 'HU Building-Applied Science Hub',
       coordinates:
@@ -312,7 +312,7 @@ const buildings = [
     address: '7141 Sherbrooke West',
     latitude: 45.459356,
     longitude: -73.641270,
-    image: require('./images/hbBuilding.jpg'),
+    image: [{ image: require('./images/hbBuilding.jpg') }],
     polygon: {
       name: 'Hingston Hall Resisdence',
       coordinates:
@@ -331,7 +331,7 @@ const buildings = [
     address: '7200 Sherbrooke West',
     latitude: 45.457088,
     longitude: -73.637683,
-    image: require('./images/pcBuilding.jpeg'),
+    image: [{ image: require('./images/pcBuilding.jpeg') }],
     polygon: {
       name: 'Perform Centre',
       coordinates:
@@ -351,7 +351,7 @@ const buildings = [
     address: '7141 Sherbrooke West',
     latitude: 45.459636,
     longitude: -73.639758,
-    image: require('./images/psBuilding.jpg'),
+    image: [{ image: require('./images/psBuilding.jpg') }],
     polygon: {
       name: 'Perform Centre',
       coordinates:
@@ -380,7 +380,7 @@ const buildings = [
     address: '7200 Sherbrooke West',
     latitude: 45.456774,
     longitude: -73.637610,
-    image: require('./images/raBuilding.jpg'),
+    image: [{ image: require('./images/raBuilding.jpg') }],
     polygon: {
       name: 'RA Building',
       coordinates:
@@ -410,7 +410,7 @@ const buildings = [
     ],
     latitude: '45.493484',
     longtitude: '-73.576748',
-    image: require('./images/greyNuns.jpg'),
+    image: [{ image: require('./images/greyNuns.jpg') }],
     polygon: {
       name: 'Grey Nuns',
       coordinates:
@@ -485,7 +485,7 @@ const buildings = [
     address: '1538, Sherbrooke W',
     latitude: 45.496673,
     longtitude: -73.581409,
-    image: require('./images/gsBuilding.jpg'),
+    image: [{ image: require('./images/gsBuilding.jpg') }],
     polygon: {
       name: 'Guy-Sherbrooke Building',
       coordinates:
@@ -509,7 +509,7 @@ const buildings = [
     address: '1550 DeMaisonneuve W',
     latitude: 45.495983,
     longtitude: -73.578824,
-    image: require('./images/gmBuilding.jpg'),
+    image: [{ image: require('./images/gmBuilding.jpg') }],
     polygon: {
       name: 'GM_building',
       coordinates:
@@ -530,7 +530,7 @@ const buildings = [
     address: '2030 Mackay Street',
     latitude: 45.496710,
     longtitude: -73.579270,
-    image: require('./images/tBuilding.png'),
+    image: [{ image: require('./images/tBuilding.png') }],
     polygon: {
       name: 'T Building',
       coordinates:
@@ -556,7 +556,7 @@ const buildings = [
     address: '2080 Mackay Street',
     latitude: 45.496940,
     longtitude: -73.579593,
-    image: require('./images/xBuilding.png'),
+    image: [{ image: require('./images/xBuilding.png') }],
     polygon: {
       name: 'X Building',
       coordinates:
@@ -575,7 +575,7 @@ const buildings = [
     address: '2110 Mackay Street',
     latitude: 45.497101,
     longtitude: -73.579907,
-    image: require('./images/vBuilding.png'),
+    image: [{ image: require('./images/vBuilding.png') }],
     polygon: {
       name: 'V Annex Building',
       coordinates:
@@ -594,7 +594,7 @@ const buildings = [
     address: '1395 Rene Levesque W',
     latitude: 45.495543,
     longtitude: -73.573795,
-    image: require('./images/vaBuilding.jpg'),
+    image: [{ image: require('./images/vaBuilding.jpg') }],
     polygon: {
       name: 'VA Building',
       coordinates:
@@ -615,7 +615,7 @@ const buildings = [
     address: '1250 Guy Street',
     latitude: 45.494666,
     longitude: -73.577603,
-    image: require('./images/fbBuilding.jpg'),
+    image: [{ image: require('./images/fbBuilding.jpg') }],
     polygon: {
       name: 'FB_building',
       coordinates:
@@ -634,7 +634,7 @@ const buildings = [
     address: '1610 Ste-Catherine',
     latitude: 45.494381,
     longitude: -73.578425,
-    image: require('./images/fgBuilding.jpg'),
+    image: [{ image: require('./images/fgBuilding.jpg') }],
     polygon: {
       name: 'FG building',
       coordinates:
@@ -665,7 +665,7 @@ const buildings = [
     address: '1410 Guy Street',
     latitude: 45.495103,
     longtitude: -73.578375,
-    image: require('./images/tdBuilding.jpg'),
+    image: [{ image: require('./images/tdBuilding.jpg') }],
     polygon: {
       name: 'TD Building',
       coordinates:
@@ -695,7 +695,7 @@ const buildings = [
     address: '1400 DeMaisonneuve W',
     latitude: 45.497050,
     longtitude: -73.578009,
-    image: require('./images/lbBuilding.jpg'),
+    image: [{ image: require('./images/lbBuilding.jpg') }],
     polygon: {
       name: 'Webster Library Building',
       coordinates:
@@ -719,7 +719,7 @@ const buildings = [
     address: '1455 DeMaisonneuve W',
     latitude: 45.497092,
     longtitude: -73.578800,
-    image: require('./images/HBuilding.jpg'),
+    image: [{ image: require('./images/HBuilding.jpg') }],
     tunnelAccessiblity: true,
     polygon: {
       name: 'Henry F. Hall Building',
@@ -746,7 +746,7 @@ const buildings = [
       'Mechanical, Industrial and Aerospace Engineering (MIAE)'],
     latitude: 45.495376,
     longtitude: -73.577997,
-    image: require('./images/ev-building.jpg'),
+    image: [{ image: require('./images/ev-building.jpg') }],
     polygon: {
       name: 'Engineering, Computer Science and Visual Arts Inte',
       coordinates:
@@ -775,7 +775,7 @@ const buildings = [
     address: '2160 Bishop Street',
     latitude: 45.497856,
     longtitude: -73.579588,
-    image: require('./images/bBuilding.png'),
+    image: [{ image: require('./images/bBuilding.png') }],
     polygon: {
       name: 'B Annex',
       coordinates:
@@ -794,7 +794,7 @@ const buildings = [
     address: '2149 Mackay Street',
     latitude: 45.497467,
     longtitude: -73.579925,
-    image: require('./images/ciBuilding.png'),
+    image: [{ image: require('./images/ciBuilding.png') }],
     polygon: {
       name: 'CI Annex',
       coordinates:
@@ -813,7 +813,7 @@ const buildings = [
     address: '1424 Bishop Street',
     latitude: 45.496697,
     longtitude: -73.577312,
-    image: require('./images/ldBuilding.png'),
+    image: [{ image: require('./images/ldBuilding.png') }],
     polygon: {
       name: 'LD Building',
       coordinates:
@@ -834,7 +834,7 @@ const buildings = [
     address: '1665 Ste-Catherine W',
     latitude: 45.494259,
     longtitude: -73.579007,
-    image: require('./images/clBuilding.png'),
+    image: [{ image: require('./images/clBuilding.png') }],
     polygon: {
       name: 'CL Annex',
       coordinates:
@@ -853,7 +853,7 @@ const buildings = [
     address: '1450 Guy Street',
     latitude: 45.495304,
     longtitude: -73.579044,
-    image: require('./images/mbBuilding.jpg'),
+    image: [{ image: require('./images/mbBuilding.jpg') }],
     polygon: {
       name: 'John Molson Building',
       coordinates:
@@ -876,7 +876,7 @@ const buildings = [
     address: '2140 Bishop Street',
     latitude: 45.497827,
     longtitude: -73.579409,
-    image: require('./images/dBuilding.jpg'),
+    image: [{ image: require('./images/dBuilding.jpg') }],
     polygon: {
       name: 'D Annex',
       coordinates:
@@ -895,7 +895,7 @@ const buildings = [
     address: '2070 Mackay Street',
     latitude: 45.496944,
     longtitude: -73.579555,
-    image: require('./images/enBuilding.png'),
+    image: [{ image: require('./images/enBuilding.png')}],
     polygon: {
       name: 'D Annex',
       coordinates:
@@ -914,7 +914,7 @@ const buildings = [
     address: '2155 Guy Street ',
     latitude: 45.496428,
     longtitude: -73.579990,
-    image: require('./images/erBuilding.jpg'),
+    image: [{ image: require('./images/erBuilding.jpg') }],
     polygon: {
       name: 'ER Annex',
       coordinates:
@@ -933,7 +933,7 @@ const buildings = [
     address: '2060 Mackay Street ',
     latitude: 45.496874,
     longtitude: -73.579468,
-    image: require('./images/faBuilding.jpg'),
+    image: [{ image: require('./images/faBuilding.jpg') }],
     polygon: {
       name: 'FA Annex',
       coordinates:
@@ -952,7 +952,7 @@ const buildings = [
     address: '2135 Mackay Street ',
     latitude: 45.497368,
     longtitude: -73.579777,
-    image: require('./images/mBuilding.jpg'),
+    image: [{ image: require('./images/mBuilding.jpg') }],
     polygon: {
       name: 'M Annex',
       coordinates:
@@ -971,7 +971,7 @@ const buildings = [
     address: '2130 Bishop Street',
     latitude: 45.497807,
     longtitude: -73.579261,
-    image: require('./images/miBuilding.png'),
+    image: [{ image: require('./images/miBuilding.png') }],
     polygon: {
       name: 'MI Annex',
       coordinates:
@@ -1011,7 +1011,7 @@ const buildings = [
     address: '2050 Mackay Street',
     latitude: 45.496826,
     longtitude: -73.579389,
-    image: require('./images/rBuilding.png'),
+    image: [{ image: require('./images/rBuilding.png') }],
     polygon: {
       name: 'R Annex',
       coordinates:
@@ -1030,7 +1030,7 @@ const buildings = [
     address: '2145 Mackay Street',
     latitude: 45.497423,
     longtitude: -73.579851,
-    image: require('./images/sBuilding.png'),
+    image: [{ image: require('./images/sBuilding.png') }],
     polygon: {
       name: 'S Annex',
       coordinates:
@@ -1051,7 +1051,7 @@ const buildings = [
     address: '1590 Doctor Penfield',
     latitude: 45.496600,
     longtitude: -73.586090,
-    image: require('./images/sbBuilding.png'),
+    image: [{ image: require('./images/sbBuilding.png') }],
     polygon: {
       name: 'S Annex',
       coordinates:

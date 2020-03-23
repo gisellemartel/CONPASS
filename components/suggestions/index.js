@@ -28,23 +28,17 @@ class Suggestions extends Component {
       }
 
     _renderItem = ({ item }) => {
-      item.opening ? this.firstRender(item) : this.secondRender(item)
-
-    };
-
-    firstRender = (item) => {
-      return (
-        <View style={styles.slide}>
-          <Image style={styles.image} source={item.image} />
-          <View style={styles.information}>
-            <Text style={styles.name}>{ item.name }</Text>
-            <Text style={styles.name}>{`Open Hours: ${item.opening[0]}-${item.opening[1]}`}</Text>
+      if (item.opening) {
+        return (
+          <View style={styles.slide}>
+            <Image style={styles.image} source={item.image} />
+            <View style={styles.information}>
+              <Text style={styles.name}>{ item.name }</Text>
+              <Text style={styles.name}>{`Open Hours: ${item.opening[0]}-${item.opening[1]}`}</Text>
+            </View>
           </View>
-        </View>
-      );
-    };
-
-    secondRender = (item) => {
+        );
+      }
       return (
         <Image style={styles.image} source={item.image} />
       );
