@@ -67,6 +67,7 @@ export default class Addresses extends Component {
             urCurentLocation={this.state.value}
             hideMenu={this.state.hide}
             drawPath={this.drawPath}
+            currentBuildingPred={this.props.currentBuildingPred}
           />
           <SearchBarDestination
             drawPath={this.state.drawPath}
