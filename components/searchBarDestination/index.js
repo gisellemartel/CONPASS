@@ -47,9 +47,8 @@ export default class searchBarDestination extends Component {
     if (prevProps.drawPath !== this.props.drawPath) {
       this.drawPath();
     }
-    console.log("---I am here---");
+
     if (prevProps.directionsId !== this.props.directionsId) {
-      console.log("--I am here--");
       this.getLatLong(this.props.directionsId);
       this.drawPath();
     }
