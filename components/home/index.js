@@ -133,6 +133,21 @@ class Home extends Component {
     this.updateCoordinates(coordinates);
   }
 
+  /**
+   * gets marker objects created from the SearchBar component to nearbyMarker state.
+   * Also being pased to the Map component
+   * @param {object} markers - pins of nearby locations.
+   *      markers [{
+   *        id: string,
+   *        title: string,
+   *        description: string,
+   *        coordinates: {
+   *          latitude: number,
+   *           longitude: number
+   *         }
+   *    }]
+   *
+   */
   getNearbyMarkers=(markers) => {
     this.setState({ nearbyMarkers: markers });
   }
