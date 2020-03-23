@@ -13,7 +13,7 @@ export default class BackButton extends Component {
           this.props.changeSuggestionVisibility(false);
         }}
         >
-          <Feather name="x-circle" size={32} color="black" />
+          <Feather name="x-circle" size={30} color="black" />
         </TouchableOpacity>
       </View>
     );

@@ -3,13 +3,14 @@ import { StyleSheet } from 'react-native';
 const styles = StyleSheet.create({
   container: {
     backgroundColor: 'white',
-    bottom: -1,
-    width: '90%',
-    borderRadius: 20,
-    margin: 10,
+    bottom: -9,
+    width: '100%',
+    borderTopLeftRadius: 5,
+    borderTopRightRadius: 5,
+    margin: 0,
     height: 270,
     position: 'absolute',
-    borderWidth: 5
+    borderWidth: 1
   },
   carousel: {
     marginBottom: 15,
