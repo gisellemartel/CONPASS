@@ -10,6 +10,7 @@ const buildings = [
     address: '7141 Sherbrooke W',
     latitude: 45.459026,
     longitude: -73.638606,
+    image: require('./images/vlBuilding.png'),
     polygon: {
       name: 'Vanier Library building',
       coordinates:
@@ -42,6 +43,7 @@ const buildings = [
     address: '7141 Sherbrooke W',
     latitude: 45.458938,
     longitude: -73.640467,
+    image: require('./images/pyBuilding.jpg'),
     polygon: {
       name: 'Psychology Building',
       coordinates:
@@ -60,6 +62,7 @@ const buildings = [
     address: '7141 Sherbrooke West',
     latitude: 45.458493,
     longitude: -73.639287,
+    image: require('./images/fcBuilding.jpg'),
     polygon: {
       name: 'F.C. Smith Building',
       coordinates:
@@ -78,6 +81,7 @@ const buildings = [
     address: '7141 Sherbrooke W',
     latitude: 45.457881,
     longitude: -73.641565,
+    image: require('./images/spBuilding.jpg'),
     polygon: {
       name: 'Richard J. Renaud Science Complex',
       coordinates:
@@ -102,6 +106,7 @@ const buildings = [
     address: '7141 Sherbrooke West',
     latitude: 45.458204,
     longitude: -73.640300,
+    image: require('./images/centralBuilding.jpg'),
     polygon: {
       name: 'Central Building',
       coordinates:
@@ -160,6 +165,7 @@ const buildings = [
     address: '7141 Sherbrooke West',
     latitude: 45.457478,
     longitude: -73.640354,
+    image: require('./images/cjBuilding.jpg'),
     polygon: {
       name: 'Communications & Journalism building',
       coordinates:
@@ -194,6 +200,7 @@ const buildings = [
     address: '7141 Sherbrooke West',
     latitude: 45.457017,
     longitude: -73.640432,
+    image: require('./images/geBuilding.jpg'),
     polygon: {
       name: 'GE building',
       coordinates:
