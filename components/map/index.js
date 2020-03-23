@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
 import MapView, {
-  Polygon, Polyline, PROVIDER_GOOGLE, Marker
+  Polygon, Polyline, PROVIDER_GOOGLE
 } from 'react-native-maps';
 import buildings from '../../assets/polygons/polygons';
 import styles from './styles';
@@ -20,7 +20,8 @@ export default class TheMap extends Component {
       coordinate: {
         latitude: 45.492409,
         longitude: -73.582153,
-      }
+      },
+      nearbyMarkers: []
     };
     this.selectPoi = this.selectPoi.bind(this);
   }
@@ -102,14 +103,31 @@ export default class TheMap extends Component {
               })
             );
           })}
-          <Marker
-            coordinate={{
-              latitude: this.props.updatedRegion.latitude,
-              longitude: this.props.updatedRegion.longitude
-            }}
-            title="title"
-            description="description"
-          />
+
+          {
+            this.props.nearbyMarkers.length > 0
+              ? this.props.nearbyMarkers.map((marker) => {
+                return (
+                  <MapView.Marker
+                    key={marker.id}
+                    coordinate={marker.coordinates}
+                    title={marker.title}
+                    description={marker.description}
+                  />
+                );
+              }) : (
+                <MapView.Marker
+                  pinColor="#84ECED"
+                  coordinate={{
+                    latitude: this.props.updatedRegion.latitude,
+                    longitude: this.props.updatedRegion.longitude
+                  }}
+                  title=""
+                  description=""
+                />
+              )
+          }
+
         </MapView>
       </View>
     );
