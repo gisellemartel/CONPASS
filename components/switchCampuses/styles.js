@@ -7,6 +7,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
   },
   container: {
+    zIndex: 2,
     flexDirection: 'row',
     position: 'absolute',
     justifyContent: 'center',

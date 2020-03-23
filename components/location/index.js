@@ -51,7 +51,7 @@ export default class Location extends Component {
       const xCoordinates = [];
       const yCoordinates = [];
 
-      const buildingPolygon = building.polygons[0];
+      const buildingPolygon = building.polygon;
 
       (buildingPolygon.coordinates).forEach((pairOfCoordinates) => {
         xCoordinates.push(pairOfCoordinates.longitude);

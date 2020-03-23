@@ -9,6 +9,8 @@ import SwitchCampuses from '../switchCampuses';
 // import WithinBuilding from '../withinBuilding';
 import SetPath from '../setPath';
 import Addresses from '../addresses';
+import Building from '../map/building/index';
+import generateBuilding from '../../assets/svgReactNative/buildingRepository';
 import styles from './styles';
 
 class Home extends Component {
@@ -30,11 +32,13 @@ class Home extends Component {
         latitudeDelta: 0.04,
         longitudeDelta: 0.04
       },
-
+      interiorMode: false,
       showDirectionsMenu: false,
       showCampusToggle: false,
 
     };
+    this.interiorModeOn = this.interiorModeOn.bind(this);
+    this.interiorModeOff = this.interiorModeOff.bind(this);
   }
 
   /**
@@ -115,12 +119,40 @@ class Home extends Component {
     this.updateCoordinates(coordinates);
   }
 
+  /**
+   *
+   * @param {*} building
+   * @param {*} region
+   * Activates interior mode when building is clicked on
+   * Uses the building data to render floors
+   */
+  interiorModeOn(building, region) {
+    this.setState({
+      region,
+      interiorMode: true,
+      building
+    });
+  }
+
+  /**
+   *
+   * Deactivates interior mode to return to outdoor map view
+   */
+  interiorModeOff() {
+    this.setState({
+      interiorMode: false,
+      building: null
+    });
+  }
 
   render() {
     return (
       <View style={styles.container}>
+        {/* zIndex=1 */}
         <TheMap
           updatedCoordinates={this.state.coordinates}
+          encryptedLine={this.state.encryptedLine}
+          interiorModeOn={this.interiorModeOn}
           updatedRegion={this.state.presetRegion}
           polylineVisibility={this.state.showDirectionsMenu}
         />
@@ -137,6 +169,14 @@ class Home extends Component {
         <SwitchCampuses
           updateRegion={this.updateRegion}
           visiblityState={!this.state.showDirectionsMenu}
+        />
+        )}
+        {this.state.interiorMode
+        && (
+        <Building
+          building={this.state.building}
+          buildingFloorPlans={generateBuilding(this.state.building.building)}
+          interiorModeOff={this.interiorModeOff}
         />
         )}
         <Location updateRegion={this.updateRegion} />

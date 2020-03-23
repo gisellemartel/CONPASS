@@ -1,27 +1,22 @@
-/* eslint-disable class-methods-use-this */
-/* eslint-disable react/no-unused-state */
 import React, { Component } from 'react';
 import { View } from 'react-native';
-import MapView, {
-  Polygon, Polyline, PROVIDER_GOOGLE, Marker
-} from 'react-native-maps';
+import MapView, { Polyline, PROVIDER_GOOGLE, Marker } from 'react-native-maps';
 import buildings from '../../assets/polygons/polygons';
+import CustomPolygon from './customPolygon';
 import styles from './styles';
+
+let region = '';
 
 export default class TheMap extends Component {
   /**
- * Represents a map.
- * @constructor
- */
+   * Represents a map.
+   * @constructor
+   */
   constructor(props) {
     super(props);
     this.mapRef = null;
-    this.state = {
-      coordinate: {
-        latitude: 45.492409,
-        longitude: -73.582153,
-      }
-    };
+    this.focusOnBuilding = this.focusOnBuilding.bind(this);
+    this.onRegionChange = this.onRegionChange.bind(this);
   }
 
   componentDidMount() {
@@ -36,6 +31,28 @@ export default class TheMap extends Component {
     }
   }
 
+  onRegionChange(newRegion) {
+    region = newRegion;
+  }
+
+  focusOnBuilding(building) {
+    console.log('activate');
+    const { coordinates } = building.polygon;
+
+    this.state.mapRef.fitToCoordinates(coordinates, {
+      edgePadding: {
+        top: 10, right: 20, bottom: 10, left: 20
+      }
+    });
+
+    // they do not provide a callback when the fitToCoordinates is complete.
+    // Setting at timer for the animation to finish
+    setTimeout(() => {
+      const getRegion = region;
+      this.props.interiorModeOn(building, getRegion);
+    }, 500);
+  }
+
   fitScreenToPath(coordinates) {
     this.state.mapRef.fitToCoordinates(coordinates, {
       edgePadding: {
@@ -45,39 +62,37 @@ export default class TheMap extends Component {
   }
 
 
+  // do not put conponents that dont belong to react-native-maps API inside the MapView
   render() {
+    const buildingFocus = buildings.map((building) => {
+      return (
+        <CustomPolygon
+          key={building.buildingName + building.address}
+          building={building}
+          focusOnBuilding={this.focusOnBuilding}
+          fillColor="rgba(255,135,135,0.5)"
+        />
+      );
+    });
+
     const currRef = (ref) => { this.mapRef = ref; };
+
     return (
       <View style={styles.container}>
         <MapView
-          showsUserLocation
           ref={currRef}
           provider={PROVIDER_GOOGLE}
+          key="map"
           region={this.props.updatedRegion}
+          onRegionChange={this.onRegionChange}
           style={styles.mapStyle}
         >
-          {this.props.polylineVisibility
-          && (
           <Polyline
-            coordinates={this.props.updatedCoordinates}
+            coordinates={this.props.updatedCoordinates ? this.props.updatedCoordinates : []}
             strokeWidth={4}
             strokeColor="black"
           />
-          )}
-          {buildings.map((building) => {
-            return (
-              building.polygons.map((polygon) => {
-                return (
-                  <CustomPolygon
-                    key={polygon.name}
-                    coordinates={polygon.coordinates}
-                    fillColor="rgba(255,135,135,0.5)"
-                  />
-                );
-              })
-            );
-          })}
-
+          {buildingFocus}
           <Marker
             coordinate={{
               latitude: this.props.updatedRegion.latitude,
@@ -90,16 +105,4 @@ export default class TheMap extends Component {
       </View>
     );
   }
-}
-
-function CustomPolygon({ onLayout, ...props }) {
-  const ref = React.useRef();
-
-  function onLayoutPolygon() {
-    if (ref.current) {
-      ref.current.setNativeProps({ fillColor: props.fillColor });
-    }
-    // call onLayout() from the props if you need it
-  }
-  return <Polygon ref={ref} onLayout={onLayoutPolygon} {...props} />;
 }
