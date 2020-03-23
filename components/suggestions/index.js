@@ -28,6 +28,11 @@ class Suggestions extends Component {
       }
 
     _renderItem = ({ item }) => {
+      item.opening ? this.firstRender(item) : this.secondRender(item)
+
+    };
+
+    firstRender = (item) => {
       return (
         <View style={styles.slide}>
           <Image style={styles.image} source={item.image} />
@@ -37,10 +42,19 @@ class Suggestions extends Component {
           </View>
         </View>
       );
-    }
+    };
+
+    secondRender = (item) => {
+      return (
+        <Image style={styles.image} source={item.image} />
+      );
+    };
+
 
     render() {
-      const content = this.props.suggestion.placesToGo ? this.props.suggestion.placesToGo : [];
+      const contentTemp = this.props.suggestion.placesToGo ? this.props.suggestion.placesToGo : this.props.suggestion;
+      const content = contentTemp ? contentTemp : [];
+      console.log("content " + content);
       return (
         <View style={styles.container}>
           <CloseButton changeSuggestionVisibility={this.props.changeSuggestionVisibility} style={styles.button} />

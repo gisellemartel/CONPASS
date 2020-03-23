@@ -405,7 +405,7 @@ const buildings = [
     buildingName: 'Grey Nuns',
     address: '1190 guy street',
     placesToGo: [{
-      name: 'Grey Nuns Dining Hall', id: '3', placeID: 'ChIJV-mGQ2kayUwRT2vvO_XjKtE', opening: ['8:00 am', '9:30 pm'], image: require('./images/GreyNuns.jpg')
+      name: 'Grey Nuns Dining Hall', id: '3', placeID: 'ChIJV-mGQ2kayUwRT2vvO_XjKtE', opening: ['8:00 am', '9:30 pm'], image: require('./images/greyNunsDine.jpg')
     }
     ],
     latitude: '45.493484',
