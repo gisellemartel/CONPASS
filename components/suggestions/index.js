@@ -48,7 +48,6 @@ class Suggestions extends Component {
     render() {
       const contentTemp = this.props.suggestion.placesToGo ? this.props.suggestion.placesToGo : this.props.suggestion.image;
       const content = contentTemp ? contentTemp : [];
-      console.log("content " + content);
       return (
         <View style={styles.container}>
           <CloseButton changeSuggestionVisibility={this.props.changeSuggestionVisibility} style={styles.button} />
