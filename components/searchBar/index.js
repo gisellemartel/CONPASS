@@ -59,6 +59,11 @@ export default class searchBar extends Component {
     }
   }
 
+  /**
+   * Retreives location points (lat, lg) of places around SGW or LOY
+   * depending on what the user searches for
+   * @param {string} value - Value of whatever is inputed into the search bar
+   */
   async getNearbyPlaces(value) {
     const markers = [];
     if (value.toLowerCase().includes('near sgw') || value.toLowerCase().includes('near loy')) {
@@ -88,6 +93,7 @@ export default class searchBar extends Component {
       }
       const georesult = await fetch(url);
       const gjson = await georesult.json();
+      // pushing object to the markers. This is what is passed in the props
       gjson.results.map((result) => {
         return (markers.push({
           id: result.id,
@@ -101,6 +107,7 @@ export default class searchBar extends Component {
       });
     }
     if (markers.length > 0) {
+      // Updating the view
       this.props.updateRegion(this.state.region);
       this.props.nearbyMarkers(markers);
     }
