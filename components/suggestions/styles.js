@@ -4,71 +4,59 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: 'white',
     bottom: -1,
-    width: '100%',
-    borderTopLeftRadius: 10,
-    borderTopRightRadius: 10,
-    height: 300,
-    position: 'absolute'
+    width: '97%',
+    borderRadius: 20,
+    margin: 10,
+    height: 280,
+    position: 'absolute',
+    borderWidth: 5
   },
   carousel: {
-    borderColor: 'rgba(0,0,0,0)',
-    bottom: 0,
     marginBottom: 15,
-    borderRadius: 10,
+    borderRadius: 30,
+  },
+  accessiblity: {
+    position: 'absolute',
+    right: 70,
+    top: 3
   },
   slide: {
     backgroundColor: '#9CD3D7',
-    height: 185,
+    height: 175,
     width: 300,
-    padding: 24,
+    padding: 26,
     borderRadius: 24,
     bottom: 0,
     position: 'absolute',
-    borderColor: 'rgba(0,0,0,0)',
   },
   information: {
-    bottom: -80,
+    bottom: -95,
     left: -10,
-    height: 150,
-    width: 300,
-    position: 'relative',
-
   },
   image: {
-    height: 100,
+    height: 120,
     width: 300,
     position: 'absolute',
     borderRadius: 10
   },
   buildingName: {
     left: 20,
-    padding: 5,
+    padding: 2,
     fontSize: 20,
     fontWeight: 'bold'
   },
   tunnelAccessiblity: {
     left: 20,
-    padding: 5
+    padding: 2
   },
   address: {
     left: 20,
-    padding: 5
+    padding: 2
   },
   buttonContainer: {
     height: 180,
   },
   name: {
-    color: 'white'
-  },
-  buttonContainer: {
-    bottom: 10,
-    left: 15,
-    position: 'absolute'
-  },
-  button: {
-    borderRadius: 5,
-    borderWidth: 2,
-    borderColor: 'white',
     color: 'white'
   }
 });

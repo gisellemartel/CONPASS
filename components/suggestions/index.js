@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import {
-  View, Text, Image, Dimensions, TouchableOpacity
+  View, Text, Image, Dimensions
 } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
+import { FontAwesome } from '@expo/vector-icons';
 import styles from './styles';
-import CloseBUtton from './closeButton';
+import CloseButton from './closeButton';
 
 class Suggestions extends Component {
-
       buildingName = () => {
         return (`${this.props.suggestion.buildingName} `);
       }
@@ -33,27 +33,20 @@ class Suggestions extends Component {
           <Image style={styles.image} source={item.image} />
           <View style={styles.information}>
             <Text style={styles.name}>{ item.name }</Text>
-            <Text style={styles.name}>{'Open Hours: '+ item.opening[0] +'-'+ item.opening[1]}</Text>
-          </View>
-          <View style={styles.buttonContainer}>
-            <TouchableOpacity onPress={() => { this.passDirections(item.placeID); }}>
-              <Text style={styles.button}>Get Directions</Text>
-            </TouchableOpacity>
+            <Text style={styles.name}>{`Open Hours: ${item.opening[0]}-${item.opening[1]}`}</Text>
           </View>
         </View>
       );
-    }
-
-    passDestination = ({ destination }) => {
-      // this.props.getDestination(destination);
-      console.log("hellloo");
     }
 
     render() {
       const content = this.props.suggestion.placesToGo ? this.props.suggestion.placesToGo : [];
       return (
         <View style={styles.container}>
-          <CloseBUtton changeSuggestionVisibility={this.props.changeSuggestionVisibility} />
+          <CloseButton changeSuggestionVisibility={this.props.changeSuggestionVisibility} style={styles.button} />
+          <View style={styles.accessiblity}>
+            <Icon />
+          </View>
           <Text style={styles.buildingName}>
             {this.buildingName()}
             (
@@ -66,7 +59,7 @@ class Suggestions extends Component {
             data={content}
             extraData={content}
             renderItem={this._renderItem}
-            keyExtractor={item => item.id}
+            keyExtractor={(item) => { return item.id; }}
             horizontal
             sliderWidth={Dimensions.get('window').width}
             itemWidth={300}
@@ -77,4 +70,7 @@ class Suggestions extends Component {
       );
     }
 }
+const Icon = () => {
+  return <FontAwesome name="wheelchair-alt" size={27} color="orange" />;
+};
 export default Suggestions;
