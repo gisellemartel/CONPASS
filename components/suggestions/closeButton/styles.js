@@ -3,8 +3,8 @@ import { StyleSheet } from 'react-native';
 const styles = StyleSheet.create({
 
   container: {
-    top: 10,
-    right: 13,
+    right: 0,
+    padding: 0,
     color: 'red',
     zIndex: 50,
     position: 'absolute',

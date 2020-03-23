@@ -4,21 +4,22 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: 'white',
     bottom: -1,
-    width: '97%',
+    width: '90%',
     borderRadius: 20,
     margin: 10,
-    height: 280,
+    height: 270,
     position: 'absolute',
     borderWidth: 5
   },
   carousel: {
     marginBottom: 15,
     borderRadius: 30,
+    right: 25
   },
   accessiblity: {
     position: 'absolute',
-    right: 70,
-    top: 3
+    left: 3,
+    top: 4
   },
   slide: {
     backgroundColor: '#9CD3D7',
@@ -41,17 +42,17 @@ const styles = StyleSheet.create({
   },
   buildingName: {
     left: 20,
-    padding: 2,
+    padding: 0,
     fontSize: 20,
     fontWeight: 'bold'
   },
   tunnelAccessiblity: {
     left: 20,
-    padding: 2
+    padding: 0
   },
   address: {
     left: 20,
-    padding: 2
+    padding: 0
   },
   buttonContainer: {
     height: 180,

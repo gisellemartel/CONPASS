@@ -6,6 +6,7 @@ const buildings = [
     campus: 'LOY',
     building: 'VL',
     buildingName: 'Vanier Library building',
+    accessiblity: true,
     address: '7141 Sherbrooke W',
     latitude: 45.459026,
     longitude: -73.638606,
@@ -384,6 +385,7 @@ const buildings = [
   /* SGW Campus Buildings */
   {
     campus: 'SGW',
+    accessiblity: true,
     building: 'GN',
     buildingName: 'Grey Nuns',
     address: '1190 guy street',
@@ -654,6 +656,7 @@ const buildings = [
     campus: 'SGW',
     building: 'LB',
     buildingName: 'Webster Library Building',
+    accessiblity: true,
     placesToGo: [{
       name: 'LB Café', id: '4', placeID: 'ChIJaX1tY2oayUwRx9YEeFhP2ns', opening: ['8:00 am', '9:30 pm'], image: require('./images/LbCafe.jpeg')
     },
@@ -682,6 +685,7 @@ const buildings = [
     campus: 'SGW',
     building: 'H',
     buildingName: 'Henry F. Hall Building',
+    accessiblity: true,
     placesToGo: [{
       name: 'Hall 4 Café - The Green Beet', id: '7', placeID: 'ChIJtd6Zh2oayUwRAu_CnRIfoBw', opening: ['8:00 am', '9:30 pm'], image: require('./images/hallCafe.jpg')
     }
@@ -704,7 +708,7 @@ const buildings = [
   {
     campus: 'SGW',
     building: 'EV',
-    buildingName: 'Engineering, Computer Science and Visual Arts Inte',
+    buildingName: 'Engineering, Computer Science \n and Visual Arts Inte',
     address: '1515 Ste-Catherine W',
     department: ['Building, Civil and Environmental Engineering (BCEE)',
       'Centre for Engineering in Society',

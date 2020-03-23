@@ -45,16 +45,18 @@ class Suggestions extends Component {
         <View style={styles.container}>
           <CloseButton changeSuggestionVisibility={this.props.changeSuggestionVisibility} style={styles.button} />
           <View style={styles.accessiblity}>
-            <Icon />
+            <Icon accessiblity={this.props.suggestion.accessiblity} />
           </View>
-          <Text style={styles.buildingName}>
-            {this.buildingName()}
-            (
-            {this.props.suggestion.building}
-            )
-          </Text>
-          <Text style={styles.tunnelAccessiblity}>{this.tunnelAccessiblity()}</Text>
-          <Text style={styles.address}>{this.address()}</Text>
+          <View style={{ paddingLeft: 10 }}>
+            <Text style={styles.buildingName}>
+              {this.buildingName()}
+              (
+              {this.props.suggestion.building}
+              )
+            </Text>
+            <Text style={styles.tunnelAccessiblity}>{this.tunnelAccessiblity()}</Text>
+            <Text style={styles.address}>{this.address()}</Text>
+          </View>
           <Carousel
             data={content}
             extraData={content}
@@ -70,7 +72,10 @@ class Suggestions extends Component {
       );
     }
 }
-const Icon = () => {
-  return <FontAwesome name="wheelchair-alt" size={27} color="orange" />;
+const Icon = (props) => {
+  if (props.accessiblity === true) {
+    return <FontAwesome name="wheelchair-alt" size={22} color="orange" />;
+  }
+  return null;
 };
 export default Suggestions;
