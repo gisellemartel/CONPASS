@@ -1,12 +1,12 @@
 /* eslint-disable no-mixed-operators */
 /* eslint-disable no-plusplus */
-import React, { Component } from "react";
-import { View, Image, Text } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
-import getCurrentLocation from "./LocationServices";
-import buildings from "../../assets/polygons/polygons";
-import styles from "./styles";
-import locateMe from "./locate-me.png";
+import React, { Component } from 'react';
+import { View, Image, Text } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import getCurrentLocation from './LocationServices';
+import buildings from '../../assets/polygons/polygons';
+import styles from './styles';
+import locateMe from './locate-me.png';
 
 export default class Location extends Component {
   constructor(props) {
@@ -14,8 +14,8 @@ export default class Location extends Component {
 
     this.state = {
       // to display information
-      campusDisplayName: "",
-      buildingDisplayName: "",
+      campusDisplayName: '',
+      buildingDisplayName: '',
 
       // polygon covering all buildings in SGW
       xSGWCoordinates: [-73.586675, -73.576489, -73.57153, -73.5814433],
@@ -26,33 +26,33 @@ export default class Location extends Component {
       yLOYCoordinates: [45.457287, 45.4548085, 45.4581882, 45.461931],
 
       // SGW buildings formatted for isInPolygon use
-      sgwBuildings: this.formatPolygonsObjs("SGW"),
+      sgwBuildings: this.formatPolygonsObjs('SGW'),
       // Loyola buildings formatted for isInPolygon use
-      loyBuildings: this.formatPolygonsObjs("LOY")
+      loyBuildings: this.formatPolygonsObjs('LOY')
     };
   }
 
   /** @param {string} campus - either 'SGW' or 'LOY'
    *  Format SGW or Loyola buildings to be used by isInPolygon function */
   formatPolygonsObjs(campus) {
-    if (campus !== "SGW" && campus !== "LOY") {
+    if (campus !== 'SGW' && campus !== 'LOY') {
       return [];
     }
 
     const formattedBuildings = [];
 
     // filter only the buildings that belong to the current campus
-    const formattedBuildingsTemp = buildings.filter(building => {
+    const formattedBuildingsTemp = buildings.filter((building) => {
       return building.campus === campus;
     });
 
-    formattedBuildingsTemp.forEach(building => {
+    formattedBuildingsTemp.forEach((building) => {
       const xCoordinates = [];
       const yCoordinates = [];
 
       const buildingPolygon = building.polygons[0];
 
-      buildingPolygon.coordinates.forEach(pairOfCoordinates => {
+      buildingPolygon.coordinates.forEach((pairOfCoordinates) => {
         xCoordinates.push(pairOfCoordinates.longitude);
         yCoordinates.push(pairOfCoordinates.latitude);
       });
@@ -82,10 +82,10 @@ export default class Location extends Component {
     let c = false;
     for (i = 0, j = nvert - 1; i < nvert; j = i++) {
       if (
-        verty[i] > testy !== verty[j] > testy &&
-        testx <
-          ((vertx[j] - vertx[i]) * (testy - verty[i])) / (verty[j] - verty[i]) +
-            vertx[i]
+        verty[i] > testy !== verty[j] > testy
+        && testx
+          < ((vertx[j] - vertx[i]) * (testy - verty[i])) / (verty[j] - verty[i])
+            + vertx[i]
       ) {
         c = !c;
       }
@@ -111,10 +111,10 @@ export default class Location extends Component {
       )
     ) {
       this.setState({
-        campusDisplayName: "SGW",
-        buildingDisplayName: ""
+        campusDisplayName: 'SGW',
+        buildingDisplayName: ''
       });
-      this.state.sgwBuildings.forEach(sgwBuilding => {
+      this.state.sgwBuildings.forEach((sgwBuilding) => {
         if (
           this.isInPolygon(
             sgwBuilding.xCoords.length,
@@ -126,7 +126,7 @@ export default class Location extends Component {
         ) {
           this.setState({
             buildingDisplayName: sgwBuilding.name,
-            campusDisplayName: "SGW"
+            campusDisplayName: 'SGW'
           });
         }
       });
@@ -140,10 +140,10 @@ export default class Location extends Component {
       )
     ) {
       this.setState({
-        campusDisplayName: "Loyola",
-        buildingDisplayName: ""
+        campusDisplayName: 'Loyola',
+        buildingDisplayName: ''
       });
-      this.state.loyBuildings.forEach(loyBuilding => {
+      this.state.loyBuildings.forEach((loyBuilding) => {
         if (
           this.isInPolygon(
             loyBuilding.xCoords.length,
@@ -155,18 +155,18 @@ export default class Location extends Component {
         ) {
           this.setState({
             buildingDisplayName: loyBuilding.name,
-            campusDisplayName: "Loyola"
+            campusDisplayName: 'Loyola'
           });
-          //this.state.buildingDisplayName = loyBuilding.name;
+          // this.state.buildingDisplayName = loyBuilding.name;
         }
-        //this.state.campusDisplayName = 'Loyola';
+        // this.state.campusDisplayName = 'Loyola';
       });
     } else {
       this.setState({
-        campusDisplayName: "",
-        buildingDisplayName: ""
+        campusDisplayName: '',
+        buildingDisplayName: ''
       });
-      /*this.state.campusDisplayName = '';
+      /* this.state.campusDisplayName = '';
       this.state.buildingDisplayName = '';*/
     }
 
@@ -177,20 +177,20 @@ export default class Location extends Component {
    * Updates currentBuilding prop passed from Home component
    */
   updateCurrentBuildingProp() {
-    let buildingAddress = "";
+    let buildingAddress = '';
     if (
-      this.state.campusDisplayName === "Loyola" &&
-      this.state.buildingDisplayName.length > 0
+      this.state.campusDisplayName === 'Loyola'
+      && this.state.buildingDisplayName.length > 0
     ) {
-      buildingAddress = this.state.loyBuildings.filter(building => {
+      buildingAddress = this.state.loyBuildings.filter((building) => {
         return building.name === this.state.buildingDisplayName;
       })[0].address;
       this.props.updateCurrentBuildingCallBack(buildingAddress);
     } else if (
-      this.state.campusDisplayName === "SGW" &&
-      this.state.buildingDisplayName.length > 0
+      this.state.campusDisplayName === 'SGW'
+      && this.state.buildingDisplayName.length > 0
     ) {
-      buildingAddress = this.state.sgwBuildings.filter(building => {
+      buildingAddress = this.state.sgwBuildings.filter((building) => {
         return building.name === this.state.buildingDisplayName;
       })[0].address;
       this.props.updateCurrentBuildingCallBack(buildingAddress);
@@ -200,6 +200,7 @@ export default class Location extends Component {
 
     return buildingAddress;
   }
+
   render() {
     return (
       <View style={styles.container}>

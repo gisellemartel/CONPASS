@@ -1,26 +1,26 @@
 /* eslint-disable react/no-unused-state */
-import React, { Component } from "react";
-import { View } from "react-native";
-import TheMap from "../map";
-import SearchBar from "../searchBar";
-import Location from "../location";
-import SwitchCampuses from "../switchCampuses";
-import SetPath from "../setPath";
-import Addresses from "../addresses";
-import styles from "./styles";
+import React, { Component } from 'react';
+import { View } from 'react-native';
+import TheMap from '../map';
+import SearchBar from '../searchBar';
+import Location from '../location';
+import SwitchCampuses from '../switchCampuses';
+import SetPath from '../setPath';
+import Addresses from '../addresses';
+import styles from './styles';
 
 class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
       // Set Initial region of the map
-      value: "",
+      value: '',
       coordinates: [],
       region: {
-        latitude: "",
-        longitude: "",
-        latitudeDelta: "",
-        longitudeDelta: ""
+        latitude: '',
+        longitude: '',
+        latitudeDelta: '',
+        longitudeDelta: ''
       },
       presetRegion: {
         latitude: 45.492408,
@@ -34,7 +34,7 @@ class Home extends Component {
       isGoVisible: false,
       isSwitchAvailableIndestination: true,
       // current Concordia a user is in
-      currentBuildingAddress: "",
+      currentBuildingAddress: '',
 
       showDirectionsMenu: false,
       showCampusToggle: false
@@ -45,7 +45,7 @@ class Home extends Component {
    * updates region and passes the new region 'map' component.
    * @param {object} newRegion - New region to be passed.
    */
-  updateRegion = newRegion => {
+  updateRegion = (newRegion) => {
     this.setState({
       presetRegion: {
         latitude: newRegion.latitude,
@@ -69,7 +69,7 @@ class Home extends Component {
    * destination option in directions mode
    * @param {object} destination - current selected destination
    */
-  getDestinationIfSet = destination => {
+  getDestinationIfSet = (destination) => {
     this.setState({ destinationToGo: destination });
   };
 
@@ -77,7 +77,7 @@ class Home extends Component {
    * Changes visibility of directions search menus depending on context
    * @param {*} showDirectionsMenu - desired visibility boolean
    */
-  changeVisibilityTo = showDirectionsMenu => {
+  changeVisibilityTo = (showDirectionsMenu) => {
     this.setState({
       showDirectionsMenu
     });
@@ -87,7 +87,7 @@ class Home extends Component {
    * Changes visibility of campus toggle when search bar is focused/blurred
    * @param {*} showCampusToggle - desired visibility boolean
    */
-  setCampusToggleVisibility = showCampusToggle => {
+  setCampusToggleVisibility = (showCampusToggle) => {
     this.setState({
       showCampusToggle
     });
@@ -97,7 +97,7 @@ class Home extends Component {
    * updates coordinates and passes new coordinates 'Map' component.
    * @param {object} newCoordinates - New coordinates to be passed.
    */
-  updateCoordinates = newCoordinates => {
+  updateCoordinates = (newCoordinates) => {
     this.setState({
       coordinates: newCoordinates
     });
@@ -107,7 +107,7 @@ class Home extends Component {
    * gets new region from 'Addresses' component and updates region state
    * @param {object} region - New region to be passed.
    */
-  getRegionFromAddresses = region => {
+  getRegionFromAddresses = (region) => {
     this.updateRegion(region);
   };
 
@@ -115,11 +115,11 @@ class Home extends Component {
    * gets new coordinates from 'Addresses' component and updates coordinates state
    * @param {object} coordinates - New coordinates to be passed.
    */
-  getCoordinatesFromAddresses = coordinates => {
+  getCoordinatesFromAddresses = (coordinates) => {
     this.updateCoordinates(coordinates);
   };
 
-  updateCurrentBuildingAddress = childCurrentBuilding => {
+  updateCurrentBuildingAddress = (childCurrentBuilding) => {
     this.setState({
       currentBuildingAddress: childCurrentBuilding
     });
