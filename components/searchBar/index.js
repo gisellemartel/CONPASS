@@ -233,7 +233,7 @@ export default class searchBar extends Component {
                 {' '}
                 to find places around campus!
               </Text>
-)}
+            )}
           >
             <SearchBar
               platform="android"
