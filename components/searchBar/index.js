@@ -4,7 +4,7 @@ import {
   View, Keyboard, TouchableOpacity, Text, TouchableHighlight,
   Image
 } from 'react-native';
-import { SearchBar } from 'react-native-elements';
+import { SearchBar, Tooltip } from 'react-native-elements';
 import i18n from 'i18n-js';
 import styles from './styles';
 import SetLocaleContext from '../../localization-context';
@@ -56,6 +56,53 @@ export default class searchBar extends Component {
       });
     } catch (err) {
       console.error(err);
+    }
+  }
+
+  async getNearbyPlaces(value) {
+    const markers = [];
+    if (value.toLowerCase().includes('near sgw') || value.toLowerCase().includes('near loy')) {
+      const formattedVal = value.substring(0, value.indexOf('near')).trim().replace(' ', '+');
+      const key = 'AIzaSyCqNODizSqMIWbKbO8Iq3VWdBcK846n_3w';
+      let url;
+      if (value.toLowerCase().includes('sgw')) {
+        this.setState({
+          region: {
+            latitude: 45.492409,
+            longitude: -73.582153,
+            latitudeDelta: 0.05,
+            longitudeDelta: 0.05
+          }
+        });
+        url = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=${formattedVal}&location=45.492409,-73.582153&radius=2&key=${key}`;
+      } else if (value.toLowerCase().includes('loy')) {
+        this.setState({
+          region: {
+            latitude: 45.458295,
+            longitude: -73.640353,
+            latitudeDelta: 0.05,
+            longitudeDelta: 0.05
+          }
+        });
+        url = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=${formattedVal}&location=45.458295,-73.640353&radius=2&key=${key}`;
+      }
+      const georesult = await fetch(url);
+      const gjson = await georesult.json();
+      gjson.results.map((result) => {
+        return (markers.push({
+          id: result.id,
+          title: result.name,
+          description: result.formatted_address,
+          coordinates: {
+            latitude: result.geometry.location.lat,
+            longitude: result.geometry.location.lng
+          }
+        }));
+      });
+    }
+    if (markers.length > 0) {
+      this.props.updateRegion(this.state.region);
+      this.props.nearbyMarkers(markers);
     }
   }
 
@@ -129,6 +176,9 @@ export default class searchBar extends Component {
      */
     const onClear = () => {
       this.setState({ showPredictions: true });
+
+      // Clear markers on the map
+      this.props.nearbyMarkers([]);
     };
 
     /**
@@ -139,6 +189,8 @@ export default class searchBar extends Component {
       if (this.props.setCampusToggleVisibility) {
         this.props.setCampusToggleVisibility(true);
       }
+      // Clear markers on the map
+      this.props.nearbyMarkers([]);
     };
 
     /**
@@ -157,26 +209,48 @@ export default class searchBar extends Component {
       justifyContent: 'center'
     };
 
+
     return (
       <View style={styles.container}>
         <View>
-          <SearchBar
-            platform="android"
-            autoCorrect={false}
-            padding={5}
-            returnKeyType="search"
-            lightTheme
-            containerStyle={containerStyle}
-            searchIcon={!this.props.hideMenu && searchIcon}
-            placeholder={placeholder}
-            onChangeText={onChangeText}
-            value={this.state.destination}
-            style={styles.SearchBar}
-            onClear={onClear}
-            onTouchStart={onTouchStart}
-            onBlur={onBlur}
-            blurOnSubmit
-          />
+          <Tooltip
+            backgroundColor="#b5e3e6"
+            height={100}
+            popover={(
+              <Text>
+                Include
+                <Text style={{ fontWeight: 'bold' }}> &quot;near LOY&quot;</Text>
+                {' '}
+                or
+                <Text style={{ fontWeight: 'bold' }}> &quot;near SGW&quot;</Text>
+                {' '}
+                to find places around campus!
+              </Text>
+)}
+          >
+            <SearchBar
+              platform="android"
+              autoCorrect={false}
+              padding={5}
+              returnKeyType="search"
+              onSubmitEditing={async () => {
+                await this.getNearbyPlaces(this.state.destination);
+                this.setState({ showPredictions: false });
+              }}
+              lightTheme
+              containerStyle={containerStyle}
+              searchIcon={!this.props.hideMenu && searchIcon}
+              placeholder={placeholder}
+              onChangeText={onChangeText}
+              value={this.state.destination}
+              style={styles.SearchBar}
+              onClear={onClear}
+              onTouchStart={onTouchStart}
+              onBlur={onBlur}
+              blurOnSubmit
+            />
+          </Tooltip>
+
         </View>
         {
           this.state.showPredictions
