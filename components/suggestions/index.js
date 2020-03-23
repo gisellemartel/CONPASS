@@ -40,13 +40,13 @@ class Suggestions extends Component {
         );
       }
       return (
-        <Image style={styles.image} source={item.image} />
+        <Image style={styles.buildingImage} source={item.image} />
       );
     };
 
 
     render() {
-      const contentTemp = this.props.suggestion.placesToGo ? this.props.suggestion.placesToGo : this.props.suggestion;
+      const contentTemp = this.props.suggestion.placesToGo ? this.props.suggestion.placesToGo : this.props.suggestion.image;
       const content = contentTemp ? contentTemp : [];
       console.log("content " + content);
       return (
@@ -71,8 +71,8 @@ class Suggestions extends Component {
             renderItem={this._renderItem}
             keyExtractor={(item) => { return item.id; }}
             horizontal
-            sliderWidth={Dimensions.get('window').width}
             itemWidth={300}
+            sliderWidth={373}
             containerCustomStyle={styles.carousel}
           />
         </View>

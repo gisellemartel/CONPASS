@@ -4,7 +4,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: 'white',
     bottom: -9,
-    width: '100%',
+    width: '90%',
     borderTopLeftRadius: 5,
     borderTopRightRadius: 5,
     margin: 0,
@@ -14,8 +14,8 @@ const styles = StyleSheet.create({
   },
   carousel: {
     marginBottom: 15,
-    borderRadius: 30,
-    right: 25
+    borderRadius: 5,
+    right: 1,
   },
   accessiblity: {
     position: 'absolute',
@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     width: 300,
     padding: 26,
     borderRadius: 24,
-    bottom: 0,
+    bottom: 15,
     position: 'absolute',
   },
   information: {
@@ -38,6 +38,12 @@ const styles = StyleSheet.create({
   image: {
     height: 120,
     width: 300,
+    position: 'absolute',
+    borderRadius: 10
+  },
+  buildingImage: {
+    height: '100%',
+    width: '100%',
     position: 'absolute',
     borderRadius: 10
   },
