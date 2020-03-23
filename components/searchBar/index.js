@@ -1,7 +1,12 @@
+/* eslint-disable react/no-access-state-in-setstate */
 /* eslint-disable no-unused-expressions */
 import React, { Component } from 'react';
 import {
-  View, Keyboard, TouchableOpacity, Text, TouchableHighlight,
+  View,
+  Keyboard,
+  TouchableOpacity,
+  Text,
+  TouchableHighlight,
   Image
 } from 'react-native';
 import { SearchBar } from 'react-native-elements';
@@ -23,14 +28,21 @@ export default class searchBar extends Component {
         latitudeDelta: 0.0922,
         longitudeDelta: 0.0421
       },
-      isMounted: false
+      isMounted: false,
+      // eslint-disable-next-line react/no-unused-state
+      showMenu: true,
+      prevCurrentBuilding: '',
+      currentBuilding: null
     };
   }
 
   componentDidMount() {
     SetLocaleContext();
     this.setState({ isMounted: true });
-    if (this.props.hideMenu === undefined || this.props.setCampusToggleVisibility === undefined) {
+    if (
+      this.props.hideMenu === undefined
+      || this.props.setCampusToggleVisibility === undefined
+    ) {
       this.setState({ hideMenu: true });
     } else {
       this.setState({ hideMenu: false });
@@ -41,29 +53,56 @@ export default class searchBar extends Component {
   }
 
   /**
-  * Retrieves predictions through google's from text entered in searchbar.
-  * @param {string} destination - Text input from search bar
-  */
+   * Retrieves predictions through google's from text entered in searchbar.
+   * @param {string} destination - Text input from search bar
+   */
   async onChangeDestination(destination) {
     this.setState({ destination });
-    const key = 'AIzaSyCqNODizSqMIWbKbO8Iq3VWdBcK846n_3w';
-    const apiUrl = `https://maps.googleapis.com/maps/api/place/autocomplete/json?key=${key}&input=${destination}&location=45.492409, -73.582153&radius=2000`;
     try {
-      const result = await fetch(apiUrl);
-      const json = await result.json();
+      if (this.props.currentBuildingPred !== this.state.prevCurrentBuilding) {
+        this.setState({
+          prevCurrentBuilding: this.props.currentBuildingPred
+        });
+        await this.updateCurrentBuilding();
+      }
+
+      const json = await this.getPredictions(destination);
+      const finalPredictions = this.state.currentBuilding !== null && destination !== ''
+        ? [
+          this.state.currentBuilding,
+          ...json.predictions.slice(0, json.predictions.length - 1)
+        ]
+        : json.predictions;
       this.setState({
-        predictions: json.predictions
+        predictions: finalPredictions
       });
     } catch (err) {
       console.error(err);
     }
   }
 
+  /**
+   * Retrieves predictions through Google's API for a given string
+   * @param {String} destination - String to get predictions for
+   * @returns {Promise} - Promise object represents Google's API json response
+   */
+  // eslint-disable-next-line consistent-return
+  async getPredictions(destination) {
+    const key = 'AIzaSyCqNODizSqMIWbKbO8Iq3VWdBcK846n_3w';
+    const apiUrl = `https://maps.googleapis.com/maps/api/place/autocomplete/json?key=${key}&input=${destination}&location=45.492409, -73.582153&radius=2000`;
+
+    try {
+      const result = await fetch(apiUrl);
+      return await result.json();
+    } catch (err) {
+      console.error(err);
+    }
+  }
 
   /**
-  * Gets the latitude and longitude of a chosen prediction.
-  * @param {string} prediction - placeid of the prediction to get latitude and longitude.
-  */
+   * Gets the latitude and longitude of a chosen prediction.
+   * @param {string} prediction - placeid of the prediction to get latitude and longitude.
+   */
   async getLatLong(prediction) {
     const key = 'AIzaSyCqNODizSqMIWbKbO8Iq3VWdBcK846n_3w';
     const geoUrl = `https://maps.googleapis.com/maps/api/place/details/json?key=${key}&placeid=${prediction}`;
@@ -89,6 +128,23 @@ export default class searchBar extends Component {
     }
   }
 
+  /**
+   * Sets currentBuilding state with a prediction of the current building the user is in
+   */
+  async updateCurrentBuilding() {
+    try {
+      const json = await this.getPredictions(this.props.currentBuildingPred);
+
+      if (json.predictions.length > 0) {
+        this.setState({
+          currentBuilding: json.predictions[0]
+        });
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
   render() {
     const placeholder = this.state.isMounted ? i18n.t('search') : 'search';
     // Predictions mapped and formmated from the current state predictions
@@ -99,7 +155,9 @@ export default class searchBar extends Component {
             style={styles.Touch}
             onPress={() => {
               this.setState({ destination: prediction.description });
-              this.props.getDestinationIfSet ? this.props.getDestinationIfSet(prediction.description) : '';
+              this.props.getDestinationIfSet
+                ? this.props.getDestinationIfSet(prediction.description)
+                : '';
               this.getLatLong(prediction.place_id);
               this.setState({ showPredictions: false });
               Keyboard.dismiss();
@@ -111,7 +169,9 @@ export default class searchBar extends Component {
       );
     });
 
-    const searchIcon = this.state.hideMenu && <Icon navigation={this.props.navigation} />;
+    const searchIcon = this.state.hideMenu && (
+      <Icon navigation={this.props.navigation} />
+    );
 
     /**
      *
@@ -178,10 +238,7 @@ export default class searchBar extends Component {
             blurOnSubmit
           />
         </View>
-        {
-          this.state.showPredictions
-            ? predictions : null
-        }
+        {this.state.showPredictions ? predictions : null}
       </View>
     );
   }
@@ -189,7 +246,11 @@ export default class searchBar extends Component {
 
 const Icon = (props) => {
   return (
-    <TouchableHighlight onPress={() => { return props.navigation.navigate('Menu'); }}>
+    <TouchableHighlight
+      onPress={() => {
+        return props.navigation.navigate('Menu');
+      }}
+    >
       <Image style={styles.burger} source={burger} />
     </TouchableHighlight>
   );
