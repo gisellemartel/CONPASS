@@ -225,6 +225,7 @@ const buildings = [
     address: '7079 Terrebonne',
     latitude: 45.459992,
     longitude: -73.640897,
+    image: require('./images/taBuilding.jpg'),
     polygon: {
       name: 'Terrebonne Building',
       coordinates:
@@ -244,6 +245,7 @@ const buildings = [
     address: '7141 Sherbrooke West',
     latitude: 45.458432,
     longitude: -73.643235,
+    image: require('./images/jrBuilding.jpg'),
     polygon: {
       name: 'Jesuit Residence',
       coordinates:
@@ -268,6 +270,7 @@ const buildings = [
     address: '3500 Bermore Avenue',
     latitude: 45.459819,
     longitude: -73.639152,
+    image: require('./images/bhBuilding.jpg'),
     polygon: {
       name: 'BH Building',
       coordinates:
@@ -286,6 +289,7 @@ const buildings = [
     address: '7141, Sherbrooke W',
     latitude: 45.458513,
     longitude: -73.641921,
+    image: require('./images/huBuilding.jpg'),
     polygon: {
       name: 'HU Building-Applied Science Hub',
       coordinates:
@@ -308,6 +312,7 @@ const buildings = [
     address: '7141 Sherbrooke West',
     latitude: 45.459356,
     longitude: -73.641270,
+    image: require('./images/hbBuilding.jpg'),
     polygon: {
       name: 'Hingston Hall Resisdence',
       coordinates:
@@ -326,6 +331,7 @@ const buildings = [
     address: '7200 Sherbrooke West',
     latitude: 45.457088,
     longitude: -73.637683,
+    image: require('./images/pcBuilding.jpeg'),
     polygon: {
       name: 'Perform Centre',
       coordinates:
@@ -345,6 +351,7 @@ const buildings = [
     address: '7141 Sherbrooke West',
     latitude: 45.459636,
     longitude: -73.639758,
+    image: require('./images/psBuilding.jpg'),
     polygon: {
       name: 'Perform Centre',
       coordinates:
@@ -373,6 +380,7 @@ const buildings = [
     address: '7200 Sherbrooke West',
     latitude: 45.456774,
     longitude: -73.637610,
+    image: require('./images/raBuilding.jpg'),
     polygon: {
       name: 'RA Building',
       coordinates:
@@ -402,6 +410,7 @@ const buildings = [
     ],
     latitude: '45.493484',
     longtitude: '-73.576748',
+    image: require('./images/greyNuns.jpg'),
     polygon: {
       name: 'Grey Nuns',
       coordinates:
