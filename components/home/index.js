@@ -30,7 +30,7 @@ class Home extends Component {
         latitudeDelta: 0.04,
         longitudeDelta: 0.04
       },
-
+      nearbyMarkers: [],
       showDirectionsMenu: false,
       showCampusToggle: false
     };
@@ -133,6 +133,10 @@ class Home extends Component {
     this.updateCoordinates(coordinates);
   }
 
+  getNearbyMarkers=(markers) => {
+    this.setState({ nearbyMarkers: markers });
+  }
+
 
   render() {
     return (
@@ -143,6 +147,7 @@ class Home extends Component {
           polylineVisibility={this.state.showDirectionsMenu}
           getDestinationIfSet={this.getDestinationIfSet}
           updateRegionCloser={this.updateRegionCloser}
+          nearbyMarkers={this.state.nearbyMarkers}
         />
         {!this.state.showDirectionsMenu && (
         <SearchBar
@@ -151,6 +156,7 @@ class Home extends Component {
           updateRegion={this.updateRegion}
           changeVisibilityTo={this.changeVisibilityTo}
           setCampusToggleVisibility={this.setCampusToggleVisibility}
+          nearbyMarkers={this.getNearbyMarkers}
         />
         )}
         {this.state.showCampusToggle && (
