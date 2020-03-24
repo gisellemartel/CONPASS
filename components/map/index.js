@@ -19,11 +19,19 @@ export default class TheMap extends Component {
     this.onRegionChange = this.onRegionChange.bind(this);
   }
 
+  /**
+   * Sets the mapRef when the component is mounted
+   */
   componentDidMount() {
     this.setState({ mapRef: this.mapRef },
       () => { this.fitScreenToPath(this.props.updatedCoordinates); });
   }
 
+  /**
+   *
+   * @param {*} prevProps - props from previous state
+   * Updates view when change detected in props
+   */
   componentDidUpdate(prevProps) {
     const coordinates = this.props.updatedCoordinates;
     if (prevProps.updatedCoordinates !== coordinates) {
@@ -31,10 +39,20 @@ export default class TheMap extends Component {
     }
   }
 
+  /**
+   *
+   * @param {*} newRegion - region to update to on map
+   * Update region on map
+   */
   onRegionChange(newRegion) {
     region = newRegion;
   }
 
+  /**
+   *
+   * @param {*} building - building to be focused on map
+   * focuses on building on map when user taps it's coordinates on the map
+   */
   focusOnBuilding(building) {
     const { coordinates } = building.polygon;
 
@@ -52,6 +70,11 @@ export default class TheMap extends Component {
     }, 500);
   }
 
+  /**
+   *
+   * @param {*} coordinates - coords of where to focus
+   * When user requests outdoor directions, this function will focus on the polyline path
+   */
   fitScreenToPath(coordinates) {
     this.state.mapRef.fitToCoordinates(coordinates, {
       edgePadding: {
