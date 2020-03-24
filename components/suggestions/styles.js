@@ -27,16 +27,17 @@ const styles = StyleSheet.create({
     height: 175,
     width: 300,
     padding: 26,
-    borderRadius: 24,
+    borderRadius: 10,
     bottom: 15,
     position: 'absolute',
   },
   information: {
-    bottom: -95,
+    bottom: -105,
     left: -10,
+    fontSize: 300,
   },
   image: {
-    height: 120,
+    height: 130,
     width: 300,
     position: 'absolute',
     borderRadius: 10
@@ -65,7 +66,8 @@ const styles = StyleSheet.create({
     height: 180,
   },
   name: {
-    color: 'white'
+    color: 'white',
+
   }
 });
 

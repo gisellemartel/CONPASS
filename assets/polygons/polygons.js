@@ -410,7 +410,7 @@ const buildings = [
     ],
     latitude: '45.493484',
     longtitude: '-73.576748',
-    image: [{ image: require('./images/greyNuns.jpg') }],
+    image: [{ image: require('./images/GreyNuns.jpg') }],
     polygon: {
       name: 'Grey Nuns',
       coordinates:
