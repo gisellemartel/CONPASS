@@ -28,6 +28,7 @@ class Home extends Component {
         latitudeDelta: 0.04,
         longitudeDelta: 0.04
       },
+      nearbyMarkers: [],
       isVisible: false,
       // eslint-disable-next-line react/no-unused-state
       isSearchVisible: true,
@@ -63,6 +64,25 @@ class Home extends Component {
       }
     });
   };
+
+  updateRegionCloser = (newRegion) => {
+    this.setState({
+      presetRegion: {
+        latitude: newRegion.latitude,
+        longitude: newRegion.longitude,
+        latitudeDelta: 0.001,
+        longitudeDelta: 0.001
+      }
+    });
+    this.setState({
+      region: {
+        latitude: newRegion.latitude,
+        longitude: newRegion.longitude,
+        latitudeDelta: 0.001,
+        longitudeDelta: 0.001
+      }
+    });
+  }
 
   /**
    * Fetches the currently searched destination in order to automatically populate
@@ -119,11 +139,31 @@ class Home extends Component {
     this.updateCoordinates(coordinates);
   };
 
+  /**
+   * gets marker objects created from the SearchBar component to nearbyMarker state.
+   * Also being passed to the Map component
+   * @param {object} markers - pins of nearby locations.
+   *      markers [{
+   *        id: string,
+   *        title: string,
+   *        description: string,
+   *        coordinates: {
+   *          latitude: number,
+   *           longitude: number
+   *         }
+   *    }]
+   *
+   */
+  getNearbyMarkers=(markers) => {
+    this.setState({ nearbyMarkers: markers });
+  }
+
   updateCurrentBuildingAddress = (childCurrentBuilding) => {
     this.setState({
       currentBuildingAddress: childCurrentBuilding
     });
   };
+
 
   render() {
     return (
@@ -132,16 +172,20 @@ class Home extends Component {
           updatedCoordinates={this.state.coordinates}
           updatedRegion={this.state.presetRegion}
           polylineVisibility={this.state.showDirectionsMenu}
+          getDestinationIfSet={this.getDestinationIfSet}
+          updateRegionCloser={this.updateRegionCloser}
+          nearbyMarkers={this.state.nearbyMarkers}
         />
         {!this.state.showDirectionsMenu && (
-          <SearchBar
-            getDestinationIfSet={this.getDestinationIfSet}
-            navigation={this.props.navigation}
-            updateRegion={this.updateRegion}
-            changeVisibilityTo={this.changeVisibilityTo}
-            setCampusToggleVisibility={this.setCampusToggleVisibility}
-            currentBuildingPred={this.state.currentBuildingAddress}
-          />
+        <SearchBar
+          getDestinationIfSet={this.getDestinationIfSet}
+          navigation={this.props.navigation}
+          updateRegion={this.updateRegion}
+          changeVisibilityTo={this.changeVisibilityTo}
+          setCampusToggleVisibility={this.setCampusToggleVisibility}
+          currentBuildingPred={this.state.currentBuildingAddress}
+          nearbyMarkers={this.getNearbyMarkers}
+        />
         )}
         {this.state.showCampusToggle && (
           <SwitchCampuses
