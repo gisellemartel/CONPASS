@@ -6,7 +6,6 @@ class CustomPolygon extends Component {
    * function focuses on building when selected on map
    */
   zoomBuilding() {
-    console.log('click');
     const { building } = this.props;
     this.props.focusOnBuilding(building);
   }

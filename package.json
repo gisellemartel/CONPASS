@@ -12,6 +12,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "@dudigital/react-native-zoomable-view": "^1.0.15",
     "@expo/vector-icons": "^10.0.6",
     "@dudigital/react-native-zoomable-view": "^1.0.15",
     "@react-native-community/masked-view": "0.1.5",
@@ -52,6 +53,7 @@
     "react-native-svg": "^9.13.3",
     "react-native-web": "~0.11.7",
     "react-redux": "^7.2.0",
+    "svg-parser": "^2.0.4",
     "react-test-renderer": "^16.13.0",
     "redux": "^4.0.5",
     "svg-parser": "^2.0.4"

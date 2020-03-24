@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unused-state */
 import React, { Component } from 'react';
 import { View } from 'react-native';
 import TheMap from '../map';
@@ -7,10 +6,9 @@ import Location from '../location';
 import SwitchCampuses from '../switchCampuses';
 import SetPath from '../setPath';
 import Addresses from '../addresses';
-import styles from './styles';
-import WithinBuilding from '../withinBuilding';
 import Building from '../map/building/index';
 import generateBuilding from '../../assets/svgReactNative/buildingRepository';
+import styles from './styles';
 
 
 class Home extends Component {
@@ -32,19 +30,19 @@ class Home extends Component {
         latitudeDelta: 0.04,
         longitudeDelta: 0.04
       },
+      interiorMode: false,
       nearbyMarkers: [],
       isVisible: false,
       // eslint-disable-next-line react/no-unused-state
       isSearchVisible: true,
       isGoVisible: false,
       isSwitchAvailableIndestination: true,
+
       // current Concordia a user is in
       currentBuildingAddress: '',
 
       showDirectionsMenu: false,
       showCampusToggle: false
-      isVisible: true,
-      interiorMode: false,
     };
     this.interiorModeOn = this.interiorModeOn.bind(this);
     this.interiorModeOff = this.interiorModeOff.bind(this);
@@ -167,16 +165,11 @@ class Home extends Component {
     this.setState({ nearbyMarkers: markers });
   }
 
-  /**
-   *
-   * @param {*} data
-   */
-  getPolylinePoint = (data) => {
+  updateCurrentBuildingAddress = (childCurrentBuilding) => {
     this.setState({
       currentBuildingAddress: childCurrentBuilding
     });
   };
-
 
   /**
    *
@@ -210,15 +203,15 @@ class Home extends Component {
         {/* zIndex=1 */}
         <TheMap
           updatedCoordinates={this.state.coordinates}
+          encryptedLine={this.state.encryptedLine}
+          interiorModeOn={this.interiorModeOn}
           updatedRegion={this.state.presetRegion}
           polylineVisibility={this.state.showDirectionsMenu}
           getDestinationIfSet={this.getDestinationIfSet}
           updateRegionCloser={this.updateRegionCloser}
           nearbyMarkers={this.state.nearbyMarkers}
-          encryptedLine={this.state.encryptedLine}
-          interiorModeOn={this.interiorModeOn}
         />
-        {(!this.showDirectionsMenu &&
+        {!this.state.showDirectionsMenu && (
         <SearchBar
           getDestinationIfSet={this.getDestinationIfSet}
           navigation={this.props.navigation}
@@ -254,9 +247,6 @@ class Home extends Component {
             currentBuildingPred={this.state.currentBuildingAddress}
           />
         )}
-        {this.state.interiorMode && <Building />}
-        {/* zIndex=2 */}
-
         {/* Building component contains all the interior floor views */}
         {this.state.interiorMode
         && (
