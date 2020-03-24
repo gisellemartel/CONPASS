@@ -8,26 +8,15 @@ import styles from './styles';
 import CloseButton from './closeButton';
 
 class Suggestions extends Component {
-      buildingName = () => {
-        return (`${this.props.suggestion.buildingName} `);
-      }
+    buildingName = () => {
+      return (`${this.props.suggestion.buildingName} `);
+    }
 
-      tunnelAccessiblity = () => {
-        if (this.props.suggestion.tunnelAccessiblity === true) {
-          return ('Tunnel is accessible');
-        }
-        return ('Tunnel is not accessible');
-      }
+    address = () => {
+      return (`${this.props.suggestion.address}`);
+    }
 
-      address = () => {
-        return (`Address: ${this.props.suggestion.address}`);
-      }
-
-      passDirections = (id) => {
-        this.props.getDirections(id);
-      }
-
-    _renderItem = ({ item }) => {
+    renderItem = ({ item }) => {
       if (item.opening) {
         return (
           <View style={styles.slide}>
@@ -44,13 +33,17 @@ class Suggestions extends Component {
       );
     };
 
-
     render() {
-      const contentTemp = this.props.suggestion.placesToGo ? this.props.suggestion.placesToGo : this.props.suggestion.image;
-      const content = contentTemp ? contentTemp : [];
+      const contentTemp = this.props.suggestion.placesToGo || this.props.suggestion.image;
+      const content = contentTemp || [];
+      const tunnelAccessiblity = this.props.suggestion.tunnelAccessiblity ? 'Tunnel is accessible' : 'Tunnel is not accessible';
+
       return (
         <View style={styles.container}>
-          <CloseButton changeSuggestionVisibility={this.props.changeSuggestionVisibility} style={styles.button} />
+          <CloseButton
+            changeSuggestionVisibility={this.props.changeSuggestionVisibility}
+            style={styles.button}
+          />
           <View style={styles.accessiblity}>
             <Icon accessiblity={this.props.suggestion.accessiblity} />
           </View>
@@ -61,13 +54,13 @@ class Suggestions extends Component {
               {this.props.suggestion.building}
               )
             </Text>
-            <Text style={styles.tunnelAccessiblity}>{this.tunnelAccessiblity()}</Text>
+            <Text style={styles.tunnelAccessiblity}>{tunnelAccessiblity}</Text>
             <Text style={styles.address}>{this.address()}</Text>
           </View>
           <Carousel
             data={content}
             extraData={content}
-            renderItem={this._renderItem}
+            renderItem={this.renderItem}
             keyExtractor={(item) => { return item.id; }}
             horizontal
             itemWidth={300}
