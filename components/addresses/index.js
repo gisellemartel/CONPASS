@@ -1,6 +1,6 @@
 /* eslint-disable react/no-unused-state */
 import React, { Component } from 'react';
-import { View, TouchableHighlightBase } from 'react-native';
+import { View } from 'react-native';
 import SearchBar from '../searchBar';
 import SearchBarDestination from '../searchBarDestination';
 import BackButton from './backButton';
@@ -64,7 +64,7 @@ export default class Addresses extends Component {
  * updates mode of transportation
  * @param {string} mode - Mode of transport: driving, bicycling, transit or walking
  */
-    updateMode = (mode, prevState) => {
+    updateMode = (mode) => {
       this.setState({
         mode,
       });
