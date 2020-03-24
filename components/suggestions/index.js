@@ -71,7 +71,8 @@ class Suggestions extends Component {
             keyExtractor={(item) => { return item.id; }}
             horizontal
             itemWidth={300}
-            sliderWidth={373}
+            sliderWidth={375}
+            window
             containerCustomStyle={styles.carousel}
           />
         </View>

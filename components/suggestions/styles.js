@@ -3,19 +3,20 @@ import { StyleSheet } from 'react-native';
 const styles = StyleSheet.create({
   container: {
     backgroundColor: 'white',
-    bottom: -9,
-    width: '90%',
-    borderTopLeftRadius: 5,
-    borderTopRightRadius: 5,
+    bottom: 0,
+    width: '95%',
+    borderRadius: 10,
     margin: 0,
     height: 270,
     position: 'absolute',
     borderWidth: 1
   },
   carousel: {
+    bottom: -10,
     marginBottom: 15,
     borderRadius: 5,
-    right: 1,
+    left: 6,
+    height: '100%',
   },
   accessiblity: {
     position: 'absolute',
@@ -28,7 +29,7 @@ const styles = StyleSheet.create({
     width: 300,
     padding: 26,
     borderRadius: 10,
-    bottom: 15,
+    bottom: 0,
     position: 'absolute',
   },
   information: {
