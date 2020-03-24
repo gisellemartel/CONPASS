@@ -9,7 +9,7 @@ import {
   TouchableHighlight,
   Image
 } from 'react-native';
-import { SearchBar } from 'react-native-elements';
+import { SearchBar, Tooltip } from 'react-native-elements';
 import i18n from 'i18n-js';
 import styles from './styles';
 import SetLocaleContext from '../../localization-context';
@@ -96,6 +96,66 @@ export default class searchBar extends Component {
       return await result.json();
     } catch (err) {
       console.error(err);
+    }
+  }
+
+  /**
+   * Retreives location points (lat, lg) of places around SGW or LOY
+   * depending on what the user searches for
+   * @param {string} value - Value of whatever is inputed into the search bar
+   */
+  async getNearbyPlaces(value) {
+    if (value.toLowerCase().includes('near sgw') || value.toLowerCase().includes('near loy')) {
+      const formattedVal = value.substring(0, value.indexOf('near')).trim().replace(' ', '+');
+      if (value.toLowerCase().includes('sgw')) {
+        this.setState({
+          region: {
+            latitude: 45.492409,
+            longitude: -73.582153,
+            latitudeDelta: 0.05,
+            longitudeDelta: 0.05
+          }
+        }, () => { this.setNearbyPlaces(formattedVal); });
+      } else { // 'Loy' case
+        this.setState({
+          region: {
+            latitude: 45.458295,
+            longitude: -73.640353,
+            latitudeDelta: 0.05,
+            longitudeDelta: 0.05
+          }
+        }, () => { this.setNearbyPlaces(formattedVal); });
+      }
+    }
+  }
+
+  /**
+   * Sets marker points (lat, lg) of places around SGW or LOY
+   * that correspond to what user is searching for
+   * @param {string} formattedVal - Amenity that user is looking for
+   */
+  async setNearbyPlaces(formattedVal) {
+    const markers = [];
+    const key = 'AIzaSyCqNODizSqMIWbKbO8Iq3VWdBcK846n_3w';
+    const url = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=${formattedVal}&location=${this.state.region.latitude},${this.state.region.longitude}&radius=2&key=${key}`;
+    const georesult = await fetch(url);
+    const gjson = await georesult.json();
+    // pushing object to the markers. This is what is passed in the props
+    gjson.results.map((result) => {
+      return (markers.push({
+        id: result.id,
+        title: result.name,
+        description: result.formatted_address,
+        coordinates: {
+          latitude: result.geometry.location.lat,
+          longitude: result.geometry.location.lng
+        }
+      }));
+    });
+    if (markers.length > 0) {
+      // Updating the view
+      this.props.updateRegion(this.state.region);
+      this.props.nearbyMarkers(markers);
     }
   }
 
@@ -189,6 +249,9 @@ export default class searchBar extends Component {
      */
     const onClear = () => {
       this.setState({ showPredictions: true });
+
+      // Clear markers on the map
+      if (this.props.nearbyMarkers) { this.props.nearbyMarkers([]); }
     };
 
     /**
@@ -199,6 +262,8 @@ export default class searchBar extends Component {
       if (this.props.setCampusToggleVisibility) {
         this.props.setCampusToggleVisibility(true);
       }
+      // Clear markers on the map
+      if (this.props.nearbyMarkers) { this.props.nearbyMarkers([]); }
     };
 
     /**
@@ -217,26 +282,48 @@ export default class searchBar extends Component {
       justifyContent: 'center'
     };
 
+
     return (
       <View style={styles.container}>
         <View>
-          <SearchBar
-            platform="android"
-            autoCorrect={false}
-            padding={5}
-            returnKeyType="search"
-            lightTheme
-            containerStyle={containerStyle}
-            searchIcon={!this.props.hideMenu && searchIcon}
-            placeholder={placeholder}
-            onChangeText={onChangeText}
-            value={this.state.destination}
-            style={styles.SearchBar}
-            onClear={onClear}
-            onTouchStart={onTouchStart}
-            onBlur={onBlur}
-            blurOnSubmit
-          />
+          <Tooltip
+            backgroundColor="#b5e3e6"
+            height={100}
+            popover={(
+              <Text>
+                Include
+                <Text style={{ fontWeight: 'bold' }}> &quot;near LOY&quot;</Text>
+                {' '}
+                or
+                <Text style={{ fontWeight: 'bold' }}> &quot;near SGW&quot;</Text>
+                {' '}
+                to find places around campus!
+              </Text>
+            )}
+          >
+            <SearchBar
+              platform="android"
+              autoCorrect={false}
+              padding={5}
+              returnKeyType="search"
+              onSubmitEditing={async () => {
+                await this.getNearbyPlaces(this.state.destination);
+                this.setState({ showPredictions: false });
+              }}
+              lightTheme
+              containerStyle={containerStyle}
+              searchIcon={!this.props.hideMenu && searchIcon}
+              placeholder={placeholder}
+              onChangeText={onChangeText}
+              value={this.state.destination}
+              style={styles.SearchBar}
+              onClear={onClear}
+              onTouchStart={onTouchStart}
+              onBlur={onBlur}
+              blurOnSubmit
+            />
+          </Tooltip>
+
         </View>
         {this.state.showPredictions ? predictions : null}
       </View>
