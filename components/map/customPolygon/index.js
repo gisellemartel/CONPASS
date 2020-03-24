@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { Polygon } from 'react-native-maps';
 
 class CustomPolygon extends Component {
+  /**
+   * function focuses on building when selected on map
+   */
   zoomBuilding() {
     console.log('click');
     const { building } = this.props;
