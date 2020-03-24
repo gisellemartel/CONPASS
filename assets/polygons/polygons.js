@@ -695,6 +695,7 @@ const buildings = [
     address: '1400 DeMaisonneuve W',
     latitude: 45.497050,
     longtitude: -73.578009,
+    tunnelAccessiblity: true,
     image: [{ image: require('./images/lbBuilding.jpg') }],
     polygon: {
       name: 'Webster Library Building',
@@ -746,6 +747,7 @@ const buildings = [
       'Mechanical, Industrial and Aerospace Engineering (MIAE)'],
     latitude: 45.495376,
     longtitude: -73.577997,
+    accessiblity: true,
     image: [{ image: require('./images/ev-building.jpg') }],
     polygon: {
       name: 'Engineering, Computer Science and Visual Arts Inte',
@@ -895,7 +897,7 @@ const buildings = [
     address: '2070 Mackay Street',
     latitude: 45.496944,
     longtitude: -73.579555,
-    image: [{ image: require('./images/enBuilding.png')}],
+    image: [{ image: require('./images/enBuilding.png') }],
     polygon: {
       name: 'D Annex',
       coordinates:
