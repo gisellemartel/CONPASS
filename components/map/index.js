@@ -105,6 +105,7 @@ export default class TheMap extends Component {
           })}
 
           {
+            // Add different colored marker at location if nothing is nearby
             this.props.nearbyMarkers.length > 0
               ? this.props.nearbyMarkers.map((marker) => {
                 return (
