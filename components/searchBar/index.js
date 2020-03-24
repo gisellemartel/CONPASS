@@ -105,11 +105,8 @@ export default class searchBar extends Component {
    * @param {string} value - Value of whatever is inputed into the search bar
    */
   async getNearbyPlaces(value) {
-    const markers = [];
     if (value.toLowerCase().includes('near sgw') || value.toLowerCase().includes('near loy')) {
       const formattedVal = value.substring(0, value.indexOf('near')).trim().replace(' ', '+');
-      const key = 'AIzaSyCqNODizSqMIWbKbO8Iq3VWdBcK846n_3w';
-      let url;
       if (value.toLowerCase().includes('sgw')) {
         this.setState({
           region: {
@@ -118,9 +115,8 @@ export default class searchBar extends Component {
             latitudeDelta: 0.05,
             longitudeDelta: 0.05
           }
-        });
-        url = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=${formattedVal}&location=45.492409,-73.582153&radius=2&key=${key}`;
-      } else if (value.toLowerCase().includes('loy')) {
+        }, () => { this.setNearbyPlaces(formattedVal); });
+      } else { // 'Loy' case
         this.setState({
           region: {
             latitude: 45.458295,
@@ -128,31 +124,40 @@ export default class searchBar extends Component {
             latitudeDelta: 0.05,
             longitudeDelta: 0.05
           }
-        });
-        url = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=${formattedVal}&location=45.458295,-73.640353&radius=2&key=${key}`;
+        }, () => { this.setNearbyPlaces(formattedVal); });
       }
-      const georesult = await fetch(url);
-      const gjson = await georesult.json();
-      // pushing object to the markers. This is what is passed in the props
-      gjson.results.map((result) => {
-        return (markers.push({
-          id: result.id,
-          title: result.name,
-          description: result.formatted_address,
-          coordinates: {
-            latitude: result.geometry.location.lat,
-            longitude: result.geometry.location.lng
-          }
-        }));
-      });
     }
+  }
+
+  /**
+   * Sets marker points (lat, lg) of places around SGW or LOY
+   * that correspond to what user is searching for
+   * @param {string} formattedVal - Amenity that user is looking for
+   */
+  async setNearbyPlaces(formattedVal) {
+    const markers = [];
+    const key = 'AIzaSyCqNODizSqMIWbKbO8Iq3VWdBcK846n_3w';
+    url = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=${formattedVal}&location=${this.state.region.latitude},${this.state.region.longitude}&radius=2&key=${key}`;
+    const georesult = await fetch(url);
+    const gjson = await georesult.json();
+    // pushing object to the markers. This is what is passed in the props
+    gjson.results.map((result) => {
+      return (markers.push({
+        id: result.id,
+        title: result.name,
+        description: result.formatted_address,
+        coordinates: {
+          latitude: result.geometry.location.lat,
+          longitude: result.geometry.location.lng
+        }
+      }));
+    });
     if (markers.length > 0) {
       // Updating the view
       this.props.updateRegion(this.state.region);
       this.props.nearbyMarkers(markers);
     }
   }
-
 
   /**
    * Gets the latitude and longitude of a chosen prediction.
