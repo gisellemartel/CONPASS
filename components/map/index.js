@@ -142,11 +142,13 @@ export default class TheMap extends Component {
           style={styles.mapStyle}
           onPoiClick={this.selectPoi}
         >
+          {this.props.polylineVisibility && (
           <Polyline
             coordinates={this.props.updatedCoordinates ? this.props.updatedCoordinates : []}
             strokeWidth={4}
             strokeColor="black"
           />
+          )}
           {buildingFocus}
           {
             // Add different colored marker at location if nothing is nearby
