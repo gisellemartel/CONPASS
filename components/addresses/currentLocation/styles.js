@@ -6,11 +6,12 @@ const styles = StyleSheet.create({
     left: 58,
     top: 10,
     position: 'absolute',
-    zIndex: 2,
+    zIndex: 201,
   },
   currentLocation: {
     width: 19,
     resizeMode: 'contain',
+    zIndex: 201,
   }
 
 });

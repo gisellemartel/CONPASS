@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unused-state */
 import React, { Component } from 'react';
 import { View } from 'react-native';
 import TheMap from '../map';
@@ -32,11 +31,6 @@ class Home extends Component {
       },
       interiorMode: false,
       nearbyMarkers: [],
-      isVisible: false,
-      // eslint-disable-next-line react/no-unused-state
-      isSearchVisible: true,
-      isGoVisible: false,
-      isSwitchAvailableIndestination: true,
       // current Concordia a user is in
       currentBuildingAddress: '',
 
@@ -238,7 +232,6 @@ class Home extends Component {
           interiorModeOff={this.interiorModeOff}
         />
         )}
-        <Location updateRegion={this.updateRegion} />
         <SetPath
           changeVisibilityTo={this.changeVisibilityTo}
           newValue={this.state.value}

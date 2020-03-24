@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
     bottom: 100,
     right: 10,
     position: 'absolute',
-
+    zIndex: 200,
   },
   location: {
     width: 50,

@@ -12,11 +12,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#9CD3D7',
   },
   container: {
-
     bottom: 40,
     right: 10,
     position: 'absolute',
-
+    zIndex: 201,
   },
   directions: {
     width: 50,
