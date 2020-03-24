@@ -137,7 +137,7 @@ export default class searchBar extends Component {
   async setNearbyPlaces(formattedVal) {
     const markers = [];
     const key = 'AIzaSyCqNODizSqMIWbKbO8Iq3VWdBcK846n_3w';
-    url = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=${formattedVal}&location=${this.state.region.latitude},${this.state.region.longitude}&radius=2&key=${key}`;
+    const url = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=${formattedVal}&location=${this.state.region.latitude},${this.state.region.longitude}&radius=2&key=${key}`;
     const georesult = await fetch(url);
     const gjson = await georesult.json();
     // pushing object to the markers. This is what is passed in the props
@@ -251,7 +251,7 @@ export default class searchBar extends Component {
       this.setState({ showPredictions: true });
 
       // Clear markers on the map
-      this.props.nearbyMarkers([]);
+      if (this.props.nearbyMarkers) { this.props.nearbyMarkers([]); }
     };
 
     /**
@@ -263,7 +263,7 @@ export default class searchBar extends Component {
         this.props.setCampusToggleVisibility(true);
       }
       // Clear markers on the map
-      this.props.nearbyMarkers([]);
+      if (this.props.nearbyMarkers) { this.props.nearbyMarkers([]); }
     };
 
     /**
