@@ -38,8 +38,8 @@ export default class searchBarDestination extends Component {
     }
   }
 
-  componentDidUpdate(prevProps) {
-    if (prevProps.drawPath !== this.props.drawPath) {
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.drawPath !== this.props.drawPath || prevProps.getMode !== this.props.getMode) {
       this.drawPath();
     }
   }
@@ -109,7 +109,8 @@ export default class searchBarDestination extends Component {
       const originLong = this.props.updatedRegion.longitude === 0 ? urLongitude : this.props.updatedRegion.longitude;
       const destinationLat = this.state.destinationRegion.latitude;
       const destinationLong = this.state.destinationRegion.longitude;
-      const directionUrl = `https://maps.googleapis.com/maps/api/directions/json?key=${key}&origin=${originLat},${originLong}&destination=${destinationLat},${destinationLong}`;
+      const mode = this.props.getMode;
+      const directionUrl = `https://maps.googleapis.com/maps/api/directions/json?key=${key}&origin=${originLat},${originLong}&destination=${destinationLat},${destinationLong}&mode=${mode}`;
       const result = await fetch(directionUrl);
       const json = await result.json();
       const encryptedPath = json.routes[0].overview_polyline.points;
