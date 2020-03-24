@@ -115,16 +115,19 @@ export default class searchBarDestination extends Component {
       const directionUrl = `https://maps.googleapis.com/maps/api/directions/json?key=${key}&origin=${originLat},${originLong}&destination=${destinationLat},${destinationLong}&mode=${mode}`;
       const result = await fetch(directionUrl);
       const json = await result.json();
-      const encryptedPath = json.routes[0].overview_polyline.points;
-      const rawPolylinePoints = decodePolyline(encryptedPath);
-      // Incompatible field names for direct decode. Need to do a trivial conversion.
-      const waypoints = rawPolylinePoints.map((point) => {
-        return {
-          latitude: point.lat,
-          longitude: point.lng
-        };
-      });
-      this.props.coordinateCallback(waypoints);
+      // eslint-disable-next-line camelcase
+      const encryptedPath = json.routes[0]?.overview_polyline.points;
+      if (encryptedPath) {
+        const rawPolylinePoints = decodePolyline(encryptedPath);
+        // Incompatible field names for direct decode. Need to do a trivial conversion.
+        const waypoints = rawPolylinePoints.map((point) => {
+          return {
+            latitude: point.lat,
+            longitude: point.lng
+          };
+        });
+        this.props.coordinateCallback(waypoints);
+      }
     } catch (err) {
       console.error(err);
     }
