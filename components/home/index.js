@@ -1,32 +1,32 @@
-/* eslint-disable react/no-unused-state */
-import React, { Component } from 'react';
-import { View } from 'react-native';
-import TheMap from '../map';
-import SearchBar from '../searchBar';
-import Location from '../location';
-import SwitchCampuses from '../switchCampuses';
-import Suggestions from '../suggestions';
+import React, { Component } from "react";
+import { View } from "react-native";
+import TheMap from "../map";
+import SearchBar from "../searchBar";
+import Location from "../location";
+import SwitchCampuses from "../switchCampuses";
+import Suggestions from "../suggestions";
 // TODO: uncomment once #93 is merged
 // import WithinBuilding from '../withinBuilding';
-import SetPath from '../setPath';
-import Addresses from '../addresses';
-import styles from './styles';
-
+import SetPath from "../setPath";
+import Addresses from "../addresses";
+import Building from "../map/building/index";
+import generateBuilding from "../../assets/svgReactNative/buildingRepository";
+import styles from "./styles";
 
 class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
       // Set Initial region of the map
-      directionsId: '',
+      directionsId: "",
       suggestion: {},
-      value: '',
+      value: "",
       coordinates: [],
       region: {
-        latitude: '',
-        longitude: '',
-        latitudeDelta: '',
-        longitudeDelta: ''
+        latitude: "",
+        longitude: "",
+        latitudeDelta: "",
+        longitudeDelta: ""
       },
       presetRegion: {
         latitude: 45.492408,
@@ -34,20 +34,27 @@ class Home extends Component {
         latitudeDelta: 0.04,
         longitudeDelta: 0.04
       },
-      isVisible: true,
       interiorMode: false,
+      nearbyMarkers: [],
+      isVisible: false,
+      // eslint-disable-next-line react/no-unused-state
+      isSearchVisible: true,
+      isGoVisible: false,
+      isSwitchAvailableIndestination: true,
+
+      // current Concordia a user is in
+      currentBuildingAddress: "",
+
       showDirectionsMenu: false,
-      showCampusToggle: false,
-      showSuggestionsList: false
+      showCampusToggle: false
     };
   }
 
-
   /**
-  * updates region and passes the new region 'map' component.
-  * @param {object} newRegion - New region to be passed.
-  */
-  updateRegion = (newRegion) => {
+   * updates region and passes the new region 'map' component.
+   * @param {object} newRegion - New region to be passed.
+   */
+  updateRegion = newRegion => {
     this.setState({
       presetRegion: {
         latitude: newRegion.latitude,
@@ -62,6 +69,25 @@ class Home extends Component {
         longitude: newRegion.longitude,
         latitudeDelta: 0.05,
         longitudeDelta: 0.05
+      }
+    });
+  };
+
+  updateRegionCloser = newRegion => {
+    this.setState({
+      presetRegion: {
+        latitude: newRegion.latitude,
+        longitude: newRegion.longitude,
+        latitudeDelta: 0.001,
+        longitudeDelta: 0.001
+      }
+    });
+    this.setState({
+      region: {
+        latitude: newRegion.latitude,
+        longitude: newRegion.longitude,
+        latitudeDelta: 0.001,
+        longitudeDelta: 0.001
       }
     });
   };
@@ -71,15 +97,15 @@ class Home extends Component {
    * destination option in directions mode
    * @param {object} destination - current selected destination
    */
-  getDestinationIfSet = (destination) => {
+  getDestinationIfSet = destination => {
     this.setState({ destinationToGo: destination });
-  }
+  };
 
   /**
    * Changes visibility of directions search menus depending on context
    * @param {*} showDirectionsMenu - desired visibility boolean
    */
-  changeVisibilityTo = (showDirectionsMenu) => {
+  changeVisibilityTo = showDirectionsMenu => {
     this.setState({
       showDirectionsMenu
     });
@@ -89,57 +115,107 @@ class Home extends Component {
    * Changes visibility of campus toggle when search bar is focused/blurred
    * @param {*} showCampusToggle - desired visibility boolean
    */
-  setCampusToggleVisibility = (showCampusToggle) => {
+  setCampusToggleVisibility = showCampusToggle => {
     this.setState({
       showCampusToggle
     });
-  }
+  };
 
   /**
-  * updates coordinates and passes new coordinates 'Map' component.
-  * @param {object} newCoordinates - New coordinates to be passed.
-  */
-  updateCoordinates = (newCoordinates) => {
+   * updates coordinates and passes new coordinates 'Map' component.
+   * @param {object} newCoordinates - New coordinates to be passed.
+   */
+  updateCoordinates = newCoordinates => {
     this.setState({
       coordinates: newCoordinates
     });
   };
 
   /**
-  * gets new region from 'Addresses' component and updates region state
-  * @param {object} region - New region to be passed.
-  */
-  getRegionFromAddresses=(region) => {
+   * gets new region from 'Addresses' component and updates region state
+   * @param {object} region - New region to be passed.
+   */
+  getRegionFromAddresses = region => {
     this.updateRegion(region);
   };
 
   /**
-  * gets new coordinates from 'Addresses' component and updates coordinates state
-  * @param {object} coordinates - New coordinates to be passed.
-  */
-  getCoordinatesFromAddresses=(coordinates) => {
+   * gets new coordinates from 'Addresses' component and updates coordinates state
+   * @param {object} coordinates - New coordinates to be passed.
+   */
+  getCoordinatesFromAddresses = coordinates => {
     this.updateCoordinates(coordinates);
-  }
+  };
 
+  /**
+   * gets marker objects created from the SearchBar component to nearbyMarker state.
+   * Also being passed to the Map component
+   * @param {object} markers - pins of nearby locations.
+   *      markers [{
+   *        id: string,
+   *        title: string,
+   *        description: string,
+   *        coordinates: {
+   *          latitude: number,
+   *           longitude: number
+   *         }
+   *    }]
+   *
+   */
+  getNearbyMarkers = markers => {
+    this.setState({ nearbyMarkers: markers });
+  };
 
-  getSuggestions = (suggestion) => {
+  getSuggestions = suggestion => {
     this.setState({
       suggestion,
       showSuggestionsList: true
     });
-  }
+  };
 
-  setDirections = (id) => {
+  setDirections = id => {
     this.setState({
       directionsId: id,
       showDirectionsMenu: true,
       showSuggestionsList: false
     });
-  }
+  };
 
   setSuggestionVisibility = () => {
     this.setState({
       showSuggestionsList: false
+    });
+  };
+
+  updateCurrentBuildingAddress = childCurrentBuilding => {
+    this.setState({
+      currentBuildingAddress: childCurrentBuilding
+    });
+  };
+
+  /**
+   *
+   * @param {*} building
+   * @param {*} region
+   * Activates interior mode when building is clicked on
+   * Uses the building data to render floors
+   */
+  interiorModeOn(building, region) {
+    this.setState({
+      region,
+      interiorMode: true,
+      building
+    });
+  }
+
+  /**
+   *
+   * Deactivates interior mode to return to outdoor map view
+   */
+  interiorModeOff() {
+    this.setState({
+      interiorMode: false,
+      building: null
     });
   }
 
@@ -149,48 +225,75 @@ class Home extends Component {
         <TheMap
           updatedCoordinates={this.state.coordinates}
           getSuggestions={this.getSuggestions}
+          encryptedLine={this.state.encryptedLine}
+          interiorModeOn={this.interiorModeOn}
           updatedRegion={this.state.presetRegion}
           polylineVisibility={this.state.showDirectionsMenu}
+          getDestinationIfSet={this.getDestinationIfSet}
+          updateRegionCloser={this.updateRegionCloser}
+          nearbyMarkers={this.state.nearbyMarkers}
         />
         {!this.state.showDirectionsMenu && (
-        <SearchBar
-          getDestinationIfSet={this.getDestinationIfSet}
-          navigation={this.props.navigation}
-          updateRegion={this.updateRegion}
-          changeVisibilityTo={this.changeVisibilityTo}
-          setCampusToggleVisibility={this.setCampusToggleVisibility}
-        />
+          <SearchBar
+            getDestinationIfSet={this.getDestinationIfSet}
+            navigation={this.props.navigation}
+            updateRegion={this.updateRegion}
+            changeVisibilityTo={this.changeVisibilityTo}
+            setCampusToggleVisibility={this.setCampusToggleVisibility}
+            currentBuildingPred={this.state.currentBuildingAddress}
+            nearbyMarkers={this.getNearbyMarkers}
+          />
         )}
         {this.state.showCampusToggle && (
-        <SwitchCampuses
-          updateRegion={this.updateRegion}
-          visiblityState={!this.state.showDirectionsMenu}
-        />
+          <SwitchCampuses
+            updateRegion={this.updateRegion}
+            visiblityState={!this.state.showDirectionsMenu}
+          />
         )}
+        <Location
+          updateRegion={this.updateRegion}
+          updateCurrentBuildingCallBack={this.updateCurrentBuildingAddress}
+        />
         <Location updateRegion={this.updateRegion} />
         <SetPath
           changeVisibilityTo={this.changeVisibilityTo}
           newValue={this.state.value}
         />
-        {this.state.showDirectionsMenu
-        && (
-        <Addresses
-          getDestinationIfSet={this.state.destinationToGo}
-          getRegion={this.getRegionFromAddresses}
-          getRegionFromSearch={this.state.region}
-          getCoordinates={this.getCoordinatesFromAddresses}
-          changeVisibilityTo={this.changeVisibilityTo}
-          navigation={this.props.navigation}
-          directionsId={this.state.directionsId}
-        />
+        {this.state.showDirectionsMenu && (
+          <Addresses
+            getDestinationIfSet={this.state.destinationToGo}
+            getRegion={this.getRegionFromAddresses}
+            getRegionFromSearch={this.state.region}
+            getCoordinates={this.getCoordinatesFromAddresses}
+            changeVisibilityTo={this.changeVisibilityTo}
+            navigation={this.props.navigation}
+            currentBuildingPred={this.state.currentBuildingAddress}
+          />
+        )}
+        {/* Building component contains all the interior floor views */}
+        {this.state.interiorMode && (
+          <Addresses
+            getDestinationIfSet={this.state.destinationToGo}
+            getRegion={this.getRegionFromAddresses}
+            getRegionFromSearch={this.state.region}
+            getCoordinates={this.getCoordinatesFromAddresses}
+            changeVisibilityTo={this.changeVisibilityTo}
+            navigation={this.props.navigation}
+            directionsId={this.state.directionsId}
+          />
         )}
         {this.state.showSuggestionsList && (
-        <Suggestions
-          changeSuggestionVisibility={this.setSuggestionVisibility}
-          getDirections={this.setDirections}
-          suggestion={this.state.suggestion}
-        />
+          <Suggestions
+            changeSuggestionVisibility={this.setSuggestionVisibility}
+            getDirections={this.setDirections}
+            suggestion={this.state.suggestion}
+          />
         )}
+        <Building
+          building={this.state.building}
+          buildingFloorPlans={generateBuilding(this.state.building.building)}
+          interiorModeOff={this.interiorModeOff}
+        />
       </View>
     );
   }

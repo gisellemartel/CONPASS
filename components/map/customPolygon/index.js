@@ -1,8 +1,11 @@
-import React, { Component } from 'react';
-import { Polygon } from 'react-native-maps';
+import React, { Component } from "react";
+import { Polygon } from "react-native-maps";
 
 class CustomPolygon extends Component {
-  getBuildingInformation() {
+  /**
+   * function focuses on building when selected on map
+   */
+  zoomBuilding() {
     const { building } = this.props;
     this.props.getBuildingInformation(building);
   }

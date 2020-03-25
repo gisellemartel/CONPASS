@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
-    zIndex: 2,
+    zIndex: 300,
     flex: 1,
     justifyContent: 'center',
     top: 0,
@@ -15,18 +15,19 @@ const styles = StyleSheet.create({
   },
 
   buildingContainer: {
-    width: 300,
-    height: 300,
     justifyContent: 'center',
     alignItems: 'center',
-    position: 'absolute'
+    position: 'absolute',
+    zIndex: 300
   },
 
   quitButton: {
     left: 0,
     top: 100,
+    marginTop: 225,
     flex: 1,
-    height: 20
+    height: 20,
+    fontSize: 20
   },
   switcher: {
     display: 'flex',
@@ -35,11 +36,11 @@ const styles = StyleSheet.create({
     bottom: 100,
   },
   lvl: {
+    marginBottom: 175,
     padding: 10,
-    backgroundColor: 'cyan',
-    zIndex:7,
-    borderColor: 'black',
-    borderWidth: 2,
+    backgroundColor: '#FFE8D2',
+    borderColor: '#9CD3D7',
+    borderWidth: 3,
     borderStyle: 'solid'
   }
 });

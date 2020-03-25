@@ -6,7 +6,7 @@ import styles from './styles';
 import directions from './directions.png';
 
 
-export default class setPath extends Component {
+export default class SetPath extends Component {
   render() {
     return (
       <View style={styles.container}>
