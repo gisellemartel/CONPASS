@@ -159,7 +159,11 @@ const buildings = [
     buildingName: 'Communication Studies and Journalism Building',
     placesToGo: [
       {
-        name: 'CJ Café', id: '1', placeID: 'ChIJJ4gBMS4XyUwR5Cxm6Yq7mhc', opening: ['8:00 am', '9:30 pm'], image: require('./images/CjCafe.jpg')
+        name: 'CJ Café',
+        id: '1',
+        placeID: 'ChIJJ4gBMS4XyUwR5Cxm6Yq7mhc',
+        opening: ['8:00 am', '9:30 pm'],
+        image: require('./images/CjCafe.jpg')
       }
     ],
     address: '7141 Sherbrooke West',
@@ -306,7 +310,11 @@ const buildings = [
     building: 'HB',
     buildingName: 'Hingston Hall Resisdence',
     placesToGo: [{
-      name: 'Hingston Café', id: '2', placeID: 'ChIJJ4gBMS4XyUwR5Cxm6Yq7mhc', opening: ['8:00 am', '9:30 pm'], image: require('./images/HingstonCafe.jpg')
+      name: 'Hingston Café',
+      id: '2',
+      placeID: 'ChIJJ4gBMS4XyUwR5Cxm6Yq7mhc',
+      opening: ['8:00 am', '9:30 pm'],
+      image: require('./images/HingstonCafe.jpg')
     }
     ],
     address: '7141 Sherbrooke West',
@@ -405,7 +413,11 @@ const buildings = [
     buildingName: 'Grey Nuns',
     address: '1190 guy street',
     placesToGo: [{
-      name: 'Grey Nuns Dining Hall', id: '3', placeID: 'ChIJV-mGQ2kayUwRT2vvO_XjKtE', opening: ['8:00 am', '9:30 pm'], image: require('./images/greyNunsDine.jpg')
+      name: 'Grey Nuns Dining Hall',
+      id: '3',
+      placeID: 'ChIJV-mGQ2kayUwRT2vvO_XjKtE',
+      opening: ['8:00 am', '9:30 pm'],
+      image: require('./images/greyNunsDine.jpg')
     }
     ],
     latitude: '45.493484',
@@ -683,7 +695,11 @@ const buildings = [
     buildingName: 'Webster Library Building',
     accessiblity: true,
     placesToGo: [{
-      name: 'LB Café', id: '4', placeID: 'ChIJaX1tY2oayUwRx9YEeFhP2ns', opening: ['8:00 am', '9:30 pm'], image: require('./images/LbCafe.jpeg')
+      name: 'LB Café',
+      id: '4',
+      placeID: 'ChIJaX1tY2oayUwRx9YEeFhP2ns',
+      opening: ['8:00 am', '9:30 pm'],
+      image: require('./images/LbCafe.jpeg')
     },
     {
       name: 'Starbucks', id: '5', placeID: 'ChIJaX1tY2oayUwRx9YEeFhP2ns', opening: ['8:00 am', '9:30 pm'], image: require('./images/starbucks.jpg')
@@ -714,7 +730,11 @@ const buildings = [
     buildingName: 'Henry F. Hall Building',
     accessiblity: true,
     placesToGo: [{
-      name: 'Hall 4 Café - The Green Beet', id: '7', placeID: 'ChIJtd6Zh2oayUwRAu_CnRIfoBw', opening: ['8:00 am', '9:30 pm'], image: require('./images/hallCafe.jpg')
+      name: 'Hall 4 Café - The Green Beet',
+      id: '7',
+      placeID: 'ChIJtd6Zh2oayUwRAu_CnRIfoBw',
+      opening: ['8:00 am', '9:30 pm'],
+      image: require('./images/hallCafe.jpg')
     }
     ],
     address: '1455 DeMaisonneuve W',

@@ -53,7 +53,7 @@ class Suggestions extends Component {
             data={content}
             extraData={content}
             renderItem={this.renderItem}
-            keyExtractor={(item) => { return item.id; }}
+            keyExtractor={(item) => { return `${item.name}-${item.id}-${item.placeID}`; }}
             horizontal
             itemWidth={300}
             sliderWidth={375}
