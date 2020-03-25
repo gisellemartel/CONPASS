@@ -40,9 +40,7 @@ export default class searchBarDestination extends Component {
 
   componentDidUpdate(prevProps) {
     if (prevProps.drawPath !== this.props.drawPath || prevProps.getMode !== this.props.getMode) {
-      if (this.props.getMode && this.props.drawPath) {
-        this.drawPath();
-      }
+      this.drawPath();
     }
   }
 
