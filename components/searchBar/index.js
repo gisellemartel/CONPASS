@@ -282,7 +282,6 @@ export default class searchBar extends Component {
       justifyContent: 'center'
     };
 
-
     return (
       <View style={styles.container}>
         <View>

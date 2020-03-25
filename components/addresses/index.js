@@ -24,7 +24,8 @@ export default class Addresses extends Component {
         longitudeDelta: 0.05
       },
       hide: true,
-      drawPath: true
+      drawPath: true,
+      mode: 'walking',
     };
   }
 
@@ -64,37 +65,54 @@ export default class Addresses extends Component {
     this.props.getCoordinates(newCoordinates);
   };
 
-  render() {
-    return (
-      <View style={styles.searchContainer}>
-        <SearchBar
-          updateRegion={this.updateRegion}
-          urCurentLocation={this.state.value}
-          hideMenu={this.state.hide}
-          drawPath={this.drawPath}
-          currentBuildingPred={this.props.currentBuildingPred}
-        />
-        <SearchBarDestination
-          drawPath={this.state.drawPath}
-          getRegionFromSearch={this.props.getRegionFromSearch}
-          getDestinationIfSet={this.props.getDestinationIfSet}
-          updatedRegion={this.state.region}
-          coordinateCallback={this.updateCoordinates}
-          directionsId={this.props.directionsId}
-        />
-        <Car />
-        <Bus navigation={this.props.navigation} />
-        <Bike />
-        <Walking />
-        <View style={styles.container}>
-          <BackButton
-            changeVisibilityTo={this.props.changeVisibilityTo}
-            coordinateCallback={this.updateCoordinates}
+    /**
+ * updates mode of transportation
+ * @param {string} mode - Mode of transport: driving, bicycling, transit or walking
+ */
+    updateMode = (mode) => {
+      this.setState({
+        mode,
+      });
+    }
+
+    render() {
+      return (
+        <View style={styles.searchContainer}>
+          <SearchBar
+            updateRegion={this.updateRegion}
+            urCurentLocation={this.state.value}
+            hideMenu={this.state.hide}
+            drawPath={this.drawPath}
+            currentBuildingPred={this.props.currentBuildingPred}
           />
-          <CurrentLocation />
-          <Destination />
+          <SearchBarDestination
+            drawPath={this.state.drawPath}
+            getRegionFromSearch={this.props.getRegionFromSearch}
+            getDestinationIfSet={this.props.getDestinationIfSet}
+            updatedRegion={this.state.region}
+            coordinateCallback={this.updateCoordinates}
+            getMode={this.state.mode}
+          />
+          <Car updateMode={this.updateMode} />
+          <Bus
+            navigation={this.props.navigation}
+            updateMode={this.updateMode}
+          />
+          <Bike
+            updateMode={this.updateMode}
+          />
+          <Walking
+            updateMode={this.updateMode}
+          />
+          <View style={styles.container}>
+            <BackButton
+              changeVisibilityTo={this.props.changeVisibilityTo}
+              coordinateCallback={this.updateCoordinates}
+            />
+            <CurrentLocation />
+            <Destination />
+          </View>
         </View>
-      </View>
     );
   }
 }
