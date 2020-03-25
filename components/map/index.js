@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { View, Image } from 'react-native';
-import MapView, {
-  Polyline, PROVIDER_GOOGLE,
-} from 'react-native-maps';
+import { View } from 'react-native';
+import MapView, { Polyline, PROVIDER_GOOGLE } from 'react-native-maps';
 import buildings from '../../assets/polygons/polygons';
 import CustomPolygon from './customPolygon';
 import styles from './styles';
+
+let region = '';
 
 export default class TheMap extends Component {
   /**
@@ -17,15 +17,15 @@ export default class TheMap extends Component {
     this.mapRef = null;
 
     this.state = {
-      // coordinate: {
-      //   latitude: 45.492409,
-      //   longitude: -73.582153,
-      // },
-      // nearbyMarkers: []
+      coordinate: {
+        latitude: 45.492409,
+        longitude: -73.582153,
+      },
+      nearbyMarkers: []
     };
 
-    // this.focusOnBuilding = this.focusOnBuilding.bind(this);
-    // this.onRegionChange = this.onRegionChange.bind(this);
+    this.focusOnBuilding = this.focusOnBuilding.bind(this);
+    this.onRegionChange = this.onRegionChange.bind(this);
     this.selectPoi = this.selectPoi.bind(this);
   }
 
@@ -54,11 +54,11 @@ export default class TheMap extends Component {
    * @param {*} newRegion - region to update to on map
    * Update region on map
    */
-  // onRegionChange(newRegion) {
-  //   const { region } = newRegion;
-  // }
+  onRegionChange(newRegion) {
+    region = newRegion;
+  }
 
-  getBuildingInformation = (building) => {
+  getBuildingInformation =(building) => {
     this.props.getSuggestions(building);
   }
 
@@ -67,10 +67,22 @@ export default class TheMap extends Component {
    * @param {*} building - building to be focused on map
    * focuses on building on map when user taps it's coordinates on the map
    */
-  // focusOnBuilding(building) {
-  //   const { coordinates } = building.polygon;
-  // }
+  focusOnBuilding(building) {
+    const { coordinates } = building.polygon;
 
+    this.state.mapRef.fitToCoordinates(coordinates, {
+      edgePadding: {
+        top: 10, right: 20, bottom: 10, left: 20
+      }
+    });
+
+    // they do not provide a callback when the fitToCoordinates is complete.
+    // Setting at timer for the animation to finish
+    setTimeout(() => {
+      const getRegion = region;
+      this.props.interiorModeOn(building, getRegion);
+    }, 500);
+  }
 
   /**
    *
@@ -127,7 +139,6 @@ export default class TheMap extends Component {
     return (
       <View style={styles.container}>
         <MapView
-          showsUserLocation
           ref={currRef}
           provider={PROVIDER_GOOGLE}
           key="map"
@@ -165,13 +176,7 @@ export default class TheMap extends Component {
                   }}
                   title=""
                   description=""
-                >
-                  <Image
-                    source={require('./destination.png')}
-                    style={{ width: 26, height: 28 }}
-                    resizeMode="contain"
-                  />
-                </MapView.Marker>
+                />
               )
           }
 

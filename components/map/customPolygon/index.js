@@ -7,6 +7,7 @@ class CustomPolygon extends Component {
    */
   zoomBuilding() {
     const { building } = this.props;
+    this.props.focusOnBuilding(building);
     this.props.getBuildingInformation(building);
   }
 
@@ -19,6 +20,7 @@ class CustomPolygon extends Component {
         strokeWidth={3}
         tappable
         onPress={() => {
+          this.zoomBuilding();
           this.props.getBuildingInformation(building);
         }}
       />

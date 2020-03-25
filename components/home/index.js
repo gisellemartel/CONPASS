@@ -1,32 +1,30 @@
-import React, { Component } from "react";
-import { View } from "react-native";
-import TheMap from "../map";
-import SearchBar from "../searchBar";
-import Location from "../location";
-import SwitchCampuses from "../switchCampuses";
-import Suggestions from "../suggestions";
-// TODO: uncomment once #93 is merged
-// import WithinBuilding from '../withinBuilding';
-import SetPath from "../setPath";
-import Addresses from "../addresses";
-import Building from "../map/building/index";
-import generateBuilding from "../../assets/svgReactNative/buildingRepository";
-import styles from "./styles";
+
+import React, { Component } from 'react';
+import { View } from 'react-native';
+import TheMap from '../map';
+import SearchBar from '../searchBar';
+import Location from '../location';
+import SwitchCampuses from '../switchCampuses';
+import SetPath from '../setPath';
+import Addresses from '../addresses';
+import Building from '../map/building/index';
+import generateBuilding from '../../assets/svgReactNative/buildingRepository';
+import styles from './styles';
+import Suggestions from '../suggestions';
+
 
 class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
       // Set Initial region of the map
-      directionsId: "",
-      suggestion: {},
-      value: "",
+      value: '',
       coordinates: [],
       region: {
-        latitude: "",
-        longitude: "",
-        latitudeDelta: "",
-        longitudeDelta: ""
+        latitude: '',
+        longitude: '',
+        latitudeDelta: '',
+        longitudeDelta: ''
       },
       presetRegion: {
         latitude: 45.492408,
@@ -36,25 +34,28 @@ class Home extends Component {
       },
       interiorMode: false,
       nearbyMarkers: [],
-      isVisible: true,
+      isVisible: false,
       // eslint-disable-next-line react/no-unused-state
       isSearchVisible: true,
       isGoVisible: false,
       isSwitchAvailableIndestination: true,
 
       // current Concordia a user is in
-      currentBuildingAddress: "",
-
+      currentBuildingAddress: '',
       showDirectionsMenu: false,
-      showCampusToggle: false
+      showCampusToggle: false,
+      showSuggestionsList: false
     };
+    this.interiorModeOn = this.interiorModeOn.bind(this);
+    this.interiorModeOff = this.interiorModeOff.bind(this);
   }
+
 
   /**
    * updates region and passes the new region 'map' component.
    * @param {object} newRegion - New region to be passed.
    */
-  updateRegion = newRegion => {
+  updateRegion = (newRegion) => {
     this.setState({
       presetRegion: {
         latitude: newRegion.latitude,
@@ -73,7 +74,7 @@ class Home extends Component {
     });
   };
 
-  updateRegionCloser = newRegion => {
+  updateRegionCloser = (newRegion) => {
     this.setState({
       presetRegion: {
         latitude: newRegion.latitude,
@@ -90,14 +91,14 @@ class Home extends Component {
         longitudeDelta: 0.001
       }
     });
-  };
+  }
 
   /**
    * Fetches the currently searched destination in order to automatically populate
    * destination option in directions mode
    * @param {object} destination - current selected destination
    */
-  getDestinationIfSet = destination => {
+  getDestinationIfSet = (destination) => {
     this.setState({ destinationToGo: destination });
   };
 
@@ -105,7 +106,7 @@ class Home extends Component {
    * Changes visibility of directions search menus depending on context
    * @param {*} showDirectionsMenu - desired visibility boolean
    */
-  changeVisibilityTo = showDirectionsMenu => {
+  changeVisibilityTo = (showDirectionsMenu) => {
     this.setState({
       showDirectionsMenu
     });
@@ -115,7 +116,7 @@ class Home extends Component {
    * Changes visibility of campus toggle when search bar is focused/blurred
    * @param {*} showCampusToggle - desired visibility boolean
    */
-  setCampusToggleVisibility = showCampusToggle => {
+  setCampusToggleVisibility = (showCampusToggle) => {
     this.setState({
       showCampusToggle
     });
@@ -125,7 +126,7 @@ class Home extends Component {
    * updates coordinates and passes new coordinates 'Map' component.
    * @param {object} newCoordinates - New coordinates to be passed.
    */
-  updateCoordinates = newCoordinates => {
+  updateCoordinates = (newCoordinates) => {
     this.setState({
       coordinates: newCoordinates
     });
@@ -135,7 +136,7 @@ class Home extends Component {
    * gets new region from 'Addresses' component and updates region state
    * @param {object} region - New region to be passed.
    */
-  getRegionFromAddresses = region => {
+  getRegionFromAddresses = (region) => {
     this.updateRegion(region);
   };
 
@@ -143,7 +144,7 @@ class Home extends Component {
    * gets new coordinates from 'Addresses' component and updates coordinates state
    * @param {object} coordinates - New coordinates to be passed.
    */
-  getCoordinatesFromAddresses = coordinates => {
+  getCoordinatesFromAddresses = (coordinates) => {
     this.updateCoordinates(coordinates);
   };
 
@@ -162,32 +163,11 @@ class Home extends Component {
    *    }]
    *
    */
-  getNearbyMarkers = markers => {
+  getNearbyMarkers=(markers) => {
     this.setState({ nearbyMarkers: markers });
-  };
+  }
 
-  getSuggestions = suggestion => {
-    this.setState({
-      suggestion,
-      showSuggestionsList: true
-    });
-  };
-
-  setDirections = id => {
-    this.setState({
-      directionsId: id,
-      showDirectionsMenu: true,
-      showSuggestionsList: false
-    });
-  };
-
-  setSuggestionVisibility = () => {
-    this.setState({
-      showSuggestionsList: false
-    });
-  };
-
-  updateCurrentBuildingAddress = childCurrentBuilding => {
+  updateCurrentBuildingAddress = (childCurrentBuilding) => {
     this.setState({
       currentBuildingAddress: childCurrentBuilding
     });
@@ -219,12 +199,25 @@ class Home extends Component {
     });
   }
 
+  getSuggestions = (suggestion) => {
+    this.setState({
+      suggestion,
+      showSuggestionsList: true
+    });
+  }
+
+  setSuggestionVisibility = () => {
+    this.setState({
+      showSuggestionsList: false
+    });
+  }
+
   render() {
     return (
       <View style={styles.container}>
+        {/* zIndex=1 */}
         <TheMap
           updatedCoordinates={this.state.coordinates}
-          getSuggestions={this.getSuggestions}
           encryptedLine={this.state.encryptedLine}
           interiorModeOn={this.interiorModeOn}
           updatedRegion={this.state.presetRegion}
@@ -232,17 +225,18 @@ class Home extends Component {
           getDestinationIfSet={this.getDestinationIfSet}
           updateRegionCloser={this.updateRegionCloser}
           nearbyMarkers={this.state.nearbyMarkers}
+          getSuggestions={this.getSuggestions}
         />
         {!this.state.showDirectionsMenu && (
-          <SearchBar
-            getDestinationIfSet={this.getDestinationIfSet}
-            navigation={this.props.navigation}
-            updateRegion={this.updateRegion}
-            changeVisibilityTo={this.changeVisibilityTo}
-            setCampusToggleVisibility={this.setCampusToggleVisibility}
-            currentBuildingPred={this.state.currentBuildingAddress}
-            nearbyMarkers={this.getNearbyMarkers}
-          />
+        <SearchBar
+          getDestinationIfSet={this.getDestinationIfSet}
+          navigation={this.props.navigation}
+          updateRegion={this.updateRegion}
+          changeVisibilityTo={this.changeVisibilityTo}
+          setCampusToggleVisibility={this.setCampusToggleVisibility}
+          currentBuildingPred={this.state.currentBuildingAddress}
+          nearbyMarkers={this.getNearbyMarkers}
+        />
         )}
         {this.state.showCampusToggle && (
           <SwitchCampuses
@@ -254,7 +248,6 @@ class Home extends Component {
           updateRegion={this.updateRegion}
           updateCurrentBuildingCallBack={this.updateCurrentBuildingAddress}
         />
-        <Location updateRegion={this.updateRegion} />
         <SetPath
           changeVisibilityTo={this.changeVisibilityTo}
           newValue={this.state.value}
@@ -271,32 +264,21 @@ class Home extends Component {
           />
         )}
         {/* Building component contains all the interior floor views */}
-        {this.state.interiorMode && (
-          <>
-          <Addresses
-            getDestinationIfSet={this.state.destinationToGo}
-            getRegion={this.getRegionFromAddresses}
-            getRegionFromSearch={this.state.region}
-            getCoordinates={this.getCoordinatesFromAddresses}
-            changeVisibilityTo={this.changeVisibilityTo}
-            navigation={this.props.navigation}
-            directionsId={this.state.directionsId}
-          />
-          <Building
-           building={this.state.building}
-          buildingFloorPlans={generateBuilding(this.state.building)}
+        {this.state.interiorMode
+        && (
+        <Building
+          building={this.state.building}
+          buildingFloorPlans={generateBuilding(this.state.building.building)}
           interiorModeOff={this.interiorModeOff}
         />
-        </>
         )}
         {this.state.showSuggestionsList && (
-          <Suggestions
-            changeSuggestionVisibility={this.setSuggestionVisibility}
-            getDirections={this.setDirections}
-            suggestion={this.state.suggestion}
-          />
+        <Suggestions
+          changeSuggestionVisibility={this.setSuggestionVisibility}
+          getDirections={this.setDirections}
+          suggestion={this.state.suggestion}
+        />
         )}
-
       </View>
     );
   }

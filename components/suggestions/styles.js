@@ -9,7 +9,8 @@ const styles = StyleSheet.create({
     margin: 0,
     height: 270,
     position: 'absolute',
-    borderWidth: 1
+    borderWidth: 1,
+    zIndex: 300
   },
   carousel: {
     bottom: -10,
