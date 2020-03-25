@@ -32,7 +32,7 @@ export default class searchBar extends Component {
       // eslint-disable-next-line react/no-unused-state
       showMenu: true,
       prevCurrentBuilding: '',
-      currentBuilding: null
+      currentBuilding: ''
     };
   }
 
