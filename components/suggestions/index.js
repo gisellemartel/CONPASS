@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-  View, Text, Image, Dimensions
+  View, Text, Image
 } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
 import { FontAwesome } from '@expo/vector-icons';
@@ -8,14 +8,6 @@ import styles from './styles';
 import CloseButton from './closeButton';
 
 class Suggestions extends Component {
-    buildingName = () => {
-      return (`${this.props.suggestion.buildingName} `);
-    }
-
-    address = () => {
-      return (`${this.props.suggestion.address}`);
-    }
-
     renderItem = ({ item }) => {
       if (item.opening) {
         return (
@@ -49,13 +41,13 @@ class Suggestions extends Component {
           </View>
           <View style={{ paddingLeft: 10 }}>
             <Text style={styles.buildingName}>
-              {this.buildingName()}
+              {this.props.suggestion.buildingName}
               (
               {this.props.suggestion.building}
               )
             </Text>
             <Text style={styles.tunnelAccessiblity}>{tunnelAccessiblity}</Text>
-            <Text style={styles.address}>{this.address()}</Text>
+            <Text style={styles.address}>{this.props.suggestion.address}</Text>
           </View>
           <Carousel
             data={content}

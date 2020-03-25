@@ -15,15 +15,6 @@ export default class TheMap extends Component {
   constructor(props) {
     super(props);
     this.mapRef = null;
-
-    this.state = {
-      coordinate: {
-        latitude: 45.492409,
-        longitude: -73.582153,
-      },
-      nearbyMarkers: []
-    };
-
     this.focusOnBuilding = this.focusOnBuilding.bind(this);
     this.onRegionChange = this.onRegionChange.bind(this);
     this.selectPoi = this.selectPoi.bind(this);

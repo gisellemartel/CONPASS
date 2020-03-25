@@ -34,12 +34,8 @@ class Home extends Component {
       },
       interiorMode: false,
       nearbyMarkers: [],
-      isVisible: false,
       // eslint-disable-next-line react/no-unused-state
       isSearchVisible: true,
-      isGoVisible: false,
-      isSwitchAvailableIndestination: true,
-
       // current Concordia a user is in
       currentBuildingAddress: '',
       showDirectionsMenu: false,
@@ -173,6 +169,19 @@ class Home extends Component {
     });
   };
 
+  getSuggestions = (suggestion) => {
+    this.setState({
+      suggestion,
+      showSuggestionsList: true
+    });
+  }
+
+  setSuggestionVisibility = () => {
+    this.setState({
+      showSuggestionsList: false
+    });
+  }
+
   /**
    *
    * @param {*} building
@@ -196,19 +205,6 @@ class Home extends Component {
     this.setState({
       interiorMode: false,
       building: null
-    });
-  }
-
-  getSuggestions = (suggestion) => {
-    this.setState({
-      suggestion,
-      showSuggestionsList: true
-    });
-  }
-
-  setSuggestionVisibility = () => {
-    this.setState({
-      showSuggestionsList: false
     });
   }
 
@@ -283,5 +279,4 @@ class Home extends Component {
     );
   }
 }
-
 export default Home;

@@ -1,22 +1,22 @@
 /* eslint-disable react/no-unused-state */
-import React, { Component } from "react";
-import { View } from "react-native";
-import SearchBar from "../searchBar";
-import SearchBarDestination from "../searchBarDestination";
-import BackButton from "./backButton";
-import CurrentLocation from "./currentLocation";
-import Destination from "./destination";
-import Car from "./car";
-import Bus from "./bus";
-import Walking from "./walking";
-import Bike from "./bike";
-import styles from "./styles";
+import React, { Component } from 'react';
+import { View } from 'react-native';
+import SearchBar from '../searchBar';
+import SearchBarDestination from '../searchBarDestination';
+import BackButton from './backButton';
+import CurrentLocation from './currentLocation';
+import Destination from './destination';
+import Car from './car';
+import Bus from './bus';
+import Walking from './walking';
+import Bike from './bike';
+import styles from './styles';
 
 export default class Addresses extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: "Your Current Location",
+      value: 'Your Current Location',
       region: {
         latitude: 0,
         longitude: 0,
@@ -29,7 +29,7 @@ export default class Addresses extends Component {
   }
 
   drawPath = () => {
-    this.setState(prevState => {
+    this.setState((prevState) => {
       return { drawPath: !prevState.drawPath };
     });
   };
@@ -38,7 +38,7 @@ export default class Addresses extends Component {
    * updates region and passes the new region 'Home' component.
    * @param {object} newRegion - New region to be passed.
    */
-  updateRegion = newRegion => {
+  updateRegion = (newRegion) => {
     this.setState({
       region: {
         latitude: newRegion.latitude,
@@ -54,7 +54,7 @@ export default class Addresses extends Component {
    * updates coordinates and passes new coordinates 'Home' component.
    * @param {object} newCoordinates - New coordinates to be passed.
    */
-  updateCoordinates = newCoordinates => {
+  updateCoordinates = (newCoordinates) => {
     this.setState({
       coordinates: newCoordinates
     });
