@@ -121,7 +121,7 @@ const hall8FloorPlanCoordinates = {
     x: 720,
     y: 614.34594,
     adjacencyList: [
-      'node_822'
+      // 'node_822'
     ]
   },
   823: {
@@ -901,7 +901,7 @@ const hall8FloorPlanCoordinates = {
     adjacencyList: [
       'node_escalator_up',
       'node_escalator_corner_north',
-      'node_838.01'
+      // 'node_838.01'
     ]
   },
   node_escalator_down: {
