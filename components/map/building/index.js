@@ -55,6 +55,18 @@ class Building extends Component {
                 return
               </Text>
             </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.directionsButton}
+              onPress={
+                () => {
+                  console.log(this.props.adjacencyGraph);
+                }
+              }
+            >
+              <Text>
+                Get Directions
+              </Text>
+            </TouchableOpacity>
 
             {/* Renders map for current floor in building */}
             <View style={styles.buildingContainer}>
