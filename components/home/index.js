@@ -10,10 +10,13 @@ import Building from '../map/building/index';
 import generateBuilding from '../../assets/svgReactNative/buildingRepository';
 import styles from './styles';
 
+import parseFloorMapSvgs from '../../indoor_directions_modules/scripts/floorMapSvgParserScript';
+
 
 class Home extends Component {
   constructor(props) {
     super(props);
+    const res = parseFloorMapSvgs;
     this.state = {
       // Set Initial region of the map
       value: '',
