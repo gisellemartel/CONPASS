@@ -9,7 +9,7 @@ export default class Car extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => { this.props.updateMode('driving'); }}>
           <Image style={styles.currentLocation} source={car} />
         </TouchableOpacity>
       </View>

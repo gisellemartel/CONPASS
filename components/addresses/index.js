@@ -24,7 +24,8 @@ export default class Addresses extends Component {
         longitudeDelta: 0.05
       },
       hide: true,
-      drawPath: true
+      drawPath: true,
+      mode: 'walking',
     };
   }
 
@@ -59,6 +60,16 @@ export default class Addresses extends Component {
       this.props.getCoordinates(newCoordinates);
     };
 
+    /**
+ * updates mode of transportation
+ * @param {string} mode - Mode of transport: driving, bicycling, transit or walking
+ */
+    updateMode = (mode) => {
+      this.setState({
+        mode,
+      });
+    }
+
     render() {
       return (
         <View style={styles.searchContainer}>
@@ -75,11 +86,19 @@ export default class Addresses extends Component {
             getDestinationIfSet={this.props.getDestinationIfSet}
             updatedRegion={this.state.region}
             coordinateCallback={this.updateCoordinates}
+            getMode={this.state.mode}
           />
-          <Car />
-          <Bus navigation={this.props.navigation} />
-          <Bike />
-          <Walking />
+          <Car updateMode={this.updateMode} />
+          <Bus
+            navigation={this.props.navigation}
+            updateMode={this.updateMode}
+          />
+          <Bike
+            updateMode={this.updateMode}
+          />
+          <Walking
+            updateMode={this.updateMode}
+          />
           <View style={styles.container}>
             <BackButton
               changeVisibilityTo={this.props.changeVisibilityTo}

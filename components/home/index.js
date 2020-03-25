@@ -42,7 +42,8 @@ class Home extends Component {
       currentBuildingAddress: '',
 
       showDirectionsMenu: false,
-      showCampusToggle: false
+      showCampusToggle: false,
+
     };
     this.interiorModeOn = this.interiorModeOn.bind(this);
     this.interiorModeOff = this.interiorModeOff.bind(this);
