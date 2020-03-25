@@ -215,5 +215,10 @@
   <text stroke="#000" fill="#000000" stroke-width="0" stroke-opacity="null" fill-opacity="null" x="535" y="399" id="node_escalator_corner_north" font-size="14" font-family="Helvetica, Arial, sans-serif" text-anchor="start" xml:space="preserve">O</text>
   <text stroke="#000" fill="#000000" stroke-width="0" stroke-opacity="null" fill-opacity="null" x="535" y="640" id="node_escalator_corner_south" font-size="14" font-family="Helvetica, Arial, sans-serif" text-anchor="start" xml:space="preserve">O</text>
   <text stroke="#000" fill="#000000" stroke-width="0" stroke-opacity="null" fill-opacity="null" x="535" y="687" id="node_838_01" font-size="14" font-family="Helvetica, Arial, sans-serif" text-anchor="start" xml:space="preserve">O</text>
+  <text stroke="#000" fill="#000000" stroke-width="0" stroke-opacity="null" fill-opacity="null" x="261" y="517" id="node_860_05_06" font-size="14" font-family="Helvetica, Arial, sans-serif" text-anchor="start" xml:space="preserve">O</text>
+  <text stroke="#000" fill="#000000" stroke-width="0" stroke-opacity="null" fill-opacity="null" x="261" y="486" id="node_860_03_04" font-size="14" font-family="Helvetica, Arial, sans-serif" text-anchor="start" xml:space="preserve">O</text>
+  <text stroke="#000" fill="#000000" stroke-width="0" stroke-opacity="null" fill-opacity="null" x="261" y="448" id="node_860_01" font-size="14" font-family="Helvetica, Arial, sans-serif" text-anchor="start" xml:space="preserve">O</text>
+  <text stroke="#000" fill="#000000" stroke-width="0" stroke-opacity="null" fill-opacity="null" x="261" y="399" id="node_staircase_1" font-size="14" font-family="Helvetica, Arial, sans-serif" text-anchor="start" xml:space="preserve">O</text>
+  <text stroke="#000" fill="#000000" stroke-width="0" stroke-opacity="null" fill-opacity="null" x="409" y="399" id="node_accessible_bathroom" font-size="14" font-family="Helvetica, Arial, sans-serif" text-anchor="start" xml:space="preserve">O</text>
  </g>
 </svg>

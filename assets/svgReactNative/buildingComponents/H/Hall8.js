@@ -1392,7 +1392,71 @@ function SvgHall8(props) {
           fontFamily="Helvetica, Arial, sans-serif"
         >
           O
-        </Text> */}
+        </Text>
+
+        <Text
+          stroke="#000"
+          strokeWidth={0}
+          strokeOpacity="null"
+          fillOpacity="null"
+          x={261}
+          y={517}
+          fontSize={14}
+          fontFamily="Helvetica, Arial, sans-serif"
+        >
+          O
+        </Text>
+         <Text
+          stroke="#000"
+          strokeWidth={0}
+          strokeOpacity="null"
+          fillOpacity="null"
+          x={261}
+          y={486}
+          fontSize={14}
+          fontFamily="Helvetica, Arial, sans-serif"
+        >
+          O
+        </Text>
+         <Text
+          stroke="#000"
+          strokeWidth={0}
+          strokeOpacity="null"
+          fillOpacity="null"
+          x={261}
+          y={448}
+          fontSize={14}
+          fontFamily="Helvetica, Arial, sans-serif"
+        >
+          O
+        </Text>
+         <Text
+          stroke="#000"
+          strokeWidth={0}
+          strokeOpacity="null"
+          fillOpacity="null"
+          x={261}
+          y={399}
+          fontSize={14}
+          fontFamily="Helvetica, Arial, sans-serif"
+        >
+          O
+        </Text>
+         <Text
+          stroke="#000"
+          strokeWidth={0}
+          strokeOpacity="null"
+          fillOpacity="null"
+          x={409}
+          y={399}
+          fontSize={14}
+          fontFamily="Helvetica, Arial, sans-serif"
+        >
+          O
+        </Text>
+
+
+        */}
       </G>
     </Svg>
   );
