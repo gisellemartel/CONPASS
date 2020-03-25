@@ -277,7 +277,7 @@ class Home extends Component {
           interiorModeOff={this.interiorModeOff}
         />
         )}
-        {this.state.showSuggestionsList && (
+        {this.state.showSuggestionsList && this.state.interiorMode && (
         <Suggestions
           changeSuggestionVisibility={this.setSuggestionVisibility}
           getDirections={this.setDirections}
