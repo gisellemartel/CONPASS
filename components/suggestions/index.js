@@ -65,6 +65,7 @@ class Suggestions extends Component {
       );
     }
 }
+
 const Icon = (props) => {
   if (props.accessiblity === true) {
     return <FontAwesome name="wheelchair-alt" size={22} color="orange" />;

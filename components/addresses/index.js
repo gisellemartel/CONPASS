@@ -28,6 +28,9 @@ export default class Addresses extends Component {
     };
   }
 
+  /**
+   * updates a draw path boolean. Draws a path when true
+   */
   drawPath = () => {
     this.setState((prevState) => {
       return { drawPath: !prevState.drawPath };
