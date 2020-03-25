@@ -24,8 +24,7 @@ export default class TheMap extends Component {
    * Sets the mapRef when the component is mounted
    */
   componentDidMount() {
-    this.setState({ mapRef: this.mapRef },
-      () => { this.fitScreenToPath(this.props.updatedCoordinates); });
+    this.setState({ mapRef: this.mapRef });
   }
 
   /**

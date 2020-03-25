@@ -1,9 +1,8 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "white",
-    zIndex: 200,
+    backgroundColor: 'white',
     bottom: 20,
     width: 430,
     right: 30,
@@ -13,11 +12,10 @@ const styles = StyleSheet.create({
     height: 165
   },
   searchContainer: {
-    zIndex: 200,
-    alignItems: "center",
-    width: "87%",
+    alignItems: 'center',
+    width: '87%',
     left: 45,
-    position: "absolute",
+    position: 'absolute',
     top: 0
   }
 });
