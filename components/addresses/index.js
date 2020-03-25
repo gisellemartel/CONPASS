@@ -113,6 +113,6 @@ export default class Addresses extends Component {
             <Destination />
           </View>
         </View>
-    );
-  }
+      );
+    }
 }
