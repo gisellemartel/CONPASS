@@ -159,6 +159,7 @@ class Home extends Component {
    *    }]
    *
    */
+
   getNearbyMarkers=(markers) => {
     this.setState({ nearbyMarkers: markers });
   }
@@ -169,6 +170,10 @@ class Home extends Component {
     });
   };
 
+  /**
+   * gets the curretly tapped on building information from 'map' component
+   * @param {object} suggestion - New coordinates to be passed.
+   */
   getSuggestions = (suggestion) => {
     this.setState({
       suggestion,
@@ -176,6 +181,10 @@ class Home extends Component {
     });
   }
 
+  /**
+   * sets the visibility of showing the building information
+   * @param {object} suggestion - New coordinates to be passed.
+   */
   setSuggestionVisibility = () => {
     this.setState({
       showSuggestionsList: false

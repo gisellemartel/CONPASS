@@ -48,6 +48,11 @@ export default class TheMap extends Component {
     region = newRegion;
   }
 
+  /**
+   *
+   * @param {*} building - building polygon to get information
+   * Pass building information to home
+   */
   getBuildingInformation =(building) => {
     this.props.getSuggestions(building);
   }
