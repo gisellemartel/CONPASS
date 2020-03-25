@@ -130,6 +130,7 @@ export default class TheMap extends Component {
       <View style={styles.container}>
         <MapView
           showUserLocation
+          followUserLocation
           ref={currRef}
           provider={PROVIDER_GOOGLE}
           key="map"
