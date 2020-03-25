@@ -63,7 +63,7 @@ it('Should draw a path with content', async () => {
     return promise;
   });
   const searchBarComponent = renderer.create(<SearchBarDestination updatedRegion={updateR} />).getInstance();
-  await searchBarComponent.drawPath(mockPrediction.predictions[0].place_id);
+  await searchBarComponent.getLatLong(mockPrediction.predictions[0].place_id);
   expect(searchBarComponent.state.destinationRegion.latitude).toBe(mockResult.result.geometry.location.lat);
   expect(searchBarComponent.state.destinationRegion.longitude).toBe(mockResult.result.geometry.location.lng);
 });
