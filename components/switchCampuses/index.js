@@ -1,6 +1,6 @@
-import React, { Component } from "react";
-import { View, TouchableOpacity, Text } from "react-native";
-import styles from "./styles";
+import React, { Component } from 'react';
+import { View, TouchableOpacity, Text } from 'react-native';
+import styles from './styles';
 
 export default class SwitchCampuses extends Component {
   constructor(props) {
@@ -13,10 +13,9 @@ export default class SwitchCampuses extends Component {
       pressed: {
         pressedLeft: false,
         pressedRight: false
-    },
+      },
+    };
   }
-
-}
 
   /** Set the current map region to loyola campus. */
   setLoyola() {
@@ -24,11 +23,11 @@ export default class SwitchCampuses extends Component {
       {
         region: {
           latitude: 45.458025,
-          longitude: -73.640192 
+          longitude: -73.640192
         },
-        pressed: { 
-        pressedRight: true,
-        pressedLeft: false
+        pressed: {
+          pressedRight: true,
+          pressedLeft: false
         }
       },
       () => {
@@ -59,25 +58,27 @@ export default class SwitchCampuses extends Component {
   render() {
     if (this.props.visiblityState) {
       return (
-          <View style={styles.container}>
+        <View style={styles.container}>
 
-              <TouchableOpacity
-                style = {this.state.pressed.pressedLeft ? styles.buttonPressedLeft : styles.buttonLeft}
-                onPress={() => {
-                  this.setSGW(); }}
-              >
-                <Text style = {styles.textStyle}> SGW </Text>
-              </TouchableOpacity>
+          <TouchableOpacity
+            style={this.state.pressed.pressedLeft ? styles.buttonPressedLeft : styles.buttonLeft}
+            onPress={() => {
+              this.setSGW();
+            }}
+          >
+            <Text style={styles.textStyle}>SGW</Text>
+          </TouchableOpacity>
 
-              <TouchableOpacity
-                style = {this.state.pressed.pressedRight ? styles.buttonPressedRight : styles.buttonRight}
-                onPress={() => {
-                    this.setLoyola(); }}
-              >
-                <Text style = {styles.textStyle}> Loyola </Text>
-              </TouchableOpacity>
+          <TouchableOpacity
+            style={this.state.pressed.pressedRight ? styles.buttonPressedRight : styles.buttonRight}
+            onPress={() => {
+              this.setLoyola();
+            }}
+          >
+            <Text style={styles.textStyle}>Loyola</Text>
+          </TouchableOpacity>
 
-          </View>
+        </View>
       );
     }
     return null;
