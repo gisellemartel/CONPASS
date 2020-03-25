@@ -233,7 +233,7 @@ it('Should keep the currentBuilding state null', async () => {
   });
   const searchBarComponent = renderer.create(<SearchBar currentBuildingPred="" />).getInstance();
   await searchBarComponent.updateCurrentBuilding();
-  expect(searchBarComponent.state.currentBuilding).toBe('');
+  expect(searchBarComponent.state.currentBuilding).toBeNull();
 });
 
 it('Should return an object identical to expectedJsonResult', async () => {

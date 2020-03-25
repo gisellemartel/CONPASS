@@ -32,7 +32,7 @@ export default class searchBar extends Component {
       // eslint-disable-next-line react/no-unused-state
       showMenu: true,
       prevCurrentBuilding: '',
-      currentBuilding: ''
+      currentBuilding: null
     };
   }
 
@@ -281,7 +281,6 @@ export default class searchBar extends Component {
       height: 45,
       justifyContent: 'center'
     };
-
 
     return (
       <View style={styles.container}>
