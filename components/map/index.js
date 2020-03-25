@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { View, Image } from 'react-native';
 import MapView, { Polyline, PROVIDER_GOOGLE } from 'react-native-maps';
 import buildings from '../../assets/polygons/polygons';
 import CustomPolygon from './customPolygon';
@@ -168,7 +168,14 @@ export default class TheMap extends Component {
                   }}
                   title=""
                   description=""
-                />
+                >
+                  <Image
+                    source={require('./destination.png')}
+                    style={{ width: 30, height: 32 }}
+                    resizeMode="contain"
+                  />
+                </MapView.Marker>
+
               )
           }
 
