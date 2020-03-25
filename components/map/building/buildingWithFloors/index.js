@@ -5,7 +5,7 @@ import {
 } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import styles from './styles';
-import
+import buildingLogo from './building.png';
 
 
 class BuildingWithFloors extends Component {
@@ -40,15 +40,16 @@ class BuildingWithFloors extends Component {
 
   render() {
     const { floor } = this.state;
+    const { building } = this.props;
     return (
       <View style={styles.container}>
         <View style={styles.descriptor}>
-          <View style={styles.buildingLogo}>
-            <Image style={styles.currentLocation} source={destination} />
+          <View style={styles.buildingLogoContainer}>
+            <Image style={styles.buildingLogo} source={buildingLogo} />
           </View>
           <View>
-            <Text>
-              Building
+            <Text style={styles.buildingName}>
+              {building.buildingName}
             </Text>
           </View>
           <TouchableOpacity
@@ -59,7 +60,9 @@ class BuildingWithFloors extends Component {
                 }
               }
           >
-            <img src="" alt=""/>
+            <Text>
+              quit
+            </Text>
           </TouchableOpacity>
         </View>
         <TouchableOpacity

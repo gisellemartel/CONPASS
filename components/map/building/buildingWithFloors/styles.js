@@ -14,19 +14,41 @@ const styles = StyleSheet.create({
     backgroundColor: 'grey',
     position: 'absolute'
   },
+  descriptor: {
+    position: 'absolute',
+    display: 'flex',
+    flexDirection: 'row',
+    top: 0,
+    width: fullWidth,
+    height: 75,
+    backgroundColor: 'white',
+    zIndex: 305,
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingLeft: 10,
+    paddingRight: 10,
+  },
+  buildingLogoContainer: {
+    left: 0,
+    position: 'relative',
+    top: 0
+  },
+  buildingLogo: {
+    width: 40,
+    resizeMode: 'contain',
+  },
+  buildingName: {
+    fontSize: 20,
+  },
+  quitInterior: {
+    right: 0,
+    position: 'relative',
+  },
   buildingContainer: {
     justifyContent: 'center',
     alignItems: 'center',
     position: 'absolute',
     zIndex: 300
-  },
-  descriptor: {
-    position: 'absolute',
-    top: 0,
-    width: fullWidth,
-    height: 100,
-    backgroundColor: 'white',
-    zIndex: 305,
   },
   quitButton: {
     left: 0,
