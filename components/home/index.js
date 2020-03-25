@@ -36,7 +36,7 @@ class Home extends Component {
       nearbyMarkers: [],
       // eslint-disable-next-line react/no-unused-state
       isSearchVisible: true,
-      // current Concordia a user is in
+      // current concordia bulding tapped on
       currentBuildingAddress: '',
       showDirectionsMenu: false,
       showCampusToggle: false,
