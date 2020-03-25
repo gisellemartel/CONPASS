@@ -14,6 +14,7 @@
   "dependencies": {
     "@dudigital/react-native-zoomable-view": "^1.0.15",
     "@expo/vector-icons": "^10.0.6",
+    "@dudigital/react-native-zoomable-view": "^1.0.15",
     "@react-native-community/masked-view": "0.1.5",
     "@react-navigation/native": "^5.0.8",
     "@react-navigation/stack": "^5.1.0",
@@ -54,7 +55,8 @@
     "react-redux": "^7.2.0",
     "svg-parser": "^2.0.4",
     "react-test-renderer": "^16.13.0",
-    "redux": "^4.0.5"
+    "redux": "^4.0.5",
+    "svg-parser": "^2.0.4"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
@@ -64,9 +66,6 @@
     "eslint": "^6.8.0",
     "jest": "^25.1.0",
     "react-native-svg-transformer": "^0.14.3"
-  },
-  "jest": {
-    "preset": "jest-expo"
   },
   "private": true
 }

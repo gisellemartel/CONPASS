@@ -37,9 +37,6 @@ class Building extends Component {
   }
 
   render() {
-    const { building } = this.props;
-    const currentBuilding = building.polygon.name;
-    const currentCampus = building.campus;
     const { floor } = this.state;
 
     return (
@@ -68,13 +65,18 @@ class Building extends Component {
             <View style={styles.switcher}>
               {this.props.buildingFloorPlans.map((lvl) => {
                 return (
-                  <TouchableOpacity onPress={
+                  <TouchableOpacity
+                    key={lvl.floor}
+                    onPress={
                       () => {
                         return this.changeFloor(lvl.floor);
                       }
                     }
                   >
-                    <Text style={styles.lvl}>
+                    <Text
+                      key={lvl.floor}
+                      style={styles.lvl}
+                    >
                       {lvl.floor}
                     </Text>
                   </TouchableOpacity>
