@@ -12,7 +12,9 @@
     "test": "jest"
   },
   "dependencies": {
+    "@dudigital/react-native-zoomable-view": "^1.0.15",
     "@expo/vector-icons": "^10.0.6",
+    "@dudigital/react-native-zoomable-view": "^1.0.15",
     "@react-native-community/masked-view": "0.1.5",
     "@react-navigation/native": "^5.0.8",
     "@react-navigation/stack": "^5.1.0",
@@ -30,6 +32,7 @@
     "expo-permissions": "^8.0.0",
     "i18n-js": "^3.5.1",
     "jest-expo": "^36.0.1",
+    "metro-config": "^0.58.0",
     "prettier": "^1.19.1",
     "react": "~16.9.0",
     "react-dom": "~16.9.0",
@@ -47,17 +50,22 @@
     "react-native-safe-area-context": "0.6.0",
     "react-native-screens": "2.0.0-alpha.12",
     "react-native-side-menu": "^1.1.3",
+    "react-native-svg": "^9.13.3",
     "react-native-web": "~0.11.7",
     "react-redux": "^7.2.0",
+    "svg-parser": "^2.0.4",
     "react-test-renderer": "^16.13.0",
-    "redux": "^4.0.5"
+    "redux": "^4.0.5",
+    "svg-parser": "^2.0.4"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
+    "@svgr/cli": "^5.2.0",
     "babel-eslint": "^10.0.3",
     "babel-preset-expo": "~8.0.0",
     "eslint": "^6.8.0",
-    "jest": "^25.1.0"
+    "jest": "^25.1.0",
+    "react-native-svg-transformer": "^0.14.3"
   },
   "private": true
 }

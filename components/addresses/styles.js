@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 const styles = StyleSheet.create({
   container: {
     backgroundColor: 'white',
-    zIndex: 1,
+    zIndex: 200,
     bottom: 20,
     width: 430,
     right: 30,
@@ -11,10 +11,9 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 10,
     borderBottomRightRadius: 10,
     height: 165
-
   },
   searchContainer: {
-
+    zIndex: 200,
     alignItems: 'center',
     width: '87%',
     left: 45,

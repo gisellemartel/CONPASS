@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unused-state */
 import React, { Component } from 'react';
 import { View } from 'react-native';
 import TheMap from '../map';
@@ -7,7 +6,10 @@ import Location from '../location';
 import SwitchCampuses from '../switchCampuses';
 import SetPath from '../setPath';
 import Addresses from '../addresses';
+import Building from '../map/building/index';
+import generateBuilding from '../../assets/svgReactNative/buildingRepository';
 import styles from './styles';
+
 
 class Home extends Component {
   constructor(props) {
@@ -28,19 +30,24 @@ class Home extends Component {
         latitudeDelta: 0.04,
         longitudeDelta: 0.04
       },
+      interiorMode: false,
       nearbyMarkers: [],
       isVisible: false,
       // eslint-disable-next-line react/no-unused-state
       isSearchVisible: true,
       isGoVisible: false,
       isSwitchAvailableIndestination: true,
+
       // current Concordia a user is in
       currentBuildingAddress: '',
 
       showDirectionsMenu: false,
       showCampusToggle: false
     };
+    this.interiorModeOn = this.interiorModeOn.bind(this);
+    this.interiorModeOff = this.interiorModeOff.bind(this);
   }
+
 
   /**
    * updates region and passes the new region 'map' component.
@@ -164,12 +171,40 @@ class Home extends Component {
     });
   };
 
+  /**
+   *
+   * @param {*} building
+   * @param {*} region
+   * Activates interior mode when building is clicked on
+   * Uses the building data to render floors
+   */
+  interiorModeOn(building, region) {
+    this.setState({
+      region,
+      interiorMode: true,
+      building
+    });
+  }
+
+  /**
+   *
+   * Deactivates interior mode to return to outdoor map view
+   */
+  interiorModeOff() {
+    this.setState({
+      interiorMode: false,
+      building: null
+    });
+  }
 
   render() {
     return (
       <View style={styles.container}>
+        {/* zIndex=1 */}
         <TheMap
           updatedCoordinates={this.state.coordinates}
+          encryptedLine={this.state.encryptedLine}
+          interiorModeOn={this.interiorModeOn}
           updatedRegion={this.state.presetRegion}
           polylineVisibility={this.state.showDirectionsMenu}
           getDestinationIfSet={this.getDestinationIfSet}
@@ -211,6 +246,15 @@ class Home extends Component {
             navigation={this.props.navigation}
             currentBuildingPred={this.state.currentBuildingAddress}
           />
+        )}
+        {/* Building component contains all the interior floor views */}
+        {this.state.interiorMode
+        && (
+        <Building
+          building={this.state.building}
+          buildingFloorPlans={generateBuilding(this.state.building.building)}
+          interiorModeOff={this.interiorModeOff}
+        />
         )}
       </View>
     );
