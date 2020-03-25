@@ -25,8 +25,8 @@ const styles = StyleSheet.create({
     zIndex: 305,
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingLeft: 10,
-    paddingRight: 10,
+    paddingLeft: 20,
+    paddingRight: 20,
   },
   buildingLogoContainer: {
     left: 0,
@@ -44,24 +44,23 @@ const styles = StyleSheet.create({
     right: 0,
     position: 'relative',
   },
+  quitButton: {
+    width: 25,
+    resizeMode: 'contain',
+  },
   buildingContainer: {
     justifyContent: 'center',
     alignItems: 'center',
     position: 'absolute',
     zIndex: 300
   },
-  quitButton: {
-    left: 0,
-    top: 250,
-    flex: 1,
-    height: 20,
-    fontSize: 20
-  },
   switcher: {
+    position: 'absolute',
     display: 'flex',
     flexDirection: 'row',
-    left: 0,
-    bottom: 10,
+    margin: 'auto',
+    bottom: -50,
+    zIndex: 300,
   },
   lvl: {
     marginBottom: 175,

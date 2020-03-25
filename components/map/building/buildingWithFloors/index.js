@@ -6,6 +6,7 @@ import {
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import styles from './styles';
 import buildingLogo from './building.png';
+import quit from './quit.png';
 
 
 class BuildingWithFloors extends Component {
@@ -38,18 +39,33 @@ class BuildingWithFloors extends Component {
     });
   }
 
+  /**
+   *
+   * @param {*} name - desired building name
+   * Shortens the maximum length of the string to render
+   */
+  limitNameLength(name) {
+    const maxLength = 24;
+
+    if (name.length >= maxLength) {
+      return `${name.substr(0, maxLength)}...`;
+    }
+    return name;
+  }
+
   render() {
     const { floor } = this.state;
     const { building } = this.props;
     return (
       <View style={styles.container}>
+        {/* Top screen building descriptor */}
         <View style={styles.descriptor}>
           <View style={styles.buildingLogoContainer}>
             <Image style={styles.buildingLogo} source={buildingLogo} />
           </View>
           <View>
             <Text style={styles.buildingName}>
-              {building.buildingName}
+              {this.limitNameLength(building.buildingName)}
             </Text>
           </View>
           <TouchableOpacity
@@ -60,23 +76,9 @@ class BuildingWithFloors extends Component {
                 }
               }
           >
-            <Text>
-              quit
-            </Text>
+            <Image style={styles.quitButton} source={quit} />
           </TouchableOpacity>
         </View>
-        <TouchableOpacity
-          style={styles.quitButton}
-          onPress={
-                () => {
-                  return this.props.interiorModeOff();
-                }
-              }
-        >
-          <Text>
-            return
-          </Text>
-        </TouchableOpacity>
 
         {/* Renders map for current floor in building */}
         <View style={styles.buildingContainer}>
