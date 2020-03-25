@@ -5,6 +5,7 @@ import {
 } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import styles from './styles';
+import dijkstraPathfinder from './dijkstraPathfinder';
 
 class Building extends Component {
   constructor(props) {
@@ -59,7 +60,7 @@ class Building extends Component {
               style={styles.directionsButton}
               onPress={
                 () => {
-                  console.log(this.props.adjacencyGraph);
+                  console.log(dijkstraPathfinder.dijkstraPathfinder());
                 }
               }
             >
