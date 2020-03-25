@@ -4,6 +4,7 @@ import renderer from 'react-test-renderer';
 import Addresses from '../components/addresses';
 import Bus from '../components/addresses/bus';
 import Car from '../components/addresses/car';
+import Bike from '../components/addresses/bike';
 
 
 it('Should change mode of transportation to transit', () => {
@@ -22,4 +23,13 @@ it('Should change mode of transportation to driving', () => {
 
   carComponent.props.updateMode('driving');
   expect(addressesComponent.getInstance().state.mode).toBe('driving');
+});
+
+it('Should change mode of transportation to bicycling', () => {
+  const addressesComponent = renderer.create(<Addresses />);
+  instanceAddresses = addressesComponent.root;
+  const bikeComponent = instanceAddresses.findByType(Bike);
+
+  bikeComponent.props.updateMode('bicycling');
+  expect(addressesComponent.getInstance().state.mode).toBe('bicycling');
 });
