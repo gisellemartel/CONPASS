@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import { Polygon } from "react-native-maps";
+import React, { Component } from 'react';
+import { Polygon } from 'react-native-maps';
 
 class CustomPolygon extends Component {
   /**
@@ -19,7 +19,7 @@ class CustomPolygon extends Component {
         strokeWidth={3}
         tappable
         onPress={() => {
-          this.getBuildingInformation();
+          this.props.getBuildingInformation(building);
         }}
       />
     );

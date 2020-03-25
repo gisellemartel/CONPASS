@@ -36,7 +36,7 @@ class Home extends Component {
       },
       interiorMode: false,
       nearbyMarkers: [],
-      isVisible: false,
+      isVisible: true,
       // eslint-disable-next-line react/no-unused-state
       isSearchVisible: true,
       isGoVisible: false,
@@ -272,6 +272,7 @@ class Home extends Component {
         )}
         {/* Building component contains all the interior floor views */}
         {this.state.interiorMode && (
+          <>
           <Addresses
             getDestinationIfSet={this.state.destinationToGo}
             getRegion={this.getRegionFromAddresses}
@@ -281,6 +282,12 @@ class Home extends Component {
             navigation={this.props.navigation}
             directionsId={this.state.directionsId}
           />
+          <Building
+           building={this.state.building}
+          buildingFloorPlans={generateBuilding(this.state.building)}
+          interiorModeOff={this.interiorModeOff}
+        />
+        </>
         )}
         {this.state.showSuggestionsList && (
           <Suggestions
@@ -289,11 +296,7 @@ class Home extends Component {
             suggestion={this.state.suggestion}
           />
         )}
-        <Building
-          building={this.state.building}
-          buildingFloorPlans={generateBuilding(this.state.building.building)}
-          interiorModeOff={this.interiorModeOff}
-        />
+
       </View>
     );
   }

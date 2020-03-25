@@ -17,15 +17,15 @@ export default class TheMap extends Component {
     this.mapRef = null;
 
     this.state = {
-      coordinate: {
-        latitude: 45.492409,
-        longitude: -73.582153,
-      },
-      nearbyMarkers: []
+      // coordinate: {
+      //   latitude: 45.492409,
+      //   longitude: -73.582153,
+      // },
+      // nearbyMarkers: []
     };
 
-    this.focusOnBuilding = this.focusOnBuilding.bind(this);
-    this.onRegionChange = this.onRegionChange.bind(this);
+    // this.focusOnBuilding = this.focusOnBuilding.bind(this);
+    // this.onRegionChange = this.onRegionChange.bind(this);
     this.selectPoi = this.selectPoi.bind(this);
   }
 
@@ -49,25 +49,17 @@ export default class TheMap extends Component {
     }
   }
 
-  componentDidUpdate(prevProps) {
-    const coordinates = this.props.updatedCoordinates;
-    if (prevProps.updatedCoordinates !== coordinates) {
-      this.fitScreenToPath(coordinates);
-    }
-  }
-
-
-  getBuildingInformation= (building) => {
-    this.props.getSuggestions(building);
-  }
-
   /**
    *
    * @param {*} newRegion - region to update to on map
    * Update region on map
    */
-  onRegionChange(newRegion) {
-    region = newRegion;
+  // onRegionChange(newRegion) {
+  //   const { region } = newRegion;
+  // }
+
+  getBuildingInformation = (building) => {
+    this.props.getSuggestions(building);
   }
 
   /**
@@ -75,16 +67,10 @@ export default class TheMap extends Component {
    * @param {*} building - building to be focused on map
    * focuses on building on map when user taps it's coordinates on the map
    */
-  focusOnBuilding(building) {
-    const { coordinates } = building.polygon;
+  // focusOnBuilding(building) {
+  //   const { coordinates } = building.polygon;
+  // }
 
-  fitScreenToPath(coordinates) {
-    this.state.mapRef.fitToCoordinates(coordinates, {
-      edgePadding: {
-        top: 180, right: 20, bottom: 10, left: 20
-      }
-    });
-  }
 
   /**
    *
@@ -179,7 +165,13 @@ export default class TheMap extends Component {
                   }}
                   title=""
                   description=""
-                />
+                >
+                  <Image
+                    source={require('./destination.png')}
+                    style={{ width: 26, height: 28 }}
+                    resizeMode="contain"
+                  />
+                </MapView.Marker>
               )
           }
 
