@@ -8,7 +8,6 @@ class CustomPolygon extends Component {
   zoomBuilding() {
     const { building } = this.props;
     this.props.focusOnBuilding(building);
-    // this.props.getBuildingInformation(building);
   }
 
   render() {
