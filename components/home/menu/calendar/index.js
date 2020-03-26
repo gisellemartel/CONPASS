@@ -3,20 +3,17 @@ import React, { Component } from 'react';
 import {
   View, Text, Button, TouchableOpacity
 } from 'react-native';
-import {createSwitchNavigator} from 'react-navigation';
+import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import firebase from '../../../../firebase.config';
+import LoginScreen from './Screens/LoginScreen';
+import LoadingScreen from './Screens/LoadingScreen';
+import DashboardScreen from './Screens/DashboardScreen';
 
 
 export default class Calendar extends Component {
   constructor(props){
     super(props);
   }
-
-  const AppSwitchNavigator = createSwitchNavigator({
-    LoadingScreen: LoadingScreen
-    LoginScreen:LoginScreen
-    DashboardScreen: DashboardScreen
-  })
 
 // g'2020-03-24T00:00:00+00:00'
   componentDidMount() {
@@ -44,10 +41,14 @@ export default class Calendar extends Component {
 
   render() {
     return (
-      <View>
-        <Text>Calendar</Text>
-        <Button title="Sign In" />
-      </View>
+      <AppNavigator />
     );
   }
 }
+const AppSwitchNavigator = createSwitchNavigator({
+  LoadingScreen,
+  LoginScreen,
+  DashboardScreen
+});
+
+const AppNavigator = createAppContainer(AppSwitchNavigator);
