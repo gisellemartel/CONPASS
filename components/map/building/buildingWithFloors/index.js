@@ -46,9 +46,10 @@ class BuildingWithFloors extends Component {
    */
   limitNameLength(name) {
     const maxLength = 24;
+    const cutUpTo = 21;
 
-    if (name.length >= maxLength) {
-      return `${name.substr(0, maxLength)}...`;
+    if (name.length > maxLength) {
+      return `${name.substr(0, cutUpTo)}...`;
     }
     return name;
   }

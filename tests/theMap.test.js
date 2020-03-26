@@ -25,10 +25,10 @@ const mockPoi = {
   }
 };
 
-beforeEach(() => {
-  getDestinationIfSet = jest.fn();
-  updateRegionCloser = jest.fn();
-});
+
+const getDestinationIfSet = jest.fn();
+const updateRegionCloser = jest.fn();
+
 
 it('Should fit screen to updated components', () => {
   const coordinatesPre = {
@@ -50,8 +50,6 @@ it('Should fit screen to updated components', () => {
 });
 
 it('Should fetch and send the selected point of interest to the home component', async () => {
-  getDestinationIfSet = jest.fn();
-  updateRegionCloser = jest.fn();
   component = shallow(<TheMap nearbyMarkers={[]} updatedRegion={mockRegion} getDestinationIfSet={getDestinationIfSet} updateRegionCloser={updateRegionCloser} />);
   const spyGetDestinationIfSet = jest.spyOn(component.instance().props, 'getDestinationIfSet');
   const spyUpdateRegionCloser = jest.spyOn(component.instance().props, 'updateRegionCloser');
