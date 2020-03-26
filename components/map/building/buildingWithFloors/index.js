@@ -4,9 +4,13 @@ import {
   View, Button, Text, Image
 } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import Svg, {
+  Polyline
+} from 'react-native-svg';
 import styles from './styles';
 import buildingLogo from './building.png';
 import quit from './quit.png';
+import dijkstraPathfinder from './dijkstraPathfinder';
 
 
 class BuildingWithFloors extends Component {
@@ -79,6 +83,17 @@ class BuildingWithFloors extends Component {
           >
             <Image style={styles.quitButton} source={quit} />
           </TouchableOpacity>
+          <TouchableOpacity
+            onPress={
+                () => {
+                  console.log(dijkstraPathfinder.dijkstraPathfinder('817', '841', this.props.adjacencyGraph));
+                }
+              }
+          >
+            <Text>
+              Get Directions
+            </Text>
+          </TouchableOpacity>
         </View>
 
         {/* Renders map for current floor in building */}
@@ -86,6 +101,17 @@ class BuildingWithFloors extends Component {
           {floor.component}
         </View>
 
+        {/* Renders the needed svg path */}
+        <View style={styles.buildingContainer}>
+          {/* <Svg width={1024} height={1024}>
+            <Polyline
+              points="512,512 1024,1024"
+              fill="none"
+              stroke="black"
+              strokeWidth="3"
+            />
+          </Svg>*/}
+        </View>
         {/* Renders floor switcher button for each available in current building */}
         <View style={styles.switcher}>
           {this.props.buildingFloorPlans.map((lvl) => {
