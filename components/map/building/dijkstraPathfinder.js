@@ -1,7 +1,22 @@
 const dijkstraPathfinder = {
+  /**
+   * The main function that streamlines the entirety of the Dijkstra algorithm. Comprises of the
+   * following steps:
+   * 1. Analyze a node (either by taking the start node or taking the node with the lowest distance
+   * from openList).
+   * 2. Observe unanalyzed adjacent nodes. Put them in openList if not already there, replace with
+   * new instance if distance is shorter, do nothing otherwise.
+   * 3. Put current node in closedList so that the algorithm does not perpetually analyze every
+   * node.
+   * 4. Once the end node is reached, form the shortest path by following the predecessor trail.
+   * @param {String} startNode - Node ID of the starting point of the indoor directions.
+   * @param {String} endNode - Node ID of the destination of the indoor directions.
+   * @param {Object} adjacencyGraph - Graph data structure representing the nodes for the relevant
+   * floor.
+   */
   dijkstraPathfinder(startNode, finishNode, adjacencyGraph) {
-    let openList = []; // Candidates to be scanned for pathfinding. A priority queue based on graph distance.
-    const closedList = []; // Already scanned candidates. Not necessarily the nodes part of the shortest path.
+    let openList = []; // Candidates pending analysis for pathfinding. A priority queue based on graph distance.
+    const closedList = []; // Already scanned candidates.
     let currentNode = { id: startNode, predecessor: undefined, distance: 0 };
     do {
       const adjacencyNodes = adjacencyGraph[currentNode.id].adjacencyList;
@@ -11,16 +26,22 @@ const dijkstraPathfinder = {
           predecessor: currentNode,
           distance: currentNode.distance + this.nodeDistance(currentNode.id, adjacencyNodes[i], adjacencyGraph)
         };
-        // Open list has same functionality as closed list till distance and predecessor implemented.
         if (!this.isAnalyzed(closedList, adjacentNode)) {
           openList = this.handleNodeAnalysis(openList, adjacentNode);
         }
       }
       closedList.push(currentNode);
       currentNode = openList.shift();
+      // The algorithm ends when either the end node is detected or all nodes are analyzed.
     } while (currentNode !== undefined && closedList[closedList.length - 1].id !== finishNode);
     return this.createShortestPath(closedList[closedList.length - 1], adjacencyGraph);
   },
+  /**
+   * Checks if a neighboring node has already been analyzed.
+   * @param {Array} closedList - List of already analyzed nodes.
+   * @param {Object} currentAdjacencyNode - Node of the current neighbor being considered.
+   * floor.
+   */
   isAnalyzed(closedList, currentAdjacencyNode) {
     let isAnalyzed = false;
     closedList.forEach((node) => {
@@ -30,18 +51,31 @@ const dijkstraPathfinder = {
     });
     return isAnalyzed;
   },
+
+  /**
+   * Handles how neighbors being observed are inserted into the openList priority queue.
+   * Priority is based on the accumulated distance from the start. If a neighbor is already
+   * in openList, its data will be replaced if the distance is shorter than the previous
+   * instance.
+   * @param {Array} openList - List of nodes pending analysis.
+   * @param {Object} currentAdjacencyNode - Node of the current neighbor being considered.
+   */
   handleNodeAnalysis(openList, currentAdjacencyNode) {
     let nodeIndex = -1;
+    // Check if node is already in openList.
     for (let i = 0; i < openList.length; i += 1) {
       if (openList[i].id === currentAdjacencyNode.id) {
         nodeIndex = i;
         break;
       }
     }
+    // If node is in openList.
     if (nodeIndex >= 0) {
       // Dethrone distance and predecessor if new one is smaller.
       if (openList[nodeIndex].distance > currentAdjacencyNode.distance) {
         openList[nodeIndex].distance = currentAdjacencyNode.distance;
+        openList[nodeIndex].predecessor = currentAdjacencyNode.predecessor;
+
         // Put distances back in sorted order.
         // Swap Notation found here:
         // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment#Array_destructuring
@@ -61,6 +95,8 @@ const dijkstraPathfinder = {
       return openList;
     }
     // Insert new data in a fashion that keeps distances sorted.
+    // If distance is the highest out of all nodes in openList, put at the end
+    // of the list.
     nodeIndex = openList.length;
     for (let i = 0; i < openList.length; i += 1) {
       if (currentAdjacencyNode.distance <= openList[i].distance) {
@@ -71,6 +107,16 @@ const dijkstraPathfinder = {
     openList.splice(nodeIndex, 0, currentAdjacencyNode);
     return openList;
   },
+  /**
+   * Looks at the end node and follows the trail formed by the node predecessors until the
+   * start node is reached. The shortest path is then returned in a form that allows the
+   * React SVG Polyline component to properly render the directions on the SVG map.
+   * @param {Object} finishNode - The destination of the requested directions.
+   * @param {Object} adjacencyGraph - The graph data structure representing the
+   * relevant floor. Needed to gather the x & y coordinates of each node in the shortest
+   * path (since the polyline needs x & y coordinates).
+   * floor.
+   */
   createShortestPath(finishNode, adjacencyGraph) {
     let shortestPath = '';
     let currentNode = finishNode;
@@ -80,6 +126,14 @@ const dijkstraPathfinder = {
     } while (currentNode !== undefined);
     return shortestPath;
   },
+  /**
+   * Distance between two points (assumes points are in two dimensions).
+   * @param {String} startNodeId - ID of first node.
+   * @param {String} endNodeId - ID of second node.
+   * @param {Object} adjacencyGraph - The graph data structure representing the
+   * relevant floor. Needed to gather the x & y coordinates of each node to calculate the
+   * shortest distance.
+   */
   nodeDistance(startNodeId, endNodeId, adjacencyGraph) {
     const deltaXSquared = (adjacencyGraph[endNodeId].x - adjacencyGraph[startNodeId].x) ** 2;
     const deltaYSquared = (adjacencyGraph[endNodeId].y - adjacencyGraph[startNodeId].y) ** 2;
