@@ -15,18 +15,25 @@ export default class LoginScreen extends Component {
        if (!this.isUserEqual(googleUser, firebaseUser)) {
        // Build Firebase credential with the Google ID token.
          const credential = firebase.auth.GoogleAuthProvider.credential(
-           googleUser.getAuthResponse().id_token);
+           googleUser.idToken,
+           googleUser.accessToken
+         );
          // Sign in with credential from the Google user.
-         firebase.auth().signInWithCredential(credential).catch((error) => {
-         // Handle Errors here.
-           const errorCode = error.code;
-           const errorMessage = error.message;
-           // The email of the user's account used.
-           const email = error.email;
-           // The firebase.auth.AuthCredential type that was used.
-           var credential = error.credential;
+         firebase
+           .auth()
+           .signInWithCredential(credential).then(() => {
+             console.log('user sign in');
+           })
+           .catch((error) => {
+           // Handle Errors here.
+             const errorCode = error.code;
+             const errorMessage = error.message;
+             // The email of the user's account used.
+             const email = error.email;
+             // The firebase.auth.AuthCredential type that was used.
+             const credential = error.credential;
            // ...
-         });
+           });
        } else {
          console.log('User already signed-in Firebase.');
        }
@@ -57,6 +64,7 @@ export default class LoginScreen extends Component {
       });
 
       if (result.type === 'success') {
+        this.onSignIn(result);
         return result.accessToken;
       }
       return { cancelled: true };
