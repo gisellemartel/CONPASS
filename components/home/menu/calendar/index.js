@@ -3,13 +3,22 @@ import React, { Component } from 'react';
 import {
   View, Text, Button, TouchableOpacity
 } from 'react-native';
+import {createSwitchNavigator} from 'react-navigation';
+import firebase from '../../../../firebase.config';
+
 
 export default class Calendar extends Component {
   constructor(props){
     super(props);
   }
 
-// '2020-03-24T00:00:00+00:00'
+  const AppSwitchNavigator = createSwitchNavigator({
+    LoadingScreen: LoadingScreen
+    LoginScreen:LoginScreen
+    DashboardScreen: DashboardScreen
+  })
+
+// g'2020-03-24T00:00:00+00:00'
   componentDidMount() {
     this.getEvents();
   }
