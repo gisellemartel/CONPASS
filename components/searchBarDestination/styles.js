@@ -6,14 +6,15 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 75,
     width: '90%',
-    zIndex: 201,
+    zIndex: 280,
+    borderRadius: 10
   },
   view: {
     borderRadius: 15,
-    zIndex: 201,
+    zIndex: 280,
   },
   Bar: {
-    alignItems: 'center'
+    alignItems: 'center',
   },
   Touch: {
     color: '#AFB9C4',
