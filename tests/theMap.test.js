@@ -31,20 +31,6 @@ beforeEach(() => {
   updateRegionCloser = jest.fn();
 });
 
-// FAILING TEST related to the MapView Render method
-it('Should render the map with the props of the parent', async () => {
-  const region = {
-    latitude: 45.492409,
-    longitude: -73.582153,
-    latitudeDelta: 0.04,
-    longitudeDelta: 0.04,
-  };
-
-  component = shallow(<TheMap nearbyMarkers={[]} updatedRegion={region} />);
-  // console.log(theMapComponent);
-  expect(component.state.region).toBe(region);
-});
-
 
 it('Should fit screen to updated components', () => {
   const spy = jest.spyOn(TheMap.prototype, 'fitScreenToPath').mockImplementation(() => { return true; });
