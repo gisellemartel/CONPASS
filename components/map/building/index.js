@@ -4,6 +4,9 @@ import {
   View, Button, Text
 } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import Svg, {
+  Polyline
+} from 'react-native-svg';
 import styles from './styles';
 import dijkstraPathfinder from './dijkstraPathfinder';
 
@@ -72,6 +75,18 @@ class Building extends Component {
             {/* Renders map for current floor in building */}
             <View style={styles.buildingContainer}>
               {floor.component}
+            </View>
+
+            {/* Renders the needed svg path */}
+            <View style={styles.buildingContainer}>
+              {/* <Svg width={1024} height={1024}>
+                <Polyline
+                  points="512,512 1024,1024"
+                  fill="none"
+                  stroke="black"
+                  strokeWidth="3"
+                />
+              </Svg> */}
             </View>
 
             {/* Renders floor switcher button for each available in current building */}
