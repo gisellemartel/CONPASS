@@ -40,9 +40,9 @@ it('Should render the map with the props of the parent', async () => {
     longitudeDelta: 0.04,
   };
 
-  const theMapComponent = renderer.create(<TheMap updatedRegion={region} />);
-  console.log(theMapComponent);
-  expect(theMapComponent.state.region).toBe(region);
+  component = shallow(<TheMap nearbyMarkers={[]} updatedRegion={region} />);
+  // console.log(theMapComponent);
+  expect(component.state.region).toBe(region);
 });
 
 
