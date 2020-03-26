@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
     paddingLeft: 20,
     paddingRight: 20,
     top: 75,
-    width: '100%',
+    width: '100%'
   },
   buttonLeft: {
     position: 'relative',
@@ -19,14 +19,13 @@ const styles = StyleSheet.create({
     // bottom: '70%',
     borderRadius: 10,
     margin: 1,
-    opacity: 0.90,
+    opacity: 0.9,
     borderWidth: 1,
     borderColor: 'transparent',
     borderStyle: 'solid',
     backgroundColor: '#ffffff',
     justifyContent: 'center',
-    alignItems: 'center',
-
+    alignItems: 'center'
   },
 
   buttonRight: {
@@ -39,10 +38,10 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: 'transparent',
     borderStyle: 'solid',
-    opacity: 0.90,
+    opacity: 0.9,
     backgroundColor: '#ffffff',
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   buttonPressedLeft: {
     position: 'relative',
@@ -56,8 +55,7 @@ const styles = StyleSheet.create({
     borderColor: 'black',
     backgroundColor: '#ffffff',
     justifyContent: 'center',
-    alignItems: 'center',
-
+    alignItems: 'center'
   },
   buttonPressedRight: {
     position: 'relative',
@@ -71,7 +69,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffffff',
     borderColor: 'black',
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   textStyle: {
     color: '#1a1a1a',

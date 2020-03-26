@@ -6,7 +6,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
-    zIndex: 1,
   },
   mapStyle: {
     width: Dimensions.get('window').width,

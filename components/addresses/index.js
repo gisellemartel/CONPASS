@@ -29,36 +29,41 @@ export default class Addresses extends Component {
     };
   }
 
-  drawPath =() => {
-    this.setState((prevState) => { return { drawPath: !prevState.drawPath }; });
-  }
+  /**
+   * updates a draw path boolean. Draws a path when true
+   */
+  drawPath = () => {
+    this.setState((prevState) => {
+      return { drawPath: !prevState.drawPath };
+    });
+  };
 
   /**
-  * updates region and passes the new region 'Home' component.
-  * @param {object} newRegion - New region to be passed.
-  */
-    updateRegion = (newRegion) => {
-      this.setState({
-        region: {
-          latitude: newRegion.latitude,
-          longitude: newRegion.longitude,
-          latitudeDelta: 0.05,
-          longitudeDelta: 0.05
-        }
-      });
-      this.props.getRegion(newRegion);
-    };
+   * updates region and passes the new region 'Home' component.
+   * @param {object} newRegion - New region to be passed.
+   */
+  updateRegion = (newRegion) => {
+    this.setState({
+      region: {
+        latitude: newRegion.latitude,
+        longitude: newRegion.longitude,
+        latitudeDelta: 0.05,
+        longitudeDelta: 0.05
+      }
+    });
+    this.props.getRegion(newRegion);
+  };
 
-    /**
-    * updates coordinates and passes new coordinates 'Home' component.
-    * @param {object} newCoordinates - New coordinates to be passed.
-    */
-    updateCoordinates = (newCoordinates) => {
-      this.setState({
-        coordinates: newCoordinates
-      });
-      this.props.getCoordinates(newCoordinates);
-    };
+  /**
+   * updates coordinates and passes new coordinates 'Home' component.
+   * @param {object} newCoordinates - New coordinates to be passed.
+   */
+  updateCoordinates = (newCoordinates) => {
+    this.setState({
+      coordinates: newCoordinates
+    });
+    this.props.getCoordinates(newCoordinates);
+  };
 
     /**
  * updates mode of transportation
@@ -108,8 +113,6 @@ export default class Addresses extends Component {
             <Destination />
           </View>
         </View>
-
-
       );
     }
 }

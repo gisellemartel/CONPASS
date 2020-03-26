@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { View, Image } from 'react-native';
 import MapView, { Polyline, PROVIDER_GOOGLE } from 'react-native-maps';
 import buildings from '../../assets/polygons/polygons';
 import CustomPolygon from './customPolygon';
@@ -15,15 +15,6 @@ export default class TheMap extends Component {
   constructor(props) {
     super(props);
     this.mapRef = null;
-
-    this.state = {
-      coordinate: {
-        latitude: 45.492409,
-        longitude: -73.582153,
-      },
-      nearbyMarkers: []
-    };
-
     this.focusOnBuilding = this.focusOnBuilding.bind(this);
     this.onRegionChange = this.onRegionChange.bind(this);
     this.selectPoi = this.selectPoi.bind(this);
@@ -33,8 +24,7 @@ export default class TheMap extends Component {
    * Sets the mapRef when the component is mounted
    */
   componentDidMount() {
-    this.setState({ mapRef: this.mapRef },
-      () => { this.fitScreenToPath(this.props.updatedCoordinates); });
+    this.setState({ mapRef: this.mapRef });
   }
 
   /**
@@ -60,12 +50,20 @@ export default class TheMap extends Component {
 
   /**
    *
+   * @param {*} building - building polygon to get information
+   * Pass building information to home
+   */
+  getBuildingInformation =(building) => {
+    this.props.getSuggestions(building);
+  }
+
+  /**
+   *
    * @param {*} building - building to be focused on map
    * focuses on building on map when user taps it's coordinates on the map
    */
   focusOnBuilding(building) {
     const { coordinates } = building.polygon;
-
     this.state.mapRef.fitToCoordinates(coordinates, {
       edgePadding: {
         top: 10, right: 20, bottom: 10, left: 20
@@ -77,6 +75,7 @@ export default class TheMap extends Component {
     setTimeout(() => {
       const getRegion = region;
       this.props.interiorModeOn(building, getRegion);
+      this.getBuildingInformation(building);
     }, 500);
   }
 
@@ -124,6 +123,7 @@ export default class TheMap extends Component {
         <CustomPolygon
           key={building.buildingName + building.address}
           building={building}
+          getBuildingInformation={this.getBuildingInformation}
           focusOnBuilding={this.focusOnBuilding}
           fillColor="rgba(255,135,135,0.5)"
         />
@@ -134,6 +134,8 @@ export default class TheMap extends Component {
     return (
       <View style={styles.container}>
         <MapView
+          showsUserLocation
+          followsUserLocation
           ref={currRef}
           provider={PROVIDER_GOOGLE}
           key="map"
@@ -171,7 +173,14 @@ export default class TheMap extends Component {
                   }}
                   title=""
                   description=""
-                />
+                >
+                  <Image
+                    source={require('./destination.png')}
+                    style={{ width: 30, height: 32 }}
+                    resizeMode="contain"
+                  />
+                </MapView.Marker>
+
               )
           }
 
