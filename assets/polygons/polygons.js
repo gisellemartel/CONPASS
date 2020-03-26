@@ -741,7 +741,7 @@ const buildings = [
       id: '7.1',
       placeID: 'ChIJtd6Zh2oayUwRAu_CnRIfoBw',
       opening: ['8:00 am', '9:30 pm'],
-      image: require('./images/hiveCafe.png')
+      image: require('./images/hiveCafe.jpg')
     }
     ],
     address: '1455 DeMaisonneuve W',
