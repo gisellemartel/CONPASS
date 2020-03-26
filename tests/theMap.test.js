@@ -1,7 +1,6 @@
 /* eslint-disable no-undef */
 /* eslint-disable max-len */
 import React from 'react';
-import renderer from 'react-test-renderer';
 import { shallow } from 'enzyme';
 import TheMap from '../components/map/index';
 
@@ -31,25 +30,23 @@ beforeEach(() => {
   updateRegionCloser = jest.fn();
 });
 
-// FAILING TEST related to the MapView Render method
-it('Should render the map with the props of the parent', async () => {
-  const region = {
-    latitude: 45.492409,
-    longitude: -73.582153,
-    latitudeDelta: 0.04,
-    longitudeDelta: 0.04,
+it('Should fit screen to updated components', () => {
+  const coordinatesPre = {
+    lat: 123,
+    long: 123
   };
 
-  const theMapComponent = renderer.create(<TheMap updatedRegion={region} />);
-  console.log(theMapComponent);
-  expect(theMapComponent.state.region).toBe(region);
-});
+  const coordinatesChanged = {
+    lat: 666,
+    long: 666
+  };
 
-
-it('Should fit screen to updated components', () => {
-  const spy = jest.spyOn(TheMap.prototype, 'fitScreenToPath').mockImplementation(() => { return true; });
-  wrapper = shallow(<TheMap nearbyMarkers={[]} updatedRegion={mockRegion} />);
-  expect(spy).toHaveBeenCalled();
+  const fitToCoordinates = jest.fn();
+  wrapper = shallow(<TheMap nearbyMarkers={[]} updatedCoordinates={coordinatesPre} updatedRegion={mockRegion} />);
+  const spyFitToCoordinates = jest.spyOn(wrapper.instance(), 'fitScreenToPath');
+  wrapper.instance().setState({ mapRef: { fitToCoordinates } });
+  wrapper.setProps({ updatedCoordinates: coordinatesChanged });
+  expect(spyFitToCoordinates).toBeCalled();
 });
 
 it('Should fetch and send the selected point of interest to the home component', async () => {
