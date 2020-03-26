@@ -19,7 +19,7 @@ const dijkstraPathfinder = {
       closedList.push(currentNode);
       currentNode = openList.shift();
     } while (currentNode !== undefined && closedList[closedList.length - 1].id !== finishNode);
-    return this.createShortestPath(closedList[closedList.length - 1]);
+    return this.createShortestPath(closedList[closedList.length - 1], adjacencyGraph);
   },
   isAnalyzed(closedList, currentAdjacencyNode) {
     let isAnalyzed = false;
@@ -71,11 +71,11 @@ const dijkstraPathfinder = {
     openList.splice(nodeIndex, 0, currentAdjacencyNode);
     return openList;
   },
-  createShortestPath(finishNode) {
-    const shortestPath = [];
+  createShortestPath(finishNode, adjacencyGraph) {
+    let shortestPath = '';
     let currentNode = finishNode;
     do {
-      shortestPath.unshift(currentNode.id);
+      shortestPath = `${adjacencyGraph[currentNode.id].x},${adjacencyGraph[currentNode.id].y} ${shortestPath}`;
       currentNode = currentNode.predecessor;
     } while (currentNode !== undefined);
     return shortestPath;
