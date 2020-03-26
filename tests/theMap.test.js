@@ -1,7 +1,6 @@
 /* eslint-disable no-undef */
 /* eslint-disable max-len */
 import React from 'react';
-import renderer from 'react-test-renderer';
 import { shallow } from 'enzyme';
 import TheMap from '../components/map/index';
 
