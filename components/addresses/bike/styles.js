@@ -10,7 +10,6 @@ const styles = StyleSheet.create({
   currentLocation: {
     width: 25,
     resizeMode: 'contain',
-    zIndex: 201,
   }
 
 });

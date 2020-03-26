@@ -11,7 +11,6 @@ const styles = StyleSheet.create({
   currentLocation: {
     width: 15,
     resizeMode: 'contain',
-    zIndex: 201,
   }
 
 });
