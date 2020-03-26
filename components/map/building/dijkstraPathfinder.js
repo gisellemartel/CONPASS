@@ -1,5 +1,6 @@
 const dijkstraPathfinder = {
   dijkstraPathfinder(startNode, finishNode, adjacencyGraph) {
+    console.log(`Node Distance from Start to End: ${this.nodeDistance(startNode, finishNode, adjacencyGraph)}`);
     const openList = []; // Candidates to be scanned for pathfinding. A priority queue based on graph distance.
     const closedList = []; // Already scanned candidates. Not necessarily the nodes part of the shortest path.
     let currentNode = { id: startNode, predecessor: null, distance: 0 };
@@ -24,6 +25,11 @@ const dijkstraPathfinder = {
       }
     });
     return isAnalyzed;
+  },
+  nodeDistance(startNodeId, endNodeId, adjacencyGraph) {
+    const deltaXSquared = Math.pow((adjacencyGraph[endNodeId].x - adjacencyGraph[startNodeId].x), 2);
+    const deltaYSquared = Math.pow((adjacencyGraph[endNodeId].y - adjacencyGraph[startNodeId].y), 2);
+    return Math.sqrt(deltaXSquared + deltaYSquared);
   },
   createShortestPath() {
     // No implementation yet.
