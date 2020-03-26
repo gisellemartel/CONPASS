@@ -61,6 +61,64 @@ beforeEach(() => {
     ],
     status: 'OK'
   };
+
+  expectedJsonResultPredictions = {
+    predictions: [{
+      html_attributions: [],
+      results: [
+        {
+          description: '1400 de Maisonneuve West, Maisonneuve Boulevard West, Montreal, QC, Canada',
+          id: 'ef79953defce3e028c4d5ec50e1b42677556cb8f',
+          matched_substrings: [],
+          place_id: 'ChIJz2SwbmoayUwR5_D4CXsr5eM',
+          reference: 'ChIJz2SwbmoayUwR5_D4CXsr5eM',
+          structured_formatting: [],
+          terms: [],
+          types: []
+        },
+        {
+          description: 'Webster Library, Concordia University, 1400 de Maisonneuve West, Maisonneuve Boulevard West, Montreal, QC, Canada',
+          id: '61b3338f1bdf19423ef736fe32f29a30932cff8b',
+          matched_substrings: [],
+          place_id: 'ChIJrdodZWoayUwR3HZRx_qndrk',
+          reference: 'ChIJrdodZWoayUwR3HZRx_qndrk',
+          structured_formatting: [],
+          terms: [],
+          types: []
+        },
+        {
+          description: 'Concordia University - Sir George Williams Campus, 1400 Boulevard de Maisonneuve Ouest, Montreal, QC, Canada',
+          id: '0b4fc5e586b38018d9f165393d14789898edff8b',
+          matched_substrings: [],
+          place_id: 'ChIJnXzeZWoayUwRO6q4kqnTAEY',
+          reference: 'ChIJnXzeZWoayUwRO6q4kqnTAEY',
+          structured_formatting: [],
+          terms: [],
+          types: []
+        },
+        {
+          description: 'Concordia University - Sir George Williams Campus, 1400 Boulevard de Maisonneuve West, Montreal, QC, Canada',
+          id: 'e6c706e78f366f8b735dca8672867632a6687cdb',
+          matched_substrings: [],
+          place_id: 'ChIJ0ZWDeWoayUwRKLBD7EV8dtY',
+          reference: 'ChIJ0ZWDeWoayUwRKLBD7EV8dtY',
+          structured_formatting: [],
+          terms: [],
+          types: []
+        },
+        {
+          description: 'Welcome Centre, 1400 de Maisonneuve West, Bishop Street, Montreal, QC, Canada',
+          id: '0fa3733411e0f54ff22e255cd60a02461ffbee7d',
+          matched_substrings: [],
+          place_id: 'ChIJ122rcWoayUwRtqSQkqArCgU',
+          reference: 'ChIJ122rcWoayUwRtqSQkqArCgU',
+          structured_formatting: [],
+          terms: [],
+          types: []
+        }]
+    }],
+    status: 'OK'
+  };
   updateR = jest.fn();
 });
 
@@ -79,7 +137,7 @@ it('Should populate prediction state with content', async () => {
 
   const searchBarComponent = renderer.create(<SearchBar />).getInstance();
   await searchBarComponent.onChangeDestination('Loyola');
-  expect(searchBarComponent.state.predictions).toBe(mockPrediction.predictions);
+  expect(searchBarComponent.state.predictions).toMatchObject(mockPrediction.predictions);
 });
 
 it('Should populate LatLng state with content', async () => {
@@ -134,35 +192,63 @@ it('Calling getNearbyPlaces should pass an array to the nearbyMarkers property',
 });
 
 it('Should Update the currentBuilding state with given a prediction from Google\'s API', async () => {
+  // Mock API call
+  const result = {
+    predictions: [
+      {
+        description: '1400 de Maisonneuve West, Maisonneuve Boulevard West, Montreal, QC, Canada',
+        id: 'ef79953defce3e028c4d5ec50e1b42677556cb8f',
+        place_id: 'ChIJz2SwbmoayUwR5_D4CXsr5eM'
+      }
+    ]
+  };
+  global.fetch = jest.fn().mockImplementation(() => {
+    const promise = new Promise((resolve) => {
+      resolve({
+        json: () => {
+          return result;
+        }
+      });
+    });
+    return promise;
+  });
   const searchBarComponent = renderer.create(<SearchBar currentBuildingPred="1400 DeMaisonneuve W" />).getInstance();
   await searchBarComponent.updateCurrentBuilding();
-  expect(searchBarComponent.state.currentBuilding.description).toBe('1400 de Maisonneuve West, Maisonneuve Boulevard West, Montreal, QC, Canada');
-  expect(searchBarComponent.state.currentBuilding.id).toBe('ef79953defce3e028c4d5ec50e1b42677556cb8f');
-  expect(searchBarComponent.state.currentBuilding.place_id).toBe('ChIJz2SwbmoayUwR5_D4CXsr5eM');
+  expect(searchBarComponent.state.currentBuilding.description).toBe(result.predictions[0].description);
+  expect(searchBarComponent.state.currentBuilding.id).toBe(result.predictions[0].id);
+  expect(searchBarComponent.state.currentBuilding.place_id).toBe(result.predictions[0].place_id);
 });
 
 it('Should keep the currentBuilding state null', async () => {
+  // Mock API call
+  global.fetch = jest.fn().mockImplementation(() => {
+    const promise = new Promise((resolve) => {
+      resolve({
+        json: () => {
+          return null;
+        }
+      });
+    });
+    return promise;
+  });
   const searchBarComponent = renderer.create(<SearchBar currentBuildingPred="" />).getInstance();
   await searchBarComponent.updateCurrentBuilding();
-  expect(searchBarComponent.state.currentBuilding.description).toBeNull();
+  expect(searchBarComponent.state.currentBuilding).toBeNull();
 });
 
 it('Should return an object identical to expectedJsonResult', async () => {
-  const expectedJsonResult = {
-    predictions: [{
-      description: '1400 de Maisonneuve West, Maisonneuve Boulevard West, Montreal, QC, Canada', id: 'ef79953defce3e028c4d5ec50e1b42677556cb8f', matched_substrings: [Array], place_id: 'ChIJz2SwbmoayUwR5_D4CXsr5eM', reference: 'ChIJz2SwbmoayUwR5_D4CXsr5eM', structured_formatting: [Object], terms: [Array], types: [Array]
-    }, {
-      description: 'Webster Library, Concordia University, 1400 de Maisonneuve West, Maisonneuve Boulevard West, Montreal, QC, Canada', id: '61b3338f1bdf19423ef736fe32f29a30932cff8b', matched_substrings: [Array], place_id: 'ChIJrdodZWoayUwR3HZRx_qndrk', reference: 'ChIJrdodZWoayUwR3HZRx_qndrk', structured_formatting: [Object], terms: [Array], types: [Array]
-    }, {
-      description: 'Concordia University - Sir George Williams Campus, 1400 Boulevard de Maisonneuve Ouest, Montreal, QC, Canada', id: '0b4fc5e586b38018d9f165393d14789898edff8b', matched_substrings: [Array], place_id: 'ChIJnXzeZWoayUwRO6q4kqnTAEY', reference: 'ChIJnXzeZWoayUwRO6q4kqnTAEY', structured_formatting: [Object], terms: [Array], types: [Array]
-    }, {
-      description: 'Concordia University - Sir George Williams Campus, 1400 Boulevard de Maisonneuve West, Montreal, QC, Canada', id: 'e6c706e78f366f8b735dca8672867632a6687cdb', matched_substrings: [Array], place_id: 'ChIJ0ZWDeWoayUwRKLBD7EV8dtY', reference: 'ChIJ0ZWDeWoayUwRKLBD7EV8dtY', structured_formatting: [Object], terms: [Array], types: [Array]
-    }, {
-      description: 'Welcome Centre, 1400 de Maisonneuve West, Bishop Street, Montreal, QC, Canada', id: '0fa3733411e0f54ff22e255cd60a02461ffbee7d', matched_substrings: [Array], place_id: 'ChIJ122rcWoayUwRtqSQkqArCgU', reference: 'ChIJ122rcWoayUwRtqSQkqArCgU', structured_formatting: [Object], terms: [Array], types: [Array]
-    }],
-    status: 'OK'
-  };
+  // Mock API call
+  global.fetch = jest.fn().mockImplementation(() => {
+    const promise = new Promise((resolve) => {
+      resolve({
+        json: () => {
+          return expectedJsonResultPredictions;
+        }
+      });
+    });
+    return promise;
+  });
   const searchBarComponent = renderer.create(<SearchBar currentBuildingPred="Webster Library Building" />).getInstance();
   const json = await searchBarComponent.getPredictions(searchBarComponent.props.currentBuildingPred);
-  expect(json).toEqual(expectedJsonResult);
+  expect(json).toEqual(expectedJsonResultPredictions);
 });
