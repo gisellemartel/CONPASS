@@ -60,7 +60,7 @@ class Building extends Component {
               style={styles.directionsButton}
               onPress={
                 () => {
-                  dijkstraPathfinder.dijkstraPathfinder('817', '841', this.props.adjacencyGraph);
+                  console.log(dijkstraPathfinder.dijkstraPathfinder('817', '841', this.props.adjacencyGraph));
                 }
               }
             >

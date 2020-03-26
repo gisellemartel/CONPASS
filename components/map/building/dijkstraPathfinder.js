@@ -1,16 +1,15 @@
 const dijkstraPathfinder = {
   dijkstraPathfinder(startNode, finishNode, adjacencyGraph) {
-    console.log(`Node Distance from Start to End: ${this.nodeDistance(startNode, finishNode, adjacencyGraph)}`);
     let openList = []; // Candidates to be scanned for pathfinding. A priority queue based on graph distance.
     const closedList = []; // Already scanned candidates. Not necessarily the nodes part of the shortest path.
-    let currentNode = { id: startNode, predecessor: null, distance: 0 };
+    let currentNode = { id: startNode, predecessor: undefined, distance: 0 };
     do {
       const adjacencyNodes = adjacencyGraph[currentNode.id].adjacencyList;
-      for (let j = 0; j < adjacencyNodes.length; j += 1) {
+      for (let i = 0; i < adjacencyNodes.length; i += 1) {
         const adjacentNode = {
-          id: adjacencyNodes[j],
-          predecessor: null,
-          distance: currentNode.distance + this.nodeDistance(currentNode.id, adjacencyNodes[j], adjacencyGraph)
+          id: adjacencyNodes[i],
+          predecessor: currentNode,
+          distance: currentNode.distance + this.nodeDistance(currentNode.id, adjacencyNodes[i], adjacencyGraph)
         };
         // Open list has same functionality as closed list till distance and predecessor implemented.
         if (!this.isAnalyzed(closedList, adjacentNode)) {
@@ -20,6 +19,7 @@ const dijkstraPathfinder = {
       closedList.push(currentNode);
       currentNode = openList.shift();
     } while (currentNode !== undefined && closedList[closedList.length - 1].id !== finishNode);
+    return this.createShortestPath(closedList[closedList.length - 1]);
   },
   isAnalyzed(closedList, currentAdjacencyNode) {
     let isAnalyzed = false;
@@ -71,13 +71,19 @@ const dijkstraPathfinder = {
     openList.splice(nodeIndex, 0, currentAdjacencyNode);
     return openList;
   },
-  nodeDistance(startNodeId, endNodeId, adjacencyGraph) {
-    const deltaXSquared = Math.pow((adjacencyGraph[endNodeId].x - adjacencyGraph[startNodeId].x), 2);
-    const deltaYSquared = Math.pow((adjacencyGraph[endNodeId].y - adjacencyGraph[startNodeId].y), 2);
-    return Math.sqrt(deltaXSquared + deltaYSquared);
+  createShortestPath(finishNode) {
+    const shortestPath = [];
+    let currentNode = finishNode;
+    do {
+      shortestPath.unshift(currentNode.id);
+      currentNode = currentNode.predecessor;
+    } while (currentNode !== undefined);
+    return shortestPath;
   },
-  createShortestPath() {
-    // No implementation yet.
+  nodeDistance(startNodeId, endNodeId, adjacencyGraph) {
+    const deltaXSquared = (adjacencyGraph[endNodeId].x - adjacencyGraph[startNodeId].x) ** 2;
+    const deltaYSquared = (adjacencyGraph[endNodeId].y - adjacencyGraph[startNodeId].y) ** 2;
+    return Math.sqrt(deltaXSquared + deltaYSquared);
   }
 };
 
