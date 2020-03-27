@@ -60,7 +60,15 @@ class BuildingWithFloors extends Component {
     return name;
   }
 
+  /**
+   * Handles the processing of input before the Dijkstra algorithm is invoked. Currently checks if
+   * the directions handle a single floor or multiple floors then gives the directions based on either
+   * scenario.
+   * @param {Array} startNodeId - ID of the node the directions start off at.
+   * @param {Object} finishNodeId - ID of the node the directions start off at.
+   */
   dijkstraHandler(startNodeId, finishNodeId) {
+    // Need to account for room numbers that have decimals.
     const startFloor = parseInt(startNodeId.split('.')[0].slice(0, startNodeId.split('.')[0].length - 2), 10);
     const finishFloor = parseInt(finishNodeId.split('.')[0].slice(0, finishNodeId.split('.')[0].length - 2), 10);
     let updatedDirectionPath;

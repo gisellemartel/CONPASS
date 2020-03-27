@@ -9,10 +9,10 @@ const dijkstraPathfinder = {
    * 3. Put current node in closedList so that the algorithm does not perpetually analyze every
    * node.
    * 4. Once the end node is reached, form the shortest path by following the predecessor trail.
-   * @param {String} startNode - Node ID of the starting point of the indoor directions.
-   * @param {String} endNode - Node ID of the destination of the indoor directions.
-   * @param {Object} adjacencyGraph - Graph data structure representing the nodes for the relevant
+   *
+   * @param {Array} waypoints - Set of start and finish points of directions for each relevant
    * floor.
+   * @param {Array} adjacencyGraphs - All adjacency graphs pertaining to all relevant floors.
    */
   dijkstraPathfinder(waypoints, adjacencyGraphs) {
     let openList = []; // Candidates pending analysis for pathfinding. A priority queue based on graph distance.
@@ -111,11 +111,15 @@ const dijkstraPathfinder = {
    * Looks at the end node and follows the trail formed by the node predecessors until the
    * start node is reached. The shortest path is then returned in a form that allows the
    * React SVG Polyline component to properly render the directions on the SVG map.
+   * Prepares to perform the algorithm on the next floor if there is another floor on
+   * standby for directions.
    * @param {Object} finishNode - The destination of the requested directions.
-   * @param {Object} adjacencyGraph - The graph data structure representing the
-   * relevant floor. Needed to gather the x & y coordinates of each node in the shortest
-   * path (since the polyline needs x & y coordinates).
-   * floor.
+   * @param {Array} waypoints - Set of start and end points. Only relevant to remove the
+   * waypoints already analyzed for the current floor.
+   * @param {Array} adjacencyGraphs - The graph data structures representing each floor.
+   * Needed to gather the x & y coordinates of each node in the shortest
+   * path (since the polyline needs x & y coordinates), alongside removing the graph used
+   * for the current floor.
    */
   createShortestPath(finishNode, waypoints, adjacencyGraphs) {
     let shortestPath = '';
