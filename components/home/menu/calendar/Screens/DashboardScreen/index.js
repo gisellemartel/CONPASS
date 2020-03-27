@@ -4,17 +4,17 @@ import {Calendar, CalendarList, Agenda} from 'react-native-calendars';
 //import styles from './styles';
 
 export default class DashboardScreen extends Component {
-  constructor(props) {
-    const params = props.navigation.state.params.jsonFile;
-    console.log("in dashboard: ");
-    console.log(params);
+  constructor(props) { 
     super(props);
     this.state = {
       items: {},
       synchronizedEvents: [{date:'2017-05-14',title: 'Event #1',startTime:'2017-05-14',endTime:'2017-05-15',description:'This the First event',address:'1425 de mainsonneuve, Apt. 510'}, 
         {date:'2017-05-14',title: 'Event #2',startTime:'2017-05-14',endTime:'2017-05-15',description:'This the Second event',address:'1425 de mainsonneuve, Apt. 510'}, 
-        {date:'2017-05-14',title: 'Event #3',startTime:'2017-05-14',endTime:'2017-05-15',description:'This the Third event',address:'1425 de mainsonneuve, Apt. 510'}]
+        {date:'2017-05-14',title: 'Event #3',startTime:'2017-05-14',endTime:'2017-05-15',description:'This the Third event',address:'1425 de mainsonneuve, Apt. 510'}],
+      params: props.navigation.state.params.jsonFile
     };
+    console.log("in dashboard:\n ");
+    console.log(this.state.params.items[0].start);
   }
 
   render() {
@@ -56,7 +56,7 @@ export default class DashboardScreen extends Component {
 
                   const todayEvents = this.state.synchronizedEvents.filter((event)=>{return strTime==event.date});
                   const numItems = todayEvents.length;//Math.floor(Math.random() * 5);
-                  console.log(numItems);
+                  //console.log(numItems);
                   for (let j = 0; j < numItems; j++) {
                     this.state.items[strTime].push({
                       name: todayEvents[j].title,
@@ -67,7 +67,7 @@ export default class DashboardScreen extends Component {
                       height: 80//Math.max(50, Math.floor(Math.random() * 150))
                     });
                   }
-                  console.log('\n--> ',this.state.items[strTime]);
+                  //console.log('\n--> ',this.state.items[strTime]);
                 }
               }
               const newItems = {};
