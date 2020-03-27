@@ -9,7 +9,9 @@ export default class DashboardScreen extends Component {
         
             this.state = {
               items: {},
-              synchronizedEvents: [{date:'2017-05-14',title: 'Event #1'}, {date:'2017-05-14',title: 'Event #1'}, {date:'2017-05-14',title: 'Event #1'}]
+              synchronizedEvents: [{date:'2017-05-14',title: 'Event #1',startTime:'2017-05-14',endTime:'2017-05-15',description:'This the First event',address:'1425 de mainsonneuve, Apt. 510'}, 
+              {date:'2017-05-14',title: 'Event #2',startTime:'2017-05-14',endTime:'2017-05-15',description:'This the Second event',address:'1425 de mainsonneuve, Apt. 510'}, 
+              {date:'2017-05-14',title: 'Event #3',startTime:'2017-05-14',endTime:'2017-05-15',description:'This the Third event',address:'1425 de mainsonneuve, Apt. 510'}]
             };
           }
         
@@ -56,6 +58,10 @@ export default class DashboardScreen extends Component {
                   for (let j = 0; j < numItems; j++) {
                     this.state.items[strTime].push({
                       name: todayEvents[j].title,
+                      startTime: todayEvents[j].startTime,
+                      endTime: todayEvents[j].endTime,
+                      description: todayEvents[j].description,
+                      address: todayEvents[j].address,
                       height: 80//Math.max(50, Math.floor(Math.random() * 150))
                     });
                   }
@@ -74,7 +80,7 @@ export default class DashboardScreen extends Component {
             return (
               <TouchableOpacity 
                 style={[styles.item, {height: item.height}]} 
-                onPress={() => Alert.alert(item.name)}
+                onPress={() => Alert.alert(item.name,`${item.startTime}  -  ${item.endTime}\n${item.description}\n${item.address}`)}
               >
                 <Text>{item.name}</Text>
               </TouchableOpacity>
