@@ -4,45 +4,47 @@ import {Calendar, CalendarList, Agenda} from 'react-native-calendars';
 //import styles from './styles';
 
 export default class DashboardScreen extends Component {
-      constructor(props) {
-            super(props);
-        
-            this.state = {
-              items: {},
-              synchronizedEvents: [{date:'2017-05-14',title: 'Event #1',startTime:'2017-05-14',endTime:'2017-05-15',description:'This the First event',address:'1425 de mainsonneuve, Apt. 510'}, 
-              {date:'2017-05-14',title: 'Event #2',startTime:'2017-05-14',endTime:'2017-05-15',description:'This the Second event',address:'1425 de mainsonneuve, Apt. 510'}, 
-              {date:'2017-05-14',title: 'Event #3',startTime:'2017-05-14',endTime:'2017-05-15',description:'This the Third event',address:'1425 de mainsonneuve, Apt. 510'}]
-            };
-          }
-        
-          render() {
-            return (
-              <Agenda
-                items={this.state.items}
-                loadItemsForMonth={this.loadItems.bind(this)}
-                selected={'2017-05-16'}
-                renderItem={this.renderItem.bind(this)}
-                renderEmptyDate={this.renderEmptyDate.bind(this)}
-                rowHasChanged={this.rowHasChanged.bind(this)}
-                // markingType={'period'}
-                // markedDates={{
-                //    '2017-05-08': {textColor: '#43515c'},
-                //    '2017-05-09': {textColor: '#43515c'},
-                //    '2017-05-14': {startingDay: true, endingDay: true, color: 'blue'},
-                //    '2017-05-21': {startingDay: true, color: 'blue'},
-                //    '2017-05-22': {endingDay: true, color: 'gray'},
-                //    '2017-05-24': {startingDay: true, color: 'gray'},
-                //    '2017-05-25': {color: 'gray'},
-                //    '2017-05-26': {endingDay: true, color: 'gray'}}}
-                // monthFormat={'yyyy'}
-                // theme={{calendarBackground: 'red', agendaKnobColor: 'green'}}
-                //renderDay={(day, item) => (<Text>{day ? day.day: 'item'}</Text>)}
-                // hideExtraDays={false}
-              />
-            );
-          }
-        
-          loadItems(day) {
+  constructor(props) {
+    const params = props.navigation.state.params.jsonFile;
+    console.log("in dashboard: ");
+    console.log(params);
+    super(props);
+    this.state = {
+      items: {},
+      synchronizedEvents: [{date:'2017-05-14',title: 'Event #1',startTime:'2017-05-14',endTime:'2017-05-15',description:'This the First event',address:'1425 de mainsonneuve, Apt. 510'}, 
+        {date:'2017-05-14',title: 'Event #2',startTime:'2017-05-14',endTime:'2017-05-15',description:'This the Second event',address:'1425 de mainsonneuve, Apt. 510'}, 
+        {date:'2017-05-14',title: 'Event #3',startTime:'2017-05-14',endTime:'2017-05-15',description:'This the Third event',address:'1425 de mainsonneuve, Apt. 510'}]
+    };
+  }
+
+  render() {
+    return (
+      <Agenda
+        items={this.state.items}
+        loadItemsForMonth={this.loadItems.bind(this)}
+        selected={'2017-05-16'}
+        renderItem={this.renderItem.bind(this)}
+        renderEmptyDate={this.renderEmptyDate.bind(this)}
+        rowHasChanged={this.rowHasChanged.bind(this)}
+        // markingType={'period'}
+        // markedDates={{
+        //    '2017-05-08': {textColor: '#43515c'},
+        //    '2017-05-09': {textColor: '#43515c'},
+        //    '2017-05-14': {startingDay: true, endingDay: true, color: 'blue'},
+        //    '2017-05-21': {startingDay: true, color: 'blue'},
+        //    '2017-05-22': {endingDay: true, color: 'gray'},
+        //    '2017-05-24': {startingDay: true, color: 'gray'},
+        //    '2017-05-25': {color: 'gray'},
+        //    '2017-05-26': {endingDay: true, color: 'gray'}}}
+        // monthFormat={'yyyy'}
+        // theme={{calendarBackground: 'red', agendaKnobColor: 'green'}}
+        //renderDay={(day, item) => (<Text>{day ? day.day: 'item'}</Text>)}
+        // hideExtraDays={false}
+      />
+    );
+  }
+
+  loadItems(day) {
             setTimeout(() => {
               for (let i = -15; i < 85; i++) {
                 const time = day.timestamp + i * 24 * 60 * 60 * 1000;

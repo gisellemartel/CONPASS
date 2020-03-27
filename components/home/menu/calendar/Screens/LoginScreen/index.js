@@ -72,6 +72,7 @@ export default class LoginScreen extends Component {
         const jsonFile = await userInfoResponse.json();
         console.log("json file: ");
         console.log(jsonFile);
+        this.props.navigation.navigate('DashboardScreen', { jsonFile });
         return result.accessToken;
       }
       return { cancelled: true };
