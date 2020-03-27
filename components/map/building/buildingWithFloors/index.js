@@ -71,20 +71,18 @@ class BuildingWithFloors extends Component {
     // Need to account for room numbers that have decimals.
     const startFloor = parseInt(startNodeId.split('.')[0].slice(0, startNodeId.split('.')[0].length - 2), 10);
     const finishFloor = parseInt(finishNodeId.split('.')[0].slice(0, finishNodeId.split('.')[0].length - 2), 10);
-    let updatedDirectionPath;
+    const updatedDirectionPath = {};
     if (startFloor !== finishFloor) {
       const paths = dijkstraPathfinder.dijkstraPathfinder(
         [{ start: startNodeId, finish: 'escalator' }, { start: 'escalator', finish: finishNodeId }],
         [this.props.adjacencyGraphs[startFloor], this.props.adjacencyGraphs[finishFloor]]
       );
-      updatedDirectionPath = this.state.directionPath;
       [updatedDirectionPath[startFloor], updatedDirectionPath[finishFloor]] = [paths[0], paths[1]];
     } else {
       const paths = dijkstraPathfinder.dijkstraPathfinder(
         [{ start: startNodeId, finish: finishNodeId }],
         [this.props.adjacencyGraphs[startFloor]]
       );
-      updatedDirectionPath = this.state.directionPath;
       [updatedDirectionPath[startFloor]] = [paths[0]];
     }
     this.setState({

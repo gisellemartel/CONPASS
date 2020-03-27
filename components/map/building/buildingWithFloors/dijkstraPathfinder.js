@@ -43,13 +43,12 @@ const dijkstraPathfinder = {
    * floor.
    */
   isAnalyzed(closedList, currentAdjacencyNode) {
-    let isAnalyzed = false;
-    closedList.forEach((node) => {
-      if (node.id === currentAdjacencyNode.id) {
-        isAnalyzed = true;
+    for (let i = 0; i < closedList.length; i += 1) {
+      if (closedList[i].id === currentAdjacencyNode.id) {
+        return true;
       }
-    });
-    return isAnalyzed;
+    }
+    return false;
   },
 
   /**
