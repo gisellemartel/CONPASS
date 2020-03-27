@@ -5,7 +5,7 @@ import Svg, {
 
 function SvgHall8(props) {
   return (
-    <Svg width={1024} height={1024} {...props}>
+    <Svg {...props}>
       <Path fill="none" d="M-1-1h1026v1026H-1z" />
       <G>
         <G strokeWidth={2.55} fill="#9CD3D7" stroke="#000">

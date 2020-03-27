@@ -4,6 +4,7 @@ import {
   View, Button, Text, Image
 } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import ReactNativeZoomableView from '@dudigital/react-native-zoomable-view/src/ReactNativeZoomableView';
 import Svg, {
   Polyline
 } from 'react-native-svg';
@@ -103,15 +104,16 @@ class BuildingWithFloors extends Component {
 
         {/* Renders the needed svg path */}
         <View style={styles.buildingContainer}>
-          {/* <Svg width={1024} height={1024}>
+          <Svg width="100%" height="100%">
             <Polyline
-              points="512,512 1024,1024"
+              points="0,0 143.423, 158.313"
               fill="none"
               stroke="black"
               strokeWidth="3"
             />
-          </Svg>*/}
+          </Svg>
         </View>
+
         {/* Renders floor switcher button for each available in current building */}
         <View style={styles.switcher}>
           {this.props.buildingFloorPlans.map((lvl) => {

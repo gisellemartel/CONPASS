@@ -52,6 +52,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     position: 'absolute',
+    width: 325,
+    height: 325,
     zIndex: 300
   },
   switcher: {
