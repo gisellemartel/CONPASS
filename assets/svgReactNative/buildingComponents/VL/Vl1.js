@@ -559,7 +559,19 @@ function SvgVl1(props) {
           stroke="#000"
         >
           o
-        </Text> */}
+        </Text>
+        <Text
+          fontFamily="Helvetica, Arial, sans-serif"
+          fontSize={10}
+          x={300}
+          y={750}
+          strokeWidth={0}
+          stroke="#000"
+        >
+          o
+        </Text>
+
+        */}
       </G>
     </Svg>
   );
