@@ -88,10 +88,12 @@ class BuildingWithFloors extends Component {
           <TouchableOpacity
             onPress={
                 () => {
+                  console.log('WAAAAAAAAAAAAAAAAAA!');
+                  console.log(this.props.adjacencyGraphs[8]);
                   this.setState({
                     directionPath: dijkstraPathfinder.dijkstraPathfinder(
-                      [{ start: '817', finish: '841' }, { start: '841', finish: '867' }],
-                      [this.props.adjacencyGraph, this.props.adjacencyGraph]
+                      [{ start: '817', finish: '841' }, { start: '967', finish: '929' }],
+                      [this.props.adjacencyGraphs[8], this.props.adjacencyGraphs[9]]
                     )
                   });
                   console.log(this.state.directionPath);

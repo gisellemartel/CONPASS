@@ -20,6 +20,7 @@ const dijkstraPathfinder = {
     // console.log(waypoints[0].start);
     let currentNode = { id: waypoints[0].start, predecessor: undefined, distance: 0 };
     do {
+      console.log(`CURRENT NODE: ${currentNode.id}`);
       const adjacencyNodes = adjacencyGraphs[0][currentNode.id].adjacencyList;
       for (let i = 0; i < adjacencyNodes.length; i += 1) {
         const adjacentNode = {

@@ -450,30 +450,30 @@ const hall9FloorPlanCoordinates = {
     x: 270.5,
     y: 493,
     adjacencyList: [
-      'node_954_1',
-      'node_954_2',
-      'node_954_3',
+      // 'node_954_1',
+      // 'node_954_2',
+      // 'node_954_3',
     ]
   },
   964.1: {
     x: 199.5,
     y: 451,
     adjacencyList: [
-      'node_954_1',
+      // 'node_954_1',
     ]
   },
   964.2: {
     x: 199.5,
     y: 493,
     adjacencyList: [
-      'node_954_2',
+      // 'node_954_2',
     ]
   },
   964.3: {
     x: 178.5,
     y: 542,
     adjacencyList: [
-      'node_954_3',
+      // 'node_954_3',
     ]
   },
   965: {
@@ -760,7 +760,7 @@ const hall9FloorPlanCoordinates = {
     x: 463,
     y: 930,
     adjacencyList: [
-      '929.5',
+      // '929.5',
       '941'
     ]
   },
@@ -1056,7 +1056,7 @@ const hall9FloorPlanCoordinates = {
     x: 271,
     y: 404,
     adjacencyList: [
-      '954',
+      // '954',
       'staircase_1',
       'node_corner_hallway_southwest',
       'node_elevator_1',
@@ -1134,7 +1134,7 @@ const hall9FloorPlanCoordinates = {
     y: 670,
     adjacencyList: [
       '968',
-      '966.8',
+      // '966.8',
       'node_intersection_west',
       'node_968_staircase_3'
     ]

@@ -9,10 +9,10 @@ import SetPath from '../setPath';
 import Addresses from '../addresses';
 import Building from '../map/building/index';
 import generateBuilding from '../../assets/svgReactNative/buildingRepository';
+import generateGraph from '../../indoor_directions_modules/graphRepository';
 import hall8FloorPlanCoordinates from '../../indoor_directions_modules/buildings/H/Hall8FloorPlanCoordinates'; // Until graph repository is implemented.
 import styles from './styles';
 import Suggestions from '../suggestions';
-
 import parseFloorMapSvgs from '../../indoor_directions_modules/scripts/floorMapSvgParserScript';
 
 
@@ -276,7 +276,7 @@ class Home extends Component {
         <Building
           building={this.state.building}
           buildingFloorPlans={generateBuilding(this.state.building.building)}
-          adjacencyGraph={hall8FloorPlanCoordinates}
+          adjacencyGraphs={generateGraph(this.state.building.building)}
           interiorModeOff={this.interiorModeOff}
         />
         )}
