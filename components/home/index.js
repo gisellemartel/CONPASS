@@ -38,8 +38,6 @@ class Home extends Component {
       },
       interiorMode: false,
       nearbyMarkers: [],
-      // eslint-disable-next-line react/no-unused-state
-      isSearchVisible: true,
       // current concordia bulding tapped on
       currentBuildingAddress: '',
       showDirectionsMenu: false,
