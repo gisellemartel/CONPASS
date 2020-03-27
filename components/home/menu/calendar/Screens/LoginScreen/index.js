@@ -66,10 +66,12 @@ export default class LoginScreen extends Component {
       if (result.type === 'success') {
         this.onSignIn(result);
         const accessToken = result.accessToken;
-        const userInfoResponse = await fetch('https://www.googleapis.com/calendar/v3/calendars/primary/events?key=AIzaSyD6HkzlzR03IOV7dLNZ6Ax0zo_Cd4jWyvo', {
+        const userInfoResponse = await fetch('https://www.googleapis.com/calendar/v3/calendars/primary/events?key=AIzaSyBAHObp5Ic3CbJpkX2500tNhf53e_3wBMA', {
           headers: { Authorization: `Bearer ${accessToken}` },
         });
-        console.log("user info is: "+userInfoResponse+" !!!!!!!!!!!!!!");
+        const jsonFile = await userInfoResponse.json();
+        console.log("json file: ");
+        console.log(jsonFile);
         return result.accessToken;
       }
       return { cancelled: true };
