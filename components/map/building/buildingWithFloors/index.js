@@ -19,7 +19,7 @@ class BuildingWithFloors extends Component {
     super(props);
     this.state = {
       floor: this.props.floor,
-      directionPath: ''
+      directionPath: {}
     };
   }
 
@@ -60,6 +60,14 @@ class BuildingWithFloors extends Component {
     return name;
   }
 
+  generationDirectionMap() {
+    const directions = {};
+    this.props.buildingFloorPlans.findIndex((i) => {
+      directions[i.floor] = '';
+    });
+    return directions;
+  }
+
   render() {
     const { floor } = this.state;
     const { building } = this.props;
@@ -88,15 +96,15 @@ class BuildingWithFloors extends Component {
           <TouchableOpacity
             onPress={
                 () => {
-                  console.log('WAAAAAAAAAAAAAAAAAA!');
-                  console.log(this.props.adjacencyGraphs[8]);
+                  const paths = dijkstraPathfinder.dijkstraPathfinder(
+                    [{ start: '817', finish: '841' }, { start: '917', finish: '961.19' }],
+                    [this.props.adjacencyGraphs[8], this.props.adjacencyGraphs[9]]
+                  );
+                  const updatedDirectionPath = this.state.directionPath;
+                  [updatedDirectionPath[8], updatedDirectionPath[9]] = [paths[0], paths[1]];
                   this.setState({
-                    directionPath: dijkstraPathfinder.dijkstraPathfinder(
-                      [{ start: '817', finish: '841' }, { start: '967', finish: '929' }],
-                      [this.props.adjacencyGraphs[8], this.props.adjacencyGraphs[9]]
-                    )
+                    directionPath: updatedDirectionPath
                   });
-                  console.log(this.state.directionPath);
                 }
               }
           >
@@ -115,7 +123,7 @@ class BuildingWithFloors extends Component {
         <View style={styles.buildingContainer}>
           <Svg width="100%" height="100%">
             <Polyline
-              points={this.state.directionPath[1]}
+              points={this.state.directionPath[this.state.floor.floor]}
               fill="none"
               stroke="black"
               strokeWidth="3"
