@@ -5,7 +5,6 @@ import * as Google from 'expo-google-app-auth';
 import firebase from 'firebase';
 
 export default class LoginScreen extends Component {
-
    onSignIn = (googleUser) => {
      console.log('Google Auth Response', googleUser);
      // We need to register an Observer on Firebase Auth to make sure auth is initialized.
@@ -18,6 +17,7 @@ export default class LoginScreen extends Component {
            googleUser.idToken,
            googleUser.accessToken
          );
+         console.log("credential is "+ credential.accessToken);
          // Sign in with credential from the Google user.
          firebase
            .auth()
@@ -57,14 +57,19 @@ export default class LoginScreen extends Component {
   signInWithGoogleAsync = async () => {
     try {
       const result = await Google.logInAsync({
-        behavior: 'web',
         androidClientId: '1074556967371-dq4p8r6ech6h3lobf9vvplm50276b5l7.apps.googleusercontent.com',
         iosClientId: '1074556967371-dlgnaho4p5t17fjh3p6g364qqq70bh15.apps.googleusercontent.com',
-        scopes: ['profile', 'email'],
+        client_secret: 'ftrx12z1pszC7qMCCgkqUXKC',
+        scopes: ['https://www.googleapis.com/auth/calendar.readonly'],
       });
 
       if (result.type === 'success') {
         this.onSignIn(result);
+        const accessToken = result.accessToken;
+        const userInfoResponse = await fetch('https://www.googleapis.com/calendar/v3/calendars/primary/events?key=AIzaSyD6HkzlzR03IOV7dLNZ6Ax0zo_Cd4jWyvo', {
+          headers: { Authorization: `Bearer ${accessToken}` },
+        });
+        console.log("user info is: "+userInfoResponse+" !!!!!!!!!!!!!!");
         return result.accessToken;
       }
       return { cancelled: true };

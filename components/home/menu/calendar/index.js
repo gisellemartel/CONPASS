@@ -22,15 +22,15 @@ export default class Calendar extends Component {
 
 // timeMin=2020-03-24T00:00:00.000Z
   getEvents() {
-    return fetch('https://www.googleapis.com/calendar/v3/calendars/primary/events?timeMin=2020-03-24T00:00:00.000Z', {
+    return fetch('https://www.googleapis.com/calendar/v3/calendars/primary/events', {
       method: 'GET',
       headers: {
-        Authorization: 'Bearer ya29.a0Adw1xeWKP9dLAiDndQev1EJ6mps9BywoNOSAnwXZZ6nJ3KvS25y6ODOIevtV1cdDDJgMATabJ1fZw_qGfvvVduz6FKpzu4bH0DS5F6DAxUCirWGZgEsijOT0OWUw-CdEalLU0aCPnrYDJ62-1_0NWj9TyrGOX2s0NNY'
+        accessToken: 'Bearer ya29.a0Adw1xeXMZJ4PpWtLMI75lZtcfV80_VhRczd5b6aP5QC-XmkxGqEqm-JHJ0hk_IHoHjFIae1qrMBYrr15a6idiEc1NbcyABiAQdx0Bn2XnxbFYUA62qDRqIoZapZd0xHSKCRXC8H8vQZvc7npVQdk2Wh2yz8nRw4Coqw'
       }
     })
       .then((response) => { response.json(); })
       .then((responseJson) => {
-        console.log('--->', responseJson.items[3]);
+        console.log('--->'+ responseJson.items[3]);
       })
 
       .catch((error) => {
