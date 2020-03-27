@@ -455,7 +455,7 @@ function SvgHall9(props) {
           fontSize={24}
           fontFamily="Helvetica, Arial, sans-serif"
         >
-          929
+          927
         </Text>
         <Text
           strokeWidth={0}
@@ -1837,7 +1837,83 @@ function SvgHall9(props) {
           fontFamily="Helvetica, Arial, sans-serif"
         >
           o
-        </Text> */}
+        </Text>
+
+        <Text
+          stroke="#000"
+          strokeWidth={0}
+          x={400}
+          y={808}
+          fontSize={10}
+          fontFamily="Helvetica, Arial, sans-serif"
+        >
+          o
+        </Text>
+
+        <Text
+          stroke="#000"
+          strokeWidth={0}
+          x={656}
+          y={694}
+          fontSize={10}
+          fontFamily="Helvetica, Arial, sans-serif"
+        >
+          o
+        </Text>
+
+        <Text
+          stroke="#000"
+          strokeWidth={0}
+          x={671}
+          y={778}
+          fontSize={10}
+          fontFamily="Helvetica, Arial, sans-serif"
+        >
+          o
+        </Text>
+
+        <Text
+          stroke="#000"
+          strokeWidth={0}
+          x={700}
+          y={845}
+          fontSize={10}
+          fontFamily="Helvetica, Arial, sans-serif"
+        >
+          o
+        </Text>
+
+        <Text
+          stroke="#000"
+          strokeWidth={0}
+          x={530}
+          y={404}
+          fontSize={10}
+          fontFamily="Helvetica, Arial, sans-serif"
+        >
+          o
+        </Text>
+        <Text
+          stroke="#000"
+          strokeWidth={0}
+          x={478}
+          y={670}
+          fontSize={10}
+          fontFamily="Helvetica, Arial, sans-serif"
+        >
+          o
+        </Text>
+        <Text
+          stroke="#000"
+          strokeWidth={0}
+          x={501}
+          y={794}
+          fontSize={10}
+          fontFamily="Helvetica, Arial, sans-serif"
+        >
+          o
+        </Text>
+        */}
       </G>
     </Svg>
   );
