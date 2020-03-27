@@ -89,8 +89,12 @@ class BuildingWithFloors extends Component {
             onPress={
                 () => {
                   this.setState({
-                    directionPath: dijkstraPathfinder.dijkstraPathfinder('817', '841', this.props.adjacencyGraph)
+                    directionPath: dijkstraPathfinder.dijkstraPathfinder(
+                      [{ start: '817', finish: '841' }, { start: '841', finish: '867' }],
+                      [this.props.adjacencyGraph, this.props.adjacencyGraph]
+                    )
                   });
+                  console.log(this.state.directionPath);
                 }
               }
           >
@@ -109,7 +113,7 @@ class BuildingWithFloors extends Component {
         <View style={styles.buildingContainer}>
           <Svg width="100%" height="100%">
             <Polyline
-              points={this.state.directionPath}
+              points={this.state.directionPath[1]}
               fill="none"
               stroke="black"
               strokeWidth="3"

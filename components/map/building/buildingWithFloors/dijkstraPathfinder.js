@@ -14,17 +14,18 @@ const dijkstraPathfinder = {
    * @param {Object} adjacencyGraph - Graph data structure representing the nodes for the relevant
    * floor.
    */
-  dijkstraPathfinder(startNode, finishNode, adjacencyGraph) {
+  dijkstraPathfinder(waypoints, adjacencyGraphs) {
     let openList = []; // Candidates pending analysis for pathfinding. A priority queue based on graph distance.
     const closedList = []; // Already scanned candidates.
-    let currentNode = { id: startNode, predecessor: undefined, distance: 0 };
+    // console.log(waypoints[0].start);
+    let currentNode = { id: waypoints[0].start, predecessor: undefined, distance: 0 };
     do {
-      const adjacencyNodes = adjacencyGraph[currentNode.id].adjacencyList;
+      const adjacencyNodes = adjacencyGraphs[0][currentNode.id].adjacencyList;
       for (let i = 0; i < adjacencyNodes.length; i += 1) {
         const adjacentNode = {
           id: adjacencyNodes[i],
           predecessor: currentNode,
-          distance: currentNode.distance + this.nodeDistance(currentNode.id, adjacencyNodes[i], adjacencyGraph)
+          distance: currentNode.distance + this.nodeDistance(currentNode.id, adjacencyNodes[i], adjacencyGraphs[0])
         };
         if (!this.isAnalyzed(closedList, adjacentNode)) {
           openList = this.handleNodeAnalysis(openList, adjacentNode);
@@ -33,8 +34,8 @@ const dijkstraPathfinder = {
       closedList.push(currentNode);
       currentNode = openList.shift();
       // The algorithm ends when either the end node is detected or all nodes are analyzed.
-    } while (currentNode !== undefined && closedList[closedList.length - 1].id !== finishNode);
-    return this.createShortestPath(closedList[closedList.length - 1], adjacencyGraph);
+    } while (currentNode !== undefined && closedList[closedList.length - 1].id !== waypoints[0].finish);
+    return this.createShortestPath(closedList[closedList.length - 1], waypoints, adjacencyGraphs);
   },
   /**
    * Checks if a neighboring node has already been analyzed.
@@ -117,15 +118,21 @@ const dijkstraPathfinder = {
    * path (since the polyline needs x & y coordinates).
    * floor.
    */
-  createShortestPath(finishNode, adjacencyGraph) {
+  createShortestPath(finishNode, waypoints, adjacencyGraphs) {
     let shortestPath = '';
     let currentNode = finishNode;
     do {
-      shortestPath = `${adjacencyGraph[currentNode.id].x * (325 / 1024) + 10},
-      ${adjacencyGraph[currentNode.id].y * (325 / 1024) + 5} ${shortestPath}`;
+      shortestPath = `${adjacencyGraphs[0][currentNode.id].x * (325 / 1024) + 10},
+      ${adjacencyGraphs[0][currentNode.id].y * (325 / 1024) + 5} ${shortestPath}`;
       currentNode = currentNode.predecessor;
     } while (currentNode !== undefined);
-    return shortestPath;
+    if (waypoints.length > 1) {
+      // Need to dispose of elements here (otherwise function will take what's thrown away as argument).
+      waypoints.shift();
+      adjacencyGraphs.shift();
+      return [shortestPath].concat(this.dijkstraPathfinder(waypoints, adjacencyGraphs));
+    }
+    return [shortestPath];
   },
   /**
    * Distance between two points (assumes points are in two dimensions).
