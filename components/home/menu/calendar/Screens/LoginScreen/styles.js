@@ -6,6 +6,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  imageContainer: {
+    backgroundColor: 'rgba(255,255,25,1)',
+    borderWidth: 1,
+    borderRadius: 15
+  }
 });
 
 export default styles;

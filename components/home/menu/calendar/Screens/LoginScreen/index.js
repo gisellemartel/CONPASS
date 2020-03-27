@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Button } from 'react-native';
+import { View, Image, Text, Button, TouchableOpacity } from 'react-native';
 import styles from './styles';
 import * as Google from 'expo-google-app-auth';
 import firebase from 'firebase';
@@ -81,10 +81,16 @@ export default class LoginScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Button
-          title="Sign In with Google"
+        <TouchableOpacity
           onPress={() => { this.signInWithGoogleAsync(); }}
-        />
+        >
+        <View>
+            <Image
+             style={styles.logo}
+              source={require('./btn_google_signin_dark_normal_web.png')}
+            />
+            </View>
+        </TouchableOpacity>
       </View>
     );
   }
