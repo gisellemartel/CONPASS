@@ -48,8 +48,10 @@ it('Should return the proper distance', () => {
 it('Should indicate new node is not closed list', () => {
   const adjacencyNodePredecessor = { id: '101', predecessor: undefined, distance: 0 };
   const adjacencyNode = { id: '103', predecessor: adjacencyNodePredecessor, distance: 2.24 };
-  const closedList = [{ id: '102', predecessor: adjacencyNodePredecessor, distance: 1.12 },
-    { id: '104', predecessor: adjacencyNodePredecessor, distance: 2.06 }];
+  const closedList = [
+    { id: '102', predecessor: adjacencyNodePredecessor, distance: 1.12 },
+    { id: '104', predecessor: adjacencyNodePredecessor, distance: 2.06 }
+  ];
   const isAnalyzed = dijkstraPathfinder.isAnalyzed(closedList, adjacencyNode);
   expect(isAnalyzed).toBe(false);
 });
@@ -57,8 +59,51 @@ it('Should indicate new node is not closed list', () => {
 it('Should indicate analyzed node is in closed list', () => {
   const adjacencyNodePredecessor = { id: '101', predecessor: undefined, distance: 0 };
   const adjacencyNode = { id: '102', predecessor: adjacencyNodePredecessor, distance: 1.12 };
-  const closedList = [{ id: '102', predecessor: adjacencyNodePredecessor, distance: 1.12 },
-    { id: '104', predecessor: adjacencyNodePredecessor, distance: 2.06 }];
+  const closedList = [
+    { id: '102', predecessor: adjacencyNodePredecessor, distance: 1.12 },
+    { id: '104', predecessor: adjacencyNodePredecessor, distance: 2.06 }
+  ];
   const isAnalyzed = dijkstraPathfinder.isAnalyzed(closedList, adjacencyNode);
   expect(isAnalyzed).toBe(true);
+});
+
+it('Should add new node while maintaining sorted distance', () => {
+  const adjacencyNodePredecessor = { id: '101', predecessor: undefined, distance: 0 };
+  const adjacencyNode = { id: '104', predecessor: adjacencyNodePredecessor, distance: 2.06 };
+  const openList = [
+    { id: '102', predecessor: adjacencyNodePredecessor, distance: 1.12 },
+    { id: '103', predecessor: adjacencyNodePredecessor, distance: 2.24 }];
+  const expectedOpenList = [
+    { id: '102', predecessor: adjacencyNodePredecessor, distance: 1.12 },
+    { id: '104', predecessor: adjacencyNodePredecessor, distance: 2.06 },
+    { id: '103', predecessor: adjacencyNodePredecessor, distance: 2.24 }];
+  const newOpenList = dijkstraPathfinder.handleNodeAnalysis(openList, adjacencyNode);
+  expect(newOpenList).toStrictEqual(expectedOpenList);
+});
+
+it('Should do nothing if new distance is higher', () => {
+  const adjacencyNodePredecessor = { id: '101', predecessor: undefined, distance: 0 };
+  const newAdjacencyNodePredecessor = { id: '104', predecessor: undefined, distance: 0 };
+  const adjacencyNode = { id: '103', predecessor: newAdjacencyNodePredecessor, distance: 100 };
+  const openList = [
+    { id: '102', predecessor: adjacencyNodePredecessor, distance: 1.12 },
+    { id: '103', predecessor: adjacencyNodePredecessor, distance: 2.24 }];
+  const newOpenList = dijkstraPathfinder.handleNodeAnalysis(openList, adjacencyNode);
+  expect(newOpenList).toStrictEqual(openList);
+});
+
+it('Should replace existing node details & sort openList if new distance is lower', () => {
+  const adjacencyNodePredecessor = { id: '101', predecessor: undefined, distance: 0 };
+  const newAdjacencyNodePredecessor = { id: '104', predecessor: undefined, distance: 0 };
+  const adjacencyNode = { id: '103', predecessor: newAdjacencyNodePredecessor, distance: 1.5 };
+  const openList = [
+    { id: '102', predecessor: adjacencyNodePredecessor, distance: 1.12 },
+    { id: '104', predecessor: adjacencyNodePredecessor, distance: 2.06 },
+    { id: '103', predecessor: adjacencyNodePredecessor, distance: 2.24 }];
+  const expectedOpenList = [
+    { id: '102', predecessor: adjacencyNodePredecessor, distance: 1.12 },
+    { id: '103', predecessor: newAdjacencyNodePredecessor, distance: 1.5 },
+    { id: '104', predecessor: adjacencyNodePredecessor, distance: 2.06 }];
+  const newOpenList = dijkstraPathfinder.handleNodeAnalysis(openList, adjacencyNode);
+  expect(newOpenList).toStrictEqual(expectedOpenList);
 });

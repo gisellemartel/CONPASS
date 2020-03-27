@@ -79,16 +79,10 @@ const dijkstraPathfinder = {
         // Swap Notation found here:
         // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment#Array_destructuring
         for (let i = nodeIndex; i > 0; i -= 1) {
-          if (openList[i].distance <= openList[i - 1].distance) {
+          if (openList[i].distance >= openList[i - 1].distance) {
             break;
           }
           [openList[i], openList[i - 1]] = [openList[i - 1], openList[i]];
-        }
-        for (let i = nodeIndex; i < nodeIndex; i += 1) {
-          if (openList[i].distance >= openList[i + 1].distance) {
-            break;
-          }
-          [openList[i], openList[i + 1]] = [openList[i + 1], openList[i]];
         }
       }
       return openList;
