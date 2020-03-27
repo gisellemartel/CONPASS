@@ -588,138 +588,299 @@ const hall9FloorPlanCoordinates = {
   node_903_967: {
     x: 160,
     y: 182,
+    adjacencyList: [
+      '903',
+      '967',
+      'node_corner_hallway_northwest'
+    ]
   },
   node_906: {
     x: 530,
     y: 264,
+    adjacencyList: [
+      '906',
+      'node_intersection_north',
+      'node_914'
+    ]
   },
   node_907: {
     x: 313,
     y: 227,
+    adjacencyList: [
+      '907',
+      'node_corner_hallway_northwest',
+      'node_corner_female_bathroom'
+    ]
   },
   node_911_male_bathroom: {
     x: 628,
     y: 227,
+    adjacencyList: [
+      '911',
+      'male_bathroom',
+      'node_980_north',
+      'node_913_staircase_2'
+    ]
   },
   node_913_staircase_2: {
     x: 719,
     y: 227,
+    adjacencyList: [
+      '913',
+      'staircase_2',
+      'node_911_male_bathroom',
+      'node_hall_corner_hallway_east'
+    ]
   },
   node_914: {
     x: 530,
     y: 332,
+    adjacencyList: [
+      '914',
+      'node_906',
+      'node_intersection_center'
+    ]
   },
   node_915_917: {
     x: 857,
     y: 183,
+    adjacencyList: [
+      '915',
+      '917',
+      'node_hall_corner_hallway_east'
+    ]
   },
   node_919: {
     x: 840,
     y: 248,
+    adjacencyList: [
+      '919',
+      'node_hall_corner_hallway_east',
+      'node_921'
+    ]
   },
   node_920: {
     x: 846,
     y: 475,
+    adjacencyList: [
+      '920',
+      'node_923',
+      'node_corner_925'
+    ]
   },
   node_921: {
     x: 846,
     y: 343,
+    adjacencyList: [
+      '921',
+      'node_986',
+      'node_919'
+    ]
   },
   node_923: {
     x: 846,
     y: 444,
+    adjacencyList: [
+      '923',
+      'node_986',
+      'node_920'
+    ]
   },
   node_925: {
     x: 880,
     y: 502,
+    adjacencyList: [
+      '925',
+      'node_corner_925',
+      'node_925_2'
+    ]
   },
   node_925_2: {
     x: 920,
     y: 502,
+    adjacencyList: [
+      '925.2',
+      'node_925'
+    ]
   },
   node_927: {
     x: 940,
     y: 725,
+    adjacencyList: [
+      '927',
+      'node_corner_927'
+    ]
   },
   node_927_1: {
     x: 940,
     y: 683,
+    adjacencyList: [
+      '927.1',
+      'node_927_3',
+      'node_corner_927'
+    ]
   },
   node_927_3: {
     x: 940,
     y: 640,
+    adjacencyList: [
+      '927.3',
+      'node_927_1',
+    ]
   },
   node_927_4: {
     x: 820,
     y: 655,
+    adjacencyList: [
+      '927.4',
+      'node_980_east',
+      'node_staircase_3',
+      'node_intermediate_927'
+    ]
   },
   node_928: {
     x: 776,
     y: 845,
+    adjacencyList: [
+      '928',
+      'node_932',
+      'node_corner_southeast'
+    ]
   },
   node_929: {
     x: 824,
     y: 830,
+    adjacencyList: [
+      '929',
+      'node_corner_southeast',
+      'node_intermediate_927'
+    ]
   },
   node_929_25: {
     x: 463,
     y: 930,
+    adjacencyList: [
+      '929.5',
+      '941'
+    ]
   },
-  node_932_933: {
+  node_932: {
     x: 736,
     y: 845,
-  },
-  node_933: {
-    x: 719,
-    y: 848,
+    adjacencyList: [
+      '932',
+      'node_937_corner_3',
+      'node_928'
+    ]
   },
   node_933_1: {
     x: 718,
     y: 941,
+    adjacencyList: [
+      '933.1',
+      '933',
+      'node_933_11',
+      'node_933_2'
+    ]
   },
   node_933_11: {
     x: 669,
     y: 908,
+    adjacencyList: [
+      '933.11',
+      'node_933_1'
+    ]
   },
   node_933_2: {
     x: 697,
     y: 964,
+    adjacencyList: [
+      '933.2',
+      'node_933_1'
+    ]
   },
   node_933_corner: {
     x: 751,
     y: 924,
+    adjacencyList: [
+      '933',
+      'node_933_1',
+      'node_937_corner_3'
+    ]
   },
   node_937: {
     x: 478,
-    y: 670
+    y: 670,
+    adjacencyList: [
+      'node_intermediate_937',
+      'node_966',
+      'node_intersection_south'
+    ]
   },
   node_937_corner_1: {
     x: 656,
     y: 694,
+    adjacencyList: [
+      'node_980_south',
+      'node_staircase_3',
+      'node_937_corner_2'
+    ]
   },
   node_937_corner_2: {
     x: 671,
     y: 778,
+    adjacencyList: [
+      'node_937_corner_1',
+      'node_937_corner_3'
+    ]
   },
   node_937_corner_3: {
     x: 700,
     y: 845,
+    adjacencyList: [
+      'node_937_corner_2',
+      'node_932',
+      'node_933_corner'
+    ]
   },
   node_941_961_33: {
     x: 370,
     y: 904,
+    adjacencyList: [
+      'node_corner_941',
+      '961.33',
+      'node_945',
+      'node_943_961_31'
+    ]
   },
   node_943_961_31: {
     x: 291,
     y: 903,
+    adjacencyList: [
+      '943',
+      '961.31',
+      'node_941_961_33',
+      'node_961_29_30'
+    ]
   },
   node_945: {
     x: 400,
     y: 808,
+    adjacencyList: [
+      '945',
+      'node_937_981',
+      'node_941_961_33'
+    ]
   },
   node_960_accessible_bathroom: {
     x: 426,
     y: 404,
+    adjacencyList: [
+      '960',
+      'accessible_bathroom',
+      'node_962',
+      'node_escalator_down'
+    ]
   },
   node_961_11_12: {
     x: 80,
