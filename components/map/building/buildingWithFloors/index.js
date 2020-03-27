@@ -18,7 +18,8 @@ class BuildingWithFloors extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      floor: this.props.floor
+      floor: this.props.floor,
+      directionPath: ''
     };
   }
 
@@ -87,7 +88,9 @@ class BuildingWithFloors extends Component {
           <TouchableOpacity
             onPress={
                 () => {
-                  console.log(dijkstraPathfinder.dijkstraPathfinder('817', '841', this.props.adjacencyGraph));
+                  this.setState({
+                    directionPath: dijkstraPathfinder.dijkstraPathfinder('817', '841', this.props.adjacencyGraph)
+                  });
                 }
               }
           >
@@ -106,7 +109,7 @@ class BuildingWithFloors extends Component {
         <View style={styles.buildingContainer}>
           <Svg width="100%" height="100%">
             <Polyline
-              points="0,0 143.423, 158.313"
+              points={this.state.directionPath}
               fill="none"
               stroke="black"
               strokeWidth="3"

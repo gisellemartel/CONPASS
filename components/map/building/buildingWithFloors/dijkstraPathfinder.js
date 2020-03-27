@@ -121,7 +121,8 @@ const dijkstraPathfinder = {
     let shortestPath = '';
     let currentNode = finishNode;
     do {
-      shortestPath = `${adjacencyGraph[currentNode.id].x},${adjacencyGraph[currentNode.id].y} ${shortestPath}`;
+      shortestPath = `${adjacencyGraph[currentNode.id].x * (325 / 1024) + 10},
+      ${adjacencyGraph[currentNode.id].y * (325 / 1024) + 5} ${shortestPath}`;
       currentNode = currentNode.predecessor;
     } while (currentNode !== undefined);
     return shortestPath;
