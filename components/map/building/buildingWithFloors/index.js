@@ -60,12 +60,28 @@ class BuildingWithFloors extends Component {
     return name;
   }
 
-  generationDirectionMap() {
-    const directions = {};
-    this.props.buildingFloorPlans.findIndex((i) => {
-      directions[i.floor] = '';
+  dijkstraHandler(startNodeId, finishNodeId) {
+    const startFloor = parseInt(startNodeId.split('.')[0].slice(0, startNodeId.split('.')[0].length - 2), 10);
+    const finishFloor = parseInt(finishNodeId.split('.')[0].slice(0, finishNodeId.split('.')[0].length - 2), 10);
+    let updatedDirectionPath;
+    if (startFloor !== finishFloor) {
+      const paths = dijkstraPathfinder.dijkstraPathfinder(
+        [{ start: startNodeId, finish: 'escalator' }, { start: 'escalator', finish: finishNodeId }],
+        [this.props.adjacencyGraphs[startFloor], this.props.adjacencyGraphs[finishFloor]]
+      );
+      updatedDirectionPath = this.state.directionPath;
+      [updatedDirectionPath[startFloor], updatedDirectionPath[finishFloor]] = [paths[0], paths[1]];
+    } else {
+      const paths = dijkstraPathfinder.dijkstraPathfinder(
+        [{ start: startNodeId, finish: finishNodeId }],
+        [this.props.adjacencyGraphs[startFloor]]
+      );
+      updatedDirectionPath = this.state.directionPath;
+      [updatedDirectionPath[startFloor]] = [paths[0]];
+    }
+    this.setState({
+      directionPath: updatedDirectionPath
     });
-    return directions;
   }
 
   render() {
@@ -96,15 +112,7 @@ class BuildingWithFloors extends Component {
           <TouchableOpacity
             onPress={
                 () => {
-                  const paths = dijkstraPathfinder.dijkstraPathfinder(
-                    [{ start: '817', finish: '841' }, { start: '917', finish: '961.19' }],
-                    [this.props.adjacencyGraphs[8], this.props.adjacencyGraphs[9]]
-                  );
-                  const updatedDirectionPath = this.state.directionPath;
-                  [updatedDirectionPath[8], updatedDirectionPath[9]] = [paths[0], paths[1]];
-                  this.setState({
-                    directionPath: updatedDirectionPath
-                  });
+                  this.dijkstraHandler('817', '967');
                 }
               }
           >
