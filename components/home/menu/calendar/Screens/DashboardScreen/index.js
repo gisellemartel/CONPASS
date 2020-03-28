@@ -1,18 +1,15 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Alert } from 'react-native';
-import {Calendar, CalendarList, Agenda} from 'react-native-calendars';
-//import styles from './styles';
+import { Agenda } from 'react-native-calendars';
 
 export default class DashboardScreen extends Component {
-  constructor(props) { 
+  constructor(props) {
     super(props);
     this.state = {
       items: {},
-      /*synchronizedEvents: [],[{date:'2017-05-14',title: 'Event #1',startTime:'2017-05-14',endTime:'2017-05-15',description:'This the First event',address:'1425 de mainsonneuve, Apt. 510'}, 
-        {date:'2017-05-14',title: 'Event #2',startTime:'2017-05-14',endTime:'2017-05-15',description:'This the Second event',address:'1425 de mainsonneuve, Apt. 510'}, 
-        {date:'2017-05-14',title: 'Event #3',startTime:'2017-05-14',endTime:'2017-05-15',description:'This the Third event',address:'1425 de mainsonneuve, Apt. 510'}],*/
-      //params: props.navigation.state.params.jsonFile,
-      synchronizedEvents: this.structureSynchronizedEvents(props.navigation.state.params.jsonFile.items)
+      synchronizedEvents: this.structureSynchronizedEvents(
+        props.navigation.state.params.jsonFile.items
+      )
     };
 
     console.log("in dashboard:\n ");
