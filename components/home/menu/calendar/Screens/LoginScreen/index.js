@@ -59,10 +59,11 @@ export default class LoginScreen extends Component {
         scopes: ['https://www.googleapis.com/auth/calendar.readonly'],
       });
 
+      // use this format for method parameter timeMin: YYYY-MM-DDTHH:MM:SS.MMMZ. For example: 2020-01-07T01:01:01.000Z
       if (result.type === 'success') {
         this.onSignIn(result);
         const accessToken = result.accessToken;
-        const userInfoResponse = await fetch('https://www.googleapis.com/calendar/v3/calendars/primary/events?key=AIzaSyBAHObp5Ic3CbJpkX2500tNhf53e_3wBMA', {
+        const userInfoResponse = await fetch('https://www.googleapis.com/calendar/v3/calendars/primary/events?key=AIzaSyBAHObp5Ic3CbJpkX2500tNhf53e_3wBMA&timeMin=2020-01-01T01:00:00.000Z', {
           headers: { Authorization: `Bearer ${accessToken}` },
         });
         const jsonFile = await userInfoResponse.json();
