@@ -1,3 +1,5 @@
+/* istanbul ignore file */
+
 import * as React from 'react';
 import Svg, {
   Path, G, Text, Image
