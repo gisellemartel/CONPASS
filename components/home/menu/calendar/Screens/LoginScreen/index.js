@@ -10,23 +10,8 @@ export default class LoginScreen extends Component {
      // We need to register an Observer on Firebase Auth to make sure auth is initialized.
      const unsubscribe = firebase.auth().onAuthStateChanged((firebaseUser) => {
        unsubscribe();
-
      });
    }
-
-  // isUserEqual = (googleUser, firebaseUser) => {
-  //   if (firebaseUser) {
-  //     const providerData = firebaseUser.providerData;
-  //     for (const i = 0; i < providerData.length; i++) {
-  //       if (providerData[i].providerId === firebase.auth.GoogleAuthProvider.PROVIDER_ID
-  //         && providerData[i].uid === googleUser.getBasicProfile().getId()) {
-  //       // We don't need to reauth the Firebase connection.
-  //         return true;
-  //       }
-  //     }
-  //   }
-  //   return false;
-  // }
 
   signInWithGoogleAsync = async () => {
     try {
@@ -44,9 +29,11 @@ export default class LoginScreen extends Component {
           headers: { Authorization: `Bearer ${accessToken}` },
         });
         const jsonFile = await userInfoResponse.json();
-        // const stringFile = JSON.stringify(jsonFile);
-        // AsyncStorage.setItem('events', stringFile);
-        this.props.navigation.navigate('DashboardScreen', { jsonFile });
+        const stringFile = JSON.stringify(jsonFile);
+        console.log("stringFile: ");
+        console.log(stringFile);
+        AsyncStorage.setItem('events', stringFile);
+        this.props.navigation.navigate('FetchScreen');
         return result.accessToken;
       }
       return { cancelled: true };

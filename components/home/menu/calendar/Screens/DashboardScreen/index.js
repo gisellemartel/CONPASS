@@ -13,17 +13,10 @@ export default class DashboardScreen extends Component {
     super(props);
     this.state = {
       items: {},
-      synchronizedEvents: this.structureSynchronizedEvents(props.navigation.state.params.jsonFile.items)
+      synchronizedEvents: this.structureSynchronizedEvents(props.navigation.state.params.events.items)
     };
   }
 
-  componentDidMount() {
-    this._isMounted = true;
-  }
-
-  componentWillUnmount() {
-    this._isMounted = false;
-  }
 
   structureSynchronizedEvents(events) {
     const tempArray = [];
@@ -71,11 +64,11 @@ export default class DashboardScreen extends Component {
       }
       const newItems = {};
       Object.keys(this.state.items).forEach((key) => { newItems[key] = this.state.items[key]; });
-      if (this._isMounted) {
-        this.setState({
-          items: newItems
-        });
-      }
+ 
+      this.setState({
+        items: newItems
+      });
+      
     }, 1000);
   }
 

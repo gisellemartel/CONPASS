@@ -8,6 +8,7 @@ import firebase from '../../../../firebase.config';
 import LoginScreen from './Screens/LoginScreen';
 import LoadingScreen from './Screens/LoadingScreen';
 import DashboardScreen from './Screens/DashboardScreen';
+import FetchScreen from './Screens/FetchScreen';
 
 
 export default class Calendar extends Component {
@@ -48,7 +49,8 @@ export default class Calendar extends Component {
 const AppSwitchNavigator = createSwitchNavigator({
   LoadingScreen,
   LoginScreen,
-  DashboardScreen
+  DashboardScreen,
+  FetchScreen
 });
 
 const AppNavigator = createAppContainer(AppSwitchNavigator);
