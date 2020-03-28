@@ -26,7 +26,7 @@ export default class DashboardScreen extends Component {
   }
 
   structureSynchronizedEvents(events) {
-    let tempArray = [];
+    const tempArray = [];
     events.forEach((event) => {
       tempArray.push(
         {
@@ -37,7 +37,7 @@ export default class DashboardScreen extends Component {
           description: event.description != null ?event.description : '',
           address: ''
         }
-      )
+      );
     });
     this.setState({
       synchronizedEvents: this.tempArray
@@ -49,7 +49,7 @@ export default class DashboardScreen extends Component {
     setTimeout(() => {
       for (let i = -15; i < 85; i++) {
         const time = day.timestamp + i * 24 * 60 * 60 * 1000;
-        const strTime = this.timeToString(time);
+        const strTime = time;
         if (!this.state.items[strTime]) {
           this.state.items[strTime] = [];
           const todayEvents = this.state.synchronizedEvents
@@ -68,7 +68,7 @@ export default class DashboardScreen extends Component {
         }
       }
       const newItems = {};
-      Object.keys(this.state.items).forEach(key => {newItems[key] = this.state.items[key];});
+      Object.keys(this.state.items).forEach((key) => { newItems[key] = this.state.items[key]; });
       this.setState({
         items: newItems
       });
@@ -107,7 +107,7 @@ export default class DashboardScreen extends Component {
     return (
       <Agenda
         items={this.state.items}
-        loadItemsForMonth={this.loadItems.bind(this)}
+        loadItemsForMonth={this.loadItems}
         selected={'2020-03-27'}
         renderItem={this.renderItem.bind(this)}
         renderEmptyDate={this.renderEmptyDate.bind(this)}
