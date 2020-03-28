@@ -55,7 +55,7 @@ function generateBuilding(buildingName) {
         },
         {
           floor: 2,
-          component: generateZoomableFloorComponent(<Vl2 {...defaultAttributes} />)
+          component: <Vl2 {...defaultAttributes} />
         }
       ];
     default:
