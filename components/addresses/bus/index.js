@@ -6,7 +6,7 @@ import {
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import shuttleScheduleInformation from '../../home/menu/shuttleBusSchedule/shuttleScheduleService';
 import styles from './styles';
-import bus from './bus.png';
+import bus from '../../../assets/icons/bus.png';
 
 const HOUR_IN_SECONDS = 3600;
 const MINUTE_IN_SECONDS = 60;

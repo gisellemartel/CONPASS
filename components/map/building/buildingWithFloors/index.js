@@ -9,8 +9,8 @@ import Svg, {
   Polyline
 } from 'react-native-svg';
 import styles from './styles';
-import buildingLogo from './building.png';
-import quit from './quit.png';
+import buildingLogo from '../../../../assets/icons/building.png';
+import quit from '../../../../assets/icons/quit.png';
 import dijkstraPathfinder from './dijkstraPathfinder';
 
 

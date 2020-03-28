@@ -175,7 +175,7 @@ export default class TheMap extends Component {
                   description=""
                 >
                   <Image
-                    source={require('./destination.png')}
+                    source={require('../../assets/icons/destination.png')}
                     style={{ width: 30, height: 32 }}
                     resizeMode="contain"
                   />

@@ -8,7 +8,7 @@ import SwitchCampuses from '../switchCampuses';
 import SetPath from '../setPath';
 import Addresses from '../addresses';
 import Building from '../map/building/index';
-import generateBuilding from '../../assets/svgReactNative/buildingRepository';
+import generateBuilding from '../indoorPlans/buildingRepository';
 import generateGraph from '../../indoor_directions_modules/graphRepository';
 import hall8FloorPlanCoordinates from '../../indoor_directions_modules/buildings/H/Hall8FloorPlanCoordinates'; // Until graph repository is implemented.
 import styles from './styles';
