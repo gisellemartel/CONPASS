@@ -8,19 +8,20 @@ export default class DashboardScreen extends Component {
     super(props);
     this.state = {
       items: {},
-      synchronizedEvents: [],/*[{date:'2017-05-14',title: 'Event #1',startTime:'2017-05-14',endTime:'2017-05-15',description:'This the First event',address:'1425 de mainsonneuve, Apt. 510'}, 
+      /*synchronizedEvents: [],[{date:'2017-05-14',title: 'Event #1',startTime:'2017-05-14',endTime:'2017-05-15',description:'This the First event',address:'1425 de mainsonneuve, Apt. 510'}, 
         {date:'2017-05-14',title: 'Event #2',startTime:'2017-05-14',endTime:'2017-05-15',description:'This the Second event',address:'1425 de mainsonneuve, Apt. 510'}, 
         {date:'2017-05-14',title: 'Event #3',startTime:'2017-05-14',endTime:'2017-05-15',description:'This the Third event',address:'1425 de mainsonneuve, Apt. 510'}],*/
-      params: props.navigation.state.params.jsonFile
+      //params: props.navigation.state.params.jsonFile,
+      synchronizedEvents: this.structureSynchronizedEvents(props.navigation.state.params.jsonFile.items)
     };
-    this.structureSynchronizedEvents();
+
     console.log("in dashboard:\n ");
     console.log('Structure the thing:\n',this.state.synchronizedEvents);
   }
 
-  structureSynchronizedEvents(){
+  structureSynchronizedEvents(events){
     let tempArray = [];
-    this.state.params.items.forEach(event => {
+    events.forEach(event => {
       tempArray.push(
         {
           date: event.start.dateTime != null ? event.start.dateTime.substring(0,event.start.dateTime.indexOf('T')):event.start.date,
@@ -33,9 +34,9 @@ export default class DashboardScreen extends Component {
       )
     });
     this.setState({
-      synchronizedEvents:tempArray
+      synchronizedEvents:this.tempArray
     });
-    console.log('temp:\n',tempArray);
+    console.log('temp:\n',tempArray,'--->\n\n\-n>>>>');
     return tempArray;
   }
   render() {
