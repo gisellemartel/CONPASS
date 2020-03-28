@@ -80,7 +80,7 @@ export default class DashboardScreen extends Component {
     return (
       <View style={styles.emptyDate}>
         <Text>This is empty date!</Text>
-      /View>
+      </View>
     );
   }
 
@@ -105,7 +105,4 @@ export default class DashboardScreen extends Component {
       />
     );
   }
-      
 }
-       
-        
