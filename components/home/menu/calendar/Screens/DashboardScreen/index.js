@@ -13,7 +13,8 @@ export default class DashboardScreen extends Component {
     super(props);
     this.state = {
       items: {},
-      synchronizedEvents: this.structureSynchronizedEvents(props.navigation.state.params.events.items)
+      synchronizedEvents:
+        this.structureSynchronizedEvents(props.navigation.state.params.events.items)
     };
   }
 
