@@ -106,7 +106,6 @@ export default class DashboardScreen extends Component {
 
   timeToString(time) {
     const date = new Date(time);
-    console.log(date);
     return date.toISOString().split('T')[0];
   }
 
