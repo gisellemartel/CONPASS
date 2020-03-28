@@ -67,8 +67,10 @@ export default class LoginScreen extends Component {
         });
         const jsonFile = await userInfoResponse.json();
         const stringFile = JSON.stringify(jsonFile);
+        console.log("stringFile: ");
+        console.log(stringFile);
         AsyncStorage.setItem('events', stringFile);
-        //this.props.navigation.navigate('DashboardScreen', { jsonFile });
+        this.props.navigation.navigate('FetchScreen');
         return result.accessToken;
       }
       return { cancelled: true };
