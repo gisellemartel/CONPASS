@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Image } from 'react-native';
 import styles from './styles';
-import destination from './destination.png';
+import destination from '../../../assets/icons/destination.png';
 
 
 export default class Destination extends Component {

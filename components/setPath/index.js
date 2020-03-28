@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { View, Image } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import styles from './styles';
-import directions from './directions.png';
+import directions from '../../assets/icons/directions.png';
 
 
 export default class SetPath extends Component {
