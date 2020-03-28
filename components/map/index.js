@@ -64,7 +64,6 @@ export default class TheMap extends Component {
    */
   focusOnBuilding(building) {
     const { coordinates } = building.polygon;
-
     this.state.mapRef.fitToCoordinates(coordinates, {
       edgePadding: {
         top: 10, right: 20, bottom: 10, left: 20
@@ -76,6 +75,7 @@ export default class TheMap extends Component {
     setTimeout(() => {
       const getRegion = region;
       this.props.interiorModeOn(building, getRegion);
+      this.getBuildingInformation(building);
     }, 500);
   }
 

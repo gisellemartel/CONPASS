@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactNativeZoomableView from '@dudigital/react-native-zoomable-view/src/ReactNativeZoomableView';
 import {
-  Hall8, Hall9, Vl1, Vl2, Ve1, Ve2, Mb1, MbS2
+  Hall8, Hall9, Vl1, Vl2
 } from './index';
 
 /**
@@ -56,28 +56,6 @@ function generateBuilding(buildingName) {
         {
           floor: 2,
           component: generateZoomableFloorComponent(<Vl2 {...defaultAttributes} />)
-        }
-      ];
-    case 'VE':
-      return [
-        {
-          floor: 1,
-          component: generateZoomableFloorComponent(<Ve1 {...defaultAttributes} />)
-        },
-        {
-          floor: 2,
-          component: generateZoomableFloorComponent(<Ve2 {...defaultAttributes} />)
-        }
-      ];
-    case 'MB':
-      return [
-        {
-          floor: 1,
-          component: generateZoomableFloorComponent(<Mb1 {...defaultAttributes} />)
-        },
-        {
-          floor: -2,
-          component: generateZoomableFloorComponent(<MbS2 {...defaultAttributes} />)
         }
       ];
     default:
