@@ -64,6 +64,17 @@ export default class DashboardScreen extends Component {
     }, 1000);
   }
 
+  renderItem(item) {
+    return (
+      <TouchableOpacity
+        style={[styles.item, { height: item.height }]}
+        onPress={() => Alert.alert(item.name,`${item.startTime}  -  ${item.endTime}\n${item.description}\n${item.address}`)}
+      >
+        <Text>{item.name}</Text>
+      </TouchableOpacity>
+    );
+  }
+
   render() {
     return (
       <Agenda
@@ -79,24 +90,9 @@ export default class DashboardScreen extends Component {
 
 
         
-          renderItem(item) {
-            return (
-              <TouchableOpacity 
-                style={[styles.item, {height: item.height}]} 
-                onPress={() => Alert.alert(item.name,`${item.startTime}  -  ${item.endTime}\n${item.description}\n${item.address}`)}
-              >
-                <Text>{item.name}</Text>
-              </TouchableOpacity>
-            );
-          }
+          
         
-          renderEmptyDate() {
-            return (
-              <View style={styles.emptyDate}>
-                <Text>This is empty date!</Text>
-              </View>
-            );
-          }
+          
         
           rowHasChanged(r1, r2) {
             return r1.name !== r2.name;
