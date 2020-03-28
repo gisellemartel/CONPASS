@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
-// import apiCalendar from 'react-google-calendar-api';
-import {
-  View, Text, Button, TouchableOpacity
-} from 'react-native';
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
+//this import is needed to initialize firebase app
 import firebase from '../../../../firebase.config';
 import LoginScreen from './Screens/LoginScreen';
 import LoadingScreen from './Screens/LoadingScreen';
@@ -12,7 +9,6 @@ import FetchScreen from './Screens/FetchScreen';
 
 
 export default class Calendar extends Component {
-
   render() {
     return (
       <AppNavigator />

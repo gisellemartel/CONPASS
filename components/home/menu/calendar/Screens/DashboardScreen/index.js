@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import {
-  View, Text, TouchableOpacity, StyleSheet, Alert, AsyncStorage
+  View, Text, TouchableOpacity, Alert
 } from 'react-native';
 import { Agenda } from 'react-native-calendars';
 import styles from './styles';
