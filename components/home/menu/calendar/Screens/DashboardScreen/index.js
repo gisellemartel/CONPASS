@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Alert, AsyncStorage } from 'react-native';
+import {
+  View, Text, TouchableOpacity, StyleSheet, Alert, AsyncStorage
+} from 'react-native';
 import { Agenda } from 'react-native-calendars';
 import styles from './styles';
 
@@ -13,13 +15,12 @@ export default class DashboardScreen extends Component {
   }
 
   componentDidMount = async () => {
-    console.log("am here");
     const events = await AsyncStorage.getItem('events');
-    console.log("events from storage: ");
-    console.log(events);
+
+
     JSON.parse(events);
-    console.log("after parsing: ");
-    console.log(events);
+
+
     this.setState({
       synchronizedEvents: this.structureSynchronizedEvents(events)
     });
@@ -30,11 +31,11 @@ export default class DashboardScreen extends Component {
     events.forEach((event) => {
       tempArray.push(
         {
-          date: event.start.dateTime != null ? event.start.dateTime.substring(0,event.start.dateTime.indexOf('T')):event.start.date,
-          title: event.summary!=null ? event.summary:'No Title For this Event',
+          date: event.start.dateTime != null ? event.start.dateTime.substring(0, event.start.dateTime.indexOf('T')) : event.start.date,
+          title: event.summary != null ? event.summary : 'No Title For this Event',
           startTime: event.start.dateTime != null ? event.start.dateTime : event.start.date,
           endTime: event.end.dateTime != null ? event.end.dateTime : event.end.date,
-          description: event.description != null ?event.description : '',
+          description: event.description != null ? event.description : '',
           address: ''
         }
       );
@@ -79,7 +80,7 @@ export default class DashboardScreen extends Component {
     return (
       <TouchableOpacity
         style={[styles.item, { height: item.height }]}
-        onPress={() => Alert.alert(item.name,`${item.startTime}  -  ${item.endTime}\n${item.description}\n${item.address}`)}
+        onPress={() => { return Alert.alert(item.name, `${item.startTime}  -  ${item.endTime}\n${item.description}\n${item.address}`); }}
       >
         <Text>{item.name}</Text>
       </TouchableOpacity>
@@ -100,6 +101,7 @@ export default class DashboardScreen extends Component {
 
   timeToString(time) {
     const date = new Date(time);
+    console.log(date);
     return date.toISOString().split('T')[0];
   }
 
@@ -108,7 +110,7 @@ export default class DashboardScreen extends Component {
       <Agenda
         items={this.state.items}
         loadItemsForMonth={this.loadItems}
-        selected={'2020-03-27'}
+        selected="2020-03-27"
         renderItem={this.renderItem.bind(this)}
         renderEmptyDate={this.renderEmptyDate.bind(this)}
         rowHasChanged={this.rowHasChanged.bind(this)}

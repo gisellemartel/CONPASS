@@ -14,6 +14,7 @@ it('Should change rows', async () => {
   const rowHasChanged = dashboardScreenComponent.rowHasChanged(params.rowHasChangedFirstParam, params.rowHasChangedSecondParam);
   expect(rowHasChanged).toBe(true);
 });
+
 it('Shouldnt change rows', async () => {
   const params = {
     rowHasChangedFirstParam: { name: 'x' },
@@ -23,4 +24,10 @@ it('Shouldnt change rows', async () => {
   const dashboardScreenComponent = renderer.create(<DashboardScreen />).getInstance();
   const rowHasChanged = dashboardScreenComponent.rowHasChanged(params.rowHasChangedFirstParam, params.rowHasChangedFirstParam);
   expect(rowHasChanged).toBe(false);
+});
+
+it('It should convert time to string', async () => {
+  const dashboardScreenComponent = renderer.create(<DashboardScreen />).getInstance();
+  const dateFormatted = dashboardScreenComponent.timeToString(5);
+  expect(dateFormatted).toStrictEqual('1970-01-01');
 });
