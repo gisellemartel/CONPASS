@@ -13,7 +13,8 @@ export default class DashboardScreen extends Component {
   }
 
   componentDidMount = async () => {
-    const events = AsyncStorage.getItems('event');
+    console.log("am here");
+    const events = await AsyncStorage.getItem('events');
     console.log("events from storage: ");
     console.log(events);
     JSON.parse(events);
