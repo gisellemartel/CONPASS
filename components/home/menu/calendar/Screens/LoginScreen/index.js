@@ -23,13 +23,7 @@ export default class LoginScreen extends Component {
            .signInWithCredential(credential).then(() => {
            })
            .catch((error) => {
-           // Handle Errors here.
-             const errorCode = error.code;
-             const errorMessage = error.message;
-             // The email of the user's account used.
-             const email = error.email;
-             // The firebase.auth.AuthCredential type that was used.
-             const credential = error.credential;
+             alert(error);
            // ...
            });
        }
@@ -38,7 +32,7 @@ export default class LoginScreen extends Component {
 
   isUserEqual = (googleUser, firebaseUser) => {
     if (firebaseUser) {
-      const providerData = firebaseUser.providerData;
+      const providerData = providerData;
       for (const i = 0; i < providerData.length; i++) {
         if (providerData[i].providerId === firebase.auth.GoogleAuthProvider.PROVIDER_ID
           && providerData[i].uid === googleUser.getBasicProfile().getId()) {
@@ -59,10 +53,9 @@ export default class LoginScreen extends Component {
         scopes: ['https://www.googleapis.com/auth/calendar.readonly'],
       });
 
-      // use this format for method parameter timeMin: YYYY-MM-DDTHH:MM:SS.MMMZ. For example: 2020-01-07T01:01:01.000Z
       if (result.type === 'success') {
         this.onSignIn(result);
-        const accessToken = result.accessToken;
+        const { accessToken } = result;
         const userInfoResponse = await fetch('https://www.googleapis.com/calendar/v3/calendars/primary/events?key=AIzaSyBAHObp5Ic3CbJpkX2500tNhf53e_3wBMA&timeMin=2020-01-01T01:00:00.000Z', {
           headers: { Authorization: `Bearer ${accessToken}` },
         });
