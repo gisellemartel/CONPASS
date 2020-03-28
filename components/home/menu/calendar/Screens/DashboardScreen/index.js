@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Alert } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Alert, AsyncStorage } from 'react-native';
 import { Agenda } from 'react-native-calendars';
 import styles from './styles';
 
@@ -8,15 +8,13 @@ export default class DashboardScreen extends Component {
     super(props);
     this.state = {
       items: {},
-      synchronizedEvents: this.structureSynchronizedEvents(
-        props.navigation.state.params.jsonFile.items
-      )
+      synchronizedEvents: this.structureSynchronizedEvents(props.navigation.state.params.jsonFile.items)
     };
   }
 
   structureSynchronizedEvents(events) {
-    let tempArray = [];
-    events.forEach(event => {
+    const tempArray = [];
+    events.forEach((event) => {
       tempArray.push(
         {
           date: event.start.dateTime != null ? event.start.dateTime.substring(0,event.start.dateTime.indexOf('T')):event.start.date,
@@ -26,16 +24,15 @@ export default class DashboardScreen extends Component {
           description: event.description != null ?event.description : '',
           address: ''
         }
-      )
+      );
     });
     this.setState({
       synchronizedEvents: this.tempArray
     });
-    console.log('temp:\n', tempArray, '--->\n\n\-n>>>>');
     return tempArray;
   }
 
-  loadItems(day) {
+  loadItems = (day) => {
     setTimeout(() => {
       for (let i = -15; i < 85; i++) {
         const time = day.timestamp + i * 24 * 60 * 60 * 1000;
@@ -58,7 +55,7 @@ export default class DashboardScreen extends Component {
         }
       }
       const newItems = {};
-      Object.keys(this.state.items).forEach(key => {newItems[key] = this.state.items[key];});
+      Object.keys(this.state.items).forEach((key) => { newItems[key] = this.state.items[key]; });
       this.setState({
         items: newItems
       });
@@ -80,7 +77,7 @@ export default class DashboardScreen extends Component {
     return (
       <View style={styles.emptyDate}>
         <Text>This is empty date!</Text>
-      /View>
+      </View>
     );
   }
 
@@ -97,7 +94,7 @@ export default class DashboardScreen extends Component {
     return (
       <Agenda
         items={this.state.items}
-        loadItemsForMonth={this.loadItems.bind(this)}
+        loadItemsForMonth={this.loadItems}
         selected={'2020-03-27'}
         renderItem={this.renderItem.bind(this)}
         renderEmptyDate={this.renderEmptyDate.bind(this)}
@@ -105,7 +102,4 @@ export default class DashboardScreen extends Component {
       />
     );
   }
-      
 }
-       
-        

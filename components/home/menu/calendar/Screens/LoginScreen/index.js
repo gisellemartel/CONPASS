@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Image, TouchableOpacity } from 'react-native';
+import { View, Image, TouchableOpacity, AsyncStorage } from 'react-native';
 import * as Google from 'expo-google-app-auth';
 import firebase from 'firebase';
 import styles from './styles';
@@ -10,47 +10,22 @@ export default class LoginScreen extends Component {
      // We need to register an Observer on Firebase Auth to make sure auth is initialized.
      const unsubscribe = firebase.auth().onAuthStateChanged((firebaseUser) => {
        unsubscribe();
-       // Check if we are already signed-in Firebase with the correct user.
-       if (!this.isUserEqual(googleUser, firebaseUser)) {
-       // Build Firebase credential with the Google ID token.
-         const credential = firebase.auth.GoogleAuthProvider.credential(
-           googleUser.idToken,
-           googleUser.accessToken
-         );
-         // Sign in with credential from the Google user.
-         firebase
-           .auth()
-           .signInWithCredential(credential).then(() => {
-           })
-           .catch((error) => {
-           // Handle Errors here.
-             const errorCode = error.code;
-             const errorMessage = error.message;
-             // The email of the user's account used.
-             const email = error.email;
-             // The firebase.auth.AuthCredential type that was used.
-             const credential = error.credential;
-           // ...
-           });
-       } else {
-         console.log('User already signed-in Firebase.');
-       }
      });
    }
 
-  isUserEqual = (googleUser, firebaseUser) => {
-    if (firebaseUser) {
-      const providerData = firebaseUser.providerData;
-      for (const i = 0; i < providerData.length; i++) {
-        if (providerData[i].providerId === firebase.auth.GoogleAuthProvider.PROVIDER_ID
-          && providerData[i].uid === googleUser.getBasicProfile().getId()) {
-        // We don't need to reauth the Firebase connection.
-          return true;
-        }
-      }
-    }
-    return false;
-  }
+  // isUserEqual = (googleUser, firebaseUser) => {
+  //   if (firebaseUser) {
+  //     const providerData = firebaseUser.providerData;
+  //     for (const i = 0; i < providerData.length; i++) {
+  //       if (providerData[i].providerId === firebase.auth.GoogleAuthProvider.PROVIDER_ID
+  //         && providerData[i].uid === googleUser.getBasicProfile().getId()) {
+  //       // We don't need to reauth the Firebase connection.
+  //         return true;
+  //       }
+  //     }
+  //   }
+  //   return false;
+  // }
 
   signInWithGoogleAsync = async () => {
     try {
@@ -68,6 +43,8 @@ export default class LoginScreen extends Component {
           headers: { Authorization: `Bearer ${accessToken}` },
         });
         const jsonFile = await userInfoResponse.json();
+        // const stringFile = JSON.stringify(jsonFile);
+        // AsyncStorage.setItem('events', stringFile);
         this.props.navigation.navigate('DashboardScreen', { jsonFile });
         return result.accessToken;
       }
