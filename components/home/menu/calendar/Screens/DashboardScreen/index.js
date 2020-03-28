@@ -4,27 +4,23 @@ import { Agenda } from 'react-native-calendars';
 import styles from './styles';
 
 export default class DashboardScreen extends Component {
+  tempProps = async () => {
+    const events = await AsyncStorage.getItem('events').items;
+    JSON.parse(events);
+    return events;
+  }
   constructor(props) {
     super(props);
     this.state = {
       items: {},
-      synchronizedEvents: {}
+      synchronizedEvents: this.structureSynchronizedEvents(this.tempProps)
     };
   }
 
-  componentDidMount = async () => {
-    console.log("am here");
-    const events = await AsyncStorage.getItem('events');
-    console.log("events from storage: ");
-    console.log(events);
-    JSON.parse(events);
-    console.log("after parsing: ");
-    console.log(events);
-    this.structureSynchronizedEvents(events);
-
-  }
 
   structureSynchronizedEvents(events) {
+    console.log("events: ")
+    console.log(events);
     const tempArray = [];
     events.forEach((event) => {
       tempArray.push(
@@ -68,9 +64,11 @@ export default class DashboardScreen extends Component {
       }
       const newItems = {};
       Object.keys(this.state.items).forEach((key) => { newItems[key] = this.state.items[key]; });
+ 
       this.setState({
         items: newItems
       });
+      
     }, 1000);
   }
 
