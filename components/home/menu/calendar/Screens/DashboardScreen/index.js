@@ -8,21 +8,42 @@ export default class DashboardScreen extends Component {
     super(props);
     this.state = {
       items: {},
-      synchronizedEvents: [{date:'2017-05-14',title: 'Event #1',startTime:'2017-05-14',endTime:'2017-05-15',description:'This the First event',address:'1425 de mainsonneuve, Apt. 510'}, 
+      synchronizedEvents: [],/*[{date:'2017-05-14',title: 'Event #1',startTime:'2017-05-14',endTime:'2017-05-15',description:'This the First event',address:'1425 de mainsonneuve, Apt. 510'}, 
         {date:'2017-05-14',title: 'Event #2',startTime:'2017-05-14',endTime:'2017-05-15',description:'This the Second event',address:'1425 de mainsonneuve, Apt. 510'}, 
-        {date:'2017-05-14',title: 'Event #3',startTime:'2017-05-14',endTime:'2017-05-15',description:'This the Third event',address:'1425 de mainsonneuve, Apt. 510'}],
+        {date:'2017-05-14',title: 'Event #3',startTime:'2017-05-14',endTime:'2017-05-15',description:'This the Third event',address:'1425 de mainsonneuve, Apt. 510'}],*/
       params: props.navigation.state.params.jsonFile
     };
+    this.structureSynchronizedEvents();
     console.log("in dashboard:\n ");
-    console.log(this.state.params.items[0].start);
+    console.log('Structure the thing:\n',this.state.synchronizedEvents);
   }
 
+  structureSynchronizedEvents(){
+    let tempArray = [];
+    this.state.params.items.forEach(event => {
+      tempArray.push(
+        {
+          date: event.start.dateTime != null ? event.start.dateTime.substring(0,event.start.dateTime.indexOf('T')):event.start.date,
+          title: event.summary!=null ? event.summary:'No Title For this Event',
+          startTime: event.start.dateTime != null ? event.start.dateTime : event.start.date,
+          endTime: event.end.dateTime != null ? event.end.dateTime : event.end.date,
+          description: event.description != null ?event.description : '',
+          address: ''
+        }
+      )
+    });
+    this.setState({
+      synchronizedEvents:tempArray
+    });
+    console.log('temp:\n',tempArray);
+    return tempArray;
+  }
   render() {
     return (
       <Agenda
         items={this.state.items}
         loadItemsForMonth={this.loadItems.bind(this)}
-        selected={'2017-05-16'}
+        selected={'2020-03-27'}
         renderItem={this.renderItem.bind(this)}
         renderEmptyDate={this.renderEmptyDate.bind(this)}
         rowHasChanged={this.rowHasChanged.bind(this)}
