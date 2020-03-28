@@ -11,12 +11,9 @@ export default class DashboardScreen extends Component {
         props.navigation.state.params.jsonFile.items
       )
     };
-
-    console.log("in dashboard:\n ");
-    console.log('Structure the thing:\n',this.state.synchronizedEvents);
   }
 
-  structureSynchronizedEvents(events){
+  structureSynchronizedEvents(events) {
     let tempArray = [];
     events.forEach(event => {
       tempArray.push(
@@ -31,11 +28,42 @@ export default class DashboardScreen extends Component {
       )
     });
     this.setState({
-      synchronizedEvents:this.tempArray
+      synchronizedEvents: this.tempArray
     });
-    console.log('temp:\n',tempArray,'--->\n\n\-n>>>>');
+    console.log('temp:\n', tempArray, '--->\n\n\-n>>>>');
     return tempArray;
   }
+
+  loadItems(day) {
+    setTimeout(() => {
+      for (let i = -15; i < 85; i++) {
+        const time = day.timestamp + i * 24 * 60 * 60 * 1000;
+        const strTime = this.timeToString(time);
+        if (!this.state.items[strTime]) {
+          this.state.items[strTime] = [];
+          const todayEvents = this.state.synchronizedEvents
+            .filter((event) => { return strTime === event.date; });
+          const numItems = todayEvents.length;
+          for (let j = 0; j < numItems; j++) {
+            this.state.items[strTime].push({
+              name: todayEvents[j].title,
+              startTime: todayEvents[j].startTime,
+              endTime: todayEvents[j].endTime,
+              description: todayEvents[j].description,
+              address: todayEvents[j].address,
+              height: 80
+            });
+          }
+        }
+      }
+      const newItems = {};
+      Object.keys(this.state.items).forEach(key => {newItems[key] = this.state.items[key];});
+      this.setState({
+        items: newItems
+      });
+    }, 1000);
+  }
+
   render() {
     return (
       <Agenda
@@ -45,57 +73,11 @@ export default class DashboardScreen extends Component {
         renderItem={this.renderItem.bind(this)}
         renderEmptyDate={this.renderEmptyDate.bind(this)}
         rowHasChanged={this.rowHasChanged.bind(this)}
-        // markingType={'period'}
-        // markedDates={{
-        //    '2017-05-08': {textColor: '#43515c'},
-        //    '2017-05-09': {textColor: '#43515c'},
-        //    '2017-05-14': {startingDay: true, endingDay: true, color: 'blue'},
-        //    '2017-05-21': {startingDay: true, color: 'blue'},
-        //    '2017-05-22': {endingDay: true, color: 'gray'},
-        //    '2017-05-24': {startingDay: true, color: 'gray'},
-        //    '2017-05-25': {color: 'gray'},
-        //    '2017-05-26': {endingDay: true, color: 'gray'}}}
-        // monthFormat={'yyyy'}
-        // theme={{calendarBackground: 'red', agendaKnobColor: 'green'}}
-        //renderDay={(day, item) => (<Text>{day ? day.day: 'item'}</Text>)}
-        // hideExtraDays={false}
       />
     );
   }
 
-  loadItems(day) {
-            setTimeout(() => {
-              for (let i = -15; i < 85; i++) {
-                const time = day.timestamp + i * 24 * 60 * 60 * 1000;
-                //console.log('Timestamp ',day.timestamp,' Time ',time);
-                const strTime = this.timeToString(time);
-                //console.log(!this.state.items[strTime]);
-                if (!this.state.items[strTime]) {
-                  this.state.items[strTime] = [];
 
-                  const todayEvents = this.state.synchronizedEvents.filter((event)=>{return strTime==event.date});
-                  const numItems = todayEvents.length;//Math.floor(Math.random() * 5);
-                  //console.log(numItems);
-                  for (let j = 0; j < numItems; j++) {
-                    this.state.items[strTime].push({
-                      name: todayEvents[j].title,
-                      startTime: todayEvents[j].startTime,
-                      endTime: todayEvents[j].endTime,
-                      description: todayEvents[j].description,
-                      address: todayEvents[j].address,
-                      height: 80//Math.max(50, Math.floor(Math.random() * 150))
-                    });
-                  }
-                  //console.log('\n--> ',this.state.items[strTime]);
-                }
-              }
-              const newItems = {};
-              Object.keys(this.state.items).forEach(key => {newItems[key] = this.state.items[key];});
-              this.setState({
-                items: newItems
-              });
-            }, 1000);
-          }
         
           renderItem(item) {
             return (
