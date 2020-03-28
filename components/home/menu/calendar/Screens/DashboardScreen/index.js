@@ -20,9 +20,8 @@ export default class DashboardScreen extends Component {
     JSON.parse(events);
     console.log("after parsing: ");
     console.log(events);
-    this.setState({
-      synchronizedEvents: this.structureSynchronizedEvents(events)
-    });
+    this.structureSynchronizedEvents(events);
+
   }
 
   structureSynchronizedEvents(events) {
