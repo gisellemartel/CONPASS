@@ -15,11 +15,18 @@ const styles = StyleSheet.create({
   },
   quitButton: {
     left: 0,
-    top: 100,
     marginTop: 225,
+    top: 250,
     flex: 1,
     height: 20,
-    fontSize: 20
+    fontSize: 20,
+  },
+  directionsButton: {
+    left: 0,
+    bottom: 0,
+    marginBottom: 225,
+    height: 20,
+    fontSize: 20,
   },
 });
 

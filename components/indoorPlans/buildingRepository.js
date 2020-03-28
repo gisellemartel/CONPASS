@@ -29,9 +29,9 @@ function generateZoomableFloorComponent(floorComponent) {
  */
 function generateBuilding(buildingName) {
   const defaultAttributes = {
-    height: '325',
+    height: '100%',
     preserveAspectRatio: 'xMinYMin slice',
-    width: '325',
+    width: '100%',
     viewBox: '0 0 1000 1000'
   };
 
@@ -40,22 +40,22 @@ function generateBuilding(buildingName) {
       return [
         {
           floor: 8,
-          component: generateZoomableFloorComponent(<Hall8 {...defaultAttributes} />)
+          component: <Hall8 {...defaultAttributes} />
         },
         {
           floor: 9,
-          component: generateZoomableFloorComponent(<Hall9 {...defaultAttributes} />)
+          component: <Hall9 {...defaultAttributes} />
         }
       ];
     case 'VL':
       return [
         {
           floor: 1,
-          component: generateZoomableFloorComponent(<Vl1 {...defaultAttributes} />)
+          component: <Vl1 {...defaultAttributes} />
         },
         {
           floor: 2,
-          component: generateZoomableFloorComponent(<Vl2 {...defaultAttributes} />)
+          component: <Vl2 {...defaultAttributes} />
         }
       ];
     default:

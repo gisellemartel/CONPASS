@@ -4,7 +4,7 @@ import {
 } from 'react-native';
 import i18n from 'i18n-js';
 import styles from './styles';
-import conpass from './conpass.png';
+import conpass from '../../../assets/icons/conpass.png';
 
 class Menu extends Component {
   render() {

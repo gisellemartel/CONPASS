@@ -1,7 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import { shallow } from 'enzyme';
-import generateBuilding from '../assets/svgReactNative/buildingRepository';
+import generateBuilding from '../components/indoorPlans/buildingRepository';
 import buildings from '../assets/polygons/polygons';
 import BuildingWithFloors from '../components/map/building/buildingWithFloors/index';
 
