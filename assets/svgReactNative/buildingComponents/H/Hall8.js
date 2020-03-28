@@ -1,5 +1,7 @@
-import * as React from "react";
-import Svg, { Path, G, Text, Image } from "react-native-svg";
+import * as React from 'react';
+import Svg, {
+  Path, G, Text, Image
+} from 'react-native-svg';
 
 function SvgHall8(props) {
   return (
@@ -133,7 +135,7 @@ function SvgHall8(props) {
           fontSize={24}
           fontFamily="Helvetica, Arial, sans-serif"
         >
-          {"867"}
+          867
         </Text>
         <Text
           stroke="#000"
@@ -143,7 +145,7 @@ function SvgHall8(props) {
           fontSize={24}
           fontFamily="Helvetica, Arial, sans-serif"
         >
-          {"801"}
+          801
         </Text>
         <Text
           stroke="#000"
@@ -153,7 +155,7 @@ function SvgHall8(props) {
           fontSize={24}
           fontFamily="Helvetica, Arial, sans-serif"
         >
-          {"803"}
+          803
         </Text>
         <Text
           stroke="#000"
@@ -163,7 +165,7 @@ function SvgHall8(props) {
           fontSize={20}
           fontFamily="Helvetica, Arial, sans-serif"
         >
-          {"805.03"}
+          805.03
         </Text>
         <Text
           stroke="#000"
@@ -173,7 +175,7 @@ function SvgHall8(props) {
           fontSize={16}
           fontFamily="Helvetica, Arial, sans-serif"
         >
-          {"805.02"}
+          805.02
         </Text>
         <Text
           strokeWidth={0}
@@ -182,7 +184,7 @@ function SvgHall8(props) {
           fontSize={16}
           fontFamily="Helvetica, Arial, sans-serif"
         >
-          {"805.01"}
+          805.01
         </Text>
         <Text
           stroke="#000"
@@ -192,7 +194,7 @@ function SvgHall8(props) {
           fontSize={24}
           fontFamily="Helvetica, Arial, sans-serif"
         >
-          {"807"}
+          807
         </Text>
         <Text
           stroke="#000"
@@ -202,7 +204,7 @@ function SvgHall8(props) {
           fontSize={24}
           fontFamily="Helvetica, Arial, sans-serif"
         >
-          {"811"}
+          811
         </Text>
         <Text
           stroke="#000"
@@ -213,7 +215,7 @@ function SvgHall8(props) {
           fontFamily="Helvetica, Arial, sans-serif"
           cursor="move"
         >
-          {"809.01"}
+          809.01
         </Text>
         <Text
           stroke="#000"
@@ -223,7 +225,7 @@ function SvgHall8(props) {
           fontSize={24}
           fontFamily="Helvetica, Arial, sans-serif"
         >
-          {"813"}
+          813
         </Text>
         <Text
           stroke="#000"
@@ -233,7 +235,7 @@ function SvgHall8(props) {
           fontSize={24}
           fontFamily="Helvetica, Arial, sans-serif"
         >
-          {"815"}
+          815
         </Text>
         <Text
           stroke="#000"
@@ -243,7 +245,7 @@ function SvgHall8(props) {
           fontSize={24}
           fontFamily="Helvetica, Arial, sans-serif"
         >
-          {"817"}
+          817
         </Text>
         <Text
           stroke="#000"
@@ -253,7 +255,7 @@ function SvgHall8(props) {
           fontSize={24}
           fontFamily="Helvetica, Arial, sans-serif"
         >
-          {"819"}
+          819
         </Text>
         <Text
           stroke="#000"
@@ -263,7 +265,7 @@ function SvgHall8(props) {
           fontSize={24}
           fontFamily="Helvetica, Arial, sans-serif"
         >
-          {"821"}
+          821
         </Text>
         <Text
           stroke="#000"
@@ -273,7 +275,7 @@ function SvgHall8(props) {
           fontSize={24}
           fontFamily="Helvetica, Arial, sans-serif"
         >
-          {"823"}
+          823
         </Text>
         <Text
           stroke="#000"
@@ -283,7 +285,7 @@ function SvgHall8(props) {
           fontSize={24}
           fontFamily="Helvetica, Arial, sans-serif"
         >
-          {"825"}
+          825
         </Text>
         <Text
           stroke="#000"
@@ -293,7 +295,7 @@ function SvgHall8(props) {
           fontSize={24}
           fontFamily="Helvetica, Arial, sans-serif"
         >
-          {"827"}
+          827
         </Text>
         <Text
           stroke="#000"
@@ -303,7 +305,7 @@ function SvgHall8(props) {
           fontSize={24}
           fontFamily="Helvetica, Arial, sans-serif"
         >
-          {"831"}
+          831
         </Text>
         <Text
           stroke="#000"
@@ -313,7 +315,7 @@ function SvgHall8(props) {
           fontSize={24}
           fontFamily="Helvetica, Arial, sans-serif"
         >
-          {"829"}
+          829
         </Text>
         <Text
           stroke="#000"
@@ -323,7 +325,7 @@ function SvgHall8(props) {
           fontSize={24}
           fontFamily="Helvetica, Arial, sans-serif"
         >
-          {"833"}
+          833
         </Text>
         <Text
           stroke="#000"
@@ -333,7 +335,7 @@ function SvgHall8(props) {
           fontSize={24}
           fontFamily="Helvetica, Arial, sans-serif"
         >
-          {"835"}
+          835
         </Text>
         <Text
           stroke="#000"
@@ -343,7 +345,7 @@ function SvgHall8(props) {
           fontSize={24}
           fontFamily="Helvetica, Arial, sans-serif"
         >
-          {"837"}
+          837
         </Text>
         <Text
           stroke="#000"
@@ -353,7 +355,7 @@ function SvgHall8(props) {
           fontSize={24}
           fontFamily="Helvetica, Arial, sans-serif"
         >
-          {"841"}
+          841
         </Text>
         <Text
           stroke="#000"
@@ -363,7 +365,7 @@ function SvgHall8(props) {
           fontSize={24}
           fontFamily="Helvetica, Arial, sans-serif"
         >
-          {"843"}
+          843
         </Text>
         <Text
           stroke="#000"
@@ -373,7 +375,7 @@ function SvgHall8(props) {
           fontSize={24}
           fontFamily="Helvetica, Arial, sans-serif"
         >
-          {"845"}
+          845
         </Text>
         <Text
           stroke="#000"
@@ -383,7 +385,7 @@ function SvgHall8(props) {
           fontSize={24}
           fontFamily="Helvetica, Arial, sans-serif"
         >
-          {"847"}
+          847
         </Text>
         <Text
           stroke="#000"
@@ -393,7 +395,7 @@ function SvgHall8(props) {
           fontSize={24}
           fontFamily="Helvetica, Arial, sans-serif"
         >
-          {"849"}
+          849
         </Text>
         <Text
           stroke="#000"
@@ -403,7 +405,7 @@ function SvgHall8(props) {
           fontSize={20}
           fontFamily="Helvetica, Arial, sans-serif"
         >
-          {"851.02"}
+          851.02
         </Text>
         <Text
           strokeWidth={0}
@@ -412,7 +414,7 @@ function SvgHall8(props) {
           fontSize={16}
           fontFamily="Helvetica, Arial, sans-serif"
         >
-          {"851.03"}
+          851.03
         </Text>
         <Text
           strokeWidth={0}
@@ -421,7 +423,7 @@ function SvgHall8(props) {
           fontSize={12}
           fontFamily="Helvetica, Arial, sans-serif"
         >
-          {"851.01"}
+          851.01
         </Text>
         <Text
           stroke="#000"
@@ -431,7 +433,7 @@ function SvgHall8(props) {
           fontSize={24}
           fontFamily="Helvetica, Arial, sans-serif"
         >
-          {"853"}
+          853
         </Text>
         <Text
           stroke="#000"
@@ -441,7 +443,7 @@ function SvgHall8(props) {
           fontSize={24}
           fontFamily="Helvetica, Arial, sans-serif"
         >
-          {"855"}
+          855
         </Text>
         <Text
           stroke="#000"
@@ -451,7 +453,7 @@ function SvgHall8(props) {
           fontSize={24}
           fontFamily="Helvetica, Arial, sans-serif"
         >
-          {"857"}
+          857
         </Text>
         <Text
           stroke="#000"
@@ -461,7 +463,7 @@ function SvgHall8(props) {
           fontSize={24}
           fontFamily="Helvetica, Arial, sans-serif"
         >
-          {"859"}
+          859
         </Text>
         <Text
           stroke="#000"
@@ -471,7 +473,7 @@ function SvgHall8(props) {
           fontSize={24}
           fontFamily="Helvetica, Arial, sans-serif"
         >
-          {"861"}
+          861
         </Text>
         <Text
           stroke="#000"
@@ -481,7 +483,7 @@ function SvgHall8(props) {
           fontSize={24}
           fontFamily="Helvetica, Arial, sans-serif"
         >
-          {"863"}
+          863
         </Text>
         <Text
           stroke="#000"
@@ -491,7 +493,7 @@ function SvgHall8(props) {
           fontSize={24}
           fontFamily="Helvetica, Arial, sans-serif"
         >
-          {"865"}
+          865
         </Text>
         <Text
           strokeWidth={0}
@@ -500,7 +502,7 @@ function SvgHall8(props) {
           fontSize={12}
           fontFamily="Helvetica, Arial, sans-serif"
         >
-          {"809.02"}
+          809.02
         </Text>
         <Text
           strokeWidth={0}
@@ -509,7 +511,7 @@ function SvgHall8(props) {
           fontSize={12}
           fontFamily="Helvetica, Arial, sans-serif"
         >
-          {"809.03"}
+          809.03
         </Text>
         <Text
           stroke="#000"
@@ -519,7 +521,7 @@ function SvgHall8(props) {
           fontSize={24}
           fontFamily="Helvetica, Arial, sans-serif"
         >
-          {"820"}
+          820
         </Text>
         <Image
           x={685.385}
@@ -557,7 +559,7 @@ function SvgHall8(props) {
           fontSize={20}
           fontFamily="Helvetica, Arial, sans-serif"
         >
-          {"886"}
+          886
         </Text>
         <Text
           stroke="#000"
@@ -567,7 +569,7 @@ function SvgHall8(props) {
           fontSize={24}
           fontFamily="Helvetica, Arial, sans-serif"
         >
-          {"822"}
+          822
         </Text>
         <Text
           stroke="#000"
@@ -577,7 +579,7 @@ function SvgHall8(props) {
           fontSize={20}
           fontFamily="Helvetica, Arial, sans-serif"
         >
-          {"832.06"}
+          832.06
         </Text>
         <Text
           strokeWidth={0}
@@ -586,7 +588,7 @@ function SvgHall8(props) {
           fontSize={10}
           fontFamily="Helvetica, Arial, sans-serif"
         >
-          {"832.05"}
+          832.05
         </Text>
         <Text
           strokeWidth={0}
@@ -595,7 +597,7 @@ function SvgHall8(props) {
           fontSize={10}
           fontFamily="Helvetica, Arial, sans-serif"
         >
-          {"832.03"}
+          832.03
         </Text>
         <Text
           strokeWidth={0}
@@ -604,7 +606,7 @@ function SvgHall8(props) {
           fontSize={10}
           fontFamily="Helvetica, Arial, sans-serif"
         >
-          {"832.01"}
+          832.01
         </Text>
         <Text
           strokeWidth={0}
@@ -613,7 +615,7 @@ function SvgHall8(props) {
           fontSize={10}
           fontFamily="Helvetica, Arial, sans-serif"
         >
-          {"832.02"}
+          832.02
         </Text>
         <Image
           x={214.991}
@@ -630,7 +632,7 @@ function SvgHall8(props) {
           fontSize={24}
           fontFamily="Helvetica, Arial, sans-serif"
         >
-          {"862"}
+          862
         </Text>
         <Text
           strokeWidth={0}
@@ -639,7 +641,7 @@ function SvgHall8(props) {
           fontSize={12}
           fontFamily="Helvetica, Arial, sans-serif"
         >
-          {"860.04"}
+          860.04
         </Text>
         <Text
           strokeWidth={0}
@@ -648,7 +650,7 @@ function SvgHall8(props) {
           fontSize={12}
           fontFamily="Helvetica, Arial, sans-serif"
         >
-          {"860.06"}
+          860.06
         </Text>
         <Text
           strokeWidth={0}
@@ -657,7 +659,7 @@ function SvgHall8(props) {
           fontSize={12}
           fontFamily="Helvetica, Arial, sans-serif"
         >
-          {"860.05"}
+          860.05
         </Text>
         <Text
           strokeWidth={0}
@@ -666,7 +668,7 @@ function SvgHall8(props) {
           fontSize={12}
           fontFamily="Helvetica, Arial, sans-serif"
         >
-          {"860.03"}
+          860.03
         </Text>
         <Text
           strokeWidth={0}
@@ -675,7 +677,7 @@ function SvgHall8(props) {
           fontSize={12}
           fontFamily="Helvetica, Arial, sans-serif"
         >
-          {"860.01"}
+          860.01
         </Text>
         <Text
           stroke="#000"
@@ -685,7 +687,7 @@ function SvgHall8(props) {
           fontSize={24}
           fontFamily="Helvetica, Arial, sans-serif"
         >
-          {"854"}
+          854
         </Text>
         <Text
           stroke="#000"
@@ -695,7 +697,7 @@ function SvgHall8(props) {
           fontSize={24}
           fontFamily="Helvetica, Arial, sans-serif"
         >
-          {"842"}
+          842
         </Text>
         <Text
           stroke="#000"
@@ -705,7 +707,7 @@ function SvgHall8(props) {
           fontSize={20}
           fontFamily="Helvetica, Arial, sans-serif"
         >
-          {"852"}
+          852
         </Text>
         <Text
           stroke="#000"
@@ -715,7 +717,7 @@ function SvgHall8(props) {
           fontSize={20}
           fontFamily="Helvetica, Arial, sans-serif"
         >
-          {"838"}
+          838
         </Text>
         <Text
           stroke="#000"
@@ -725,7 +727,7 @@ function SvgHall8(props) {
           fontSize={12}
           fontFamily="Helvetica, Arial, sans-serif"
         >
-          {"838.01"}
+          838.01
         </Text>
         <Text
           stroke="#000"
@@ -735,7 +737,7 @@ function SvgHall8(props) {
           fontSize={20}
           fontFamily="Helvetica, Arial, sans-serif"
         >
-          {"881"}
+          881
         </Text>
         <Text
           strokeWidth={0}
@@ -744,7 +746,7 @@ function SvgHall8(props) {
           fontSize={12}
           fontFamily="Helvetica, Arial, sans-serif"
         >
-          {"877"}
+          877
         </Text>
         <Text
           stroke="#000"
@@ -754,7 +756,7 @@ function SvgHall8(props) {
           fontSize={18}
           fontFamily="Helvetica, Arial, sans-serif"
         >
-          {"840"}
+          840
         </Text>
         <Image
           x={315.299}
