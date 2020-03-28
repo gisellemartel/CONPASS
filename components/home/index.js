@@ -13,13 +13,11 @@ import generateGraph from '../../indoor_directions_modules/graphRepository';
 import hall8FloorPlanCoordinates from '../../indoor_directions_modules/buildings/H/Hall8FloorPlanCoordinates'; // Until graph repository is implemented.
 import styles from './styles';
 import Suggestions from '../suggestions';
-import parseFloorMapSvgs from '../../indoor_directions_modules/scripts/floorMapSvgParserScript';
 
 
 class Home extends Component {
   constructor(props) {
     super(props);
-    const res = parseFloorMapSvgs;
     this.state = {
       // Set Initial region of the map
       value: '',
