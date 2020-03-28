@@ -572,6 +572,16 @@ function SvgHall8(props) {
         <Text
           stroke="#000"
           strokeWidth={0}
+          x={748.75}
+          y={360.071}
+          fontSize={20}
+          fontFamily="Helvetica, Arial, sans-serif"
+        >
+          886
+        </Text>
+        <Text
+          stroke="#000"
+          strokeWidth={0}
           x={720}
           y={614.346}
           fontSize={24}
@@ -746,6 +756,15 @@ function SvgHall8(props) {
           fontFamily="Helvetica, Arial, sans-serif"
         >
           881
+        </Text>
+        <Text
+          strokeWidth={0}
+          x={285.743}
+          y={646.091}
+          fontSize={12}
+          fontFamily="Helvetica, Arial, sans-serif"
+        >
+          877
         </Text>
         <Text
           stroke="#000"
