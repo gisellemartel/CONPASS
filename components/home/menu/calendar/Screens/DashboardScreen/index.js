@@ -45,11 +45,11 @@ export default class DashboardScreen extends Component {
     return tempArray;
   }
 
-  loadItems(day) {
+  loadItems = (day) => {
     setTimeout(() => {
       for (let i = -15; i < 85; i++) {
         const time = day.timestamp + i * 24 * 60 * 60 * 1000;
-        const strTime = time;
+        const strTime = this.timeToString(time);
         if (!this.state.items[strTime]) {
           this.state.items[strTime] = [];
           const todayEvents = this.state.synchronizedEvents
