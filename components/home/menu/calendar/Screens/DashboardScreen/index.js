@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import {
-  View, Text, TouchableOpacity, StyleSheet, Alert, AsyncStorage
-} from 'react-native';
+
+import { View, Text, TouchableOpacity, StyleSheet, Alert, AsyncStorage } from 'react-native';
 import { Agenda } from 'react-native-calendars';
 import styles from './styles';
 
@@ -10,7 +9,8 @@ export default class DashboardScreen extends Component {
     super(props);
     this.state = {
       items: {},
-      synchronizedEvents: {}
+
+      synchronizedEvents: this.structureSynchronizedEvents(props.navigation.state.params.jsonFile.items)
     };
   }
 
@@ -46,7 +46,7 @@ export default class DashboardScreen extends Component {
     return tempArray;
   }
 
-  loadItems(day) {
+  loadItems = (day) => {
     setTimeout(() => {
       for (let i = -15; i < 85; i++) {
         const time = day.timestamp + i * 24 * 60 * 60 * 1000;
@@ -110,7 +110,7 @@ export default class DashboardScreen extends Component {
       <Agenda
         items={this.state.items}
         loadItemsForMonth={this.loadItems}
-        selected="2020-03-27"
+        selected={'2020-03-27'}
         renderItem={this.renderItem.bind(this)}
         renderEmptyDate={this.renderEmptyDate.bind(this)}
         rowHasChanged={this.rowHasChanged.bind(this)}
