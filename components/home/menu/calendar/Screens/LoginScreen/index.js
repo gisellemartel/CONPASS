@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import { View, Image, Text, Button, TouchableOpacity } from 'react-native';
-import styles from './styles';
+import { View, Image, TouchableOpacity } from 'react-native';
 import * as Google from 'expo-google-app-auth';
 import firebase from 'firebase';
+import styles from './styles';
+
 
 export default class LoginScreen extends Component {
    onSignIn = (googleUser) => {
-     console.log('Google Auth Response', googleUser);
      // We need to register an Observer on Firebase Auth to make sure auth is initialized.
      const unsubscribe = firebase.auth().onAuthStateChanged((firebaseUser) => {
        unsubscribe();
@@ -17,12 +17,10 @@ export default class LoginScreen extends Component {
            googleUser.idToken,
            googleUser.accessToken
          );
-         console.log("credential is "+ credential.accessToken);
          // Sign in with credential from the Google user.
          firebase
            .auth()
            .signInWithCredential(credential).then(() => {
-             console.log('user sign in');
            })
            .catch((error) => {
            // Handle Errors here.
@@ -70,8 +68,6 @@ export default class LoginScreen extends Component {
           headers: { Authorization: `Bearer ${accessToken}` },
         });
         const jsonFile = await userInfoResponse.json();
-        console.log("json file: ");
-        console.log(jsonFile);
         this.props.navigation.navigate('DashboardScreen', { jsonFile });
         return result.accessToken;
       }
@@ -87,12 +83,12 @@ export default class LoginScreen extends Component {
         <TouchableOpacity
           onPress={() => { this.signInWithGoogleAsync(); }}
         >
-        <View>
+          <View>
             <Image
-             style={styles.logo}
+              style={styles.logo}
               source={require('./button.png')}
             />
-            </View>
+          </View>
         </TouchableOpacity>
       </View>
     );
