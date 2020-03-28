@@ -75,6 +75,18 @@ export default class DashboardScreen extends Component {
     );
   }
 
+  renderEmptyDate() {
+    return (
+      <View style={styles.emptyDate}>
+        <Text>This is empty date!</Text>
+      /View>
+    );
+  }
+
+  rowHasChanged(r1, r2) {
+    return r1.name !== r2.name;
+  }
+
   render() {
     return (
       <Agenda
