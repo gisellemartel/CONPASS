@@ -40,6 +40,7 @@ export default class DashboardScreen extends Component {
           const todayEvents = this.state.synchronizedEvents
             .filter((event) => { return strTime === event.date; });
           const numItems = todayEvents.length;
+          // eslint-disable-next-line no-plusplus
           for (let j = 0; j < numItems; j++) {
             this.state.items[strTime].push({
               name: todayEvents[j].title,
