@@ -31,6 +31,7 @@ export default class DashboardScreen extends Component {
     setTimeout(() => {
       const uppderBoundForSync = 85;
       const lowerBoundForSync = -15;
+      // eslint-disable-next-line no-plusplus
       for (let i = lowerBoundForSync; i < uppderBoundForSync; i++) {
         const time = day.timestamp + i * 24 * 60 * 60 * 1000;
         const strTime = this.timeToString(time);
@@ -117,8 +118,11 @@ export default class DashboardScreen extends Component {
         items={this.state.items}
         loadItemsForMonth={this.loadItems}
         selected="2020-03-27"
+        // eslint-disable-next-line react/jsx-no-bind
         renderItem={this.renderItem.bind(this)}
+        // eslint-disable-next-line react/jsx-no-bind
         renderEmptyDate={this.renderEmptyDate.bind(this)}
+        // eslint-disable-next-line react/jsx-no-bind
         rowHasChanged={this.rowHasChanged.bind(this)}
       />
     );
