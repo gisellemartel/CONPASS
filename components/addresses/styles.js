@@ -2,26 +2,23 @@ import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'white',
-    zIndex: 1,
+    backgroundColor: 'rgba(156,211,215,0.8)',
     bottom: 20,
-    width: 430,
-    right: 30,
+    width: 413.6,
+    right: 18,
     top: -32,
     borderBottomLeftRadius: 10,
     borderBottomRightRadius: 10,
-    height: 165
-
+    height: 165,
+    position: 'relative',
   },
   searchContainer: {
-
     alignItems: 'center',
     width: '87%',
-    left: 55,
+    left: 45,
     position: 'absolute',
-    top: 0,
+    top: 0
   }
-
 });
 
 export default styles;

@@ -1,4 +1,4 @@
-/* eslint-disable react/no-unused-state */
+
 import React, { Component } from 'react';
 import { View } from 'react-native';
 import TheMap from '../map';
@@ -7,7 +7,11 @@ import Location from '../location';
 import SwitchCampuses from '../switchCampuses';
 import SetPath from '../setPath';
 import Addresses from '../addresses';
+import Building from '../map/building/index';
+import generateBuilding from '../../assets/svgReactNative/buildingRepository';
 import styles from './styles';
+import Suggestions from '../suggestions';
+
 
 class Home extends Component {
   constructor(props) {
@@ -28,19 +32,20 @@ class Home extends Component {
         latitudeDelta: 0.04,
         longitudeDelta: 0.04
       },
+      interiorMode: false,
       nearbyMarkers: [],
-      isVisible: false,
       // eslint-disable-next-line react/no-unused-state
       isSearchVisible: true,
-      isGoVisible: false,
-      isSwitchAvailableIndestination: true,
-      // current Concordia a user is in
+      // current concordia bulding tapped on
       currentBuildingAddress: '',
-
       showDirectionsMenu: false,
-      showCampusToggle: false
+      showCampusToggle: false,
+      showSuggestionsList: false
     };
+    this.interiorModeOn = this.interiorModeOn.bind(this);
+    this.interiorModeOff = this.interiorModeOff.bind(this);
   }
+
 
   /**
    * updates region and passes the new region 'map' component.
@@ -154,6 +159,7 @@ class Home extends Component {
    *    }]
    *
    */
+
   getNearbyMarkers=(markers) => {
     this.setState({ nearbyMarkers: markers });
   }
@@ -164,17 +170,67 @@ class Home extends Component {
     });
   };
 
+  /**
+   * gets the curretly tapped on building information from 'map' component
+   * @param {object} suggestion - New coordinates to be passed.
+   */
+  getSuggestions = (suggestion) => {
+    this.setState({
+      suggestion,
+      showSuggestionsList: true
+    });
+  }
+
+  /**
+   * sets the visibility of showing the building information
+   * @param {object} suggestion - New coordinates to be passed.
+   */
+  setSuggestionVisibility = () => {
+    this.setState({
+      showSuggestionsList: false
+    });
+  }
+
+  /**
+   *
+   * @param {*} building
+   * @param {*} region
+   * Activates interior mode when building is clicked on
+   * Uses the building data to render floors
+   */
+  interiorModeOn(building, region) {
+    this.setState({
+      region,
+      interiorMode: true,
+      building
+    });
+  }
+
+  /**
+   *
+   * Deactivates interior mode to return to outdoor map view
+   */
+  interiorModeOff() {
+    this.setState({
+      interiorMode: false,
+      building: null
+    });
+  }
 
   render() {
     return (
       <View style={styles.container}>
+        {/* zIndex=1 */}
         <TheMap
           updatedCoordinates={this.state.coordinates}
+          encryptedLine={this.state.encryptedLine}
+          interiorModeOn={this.interiorModeOn}
           updatedRegion={this.state.presetRegion}
           polylineVisibility={this.state.showDirectionsMenu}
           getDestinationIfSet={this.getDestinationIfSet}
           updateRegionCloser={this.updateRegionCloser}
           nearbyMarkers={this.state.nearbyMarkers}
+          getSuggestions={this.getSuggestions}
         />
         {!this.state.showDirectionsMenu && (
         <SearchBar
@@ -212,9 +268,24 @@ class Home extends Component {
             currentBuildingPred={this.state.currentBuildingAddress}
           />
         )}
+        {/* Building component contains all the interior floor views */}
+        {this.state.interiorMode
+        && (
+        <Building
+          building={this.state.building}
+          buildingFloorPlans={generateBuilding(this.state.building.building)}
+          interiorModeOff={this.interiorModeOff}
+        />
+        )}
+        {this.state.showSuggestionsList && this.state.interiorMode && (
+        <Suggestions
+          changeSuggestionVisibility={this.setSuggestionVisibility}
+          getDirections={this.setDirections}
+          suggestion={this.state.suggestion}
+        />
+        )}
       </View>
     );
   }
 }
-
 export default Home;

@@ -4,9 +4,11 @@ const styles = StyleSheet.create({
 
   container: {
     top: 29,
-    left: 23,
-    zIndex: 2,
+    left: 5,
+    zIndex: 221,
     position: 'absolute',
+
+
   },
 
 });

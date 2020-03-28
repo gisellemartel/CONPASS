@@ -36,10 +36,20 @@ export default class searchBarDestination extends Component {
       });
       this.drawPath();
     }
+
+    if (this.props.directionsId) {
+      console.log(this.props.directionsId);
+      this.getLatLong(this.props.directionsId);
+    }
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.drawPath !== this.props.drawPath) {
+    if (prevProps.drawPath !== this.props.drawPath || prevProps.getMode !== this.props.getMode) {
+      this.drawPath();
+    }
+
+    if (prevProps.directionsId !== this.props.directionsId) {
+      this.getLatLong(this.props.directionsId);
       this.drawPath();
     }
   }
@@ -97,8 +107,10 @@ export default class searchBarDestination extends Component {
     this.drawPath();
   }
 
+
   async drawPath() {
     // eslint-disable-next-line no-shadow
+
     try {
       await this.getCurrentLocation();
       const { location } = this.state;
@@ -109,19 +121,23 @@ export default class searchBarDestination extends Component {
       const originLong = this.props.updatedRegion.longitude === 0 ? urLongitude : this.props.updatedRegion.longitude;
       const destinationLat = this.state.destinationRegion.latitude;
       const destinationLong = this.state.destinationRegion.longitude;
-      const directionUrl = `https://maps.googleapis.com/maps/api/directions/json?key=${key}&origin=${originLat},${originLong}&destination=${destinationLat},${destinationLong}`;
+      const mode = this.props.getMode;
+      const directionUrl = `https://maps.googleapis.com/maps/api/directions/json?key=${key}&origin=${originLat},${originLong}&destination=${destinationLat},${destinationLong}&mode=${mode}`;
       const result = await fetch(directionUrl);
       const json = await result.json();
-      const encryptedPath = json.routes[0].overview_polyline.points;
-      const rawPolylinePoints = decodePolyline(encryptedPath);
-      // Incompatible field names for direct decode. Need to do a trivial conversion.
-      const waypoints = rawPolylinePoints.map((point) => {
-        return {
-          latitude: point.lat,
-          longitude: point.lng
-        };
-      });
-      this.props.coordinateCallback(waypoints);
+      // eslint-disable-next-line camelcase
+      const encryptedPath = json.routes[0]?.overview_polyline.points;
+      if (encryptedPath) {
+        const rawPolylinePoints = decodePolyline(encryptedPath);
+        // Incompatible field names for direct decode. Need to do a trivial conversion.
+        const waypoints = rawPolylinePoints.map((point) => {
+          return {
+            latitude: point.lat,
+            longitude: point.lng
+          };
+        });
+        this.props.coordinateCallback(waypoints);
+      }
     } catch (err) {
       console.error(err);
     }

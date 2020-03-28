@@ -24,40 +24,56 @@ export default class Addresses extends Component {
         longitudeDelta: 0.05
       },
       hide: true,
-      drawPath: true
+      drawPath: true,
+      mode: 'walking',
     };
-  }
-
-  drawPath =() => {
-    this.setState((prevState) => { return { drawPath: !prevState.drawPath }; });
   }
 
   /**
-  * updates region and passes the new region 'Home' component.
-  * @param {object} newRegion - New region to be passed.
-  */
-    updateRegion = (newRegion) => {
-      this.setState({
-        region: {
-          latitude: newRegion.latitude,
-          longitude: newRegion.longitude,
-          latitudeDelta: 0.05,
-          longitudeDelta: 0.05
-        }
-      });
-      this.props.getRegion(newRegion);
-    };
+   * updates a draw path boolean. Draws a path when true
+   */
+  drawPath = () => {
+    this.setState((prevState) => {
+      return { drawPath: !prevState.drawPath };
+    });
+  };
+
+  /**
+   * updates region and passes the new region 'Home' component.
+   * @param {object} newRegion - New region to be passed.
+   */
+  updateRegion = (newRegion) => {
+    this.setState({
+      region: {
+        latitude: newRegion.latitude,
+        longitude: newRegion.longitude,
+        latitudeDelta: 0.05,
+        longitudeDelta: 0.05
+      }
+    });
+    this.props.getRegion(newRegion);
+  };
+
+  /**
+   * updates coordinates and passes new coordinates 'Home' component.
+   * @param {object} newCoordinates - New coordinates to be passed.
+   */
+  updateCoordinates = (newCoordinates) => {
+    this.setState({
+      coordinates: newCoordinates
+    });
+    this.props.getCoordinates(newCoordinates);
+  };
 
     /**
-    * updates coordinates and passes new coordinates 'Home' component.
-    * @param {object} newCoordinates - New coordinates to be passed.
-    */
-    updateCoordinates = (newCoordinates) => {
+ * updates mode of transportation
+ * @param {string} mode - Mode of transport: driving, bicycling, transit or walking
+ */
+    updateMode = (mode) => {
       this.setState({
-        coordinates: newCoordinates
+        mode,
       });
-      this.props.getCoordinates(newCoordinates);
-    };
+    }
 
     render() {
       return (
@@ -75,11 +91,19 @@ export default class Addresses extends Component {
             getDestinationIfSet={this.props.getDestinationIfSet}
             updatedRegion={this.state.region}
             coordinateCallback={this.updateCoordinates}
+            getMode={this.state.mode}
           />
-          <Car />
-          <Bus navigation={this.props.navigation} />
-          <Bike />
-          <Walking />
+          <Car updateMode={this.updateMode} />
+          <Bus
+            navigation={this.props.navigation}
+            updateMode={this.updateMode}
+          />
+          <Bike
+            updateMode={this.updateMode}
+          />
+          <Walking
+            updateMode={this.updateMode}
+          />
           <View style={styles.container}>
             <BackButton
               changeVisibilityTo={this.props.changeVisibilityTo}
@@ -89,8 +113,6 @@ export default class Addresses extends Component {
             <Destination />
           </View>
         </View>
-
-
       );
     }
 }

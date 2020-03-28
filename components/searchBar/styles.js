@@ -6,12 +6,12 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 25,
     width: '90%',
-    zIndex: 4,
+    zIndex: 300,
     borderRadius: 10
   },
   view: {
     borderRadius: 15,
-    zIndex: 4
+    zIndex: 300
   },
   Touch: {
     color: '#AFB9C4',
