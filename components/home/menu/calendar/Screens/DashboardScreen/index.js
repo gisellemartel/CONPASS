@@ -17,6 +17,13 @@ export default class DashboardScreen extends Component {
     };
   }
 
+  componentDidMount() {
+    this._isMounted = true;
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
+  }
 
   structureSynchronizedEvents(events) {
     const tempArray = [];
@@ -64,11 +71,11 @@ export default class DashboardScreen extends Component {
       }
       const newItems = {};
       Object.keys(this.state.items).forEach((key) => { newItems[key] = this.state.items[key]; });
- 
-      this.setState({
-        items: newItems
-      });
-      
+      if (this._isMounted) {
+        this.setState({
+          items: newItems
+        });
+      }
     }, 1000);
   }
 
