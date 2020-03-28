@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
 
-import { View, Text, TouchableOpacity, StyleSheet, Alert, AsyncStorage } from 'react-native';
+import {
+  View, Text, TouchableOpacity, StyleSheet, Alert, AsyncStorage
+} from 'react-native';
 import { Agenda } from 'react-native-calendars';
 import styles from './styles';
 
 export default class DashboardScreen extends Component {
+  _isMounted = false
+
   constructor(props) {
     super(props);
     this.state = {
@@ -13,6 +17,13 @@ export default class DashboardScreen extends Component {
     };
   }
 
+  componentDidMount() {
+    this._isMounted = true;
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
+  }
 
   structureSynchronizedEvents(events) {
     const tempArray = [];
@@ -28,9 +39,11 @@ export default class DashboardScreen extends Component {
         }
       );
     });
-    this.setState({
-      synchronizedEvents: this.tempArray
-    });
+    if (this._isMounted) {
+      this.setState({
+        synchronizedEvents: this.tempArray
+      });
+    }
     return tempArray;
   }
 
@@ -58,9 +71,11 @@ export default class DashboardScreen extends Component {
       }
       const newItems = {};
       Object.keys(this.state.items).forEach((key) => { newItems[key] = this.state.items[key]; });
-      this.setState({
-        items: newItems
-      });
+      if (this._isMounted) {
+        this.setState({
+          items: newItems
+        });
+      }
     }, 1000);
   }
 
@@ -93,12 +108,13 @@ export default class DashboardScreen extends Component {
     return date.toISOString().split('T')[0];
   }
 
+
   render() {
     return (
       <Agenda
         items={this.state.items}
         loadItemsForMonth={this.loadItems}
-        selected={'2020-03-27'}
+        selected="2020-03-27"
         renderItem={this.renderItem.bind(this)}
         renderEmptyDate={this.renderEmptyDate.bind(this)}
         rowHasChanged={this.rowHasChanged.bind(this)}
