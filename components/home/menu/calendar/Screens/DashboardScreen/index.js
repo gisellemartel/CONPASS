@@ -9,22 +9,10 @@ export default class DashboardScreen extends Component {
     super(props);
     this.state = {
       items: {},
-
       synchronizedEvents: this.structureSynchronizedEvents(props.navigation.state.params.jsonFile.items)
     };
   }
 
-  componentDidMount = async () => {
-    const events = await AsyncStorage.getItem('events');
-
-
-    JSON.parse(events);
-
-
-    this.setState({
-      synchronizedEvents: this.structureSynchronizedEvents(events)
-    });
-  }
 
   structureSynchronizedEvents(events) {
     const tempArray = [];
@@ -50,7 +38,7 @@ export default class DashboardScreen extends Component {
     setTimeout(() => {
       for (let i = -15; i < 85; i++) {
         const time = day.timestamp + i * 24 * 60 * 60 * 1000;
-        const strTime = time;
+        const strTime = this.timeToString(time);
         if (!this.state.items[strTime]) {
           this.state.items[strTime] = [];
           const todayEvents = this.state.synchronizedEvents
