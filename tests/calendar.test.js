@@ -59,3 +59,9 @@ it('It should get events', async () => {
   const eventFormatted = dashboardScreenComponent.structureSynchronizedEvents(events);
   expect(eventFormatted).toEqual(expect.arrayContaining((expected)));
 });
+
+it('Should not load items', async () => {
+  const dashboardScreenComponent = renderer.create(<DashboardScreen navigation={navigation} />).getInstance();
+  const eventFormatted = dashboardScreenComponent.loadItems(1);
+  expect(eventFormatted).toEqual((undefined));
+});
