@@ -82,17 +82,6 @@ export default class DashboardScreen extends Component {
     return tempArray;
   }
 
-  renderItem(item) {
-    return (
-      <TouchableOpacity
-        style={[styles.item, { height: item.height }]}
-        onPress={() => { return Alert.alert(item.name, `${item.startTime}  -  ${item.endTime}\n${item.description}\n${item.address}`); }}
-      >
-        <Text>{item.name}</Text>
-      </TouchableOpacity>
-    );
-  }
-
   renderEmptyDate() {
     return (
       <View style={styles.emptyDate}>
@@ -108,6 +97,17 @@ export default class DashboardScreen extends Component {
   timeToString(time) {
     const date = new Date(time);
     return date.toISOString().split('T')[0];
+  }
+
+  renderItem(item) {
+    return (
+      <TouchableOpacity
+        style={[styles.item, { height: item.height }]}
+        onPress={() => { return Alert.alert(item.name, `${item.startTime}  -  ${item.endTime}\n${item.description}\n${item.address}`); }}
+      >
+        <Text>{item.name}</Text>
+      </TouchableOpacity>
+    );
   }
 
 
