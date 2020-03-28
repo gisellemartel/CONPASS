@@ -25,27 +25,6 @@ export default class DashboardScreen extends Component {
     this._isMounted = false;
   }
 
-  structureSynchronizedEvents(events) {
-    const tempArray = [];
-    events.forEach((event) => {
-      tempArray.push(
-        {
-          date: event.start.dateTime != null ? event.start.dateTime.substring(0, event.start.dateTime.indexOf('T')) : event.start.date,
-          title: event.summary != null ? event.summary : 'No Title For this Event',
-          startTime: event.start.dateTime != null ? event.start.dateTime : event.start.date,
-          endTime: event.end.dateTime != null ? event.end.dateTime : event.end.date,
-          description: event.description != null ? event.description : '',
-          address: ''
-        }
-      );
-    });
-    if (this._isMounted) {
-      this.setState({
-        synchronizedEvents: this.tempArray
-      });
-    }
-    return tempArray;
-  }
 
   loadItems = (day) => {
     setTimeout(() => {
@@ -79,6 +58,28 @@ export default class DashboardScreen extends Component {
         });
       }
     }, 1000);
+  }
+
+  structureSynchronizedEvents(events) {
+    const tempArray = [];
+    events.forEach((event) => {
+      tempArray.push(
+        {
+          date: event.start.dateTime != null ? event.start.dateTime.substring(0, event.start.dateTime.indexOf('T')) : event.start.date,
+          title: event.summary != null ? event.summary : 'No Title For this Event',
+          startTime: event.start.dateTime != null ? event.start.dateTime : event.start.date,
+          endTime: event.end.dateTime != null ? event.end.dateTime : event.end.date,
+          description: event.description != null ? event.description : '',
+          address: ''
+        }
+      );
+    });
+    if (this._isMounted) {
+      this.setState({
+        synchronizedEvents: this.tempArray
+      });
+    }
+    return tempArray;
   }
 
   renderItem(item) {
