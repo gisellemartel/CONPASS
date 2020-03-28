@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Image, TouchableOpacity } from 'react-native';
+import { View, Image, TouchableOpacity, AsyncStorage } from 'react-native';
 import * as Google from 'expo-google-app-auth';
 import firebase from 'firebase';
 import styles from './styles';
@@ -32,8 +32,6 @@ export default class LoginScreen extends Component {
              const credential = error.credential;
            // ...
            });
-       } else {
-         console.log('User already signed-in Firebase.');
        }
      });
    }
@@ -68,7 +66,11 @@ export default class LoginScreen extends Component {
           headers: { Authorization: `Bearer ${accessToken}` },
         });
         const jsonFile = await userInfoResponse.json();
-        this.props.navigation.navigate('DashboardScreen', { jsonFile });
+        const stringFile = JSON.stringify(jsonFile);
+        console.log("stringified json: ");
+        console.log(stringFile);
+        AsyncStorage.setItem('events', stringFile);
+        //this.props.navigation.navigate('DashboardScreen', { jsonFile });
         return result.accessToken;
       }
       return { cancelled: true };

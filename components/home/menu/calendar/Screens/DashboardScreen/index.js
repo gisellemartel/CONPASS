@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Alert } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Alert, AsyncStorage } from 'react-native';
 import { Agenda } from 'react-native-calendars';
 import styles from './styles';
 
@@ -8,15 +8,25 @@ export default class DashboardScreen extends Component {
     super(props);
     this.state = {
       items: {},
-      synchronizedEvents: this.structureSynchronizedEvents(
-        props.navigation.state.params.jsonFile.items
-      )
+      synchronizedEvents: {}
     };
+  }
+
+  componentDidMount = async () => {
+    const events = AsyncStorage.getItems('event');
+    console.log("events from storage: ");
+    console.log(events);
+    JSON.parse(events);
+    console.log("after parsing: ");
+    console.log(events);
+    this.setState({
+      synchronizedEvents: this.structureSynchronizedEvents(events)
+    });
   }
 
   structureSynchronizedEvents(events) {
     let tempArray = [];
-    events.forEach(event => {
+    events.forEach((event) => {
       tempArray.push(
         {
           date: event.start.dateTime != null ? event.start.dateTime.substring(0,event.start.dateTime.indexOf('T')):event.start.date,
@@ -31,7 +41,6 @@ export default class DashboardScreen extends Component {
     this.setState({
       synchronizedEvents: this.tempArray
     });
-    console.log('temp:\n', tempArray, '--->\n\n\-n>>>>');
     return tempArray;
   }
 
