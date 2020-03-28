@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import { Agenda } from 'react-native-calendars';
+import styles from './styles';
 
 export default class DashboardScreen extends Component {
   constructor(props) {
@@ -87,6 +88,11 @@ export default class DashboardScreen extends Component {
     return r1.name !== r2.name;
   }
 
+  timeToString(time) {
+    const date = new Date(time);
+    return date.toISOString().split('T')[0];
+  }
+
   render() {
     return (
       <Agenda
@@ -99,36 +105,7 @@ export default class DashboardScreen extends Component {
       />
     );
   }
-
-
-        
-          
-        
-          
-        
-          rowHasChanged(r1, r2) {
-            return r1.name !== r2.name;
-          }
-        
-          timeToString(time) {
-            const date = new Date(time);
-            return date.toISOString().split('T')[0];
-          }
-        }
+      
+}
        
-        const styles = StyleSheet.create({
-          item: {
-            backgroundColor: 'white',
-            flex: 1,
-            borderRadius: 5,
-            padding: 10,
-            marginRight: 10,
-            marginTop: 17
-          },
-          emptyDate: {
-            height: 15,
-            flex:1,
-            paddingTop: 30
-          }
-        });
         
