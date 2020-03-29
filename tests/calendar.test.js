@@ -14,8 +14,10 @@ it('Should change rows', async () => {
     rowHasChangedSecondParam: { name: 'y' }
   };
 
-  const dashboardScreenComponent = renderer.create(<DashboardScreen navigation={navigation} />).getInstance();
-  const rowHasChanged = dashboardScreenComponent.rowHasChanged(params.rowHasChangedFirstParam, params.rowHasChangedSecondParam);
+  const dashboardScreenComponent = renderer
+    .create(<DashboardScreen navigation={navigation} />).getInstance();
+  const rowHasChanged = dashboardScreenComponent
+    .rowHasChanged(params.rowHasChangedFirstParam, params.rowHasChangedSecondParam);
   expect(rowHasChanged).toBe(true);
 });
 
@@ -25,13 +27,24 @@ it('Shouldnt change rows', async () => {
     rowHasChangedSecondParam: { name: 'x' }
   };
 
-  const dashboardScreenComponent = renderer.create(<DashboardScreen navigation={navigation} />).getInstance();
-  const rowHasChanged = dashboardScreenComponent.rowHasChanged(params.rowHasChangedFirstParam, params.rowHasChangedFirstParam);
+  const dashboardScreenComponent = renderer.create(<DashboardScreen navigation={navigation} />)
+    .getInstance();
+  const rowHasChanged = dashboardScreenComponent
+    .rowHasChanged(params.rowHasChangedFirstParam, params.rowHasChangedFirstParam);
   expect(rowHasChanged).toBe(false);
 });
 
+it('Should render empty date', async () => {
+  const dashboardScreenComponent = renderer.create(<DashboardScreen navigation={navigation} />)
+    .getInstance();
+  const renderEmptyDate = dashboardScreenComponent.renderEmptyDate();
+  const bool = renderEmptyDate.length === 0;
+  expect(bool).toBe(false);
+});
+
 it('It should convert time to string', async () => {
-  const dashboardScreenComponent = renderer.create(<DashboardScreen navigation={navigation} />).getInstance();
+  const dashboardScreenComponent = renderer
+    .create(<DashboardScreen navigation={navigation} />).getInstance();
   const dateFormatted = dashboardScreenComponent.timeToString(5);
   expect(dateFormatted).toStrictEqual('1970-01-01');
 });
@@ -61,7 +74,8 @@ it('It should get events', async () => {
 });
 
 it('Should not load items', async () => {
-  const dashboardScreenComponent = renderer.create(<DashboardScreen navigation={navigation} />).getInstance();
+  const dashboardScreenComponent = renderer
+    .create(<DashboardScreen navigation={navigation} />).getInstance();
   const eventFormatted = dashboardScreenComponent.loadItems(1);
   expect(eventFormatted).toEqual((undefined));
 });

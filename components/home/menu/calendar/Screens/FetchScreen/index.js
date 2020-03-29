@@ -10,6 +10,7 @@ export default class FetchScreen extends Component {
   getData = async () => {
     const evnts = await AsyncStorage.getItem('events');
     const events = JSON.parse(evnts);
+    console.log(events);
     this.props.navigation.navigate('DashboardScreen', { events });
   }
 
