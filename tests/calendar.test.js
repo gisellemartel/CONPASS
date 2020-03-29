@@ -42,6 +42,22 @@ it('Should render empty date', async () => {
   expect(bool).toBe(false);
 });
 
+it('Should render items', async () => {
+  const jsonFile = {
+    address: '',
+    description: '',
+    endTime: '2020-03-28T18:30:00-04:00',
+    height: 80,
+    name: 'event 2',
+    startTime: '2020-03-28T17:30:00-04:00',
+  };
+  const dashboardScreenComponent = renderer.create(<DashboardScreen navigation={navigation} />)
+    .getInstance();
+  const renderItem = dashboardScreenComponent.renderItem(jsonFile);
+  const bool = renderItem.length === 0;
+  expect(bool).toBe(false);
+});
+
 it('It should convert time to string', async () => {
   const dashboardScreenComponent = renderer
     .create(<DashboardScreen navigation={navigation} />).getInstance();
