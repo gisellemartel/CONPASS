@@ -12,9 +12,15 @@ class Menu extends Component {
       <View style={styles.container}>
         <Image style={styles.logo} source={conpass} />
         <View style={styles.options}>
-          <Text style={styles.option}>
-            {i18n.t('calendar')}
-          </Text>
+        <TouchableOpacity
+            onPress={() => {
+              return this.props.navigation.navigate('Calendar');
+            }}
+          >
+            <Text style={styles.option}>
+              {i18n.t('calendar')}
+            </Text>
+          </TouchableOpacity>
           <TouchableOpacity
             onPress={() => {
               return this.props.navigation.navigate('ShuttleSchedule');
