@@ -22,7 +22,16 @@ export default class LoginScreen extends Component {
          // Sign in with credential from the Google user.
          firebase
            .auth()
-           .signInWithCredential(credential).then(() => {
+           .signInWithCredential(credential).then((result) => {
+             console.log('signedIn');
+             firebase.database().ref(`/users/${result.user.uid}`)
+               .set({
+                 gmail: result.user.email,
+                 profile_picture: result.additionalUserInfo.profile.picture,
+                 locale: result.additionalUserInfo.profile.locale,
+                 first_name: result.additionalUserInfo.profile.given_name,
+                 last_name: result.additionalUserInfo.profile.family_name
+               });
            })
            .catch((error) => {
              alert(error);

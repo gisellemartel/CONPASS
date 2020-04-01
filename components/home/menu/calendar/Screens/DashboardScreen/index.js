@@ -15,7 +15,7 @@ export default class DashboardScreen extends Component {
     super(props);
     this.state = {
       items: {},
-      notifyEvents: this.notify(props.navigation.sate.params.events.items),
+      notifyEvents: this.notify(props.navigation.state.params.events),
       synchronizedEvents:
         this.structureSynchronizedEvents(props.navigation.state.params.events.items)
     };
