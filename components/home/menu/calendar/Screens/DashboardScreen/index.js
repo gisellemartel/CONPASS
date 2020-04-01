@@ -112,21 +112,31 @@ export default class DashboardScreen extends Component {
     };
 
     sendPushNotification = () => {
-      const response = fetch('https://exp.host/--/api/v2/push/send', {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Countent-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          to: this.state.pushNotficationToken,
-          sound: 'default',
-          priority: 'high',
-          title: 'Log out',
-          body: 'You are logged out',
-          channelId: 'reminders'
-        })
-      });
+      // const response = fetch('https://exp.host/--/api/v2/push/send', {
+      //   method: 'POST',
+      //   headers: {
+      //     Accept: 'application/json',
+      //     'Countent-Type': 'application/json',
+      //   },
+      //   body: JSON.stringify({
+
+      //   })
+      // });
+      const localNotification = {
+        to: this.state.pushNotficationToken,
+        sound: 'default',
+        priority: 'high',
+        title: 'Log out',
+        body: 'You are logged out',
+        channelId: 'reminders'
+      };
+      const t = (new Date()).getTime() + 20000;
+      console.log(t);
+      const schedulingOptions = {
+        time: t
+      };
+
+      Notifications.scheduleLocalNotificationAsync(localNotification, schedulingOptions);
     }
 
     structureSynchronizedEvents(events) {
