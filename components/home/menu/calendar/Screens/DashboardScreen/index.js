@@ -1,13 +1,38 @@
 /* eslint-disable no-plusplus */
 import React, { Component } from 'react';
 import firebase from 'firebase';
+import { FloatingAction } from 'react-native-floating-action';
 import {
-  View, Text, Button, TouchableOpacity, Alert
+  View, Text, Button, TouchableOpacity, Alert,
+  Dimensions
 } from 'react-native';
 import { Agenda } from 'react-native-calendars';
 import * as Permissions from 'expo-permissions';
 import { Notifications } from 'expo';
 import styles from './styles';
+
+const actions = [
+  {
+    text: 'Accessibility',
+    name: 'bt_accessibility',
+    position: 2
+  },
+  {
+    text: 'Language',
+    name: 'bt_language',
+    position: 1
+  },
+  {
+    text: 'Location',
+    name: 'bt_room',
+    position: 3
+  },
+  {
+    text: 'Video',
+    name: 'bt_videocam',
+    position: 4
+  }
+];
 
 export default class DashboardScreen extends Component {
   _isMounted = false
@@ -155,15 +180,24 @@ export default class DashboardScreen extends Component {
 
     render() {
       return (
-        <Agenda
-          items={this.state.items}
-          loadItemsForMonth={this.loadItems}
-          selected="2020-03-27"
-          renderItem={this.renderItem}
-          renderEmptyDate={this.renderEmptyDate}
-          rowHasChanged={this.rowHasChanged}
-        />
-
+        <View
+          style={{ height: 750 }}
+        >
+          <Agenda
+            items={this.state.items}
+            loadItemsForMonth={this.loadItems}
+            selected="2020-03-27"
+            renderItem={this.renderItem}
+            renderEmptyDate={this.renderEmptyDate}
+            rowHasChanged={this.rowHasChanged}
+          />
+          <Button
+            title="Logout"
+            onPress={() => {
+              firebase.auth().signOut();
+            }}
+          />
+        </View>
       );
     }
 }
