@@ -2,10 +2,11 @@
 import React, { Component } from 'react';
 import firebase from 'firebase';
 import {
-  View, Text, TouchableOpacity, Alert
+  View, Text, Button, TouchableOpacity, Alert
 } from 'react-native';
 import { Agenda } from 'react-native-calendars';
-import { Permissions, Notifications } from 'expo';
+import * as Permissions from 'expo-permissions';
+import { Notifications } from 'expo';
 import styles from './styles';
 
 export default class DashboardScreen extends Component {
@@ -19,18 +20,18 @@ export default class DashboardScreen extends Component {
       synchronizedEvents:
         this.structureSynchronizedEvents(props.navigation.state.params.events.items)
     };
-    console.log(this.state.notifyEvents);
   }
 
   async componentDidMount() {
-    this.currentUser = await firebase.auth().currentUser;
-    await this.registerForPushNotificationsAsync;
+    this.currentUser = firebase.auth().currentUser;
+    this.registerForPushNotificationsAsync();
     this._isMounted = true;
   }
 
   componentWillUnmount() {
     this._isMounted = false;
   }
+
 
     registerForPushNotificationsAsync = async () => {
       const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
@@ -48,7 +49,7 @@ export default class DashboardScreen extends Component {
       // Get the token that identifies this device
       const token = await Notifications.getExpoPushTokenAsync();
       try {
-        firebase.database().ref(`user/${this.currentUser.uid}/push_token`).set(token);
+        firebase.database().ref(`users/${this.currentUser.uid}/push_token`).set(token);
       } catch (error) {
         console.log(error);
       }
@@ -151,6 +152,7 @@ export default class DashboardScreen extends Component {
       );
     }
 
+
     render() {
       return (
         <Agenda
@@ -161,6 +163,7 @@ export default class DashboardScreen extends Component {
           renderEmptyDate={this.renderEmptyDate}
           rowHasChanged={this.rowHasChanged}
         />
+
       );
     }
 }

@@ -33,6 +33,8 @@ export default class LoginScreen extends Component {
                    first_name: result.additionalUserInfo.profile.given_name,
                    last_name: result.additionalUserInfo.profile.family_name,
                    created_at: Date.now()
+                 }).then((snapshot) => {
+                   console.log(snapshot);
                  });
              } else {
                firebase.database().ref(`/users/${result.user.uid}`).update({
