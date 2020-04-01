@@ -1,38 +1,13 @@
 /* eslint-disable no-plusplus */
 import React, { Component } from 'react';
 import firebase from 'firebase';
-import { FloatingAction } from 'react-native-floating-action';
 import {
   View, Text, Button, TouchableOpacity, Alert,
-  Dimensions
 } from 'react-native';
 import { Agenda } from 'react-native-calendars';
 import * as Permissions from 'expo-permissions';
 import { Notifications } from 'expo';
 import styles from './styles';
-
-const actions = [
-  {
-    text: 'Accessibility',
-    name: 'bt_accessibility',
-    position: 2
-  },
-  {
-    text: 'Language',
-    name: 'bt_language',
-    position: 1
-  },
-  {
-    text: 'Location',
-    name: 'bt_room',
-    position: 3
-  },
-  {
-    text: 'Video',
-    name: 'bt_videocam',
-    position: 4
-  }
-];
 
 export default class DashboardScreen extends Component {
   _isMounted = false
