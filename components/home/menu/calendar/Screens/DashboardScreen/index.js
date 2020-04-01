@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import firebase from 'firebase';
 import {
-  View, Text, Button, TouchableOpacity, Alert,
+  View, Text, Button, TouchableOpacity, Alert, Platform
 } from 'react-native';
 import { Agenda } from 'react-native-calendars';
 import * as Permissions from 'expo-permissions';
@@ -26,6 +26,14 @@ export default class DashboardScreen extends Component {
   async componentDidMount() {
     this.registerForPushNotificationsAsync();
     this._isMounted = true;
+
+    if (Platform.OS === 'android') {
+      Notifications.createChannelAndroidAsync('reminders', {
+        name: 'Reminders',
+        priority: 'max',
+        vibrate: [0, 250, 250, 250],
+      });
+    }
   }
 
   componentWillUnmount() {
@@ -107,14 +115,16 @@ export default class DashboardScreen extends Component {
       const response = fetch('https://exp.host/--/api/v2/push/send', {
         method: 'POST',
         headers: {
-          Accept: 'application/json', 'Countent-Type': 'application/json'
+          Accept: 'application/json',
+          'Countent-Type': 'application/json',
         },
         body: JSON.stringify({
           to: this.state.pushNotficationToken,
           sound: 'default',
           priority: 'high',
           title: 'Log out',
-          body: 'You are logged out'
+          body: 'You are logged out',
+          channelId: 'reminders'
         })
       });
     }
