@@ -24,14 +24,21 @@ export default class LoginScreen extends Component {
            .auth()
            .signInWithCredential(credential).then((result) => {
              console.log('signedIn');
-             firebase.database().ref(`/users/${result.user.uid}`)
-               .set({
-                 gmail: result.user.email,
-                 profile_picture: result.additionalUserInfo.profile.picture,
-                 locale: result.additionalUserInfo.profile.locale,
-                 first_name: result.additionalUserInfo.profile.given_name,
-                 last_name: result.additionalUserInfo.profile.family_name
+             if (result.additionalUserInfo.isNewUser) {
+               firebase.database().ref(`/users/${result.user.uid}`)
+                 .set({
+                   gmail: result.user.email,
+                   profile_picture: result.additionalUserInfo.profile.picture,
+                   locale: result.additionalUserInfo.profile.locale,
+                   first_name: result.additionalUserInfo.profile.given_name,
+                   last_name: result.additionalUserInfo.profile.family_name,
+                   created_at: Date.now()
+                 });
+             } else {
+               firebase.database().ref(`/users/${result.user.uid}`).update({
+                 last_logged_in: Date.now()
                });
+             }
            })
            .catch((error) => {
              alert(error);
