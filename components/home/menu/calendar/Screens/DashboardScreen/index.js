@@ -17,13 +17,13 @@ export default class DashboardScreen extends Component {
     this.state = {
       items: {},
       notifyEvents: this.notify(props.navigation.state.params.events),
+      pushNotficationToken: '',
       synchronizedEvents:
         this.structureSynchronizedEvents(props.navigation.state.params.events.items)
     };
   }
 
   async componentDidMount() {
-    this.currentUser = firebase.auth().currentUser;
     this.registerForPushNotificationsAsync();
     this._isMounted = true;
   }
@@ -48,6 +48,8 @@ export default class DashboardScreen extends Component {
 
       // Get the token that identifies this device
       const token = await Notifications.getExpoPushTokenAsync();
+      this.setState({ pushNotficationToken: token });
+      console.log(this.state.pushNotficationToken);
       try {
         firebase.database().ref(`users/${this.currentUser.uid}/push_token`).set(token);
       } catch (error) {
@@ -101,6 +103,21 @@ export default class DashboardScreen extends Component {
       return notifyArray;
     };
 
+    sendPushNotification = () => {
+      const response = fetch('https://exp.host/--/api/v2/push/send', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json', 'Countent-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          to: this.state.pushNotficationToken,
+          sound: 'default',
+          priority: 'high',
+          title: 'Log out',
+          body: 'You are logged out'
+        })
+      });
+    }
 
     structureSynchronizedEvents(events) {
       const tempArray = [];
@@ -170,6 +187,7 @@ export default class DashboardScreen extends Component {
             title="Logout"
             onPress={() => {
               firebase.auth().signOut();
+              this.sendPushNotification();
             }}
           />
         </View>
