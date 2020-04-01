@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { View, Image, TouchableOpacity, AsyncStorage } from 'react-native';
+import {
+  View, Image, TouchableOpacity, AsyncStorage
+} from 'react-native';
 import * as Google from 'expo-google-app-auth';
 import firebase from 'firebase';
 import styles from './styles';

@@ -7,10 +7,25 @@ export default class FetchScreen extends Component {
     this.getData();
   }
 
-  getData = async () => {
-    const evnts = await AsyncStorage.getItem('events');
+
+  getData = () => {
+    const evnts = AsyncStorage.getItem('events');
+    const notifyElements = this.notify(events);
+    console.log(notifyElements);
     const events = JSON.parse(evnts);
     this.props.navigation.navigate('DashboardScreen', { events });
+  }
+
+  notify = (events) => {
+    const notifyArray = [];
+    events.items.forEach((element) => {
+      notifyArray.push({
+        startDate: element.start.dateTime,
+        summary: element.summary,
+        reminders: element.reminders,
+      });
+    });
+    return notifyArray;
   }
 
   render() {
