@@ -18,9 +18,11 @@ export default class DashboardScreen extends Component {
       items: {},
       notifyEvents: this.notify(props.navigation.state.params.events),
       pushNotficationToken: '',
+      timeToNotify: 1,
       synchronizedEvents:
         this.structureSynchronizedEvents(props.navigation.state.params.events.items)
     };
+    // Notifications.dismissAllNotificationsAsync();
   }
 
   async componentDidMount() {
@@ -41,29 +43,28 @@ export default class DashboardScreen extends Component {
   }
 
 
-    registerForPushNotificationsAsync = async () => {
-      const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
-      // only asks if permissions have not already been determined, because
-      // iOS won't necessarily prompt the user a second time.
-      // On Android, permissions are granted on app installation, so
-      // `askAsync` will never prompt the user
+  registerForPushNotificationsAsync = async () => {
+    const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+    // only asks if permissions have not already been determined, because
+    // iOS won't necessarily prompt the user a second time.
+    // On Android, permissions are granted on app installation, so
+    // `askAsync` will never prompt the user
 
-      // Stop here if the user did not grant permissions
-      if (status !== 'granted') {
-        alert('No notification permissions!');
-        return;
-      }
-
-      // Get the token that identifies this device
-      const token = await Notifications.getExpoPushTokenAsync();
-      this.setState({ pushNotficationToken: token });
-      console.log(this.state.pushNotficationToken);
-      try {
-        firebase.database().ref(`users/${this.currentUser.uid}/push_token`).set(token);
-      } catch (error) {
-        console.log(error);
-      }
+    // Stop here if the user did not grant permissions
+    if (status !== 'granted') {
+      alert('No notification permissions!');
+      return;
     }
+
+    // Get the token that identifies this device
+    const token = await Notifications.getExpoPushTokenAsync();
+    this.setState({ pushNotficationToken: token });
+    try {
+      firebase.database().ref(`users/${this.currentUser.uid}/push_token`).set(token);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   loadItems = (day) => {
     setTimeout(() => {
@@ -99,17 +100,20 @@ export default class DashboardScreen extends Component {
     }, 1000);
   }
 
-    notify = (events) => {
-      const notifyArray = [];
-      events.items.forEach((element) => {
+  notify = (events) => {
+    const notifyArray = [];
+
+    events.items.forEach((element) => {
+      const date = new Date(element.start.dateTime);
+      if (element.summary.includes('conpass') && date.getTime() > (new Date()).getTime()) {
         notifyArray.push({
           startDate: element.start.dateTime,
           summary: element.summary,
-          reminders: element.reminders,
         });
-      });
-      return notifyArray;
-    };
+      }
+    });
+    return notifyArray;
+  };
 
     sendPushNotification = () => {
       // const response = fetch('https://exp.host/--/api/v2/push/send', {
@@ -122,21 +126,24 @@ export default class DashboardScreen extends Component {
 
       //   })
       // });
-      const localNotification = {
-        to: this.state.pushNotficationToken,
-        sound: 'default',
-        priority: 'high',
-        title: 'Log out',
-        body: 'You are logged out',
-        channelId: 'reminders'
-      };
-      const t = (new Date()).getTime() + 20000;
-      console.log(t);
-      const schedulingOptions = {
-        time: t
-      };
+      this.state.notifyEvents.forEach((element) => {
+        console.log(element);
+        const localNotification = {
+          to: this.state.pushNotficationToken,
+          sound: 'default',
+          priority: 'high',
+          title: 'Conpass Notification',
+          body: element.summary,
+          channelId: 'reminders'
+        };
+        const date = new Date(element.startDate);
 
-      Notifications.scheduleLocalNotificationAsync(localNotification, schedulingOptions);
+        const t = date.getTime() + this.state.timeToNotify * 10 * 1000;
+        const schedulingOptions = {
+          time: t
+        };
+        Notifications.scheduleLocalNotificationAsync(localNotification, schedulingOptions);
+      });
     }
 
     structureSynchronizedEvents(events) {
