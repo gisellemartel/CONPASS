@@ -22,6 +22,7 @@ export default class DashboardScreen extends Component {
       synchronizedEvents:
         this.structureSynchronizedEvents(props.navigation.state.params.events.items)
     };
+    this.sendPushNotification();
     // Notifications.dismissAllNotificationsAsync();
   }
 
@@ -55,7 +56,6 @@ export default class DashboardScreen extends Component {
       alert('No notification permissions!');
       return;
     }
-
     // Get the token that identifies this device
     const token = await Notifications.getExpoPushTokenAsync();
     this.setState({ pushNotficationToken: token });
@@ -102,7 +102,6 @@ export default class DashboardScreen extends Component {
 
   notify = (events) => {
     const notifyArray = [];
-
     events.items.forEach((element) => {
       const date = new Date(element.start.dateTime);
       if (element.summary.includes('conpass') && date.getTime() > (new Date()).getTime()) {
@@ -214,7 +213,6 @@ export default class DashboardScreen extends Component {
             title="Logout"
             onPress={() => {
               firebase.auth().signOut();
-              this.sendPushNotification();
             }}
           />
         </View>
