@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import DialogInput from 'react-native-dialog-input';
 import firebase from 'firebase';
 import {
-  View, Text, Button, TouchableOpacity, Alert, Platform
+  View, Text, TouchableOpacity, Alert, Platform
 } from 'react-native';
 import { Agenda } from 'react-native-calendars';
 import * as Permissions from 'expo-permissions';
@@ -17,6 +17,7 @@ export default class DashboardScreen extends Component {
     super(props);
     this.state = {
       items: {},
+      isDialogVisible: false,
       notifyEvents: this.notify(props.navigation.state.params.events),
       pushNotficationToken: '',
       timeToNotify: 1,
@@ -27,7 +28,6 @@ export default class DashboardScreen extends Component {
 
   async componentDidMount() {
     this.registerForPushNotificationsAsync();
-    this.sendPushNotification();
 
     this._isMounted = true;
     if (Platform.OS === 'android') {
@@ -115,7 +115,9 @@ export default class DashboardScreen extends Component {
   };
 
     sendPushNotification = () => {
-      /** Enable this to get immeaiate notifications
+      console.log(this.state.timeToNotify);
+
+      // Enable this to get immeaiate notifications
       Notifications.dismissAllNotificationsAsync();
       const localNotification = {
         to: this.state.pushNotficationToken,
@@ -126,7 +128,7 @@ export default class DashboardScreen extends Component {
         channelId: 'reminders'
       };
       Notifications.presentLocalNotificationAsync(localNotification);
-      */
+
 
       // const response = fetch('https://exp.host/--/api/v2/push/send', {
       //   method: 'POST',
@@ -140,7 +142,6 @@ export default class DashboardScreen extends Component {
       // });
 
       this.state.notifyEvents.forEach((element) => {
-        console.log(element);
         const localNotification = {
           to: this.state.pushNotficationToken,
           sound: 'default',
@@ -150,12 +151,29 @@ export default class DashboardScreen extends Component {
           channelId: 'reminders'
         };
         const date = new Date(element.startDate);
+
         const t = date.getTime() + this.state.timeToNotify * 10 * 1000;
         const schedulingOptions = {
           time: t
         };
         Notifications.scheduleLocalNotificationAsync(localNotification, schedulingOptions);
       });
+    }
+
+    showDialog=(boolean) => {
+      this.setState({ isDialogVisible: boolean });
+    }
+
+    sendInput=(number) => {
+      this.setState({ timeToNotify: number },);
+      this.setState({ isDialogVisible: false });
+      setTimeout(() => {
+        this.sendPushNotification();
+      }, 100);
+    }
+
+    rowHasChanged(r1, r2) {
+      return r1.name !== r2.name;
     }
 
     structureSynchronizedEvents(events) {
@@ -178,10 +196,6 @@ export default class DashboardScreen extends Component {
         });
       }
       return tempArray;
-    }
-
-    rowHasChanged(r1, r2) {
-      return r1.name !== r2.name;
     }
 
     timeToString(time) {
@@ -214,6 +228,14 @@ export default class DashboardScreen extends Component {
         <View
           style={{ height: 750 }}
         >
+          <DialogInput
+            isDialogVisible={this.state.isDialogVisible}
+            title="Set Reminder Time"
+            message="Set the time to be reminded before class/minutes"
+            hintInput="e.g. 10"
+            submitInput={(inputText) => { this.sendInput(inputText); }}
+            closeDialog={() => { this.showDialog(false); }}
+          />
           <Agenda
             items={this.state.items}
             loadItemsForMonth={this.loadItems}
@@ -249,6 +271,7 @@ export default class DashboardScreen extends Component {
                   justifyContent: 'center',
                 }}
                 onPress={() => {
+                  this.showDialog(true);
                 }}
               >
                 <Text>Adjust Time</Text>

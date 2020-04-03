@@ -44,6 +44,7 @@
     "react-native": "^0.61.5",
     "react-native-app-intro-slider": "^3.0.0",
     "react-native-calendars": "^1.264.0",
+    "react-native-dialog-input": "^1.0.7",
     "react-native-dynamic-search-bar": "^0.3.1",
     "react-native-elements": "^1.2.7",
     "react-native-floating-action": "^1.20.0",
