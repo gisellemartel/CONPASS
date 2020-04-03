@@ -1,5 +1,6 @@
 /* eslint-disable no-plusplus */
 import React, { Component } from 'react';
+import DialogInput from 'react-native-dialog-input';
 import firebase from 'firebase';
 import {
   View, Text, Button, TouchableOpacity, Alert, Platform
@@ -22,14 +23,13 @@ export default class DashboardScreen extends Component {
       synchronizedEvents:
         this.structureSynchronizedEvents(props.navigation.state.params.events.items)
     };
-    this.sendPushNotification();
-    // Notifications.dismissAllNotificationsAsync();
   }
 
   async componentDidMount() {
     this.registerForPushNotificationsAsync();
-    this._isMounted = true;
+    this.sendPushNotification();
 
+    this._isMounted = true;
     if (Platform.OS === 'android') {
       Notifications.createChannelAndroidAsync('reminders', {
         name: 'Reminders',
@@ -115,6 +115,19 @@ export default class DashboardScreen extends Component {
   };
 
     sendPushNotification = () => {
+      /** Enable this to get immeaiate notifications
+      Notifications.dismissAllNotificationsAsync();
+      const localNotification = {
+        to: this.state.pushNotficationToken,
+        sound: 'default',
+        priority: 'high',
+        title: 'Conpass Notification',
+        body: 'Ayyyyyyyyyyyyyyyyyyyyyyyyyyy we testing',
+        channelId: 'reminders'
+      };
+      Notifications.presentLocalNotificationAsync(localNotification);
+      */
+
       // const response = fetch('https://exp.host/--/api/v2/push/send', {
       //   method: 'POST',
       //   headers: {
@@ -125,6 +138,7 @@ export default class DashboardScreen extends Component {
 
       //   })
       // });
+
       this.state.notifyEvents.forEach((element) => {
         console.log(element);
         const localNotification = {
@@ -136,7 +150,6 @@ export default class DashboardScreen extends Component {
           channelId: 'reminders'
         };
         const date = new Date(element.startDate);
-
         const t = date.getTime() + this.state.timeToNotify * 10 * 1000;
         const schedulingOptions = {
           time: t
@@ -209,12 +222,39 @@ export default class DashboardScreen extends Component {
             renderEmptyDate={this.renderEmptyDate}
             rowHasChanged={this.rowHasChanged}
           />
-          <Button
-            title="Logout"
-            onPress={() => {
-              firebase.auth().signOut();
-            }}
-          />
+          <View>
+            <View style={{ flexDirection: 'row' }}>
+              <TouchableOpacity
+                style={{
+                  backgroundColor: '#DDDDDD',
+                  width: '50%',
+                  height: 50,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+
+                }}
+                onPress={() => {
+                  firebase.auth().signOut();
+                }}
+              >
+                <Text>Logout</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                style={{
+                  alignItems: 'center',
+                  backgroundColor: '#DDDDDD',
+                  width: '50%',
+                  height: 50,
+                  justifyContent: 'center',
+                }}
+                onPress={() => {
+                }}
+              >
+                <Text>Adjust Time</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
         </View>
       );
     }
