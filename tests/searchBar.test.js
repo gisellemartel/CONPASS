@@ -2,7 +2,7 @@
 /* eslint-disable max-len */
 import React from 'react';
 import renderer from 'react-test-renderer';
-import SearchBar from '../components/searchBar';
+import MapSearchBar from '../components/mapSearchBar';
 
 beforeEach(() => {
   mockPrediction = {
@@ -135,7 +135,7 @@ it('Should populate prediction state with content', async () => {
     return promise;
   });
 
-  const searchBarComponent = renderer.create(<SearchBar />).getInstance();
+  const searchBarComponent = renderer.create(<MapSearchBar />).getInstance();
   await searchBarComponent.onChangeDestination('Loyola');
   expect(searchBarComponent.state.predictions).toMatchObject(mockPrediction.predictions);
 });
@@ -152,7 +152,7 @@ it('Should populate LatLng state with content', async () => {
     });
     return promise;
   });
-  const searchBarComponent = renderer.create(<SearchBar updateRegion={updateR} />).getInstance();
+  const searchBarComponent = renderer.create(<MapSearchBar updateRegion={updateR} />).getInstance();
   await searchBarComponent.getLatLong(mockPrediction.predictions[0].place_id);
   expect(searchBarComponent.state.region.latitude).toBeLessThanOrEqual(mockResult.result.geometry.location.lat + searchBarComponent.state.region.latitudeDelta);
   expect(searchBarComponent.state.region.latitude).toBeGreaterThanOrEqual(mockResult.result.geometry.location.lat - searchBarComponent.state.region.latitudeDelta);
@@ -186,7 +186,7 @@ it('Calling getNearbyPlaces should pass an array to the nearbyMarkers property',
     }
   }
   ];
-  const searchBarComponent = renderer.create(<SearchBar nearbyMarkers={mockFct} updateRegion={updateR} />).getInstance();
+  const searchBarComponent = renderer.create(<MapSearchBar nearbyMarkers={mockFct} updateRegion={updateR} />).getInstance();
   await searchBarComponent.getNearbyPlaces('coffee shops near sgw');
   expect(expected).toStrictEqual(received);
 });
@@ -212,7 +212,7 @@ it('Should Update the currentBuilding state with given a prediction from Google\
     });
     return promise;
   });
-  const searchBarComponent = renderer.create(<SearchBar currentBuildingPred="1400 DeMaisonneuve W" />).getInstance();
+  const searchBarComponent = renderer.create(<MapSearchBar currentBuildingPred="1400 DeMaisonneuve W" />).getInstance();
   await searchBarComponent.updateCurrentBuilding();
   expect(searchBarComponent.state.currentBuilding.description).toBe(result.predictions[0].description);
   expect(searchBarComponent.state.currentBuilding.id).toBe(result.predictions[0].id);
@@ -231,7 +231,7 @@ it('Should keep the currentBuilding state null', async () => {
     });
     return promise;
   });
-  const searchBarComponent = renderer.create(<SearchBar currentBuildingPred="" />).getInstance();
+  const searchBarComponent = renderer.create(<MapSearchBar currentBuildingPred="" />).getInstance();
   await searchBarComponent.updateCurrentBuilding();
   expect(searchBarComponent.state.currentBuilding).toBeNull();
 });
@@ -248,7 +248,7 @@ it('Should return an object identical to expectedJsonResult', async () => {
     });
     return promise;
   });
-  const searchBarComponent = renderer.create(<SearchBar currentBuildingPred="Webster Library Building" />).getInstance();
+  const searchBarComponent = renderer.create(<MapSearchBar currentBuildingPred="Webster Library Building" />).getInstance();
   const json = await searchBarComponent.getPredictions(searchBarComponent.props.currentBuildingPred);
   expect(json).toEqual(expectedJsonResultPredictions);
 });

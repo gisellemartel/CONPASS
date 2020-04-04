@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
 import TheMap from '../map';
-import SearchBar from '../searchBar';
+import MapSearchBar from '../mapSearchBar';
 import Location from '../location';
 import SwitchCampuses from '../switchCampuses';
 import SetPath from '../setPath';
@@ -232,7 +232,7 @@ class Home extends Component {
           getSuggestions={this.getSuggestions}
         />
         {!this.state.showDirectionsMenu && (
-        <SearchBar
+        <MapSearchBar
           getDestinationIfSet={this.getDestinationIfSet}
           navigation={this.props.navigation}
           updateRegion={this.updateRegion}

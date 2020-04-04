@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
-import SearchBar from '../searchBar';
+import MapSearchBar from '../mapSearchBar';
 import SearchBarDestination from '../searchBarDestination';
 import BackButton from './backButton';
 import CurrentLocation from './currentLocation';
@@ -77,7 +77,7 @@ export default class Addresses extends Component {
     render() {
       return (
         <View style={styles.searchContainer}>
-          <SearchBar
+          <MapSearchBar
             updateRegion={this.updateRegion}
             urCurentLocation={this.state.value}
             hideMenu={this.state.hide}

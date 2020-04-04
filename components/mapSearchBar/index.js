@@ -1,5 +1,3 @@
-/* eslint-disable react/no-access-state-in-setstate */
-/* eslint-disable no-unused-expressions */
 import React, { Component } from 'react';
 import {
   View,
@@ -15,7 +13,7 @@ import styles from './styles';
 import SetLocaleContext from '../../localization-context';
 import burger from '../../assets/icons/burger.png';
 
-export default class searchBar extends Component {
+export default class MapSearchBar extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -29,8 +27,6 @@ export default class searchBar extends Component {
         longitudeDelta: 0.0421
       },
       isMounted: false,
-      // eslint-disable-next-line react/no-unused-state
-      showMenu: true,
       prevCurrentBuilding: '',
       currentBuilding: null
     };
@@ -86,7 +82,6 @@ export default class searchBar extends Component {
    * @param {String} destination - String to get predictions for
    * @returns {Promise} - Promise object represents Google's API json response
    */
-  // eslint-disable-next-line consistent-return
   async getPredictions(destination) {
     const key = 'AIzaSyCqNODizSqMIWbKbO8Iq3VWdBcK846n_3w';
     const apiUrl = `https://maps.googleapis.com/maps/api/place/autocomplete/json?key=${key}&input=${destination}&location=45.492409, -73.582153&radius=2000`;
@@ -96,6 +91,7 @@ export default class searchBar extends Component {
       return await result.json();
     } catch (err) {
       console.error(err);
+      return {};
     }
   }
 
@@ -209,17 +205,20 @@ export default class searchBar extends Component {
     const placeholder = this.state.isMounted ? i18n.t('search') : 'search';
     // Predictions mapped and formmated from the current state predictions
     const predictions = this.state.predictions.map((prediction) => {
+      const getDestinationIfSet = this.props.getDestinationIfSet
+        ? this.props.getDestinationIfSet(prediction.description)
+        : () => {};
       return (
         <View key={prediction.id} style={styles.view}>
           <TouchableOpacity
             style={styles.Touch}
             onPress={() => {
-              this.setState({ destination: prediction.description });
-              this.props.getDestinationIfSet
-                ? this.props.getDestinationIfSet(prediction.description)
-                : '';
+              this.setState({
+                destination: prediction.description,
+                showPredictions: false
+              });
               this.getLatLong(prediction.place_id);
-              this.setState({ showPredictions: false });
+              getDestinationIfSet();
               Keyboard.dismiss();
             }}
           >
