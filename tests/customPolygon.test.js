@@ -1,5 +1,4 @@
 import React from 'react';
-import renderer from 'react-test-renderer';
 import { shallow } from 'enzyme';
 import CustomPolygon from '../components/map/customPolygon';
 import buildings from '../assets/polygons/polygons';

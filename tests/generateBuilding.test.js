@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactNativeZoomableView from '@dudigital/react-native-zoomable-view/src/ReactNativeZoomableView';
-import generateBuilding from '../components/indoorPlans/buildingRepository';
+import generateBuilding from '../components/buildings/floorPlans/floorPlanRepository';
 import {
   Hall8, Hall9, Vl1, Vl2
-} from '../components/indoorPlans/index';
+} from '../components/buildings/index';
 
 let mockDefaultAttributes;
 let mockHallBuildingName;

@@ -41,9 +41,6 @@ export default class WithinBuilding extends Component {
   async getCurrentLocation() {
     const { status } = await Permissions.askAsync(Permissions.LOCATION);
     if (status !== 'granted') {
-      this.setState({
-        errorMessage: 'Permission to access location was denied',
-      });
       return;
     }
     const location = await Location.getCurrentPositionAsync({});

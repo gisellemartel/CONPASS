@@ -1,7 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import Building from '../components/map/building/index';
-import generateBuilding from '../components/indoorPlans/buildingRepository';
+import Building from '../components/buildings/buildingView/index';
+import generateBuilding from '../components/buildings/floorPlans/floorPlanRepository';
 import buildings from '../assets/polygons/polygons';
 
 it('Should render buildingWithFloor if floor data exists', async () => {

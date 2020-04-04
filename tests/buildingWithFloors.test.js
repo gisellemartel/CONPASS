@@ -1,8 +1,9 @@
+/* eslint-disable max-len */
 import React from 'react';
 import renderer from 'react-test-renderer';
-import generateBuilding from '../components/indoorPlans/buildingRepository';
+import generateBuilding from '../components/buildings/floorPlans/floorPlanRepository';
 import buildings from '../assets/polygons/polygons';
-import BuildingWithFloors from '../components/map/building/buildingWithFloors/index';
+import BuildingWithFloors from '../components/buildings/buildingView/buildingWithFloors/index';
 
 
 const building = buildings[0];

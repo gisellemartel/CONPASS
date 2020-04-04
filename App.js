@@ -4,9 +4,9 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { Provider } from 'react-redux';
 import i18n from 'i18n-js';
 import Home from './components/home';
-import Menu from './components/home/menu';
-import ShuttleSchedule from './components/home/menu/shuttleBusSchedule';
-import Calendar from './components/home/menu/calendar';
+import Menu from './components/menu';
+import ShuttleSchedule from './components/menu/shuttleBusSchedule';
+import Calendar from './components/menu/calendar';
 import store from './store';
 
 const Stack = createStackNavigator();

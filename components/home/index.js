@@ -3,12 +3,12 @@ import React, { Component } from 'react';
 import { View } from 'react-native';
 import TheMap from '../map';
 import MapSearchBar from '../mapSearchBar';
-import Location from './location';
-import SwitchCampuses from '../switchCampuses';
-import SetPath from '../setPath';
-import Addresses from '../addresses';
+import Location from '../location';
+import CampusToggle from '../campusToggle';
+import SetPath from '../pathPolyline';
+import OutdoorDirections from '../directions/outdoorDirections';
 import BuildingView from '../buildings/buildingView/index';
-import generateFloorPlan from '../buildings/floorPlanRepository';
+import generateFloorPlan from '../buildings/floorPlans/floorPlanRepository';
 import generateGraph from '../../indoor_directions_modules/graphRepository';
 import styles from './styles';
 import Suggestions from '../suggestions';
@@ -243,7 +243,7 @@ class Home extends Component {
         />
         )}
         {this.state.showCampusToggle && (
-          <SwitchCampuses
+          <CampusToggle
             updateRegion={this.updateRegion}
             visiblityState={!this.state.showDirectionsMenu}
           />
@@ -257,7 +257,7 @@ class Home extends Component {
           newValue={this.state.value}
         />
         {this.state.showDirectionsMenu && (
-          <Addresses
+          <OutdoorDirections
             getDestinationIfSet={this.state.destinationToGo}
             getRegion={this.getRegionFromAddresses}
             getRegionFromSearch={this.state.region}

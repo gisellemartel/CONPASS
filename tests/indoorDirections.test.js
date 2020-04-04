@@ -2,8 +2,8 @@
 /* eslint-disable max-len */
 import React from 'react';
 import renderer from 'react-test-renderer';
-import BuildingWithFloors from '../components/map/building/buildingWithFloors';
-import dijkstraPathfinder from '../components/map/building/buildingWithFloors/dijkstraPathfinder';
+import BuildingWithFloors from '../components/buildings/buildingView/buildingWithFloors';
+import dijkstraPathfinder from '../components/buildings/buildingView/buildingWithFloors/dijkstraPathfinder';
 
 beforeEach(() => {
   mockGraphFloor1 = {
