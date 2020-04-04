@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
+import CurrentLocation from '../currentLocation';
+import Destination from '../destination';
 import MapSearchBar from '../../mapSearchBar';
 import DestinationSearchBar from '../destinationSearchBar';
 import BuildingView from '../../buildings/buildingView/index';
@@ -14,12 +16,23 @@ export default class IndoorDirections extends Component {
     const buildingFloorPlans = generateFloorPlan(building.building);
     const adjacencyGraphs = generateGraph(building.building);
     return (
-      <BuildingView
-        building={building}
-        buildingFloorPlans={buildingFloorPlans}
-        adjacencyGraphs={adjacencyGraphs}
-        interiorModeOff={this.props.interiorModeOff}
-      />
+      <View style={styles.container}>
+        <BuildingView
+          building={building}
+          buildingFloorPlans={buildingFloorPlans}
+          adjacencyGraphs={adjacencyGraphs}
+          interiorModeOff={this.props.interiorModeOff}
+        />
+        <View style={styles.directionsContainer}>
+          <BackButton
+            changeVisibilityTo={this.props.changeVisibilityTo}
+            coordinateCallback={this.updateCoordinates}
+          />
+          <CurrentLocation />
+          <Destination />
+        </View>
+      </View>
+
     );
   }
 }
