@@ -26,8 +26,6 @@ const styles = StyleSheet.create({
     height: '270%',
     bottom: 45,
     justifyContent: 'center',
-    borderColor: 'black',
-    borderWidth: 1
   }
 });
 

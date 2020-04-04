@@ -269,7 +269,6 @@ export default class DashboardScreen extends Component {
             closeDialog={() => { this.showDialog(false); }}
           />
           <Agenda
-
             items={this.state.items}
             loadItemsForMonth={this.loadItems}
             selected="2020-03-27"
