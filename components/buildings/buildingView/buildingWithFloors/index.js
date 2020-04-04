@@ -9,7 +9,7 @@ import Svg, {
 import styles from './styles';
 import buildingLogo from '../../../../assets/icons/building.png';
 import quit from '../../../../assets/icons/quit.png';
-import dijkstraPathfinder from './dijkstraPathfinder';
+import dijkstraPathfinder from '../../../../indoor_directions_modules/dijkstraPathfinder';
 
 
 class BuildingWithFloors extends Component {

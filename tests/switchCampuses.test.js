@@ -9,15 +9,15 @@ beforeEach(() => {
 });
 
 it('Should set LatLng coordinates near Loyola campus', () => {
-  const switchCampusesComponent = renderer.create(<CampusToggle updateRegion={updateR} />).getInstance();
-  switchCampusesComponent.setLoyola();
-  expect(switchCampusesComponent.state.region.latitude).toBe(45.458025);
-  expect(switchCampusesComponent.state.region.longitude).toBe(-73.640192);
+  const campusToggleComponent = renderer.create(<CampusToggle updateRegion={updateR} />).getInstance();
+  campusToggleComponent.setLoyola();
+  expect(campusToggleComponent.state.region.latitude).toBe(45.458025);
+  expect(campusToggleComponent.state.region.longitude).toBe(-73.640192);
 });
 
 it('Should set LatLng coordinates near SGW campus', () => {
-  const switchCampusesComponent = renderer.create(<CampusToggle updateRegion={updateR} />).getInstance();
-  switchCampusesComponent.setSGW();
-  expect(switchCampusesComponent.state.region.latitude).toBe(45.495598);
-  expect(switchCampusesComponent.state.region.longitude).toBe(-73.577850);
+  const campusToggleComponent = renderer.create(<CampusToggle updateRegion={updateR} />).getInstance();
+  campusToggleComponent.setSGW();
+  expect(campusToggleComponent.state.region.latitude).toBe(45.495598);
+  expect(campusToggleComponent.state.region.longitude).toBe(-73.577850);
 });

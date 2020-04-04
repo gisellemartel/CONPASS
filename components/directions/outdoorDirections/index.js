@@ -11,7 +11,7 @@ import Walking from './walking';
 import Bike from './bike';
 import styles from './styles';
 
-export default class Addresses extends Component {
+export default class OutdoorDirections extends Component {
   constructor(props) {
     super(props);
     this.state = {

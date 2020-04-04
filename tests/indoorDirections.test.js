@@ -3,7 +3,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import BuildingWithFloors from '../components/buildings/buildingView/buildingWithFloors';
-import dijkstraPathfinder from '../components/buildings/buildingView/buildingWithFloors/dijkstraPathfinder';
+import dijkstraPathfinder from '../indoor_directions_modules/dijkstraPathfinder';
 
 beforeEach(() => {
   mockGraphFloor1 = {

@@ -5,7 +5,7 @@ import TheMap from '../map';
 import MapSearchBar from '../mapSearchBar';
 import Location from '../location';
 import CampusToggle from '../campusToggle';
-import SetPath from '../pathPolyline';
+import PathPolyline from '../pathPolyline';
 import OutdoorDirections from '../directions/outdoorDirections';
 import BuildingView from '../buildings/buildingView/index';
 import generateFloorPlan from '../buildings/floorPlans/floorPlanRepository';
@@ -128,18 +128,18 @@ class Home extends Component {
   };
 
   /**
-   * gets new region from 'Addresses' component and updates region state
+   * gets new region from 'OutdoorDirections' component and updates region state
    * @param {object} region - New region to be passed.
    */
-  getRegionFromAddresses = (region) => {
+  getRegionFromOutdoorDirections = (region) => {
     this.updateRegion(region);
   };
 
   /**
-   * gets new coordinates from 'Addresses' component and updates coordinates state
+   * gets new coordinates from 'OutdoorDirections' component and updates coordinates state
    * @param {object} coordinates - New coordinates to be passed.
    */
-  getCoordinatesFromAddresses = (coordinates) => {
+  getCoordinatesFromOutdoorDirections = (coordinates) => {
     this.updateCoordinates(coordinates);
   };
 
@@ -252,16 +252,16 @@ class Home extends Component {
           updateRegion={this.updateRegion}
           updateCurrentBuildingCallBack={this.updateCurrentBuildingAddress}
         />
-        <SetPath
+        <PathPolyline
           changeVisibilityTo={this.changeVisibilityTo}
           newValue={this.state.value}
         />
         {this.state.showDirectionsMenu && (
           <OutdoorDirections
             getDestinationIfSet={this.state.destinationToGo}
-            getRegion={this.getRegionFromAddresses}
+            getRegion={this.getRegionFromOutdoorDirections}
             getRegionFromSearch={this.state.region}
-            getCoordinates={this.getCoordinatesFromAddresses}
+            getCoordinates={this.getCoordinatesFromOutdoorDirections}
             changeVisibilityTo={this.changeVisibilityTo}
             navigation={this.props.navigation}
             currentBuildingPred={this.state.currentBuildingAddress}
