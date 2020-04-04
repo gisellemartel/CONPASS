@@ -133,7 +133,9 @@ export default class DashboardScreen extends Component {
     sendPushNotification = () => {
       console.log(this.state.timeToNotify);
       // Enable this to get immeaiate notifications
-      Notifications.dismissAllNotificationsAsync();
+      if (Platform.OS === 'android') {
+        Notifications.dismissAllNotificationsAsync();
+      }
       Notifications.cancelAllScheduledNotificationsAsync();
 
       const localNotification = {
@@ -284,7 +286,7 @@ export default class DashboardScreen extends Component {
   }}
           />
           <View>
-            <View style={{ flexDirection: 'row', position:'absolute' }}>
+            <View style={{ flexDirection: 'row', position: 'absolute' }}>
               <TouchableOpacity
                 style={styles.touchable}
                 onPress={() => {
