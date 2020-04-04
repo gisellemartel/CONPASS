@@ -134,6 +134,8 @@ export default class DashboardScreen extends Component {
       console.log(this.state.timeToNotify);
       // Enable this to get immeaiate notifications
       Notifications.dismissAllNotificationsAsync();
+      Notifications.cancelAllScheduledNotificationsAsync();
+
       const localNotification = {
         to: this.state.pushNotficationToken,
         sound: 'default',
