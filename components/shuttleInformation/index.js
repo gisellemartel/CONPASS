@@ -1,8 +1,3 @@
-/* eslint-disable no-console */
-/* eslint-disable class-methods-use-this */
-/* eslint-disable react/no-deprecated */
-/* eslint-disable react/no-unused-state */
-
 import React, { Component } from 'react';
 import {
   View, Button, Alert
@@ -22,8 +17,8 @@ export default class Shuttle extends Component {
     this.getCurrentLocation();
   }
 
-  // eslint-disable-next-line max-len
-  // Function: fetches the current location of the user, gets the shuttle bus location of SGW or Loyola, calls the draw function
+  // Function: fetches the current location of the user,
+  // gets the shuttle bus location of SGW or Loyola, calls the draw function
   // Parameter: SGW or Loyola String
   async getDirectionsToShuttleBusStop(destination) {
     await this.getCurrentLocation();
@@ -42,10 +37,6 @@ export default class Shuttle extends Component {
     }
     const location = await Location.getCurrentPositionAsync({});
     this.setState({ location });
-  }
-
-  setModalVisible(visible) {
-    this.setState({ modalVisible: visible });
   }
 
   // Function: Draws a polyline on the map from an origin to a destination

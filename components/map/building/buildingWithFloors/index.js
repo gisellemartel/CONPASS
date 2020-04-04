@@ -1,10 +1,8 @@
-/* eslint-disable no-unused-vars */
 import React, { Component } from 'react';
 import {
-  View, Button, Text, Image
+  View, Text, Image
 } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import ReactNativeZoomableView from '@dudigital/react-native-zoomable-view/src/ReactNativeZoomableView';
 import Svg, {
   Polyline
 } from 'react-native-svg';

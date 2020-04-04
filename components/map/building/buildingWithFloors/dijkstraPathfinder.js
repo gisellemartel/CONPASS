@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 const dijkstraPathfinder = {
   /**
    * The main function that streamlines the entirety of the Dijkstra algorithm. Comprises of the

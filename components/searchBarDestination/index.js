@@ -77,10 +77,7 @@ export default class searchBarDestination extends Component {
   async getCurrentLocation() {
     const { status } = await Permissions.askAsync(Permissions.LOCATION);
     if (status !== 'granted') {
-      this.setState({
-        // eslint-disable-next-line react/no-unused-state
-        errorMessage: 'Permission to access location was denied',
-      });
+      console.err('Permission to access location was denied');
       return;
     }
     const location = await Location.getCurrentPositionAsync({});
@@ -92,8 +89,6 @@ export default class searchBarDestination extends Component {
   * @param {string} prediction - placeid of destination to get path to.
   */
   async getLatLong(prediction) {
-    // eslint-disable-next-line react/no-unused-state
-    this.setState({ description: prediction });
     const key = 'AIzaSyCqNODizSqMIWbKbO8Iq3VWdBcK846n_3w';
     const geoUrl = `https://maps.googleapis.com/maps/api/place/details/json?key=${key}&placeid=${prediction}`;
     const georesult = await fetch(geoUrl);
@@ -109,8 +104,6 @@ export default class searchBarDestination extends Component {
 
 
   async drawPath() {
-    // eslint-disable-next-line no-shadow
-
     try {
       await this.getCurrentLocation();
       const { location } = this.state;

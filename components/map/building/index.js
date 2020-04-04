@@ -1,9 +1,4 @@
-/* eslint-disable no-unused-vars */
 import React, { Component } from 'react';
-import {
-  View, Button, Text
-} from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 import BuildingWithFloors from './buildingWithFloors/index';
 import BuildingNoFloors from './buildingNoFloors';
 

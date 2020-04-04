@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unused-state */
 import React, { Component } from 'react';
 import { View } from 'react-native';
 import SearchBar from '../searchBar';

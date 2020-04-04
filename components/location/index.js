@@ -1,5 +1,4 @@
 
-/* eslint-disable no-mixed-operators */
 /* eslint-disable no-plusplus */
 import React, { Component } from 'react';
 import { View, Image, Text } from 'react-native';
@@ -7,7 +6,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import getCurrentLocation from './LocationServices';
 import buildings from '../../assets/polygons/polygons';
 import styles from './styles';
-import locateMe from './locate-me.png';
+import locateMe from '../../assets/icons/locate-me.png';
 
 export default class Location extends Component {
   constructor(props) {
@@ -158,17 +157,13 @@ export default class Location extends Component {
             buildingDisplayName: loyBuilding.name,
             campusDisplayName: 'Loyola'
           });
-          // this.state.buildingDisplayName = loyBuilding.name;
         }
-        // this.state.campusDisplayName = 'Loyola';
       });
     } else {
       this.setState({
         campusDisplayName: '',
         buildingDisplayName: ''
       });
-      /* this.state.campusDisplayName = '';
-      this.state.buildingDisplayName = '';*/
     }
 
     this.updateCurrentBuildingProp();
