@@ -2,8 +2,8 @@
 /* eslint-disable max-len */
 import React from 'react';
 import renderer from 'react-test-renderer';
-import Location from '../components/home/location';
-import getCurrentLocation from '../components/home/location/LocationServices';
+import Location from '../components/location';
+import getCurrentLocation from '../components/location/LocationServices';
 
 jest.mock('../components/location/LocationServices');
 

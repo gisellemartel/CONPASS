@@ -1,11 +1,11 @@
 /* eslint-disable no-undef */
 import React from 'react';
 import renderer from 'react-test-renderer';
-import Addresses from '../components/outdoorDirections';
-import Bus from '../components/outdoorDirections/bus';
-import Car from '../components/outdoorDirections/car';
-import Bike from '../components/outdoorDirections/bike';
-import Walking from '../components/outdoorDirections/walking';
+import Addresses from '../components/directions/outdoorDirections';
+import Bus from '../components/directions/outdoorDirections/bus';
+import Car from '../components/directions/outdoorDirections/car';
+import Bike from '../components/directions/outdoorDirections/bike';
+import Walking from '../components/directions/outdoorDirections/walking';
 
 
 it('Should change mode of transportation to transit', () => {
