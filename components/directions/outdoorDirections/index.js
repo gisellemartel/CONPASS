@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View } from 'react-native';
 import MapSearchBar from '../../mapSearchBar';
 import DestinationSearchBar from '../destinationSearchBar';
-import BackButton from './backButton';
+import BackButton from '../backButton';
 import CurrentLocation from './currentLocation';
 import Destination from './destination';
 import Car from './car';

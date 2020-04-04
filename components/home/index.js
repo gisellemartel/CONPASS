@@ -7,9 +7,7 @@ import Location from '../location';
 import CampusToggle from '../campusToggle';
 import PathPolyline from '../pathPolyline';
 import OutdoorDirections from '../directions/outdoorDirections';
-import BuildingView from '../buildings/buildingView/index';
-import generateFloorPlan from '../buildings/floorPlans/floorPlanRepository';
-import generateGraph from '../../indoor_directions_modules/graphRepository';
+import IndoorDirections from '../directions/indoorDirections';
 import styles from './styles';
 import Suggestions from '../suggestions';
 
@@ -270,12 +268,16 @@ class Home extends Component {
         {/* Building component contains all the interior floor views */}
         {this.state.interiorMode
         && (
-        <BuildingView
-          building={this.state.building}
-          buildingFloorPlans={generateFloorPlan(this.state.building.building)}
-          adjacencyGraphs={generateGraph(this.state.building.building)}
-          interiorModeOff={this.interiorModeOff}
-        />
+          <IndoorDirections
+            building={this.state.building}
+            interiorModeOff={this.interiorModeOff}
+          />
+        // <BuildingView
+        //   building={this.state.building}
+        //   buildingFloorPlans={generateFloorPlan(this.state.building.building)}
+        //   adjacencyGraphs={generateGraph(this.state.building.building)}
+        //   interiorModeOff={this.interiorModeOff}
+        // />
         )}
         {this.state.showSuggestionsList && this.state.interiorMode && (
         <Suggestions

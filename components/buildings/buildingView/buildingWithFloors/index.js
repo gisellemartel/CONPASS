@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
 import {
-  View, Text, Image
+  View, Text
 } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Svg, {
   Polyline
 } from 'react-native-svg';
 import styles from './styles';
-import buildingLogo from '../../../../assets/icons/building.png';
-import quit from '../../../../assets/icons/quit.png';
 import dijkstraPathfinder from '../../../../indoor_directions_modules/dijkstraPathfinder';
 
 
@@ -19,13 +17,6 @@ class BuildingWithFloors extends Component {
       floor: this.props.floor,
       directionPath: {}
     };
-  }
-
-  /**
-   * Exits Interior mode to return to external map view
-   */
-  interiorModeOff() {
-    this.props.interiorModeOff();
   }
 
   /**
@@ -41,21 +32,6 @@ class BuildingWithFloors extends Component {
     this.setState({
       floor: this.props.buildingFloorPlans[index]
     });
-  }
-
-  /**
-   *
-   * @param {*} name - desired building name
-   * Shortens the maximum length of the string to render
-   */
-  limitNameLength(name) {
-    const maxLength = 24;
-    const cutUpTo = 21;
-
-    if (name.length > maxLength) {
-      return `${name.substr(0, cutUpTo)}...`;
-    }
-    return name;
   }
 
   /**
@@ -90,58 +66,19 @@ class BuildingWithFloors extends Component {
 
   render() {
     const { floor } = this.state;
-    const { building } = this.props;
     return (
       <View style={styles.container}>
-        {/* Top screen building descriptor */}
-        <View style={styles.descriptor}>
-          <View style={styles.buildingLogoContainer}>
-            <Image style={styles.buildingLogo} source={buildingLogo} />
-          </View>
-          <View>
-            <Text style={styles.buildingName}>
-              {this.limitNameLength(building.buildingName)}
-            </Text>
-          </View>
-          <TouchableOpacity
-            style={styles.quitInterior}
-            onPress={
-                () => {
-                  return this.props.interiorModeOff();
-                }
-              }
-          >
-            <Image style={styles.quitButton} source={quit} />
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={
+        {/* <TouchableOpacity
+          onPress={
                 () => {
                   this.dijkstraHandler('817', '967');
                 }
               }
-          >
-            <Text>
-              Get Directions
-            </Text>
-          </TouchableOpacity>
-        </View>
-
-        {/* Renders map for current floor in building */}
-        <View style={styles.buildingContainer}>
-          {floor.component}
-        </View>
-
-        {/* Renders the needed svg path */}
-        <View style={styles.buildingContainer}>
-          <Svg width="100%" height="100%">
-            <Polyline
-              points={this.state.directionPath[this.state.floor.floor]}
-              fill="none"
-              stroke="black"
-              strokeWidth="3"
-            />
-          </Svg>
-        </View>
+        >
+          <Text>
+            Get Directions
+          </Text>
+        </TouchableOpacity> */}
 
         {/* Renders floor switcher button for each available in current building */}
         <View style={styles.switcher}>
@@ -165,6 +102,25 @@ class BuildingWithFloors extends Component {
             );
           })}
         </View>
+
+        {/* Renders map for current floor in building */}
+        <View style={styles.buildingContainer}>
+          {floor.component}
+        </View>
+
+        {/* Renders the needed svg path */}
+        <View style={styles.buildingContainer}>
+          <Svg width="100%" height="100%">
+            <Polyline
+              points={this.state.directionPath[this.state.floor.floor]}
+              fill="none"
+              stroke="black"
+              strokeWidth="3"
+            />
+          </Svg>
+        </View>
+
+
       </View>
     );
   }

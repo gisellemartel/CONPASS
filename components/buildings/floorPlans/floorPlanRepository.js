@@ -1,27 +1,7 @@
 import React from 'react';
-import ReactNativeZoomableView from '@dudigital/react-native-zoomable-view/src/ReactNativeZoomableView';
 import {
   Hall8, Hall9, Vl1, Vl2
 } from './index';
-
-/**
- * Makes floor map component zoomable
- * @param {*} floorComponent - floor JSX element to be nested in zoomable component
- */
-// eslint-disable-next-line no-unused-vars
-function generateZoomableFloorComponent(floorComponent) {
-  return (
-    <ReactNativeZoomableView
-      maxZoom={2}
-      minZoom={1}
-      zoomStep={0.5}
-      initialZoom={1}
-      bindToBorders
-    >
-      {floorComponent}
-    </ReactNativeZoomableView>
-  );
-}
 
 /**
  *
