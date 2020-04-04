@@ -275,6 +275,13 @@ export default class DashboardScreen extends Component {
             renderItem={this.renderItem}
             renderEmptyDate={this.renderEmptyDate}
             rowHasChanged={this.rowHasChanged}
+            theme={{
+              
+    agendaDayTextColor: 'black',
+    agendaDayNumColor: 'black',
+    agendaTodayColor: 'red',
+    agendaKnobColor: 'rgba(156,211,215,1)'
+  }}
           />
           <View>
             <View style={{ flexDirection: 'row', position:'absolute' }}>
