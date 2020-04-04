@@ -18,6 +18,13 @@ const styles = StyleSheet.create({
     height: 15,
     flex: 1,
     paddingTop: 30
+  },
+  touchable: {
+    alignItems: 'center',
+    backgroundColor: '#DDDDDD',
+    width: '50%',
+    height: 50,
+    justifyContent: 'center',
   }
 });
 

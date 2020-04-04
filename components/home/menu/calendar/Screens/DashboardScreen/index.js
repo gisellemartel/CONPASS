@@ -53,28 +53,22 @@ export default class DashboardScreen extends Component {
     this._isMounted = false;
   }
 
-
+  /**
+   * Registers device to receive push notifications
+   */
   registerForPushNotificationsAsync = async () => {
     const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
-    // only asks if permissions have not already been determined, because
-    // iOS won't necessarily prompt the user a second time.
-    // On Android, permissions are granted on app installation, so
-    // `askAsync` will never prompt the user
-
-    // Stop here if the user did not grant permissions
     if (status !== 'granted') {
       alert('No notification permissions!');
       return;
     }
-    // Get the token that identifies this device
     const token = await Notifications.getExpoPushTokenAsync();
     if (this._isMounted) {
       this.setState({ pushNotficationToken: token });
     }
-    console.log('current used');
     try {
-      const check = firebase.database().ref(`users/${this.state.currentUser.uid}/push_token`).set(token);
-      console.log(check);
+      console.log(this.state.currentUser.uid);
+      firebase.database().ref(`users/${this.state.currentUser.uid}/push_token`).set(token);
     } catch (error) {
       console.log(error);
     }
@@ -114,6 +108,11 @@ export default class DashboardScreen extends Component {
     }, 1000);
   }
 
+  /**
+   *
+   * @param {object} events - All the user events
+   * Formats the events to only return required events
+   */
   notify = (events) => {
     const notifyArray = [];
     events.items.forEach((element) => {
@@ -128,6 +127,9 @@ export default class DashboardScreen extends Component {
     return notifyArray;
   };
 
+    /**
+     * Schedules push notifications to user upon adjusting the timer
+     */
     sendPushNotification = () => {
       console.log(this.state.timeToNotify);
       // Enable this to get immeaiate notifications
@@ -142,20 +144,7 @@ export default class DashboardScreen extends Component {
       };
       Notifications.presentLocalNotificationAsync(localNotification);
 
-
-      // const response = fetch('https://exp.host/--/api/v2/push/send', {
-      //   method: 'POST',
-      //   headers: {
-      //     Accept: 'application/json',
-      //     'Countent-Type': 'application/json',
-      //   },
-      //   body: JSON.stringify({
-
-      //   })
-      // });
-
       this.state.notifyEvents.forEach((element) => {
-        console.log(element);
         const localNotification = {
           to: this.state.pushNotficationToken,
           sound: 'default',
@@ -174,12 +163,20 @@ export default class DashboardScreen extends Component {
       });
     }
 
+    /**
+   * @param {boolean} boolean - True or false
+   * Shows or hides the dialong box of 'Adjust time' button
+   */
     showDialog=(boolean) => {
       if (this._isMounted) {
         this.setState({ isDialogVisible: boolean });
       }
     }
 
+    /**
+   * @param {integer} number - Time in minutes
+   * Sets the minutes in which the user wants to get notfications before
+   */
     sendInput=(number) => {
       if (this._isMounted) {
         this.setState({ timeToNotify: number });
@@ -190,10 +187,18 @@ export default class DashboardScreen extends Component {
       }, 100);
     }
 
+    /**
+   * @param {integer} number - Time in minutes
+   * Sets the minutes in which the user wants to get notfications before
+   */
     rowHasChanged(r1, r2) {
       return r1.name !== r2.name;
     }
 
+    /**
+   * @param {object} events - All the events the user has
+   * Structures all the events the user has
+   */
     structureSynchronizedEvents(events) {
       const tempArray = [];
       events.forEach((event) => {
@@ -265,14 +270,7 @@ export default class DashboardScreen extends Component {
           <View>
             <View style={{ flexDirection: 'row' }}>
               <TouchableOpacity
-                style={{
-                  backgroundColor: '#DDDDDD',
-                  width: '50%',
-                  height: 50,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-
-                }}
+                style={styles.touchable}
                 onPress={() => {
                   firebase.auth().signOut();
                 }}
@@ -281,13 +279,7 @@ export default class DashboardScreen extends Component {
               </TouchableOpacity>
 
               <TouchableOpacity
-                style={{
-                  alignItems: 'center',
-                  backgroundColor: '#DDDDDD',
-                  width: '50%',
-                  height: 50,
-                  justifyContent: 'center',
-                }}
+                style={styles.touchable}
                 onPress={() => {
                   this.showDialog(true);
                 }}
