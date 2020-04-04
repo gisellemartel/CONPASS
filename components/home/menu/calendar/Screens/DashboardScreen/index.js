@@ -178,10 +178,22 @@ export default class DashboardScreen extends Component {
    * Sets the minutes in which the user wants to get notfications before
    */
     sendInput=(number) => {
+      let newText = '';
+      const numbers = '0123456789';
+      for (let i = 0; i < number.length; i++) {
+        if (numbers.indexOf(number[i]) > -1) {
+          newText += number[i];
+        } else {
+          // your call back function
+          alert('please enter numbers only');
+          return;
+        }
+      }
       if (this._isMounted) {
-        this.setState({ timeToNotify: number });
+        this.setState({ timeToNotify: newText });
         this.setState({ isDialogVisible: false });
       }
+
       setTimeout(() => {
         this.sendPushNotification();
       }, 100);
@@ -254,6 +266,7 @@ export default class DashboardScreen extends Component {
           <DialogInput
             isDialogVisible={this.state.isDialogVisible}
             title="Set Reminder Time"
+            keyboardType="numeric"
             message="Set the time to be reminded before class/minutes"
             hintInput="e.g. 10"
             submitInput={(inputText) => { this.sendInput(inputText); }}
