@@ -116,7 +116,6 @@ export default class DashboardScreen extends Component {
 
     sendPushNotification = () => {
       console.log(this.state.timeToNotify);
-
       // Enable this to get immeaiate notifications
       Notifications.dismissAllNotificationsAsync();
       const localNotification = {
@@ -142,6 +141,7 @@ export default class DashboardScreen extends Component {
       // });
 
       this.state.notifyEvents.forEach((element) => {
+        console.log(element);
         const localNotification = {
           to: this.state.pushNotficationToken,
           sound: 'default',
@@ -152,7 +152,7 @@ export default class DashboardScreen extends Component {
         };
         const date = new Date(element.startDate);
 
-        const t = date.getTime() + this.state.timeToNotify * 10 * 1000;
+        const t = date.getTime() - this.state.timeToNotify * 60 * 1000;
         const schedulingOptions = {
           time: t
         };
