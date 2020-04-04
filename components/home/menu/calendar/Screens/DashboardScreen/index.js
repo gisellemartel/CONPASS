@@ -257,7 +257,7 @@ export default class DashboardScreen extends Component {
     render() {
       return (
         <View
-          style={{ height: 750 }}
+          style={{ height: '100%', width: '100%', position: 'absolute' }}
         >
           <DialogInput
             isDialogVisible={this.state.isDialogVisible}
@@ -269,6 +269,7 @@ export default class DashboardScreen extends Component {
             closeDialog={() => { this.showDialog(false); }}
           />
           <Agenda
+
             items={this.state.items}
             loadItemsForMonth={this.loadItems}
             selected="2020-03-27"
@@ -277,7 +278,7 @@ export default class DashboardScreen extends Component {
             rowHasChanged={this.rowHasChanged}
           />
           <View>
-            <View style={{ flexDirection: 'row' }}>
+            <View style={{ flexDirection: 'row', position:'absolute' }}>
               <TouchableOpacity
                 style={styles.touchable}
                 onPress={() => {

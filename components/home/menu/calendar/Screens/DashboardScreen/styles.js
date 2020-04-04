@@ -21,10 +21,13 @@ const styles = StyleSheet.create({
   },
   touchable: {
     alignItems: 'center',
-    backgroundColor: '#DDDDDD',
+    backgroundColor: 'rgba(156,211,215,0.95)',
     width: '50%',
-    height: 50,
+    height: '270%',
+    bottom: 45,
     justifyContent: 'center',
+    borderColor: 'black',
+    borderWidth: 1
   }
 });
 
