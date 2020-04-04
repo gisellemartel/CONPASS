@@ -1,14 +1,25 @@
+import {
+  YellowBox,
+  View, Text, TouchableOpacity, Alert, Platform
+} from 'react-native';
+import _ from 'lodash';
 /* eslint-disable no-plusplus */
 import React, { Component } from 'react';
 import DialogInput from 'react-native-dialog-input';
 import firebase from 'firebase';
-import {
-  View, Text, TouchableOpacity, Alert, Platform
-} from 'react-native';
+
 import { Agenda } from 'react-native-calendars';
 import * as Permissions from 'expo-permissions';
 import { Notifications } from 'expo';
 import styles from './styles';
+
+YellowBox.ignoreWarnings(['Setting a timer']);
+const _console = _.clone(console);
+console.warn = (message) => {
+  if (message.indexOf('Setting a timer') <= -1) {
+    _console.warn(message);
+  }
+};
 
 export default class DashboardScreen extends Component {
   _isMounted = false
@@ -27,6 +38,7 @@ export default class DashboardScreen extends Component {
   }
 
   async componentDidMount() {
+    this.currentUser = await firebase.auth().currentUser;
     this.registerForPushNotificationsAsync();
 
     this._isMounted = true;
@@ -58,7 +70,10 @@ export default class DashboardScreen extends Component {
     }
     // Get the token that identifies this device
     const token = await Notifications.getExpoPushTokenAsync();
-    this.setState({ pushNotficationToken: token });
+    if (this._isMounted) {
+      this.setState({ pushNotficationToken: token });
+    }
+    console.log(this.currentUser.uid);
     try {
       firebase.database().ref(`users/${this.currentUser.uid}/push_token`).set(token);
     } catch (error) {
@@ -161,12 +176,16 @@ export default class DashboardScreen extends Component {
     }
 
     showDialog=(boolean) => {
-      this.setState({ isDialogVisible: boolean });
+      if (this._isMounted) {
+        this.setState({ isDialogVisible: boolean });
+      }
     }
 
     sendInput=(number) => {
-      this.setState({ timeToNotify: number },);
-      this.setState({ isDialogVisible: false });
+      if (this._isMounted) {
+        this.setState({ timeToNotify: number });
+        this.setState({ isDialogVisible: false });
+      }
       setTimeout(() => {
         this.sendPushNotification();
       }, 100);
