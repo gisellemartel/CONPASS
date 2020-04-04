@@ -27,7 +27,7 @@ function generateZoomableFloorComponent(floorComponent) {
  * @param {*} buildingName - name of building to be be generated
  * function generates React Building component which will contain data for indoor view
  */
-function generateBuilding(buildingName) {
+function generateFloorPlan(buildingName) {
   const defaultAttributes = {
     height: '100%',
     preserveAspectRatio: 'xMinYMin slice',
@@ -63,4 +63,4 @@ function generateBuilding(buildingName) {
   }
 }
 
-export default generateBuilding;
+export default generateFloorPlan;

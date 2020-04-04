@@ -3,12 +3,12 @@ import React, { Component } from 'react';
 import { View } from 'react-native';
 import TheMap from '../map';
 import MapSearchBar from '../mapSearchBar';
-import Location from '../location';
+import Location from './location';
 import SwitchCampuses from '../switchCampuses';
 import SetPath from '../setPath';
 import Addresses from '../addresses';
-import Building from '../map/building/index';
-import generateBuilding from '../indoorPlans/buildingRepository';
+import BuildingView from '../buildings/buildingView/index';
+import generateFloorPlan from '../buildings/floorPlanRepository';
 import generateGraph from '../../indoor_directions_modules/graphRepository';
 import styles from './styles';
 import Suggestions from '../suggestions';
@@ -270,9 +270,9 @@ class Home extends Component {
         {/* Building component contains all the interior floor views */}
         {this.state.interiorMode
         && (
-        <Building
+        <BuildingView
           building={this.state.building}
-          buildingFloorPlans={generateBuilding(this.state.building.building)}
+          buildingFloorPlans={generateFloorPlan(this.state.building.building)}
           adjacencyGraphs={generateGraph(this.state.building.building)}
           interiorModeOff={this.interiorModeOff}
         />

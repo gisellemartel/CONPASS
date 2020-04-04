@@ -60,8 +60,8 @@ class BuildingWithFloors extends Component {
 
   /**
    * Handles the processing of input before the Dijkstra algorithm is invoked. Currently checks if
-   * the directions handle a single floor or multiple floors then gives the directions based on either
-   * scenario.
+   * the directions handle a single floor or multiple floors, then gives the directions based
+   * on either scenario.
    * @param {Array} startNodeId - ID of the node the directions start off at.
    * @param {Object} finishNodeId - ID of the node the directions start off at.
    */

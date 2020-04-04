@@ -1,8 +1,8 @@
 /* istanbul ignore file */
-import * as React from 'react';
 import Svg, {
   Path, G, Text, Image
 } from 'react-native-svg';
+import * as React from 'react';
 
 function SvgHall8(props) {
   return (
