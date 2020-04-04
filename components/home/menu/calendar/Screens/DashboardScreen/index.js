@@ -38,9 +38,7 @@ export default class DashboardScreen extends Component {
   }
 
   async componentDidMount() {
-    this.currentUser = await firebase.auth().currentUser;
-    this.registerForPushNotificationsAsync();
-
+    this.setState({ currentUser: firebase.auth().currentUser }, this.registerForPushNotificationsAsync);
     this._isMounted = true;
     if (Platform.OS === 'android') {
       Notifications.createChannelAndroidAsync('reminders', {
@@ -73,9 +71,10 @@ export default class DashboardScreen extends Component {
     if (this._isMounted) {
       this.setState({ pushNotficationToken: token });
     }
-    console.log(this.currentUser.uid);
+    console.log('current used');
     try {
-      firebase.database().ref(`users/${this.currentUser.uid}/push_token`).set(token);
+      const check = firebase.database().ref(`users/${this.state.currentUser.uid}/push_token`).set(token);
+      console.log(check);
     } catch (error) {
       console.log(error);
     }
