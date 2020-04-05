@@ -14,8 +14,10 @@ export default class FetchScreen extends Component {
       headers: { Authorization: `Bearer ${accessToken}` },
     });
     const jsonFile = await userInfoResponse.json();
-    const items = jsonFile;
-    if (!items) {
+    const items = jsonFile.error;
+    console.log('---items---');
+    console.log(items);
+    if (items) {
       firebase.auth().signOut();
       this.props.navigation.navigate('LoadingScreen');
     }
