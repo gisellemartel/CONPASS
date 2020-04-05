@@ -175,8 +175,11 @@ export default class DashboardScreen extends Component {
          headers: { Authorization: `Bearer ${accessToken}` },
        });
        const jsonFile = await userInfoResponse.json();
-       console.log("in dashboard the jsonFile is: ");
-       console.log(jsonFile);
+       const error = error;
+       if (error) {
+         firebase.auth().signOut();
+         this.props.navigation.navigate('LoadingScreen');
+       }
        const stringFile = JSON.stringify(jsonFile);
        AsyncStorage.setItem('events', stringFile);
        this.props.navigation.navigate('FetchScreen');
