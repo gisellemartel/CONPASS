@@ -34,6 +34,14 @@ it('Shouldnt change rows', async () => {
   expect(rowHasChanged).toBe(false);
 });
 
+it('Should render empty date', async () => {
+  const dashboardScreenComponent = renderer.create(<DashboardScreen navigation={navigation} />)
+    .getInstance();
+  const renderEmptyDate = dashboardScreenComponent.renderEmptyDate();
+  const bool = renderEmptyDate.length === 0;
+  expect(bool).toBe(false);
+});
+
 it('Should render items', async () => {
   const jsonFile = {
     address: '',
