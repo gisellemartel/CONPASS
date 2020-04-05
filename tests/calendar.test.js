@@ -139,7 +139,9 @@ it('Should change isDialogVisible state', () => {
 });
 
 it('Should return a string', () => {
-  const dashboardScreenComponent = renderer.create(<DashboardScreen navigation={navigation} />).getInstance();
+  const dashboardScreenComponent = renderer
+    .create(<DashboardScreen navigation={navigation} />)
+    .getInstance();
   const result = dashboardScreenComponent.sendPushNotification();
   expect(result).toStrictEqual('Notifications sent');
 });
