@@ -27,6 +27,7 @@ export default class DashboardScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      localnotification : {},
       items: {},
       isDialogVisible: false,
       notifyEvents: this.notify(props.navigation.state.params.events),
@@ -38,6 +39,7 @@ export default class DashboardScreen extends Component {
   }
 
   async componentDidMount() {
+    await Permissions.askAsync(Permissions.NOTIFICATIONS);
     this.setState({ currentUser: firebase.auth().currentUser },
       this.registerForPushNotificationsAsync);
     this._isMounted = true;
@@ -48,7 +50,6 @@ export default class DashboardScreen extends Component {
         vibrate: [0, 250, 250, 250],
       });
     }
-    Permissions.askAsync(Permissions.NOTIFICATIONS);
   }
 
   componentWillUnmount() {
@@ -131,22 +132,22 @@ export default class DashboardScreen extends Component {
     /**
      * Schedules push notifications to user upon adjusting the timer
      */
-    sendPushNotification = () => {
+    sendPushNotification = async () => {
       // Enable this to get immeaiate notifications
       if (Platform.OS === 'android') {
         Notifications.dismissAllNotificationsAsync();
       }
       Notifications.cancelAllScheduledNotificationsAsync();
 
-      const localNotification = {
+      const localnotification = {
         to: this.state.pushNotficationToken,
         sound: 'default',
         priority: 'high',
         title: 'Conpass Notification',
         body: 'Ayyyyyyyyyyyyyyyyyyyyyyyyyyy we testing',
-        channelId: 'reminders'
+        channelId: 'reminders',
       };
-      Notifications.presentLocalNotificationAsync(localNotification);
+      Notifications.presentLocalNotificationAsync(localnotification);
       this.state.notifyEvents.forEach((element) => {
         const localNotification = {
           to: this.state.pushNotficationToken,
@@ -154,7 +155,8 @@ export default class DashboardScreen extends Component {
           priority: 'high',
           title: 'Conpass Notification',
           body: element.summary,
-          channelId: 'reminders'
+          channelId: 'reminders',
+          ios: { _displayInForeground: true }
         };
         const date = new Date(element.startDate);
 
@@ -167,7 +169,7 @@ export default class DashboardScreen extends Component {
     }
 
      refreshCalendar =async () => {
-       const accessToken = 'aaabbb';
+       const accessToken = await AsyncStorage.getItem('accessToken');
        const userInfoResponse = await fetch('https://www.googleapis.com/calendar/v3/calendars/primary/events?key=AIzaSyBAHObp5Ic3CbJpkX2500tNhf53e_3wBMA&timeMin=2020-01-01T01:00:00.000Z', {
          headers: { Authorization: `Bearer ${accessToken}` },
        });
@@ -175,7 +177,7 @@ export default class DashboardScreen extends Component {
        const { error } = jsonFile;
        if (error) {
          firebase.auth().signOut();
-         this.props.navigation.navigate('LoginScreen');
+         this.props.navigation.navigate('LoadingScreen');
          alert('!!You need to log in again.!!');
          return;
        }
