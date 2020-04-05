@@ -295,6 +295,9 @@ export default class DashboardScreen extends Component {
             renderItem={this.renderItem}
             renderEmptyDate={this.renderEmptyDate}
             rowHasChanged={this.rowHasChanged}
+            onRefresh={() => {
+              this.refreshCalendar();
+            }}
             theme={{
               calendarBackground: 'rgb(255,255,255)',
               selectedDayBackgroundColor: 'rgba(156,211,215,1)',
