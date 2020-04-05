@@ -272,12 +272,6 @@ class Home extends Component {
             building={this.state.building}
             interiorModeOff={this.interiorModeOff}
           />
-        // <BuildingView
-        //   building={this.state.building}
-        //   buildingFloorPlans={generateFloorPlan(this.state.building.building)}
-        //   adjacencyGraphs={generateGraph(this.state.building.building)}
-        //   interiorModeOff={this.interiorModeOff}
-        // />
         )}
         {this.state.showSuggestionsList && this.state.interiorMode && (
         <Suggestions
