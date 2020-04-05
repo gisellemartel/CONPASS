@@ -143,24 +143,6 @@ export default class DashboardScreen extends Component {
       return 'Notifications sent';
     }
 
-     refreshCalendar =async () => {
-       const accessToken = await AsyncStorage.getItem('accessToken');
-       const userInfoResponse = await fetch('https://www.googleapis.com/calendar/v3/calendars/primary/events?key=AIzaSyBAHObp5Ic3CbJpkX2500tNhf53e_3wBMA&timeMin=2020-01-01T01:00:00.000Z', {
-         headers: { Authorization: `Bearer ${accessToken}` },
-       });
-       const jsonFile = await userInfoResponse.json();
-       const { error } = jsonFile;
-       if (error) {
-         firebase.auth().signOut();
-         this.props.navigation.navigate('LoadingScreen');
-         alert('!!You need to log in again.!!');
-         return;
-       }
-       const stringFile = JSON.stringify(jsonFile);
-       AsyncStorage.setItem('events', stringFile);
-       this.props.navigation.navigate('FetchScreen');
-     }
-
     /**
    * @param {boolean} boolean - True or false
    * Shows or hides the dialong box of 'Adjust time' button
@@ -230,14 +212,43 @@ export default class DashboardScreen extends Component {
       return date.toISOString().split('T')[0];
     }
 
-    renderItem(item) {
+     refreshCalendar =async () => {
+       const accessToken = await AsyncStorage.getItem('accessToken');
+       const userInfoResponse = await fetch('https://www.googleapis.com/calendar/v3/calendars/primary/events?key=AIzaSyBAHObp5Ic3CbJpkX2500tNhf53e_3wBMA&timeMin=2020-01-01T01:00:00.000Z', {
+         headers: { Authorization: `Bearer ${accessToken}` },
+       });
+       const jsonFile = await userInfoResponse.json();
+       const { error } = jsonFile;
+       if (error) {
+         firebase.auth().signOut();
+         this.props.navigation.navigate('LoadingScreen');
+         alert('!!You need to log in again.!!');
+         return;
+       }
+       const stringFile = JSON.stringify(jsonFile);
+       AsyncStorage.setItem('events', stringFile);
+       this.props.navigation.navigate('FetchScreen');
+     }
+
+     renderItem(item) {
+       return (
+         <TouchableOpacity
+           style={[styles.item, { height: item.height }]}
+           onPress={() => { return Alert.alert(item.name, `${item.startTime}  -  ${item.endTime}\n${item.description}\n${item.address}`); }}
+         >
+           <Text style={{ color: 'white' }}>{item.name}</Text>
+         </TouchableOpacity>
+       );
+     }
+
+    renderEmptyDate = () => {
       return (
-        <TouchableOpacity
-          style={[styles.item, { height: item.height }]}
-          onPress={() => { return Alert.alert(item.name, `${item.startTime}  -  ${item.endTime}\n${item.description}\n${item.address}`); }}
-        >
-          <Text style={{ color: 'white' }}>{item.name}</Text>
-        </TouchableOpacity>
+        <View
+          style={{
+            borderBottomColor: 'rgba(105,105,105,0.1)',
+            borderBottomWidth: 1,
+          }}
+        />
       );
     }
 
@@ -259,8 +270,8 @@ export default class DashboardScreen extends Component {
           <Agenda
             items={this.state.items}
             loadItemsForMonth={this.loadItems}
-            selected="2020-03-27"
             renderItem={this.renderItem}
+            renderEmptyDate={this.renderEmptyDate}
             rowHasChanged={this.rowHasChanged}
             onRefresh={() => {
               this.refreshCalendar();
@@ -270,7 +281,6 @@ export default class DashboardScreen extends Component {
               selectedDayBackgroundColor: 'rgba(156,211,215,1)',
               agendaDayTextColor: 'black',
               agendaDayNumColor: 'black',
-              agendaTodayColor: 'red',
               agendaKnobColor: 'rgba(156,211,215,1)'
             }}
           />
