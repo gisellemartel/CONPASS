@@ -173,7 +173,9 @@ export default class DashboardScreen extends Component {
       }, 100);
     }
 
-
+    /**
+     * Fetches new events on google calendar
+     */
      refreshCalendar =async () => {
        const accessToken = await AsyncStorage.getItem('accessToken');
        const userInfoResponse = await fetch('https://www.googleapis.com/calendar/v3/calendars/primary/events?key=AIzaSyBAHObp5Ic3CbJpkX2500tNhf53e_3wBMA&timeMin=2020-01-01T01:00:00.000Z', {
