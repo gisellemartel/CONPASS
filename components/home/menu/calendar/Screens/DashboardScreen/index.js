@@ -327,15 +327,6 @@ export default class DashboardScreen extends Component {
               >
                 <Text>Adjust Time</Text>
               </TouchableOpacity>
-
-              <TouchableOpacity
-                style={styles.touchable}
-                onPress={() => {
-                  this.refreshCalendar();
-                }}
-              >
-                <Text>Refresh Calendar</Text>
-              </TouchableOpacity>
             </View>
           </View>
         </View>
