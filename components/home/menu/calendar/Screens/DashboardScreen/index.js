@@ -173,32 +173,6 @@ export default class DashboardScreen extends Component {
       }, 100);
     }
 
-    /**
-   * @param {object} events - All the events the user has
-   * Structures all the events the user has
-   */
-    structureSynchronizedEvents(events) {
-      const tempArray = [];
-      events.forEach((event) => {
-        tempArray.push(
-          {
-            date: event.start.dateTime != null ? event.start.dateTime.substring(0, event.start.dateTime.indexOf('T')) : event.start.date,
-            title: event.summary != null ? event.summary : 'No Title For this Event',
-            startTime: event.start.dateTime != null ? event.start.dateTime : event.start.date,
-            endTime: event.end.dateTime != null ? event.end.dateTime : event.end.date,
-            description: event.description != null ? event.description : '',
-            address: ''
-          }
-        );
-      });
-      if (this._isMounted) {
-        this.setState({
-          synchronizedEvents: this.tempArray
-        });
-      }
-      return tempArray;
-    }
-
     timeToString(time) {
       const date = new Date(time);
       return date.toISOString().split('T')[0];
@@ -220,6 +194,32 @@ export default class DashboardScreen extends Component {
        const stringFile = JSON.stringify(jsonFile);
        AsyncStorage.setItem('events', stringFile);
        this.props.navigation.navigate('FetchScreen');
+     }
+
+     /**
+     * @param {object} events - All the events the user has
+     * Structures all the events the user has
+     */
+     structureSynchronizedEvents(events) {
+       const tempArray = [];
+       events.forEach((event) => {
+         tempArray.push(
+           {
+             date: event.start.dateTime != null ? event.start.dateTime.substring(0, event.start.dateTime.indexOf('T')) : event.start.date,
+             title: event.summary != null ? event.summary : 'No Title For this Event',
+             startTime: event.start.dateTime != null ? event.start.dateTime : event.start.date,
+             endTime: event.end.dateTime != null ? event.end.dateTime : event.end.date,
+             description: event.description != null ? event.description : '',
+             address: ''
+           }
+         );
+       });
+       if (this._isMounted) {
+         this.setState({
+           synchronizedEvents: this.tempArray
+         });
+       }
+       return tempArray;
      }
 
      /**
