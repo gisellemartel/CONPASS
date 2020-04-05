@@ -97,39 +97,34 @@ it('Should not load items', async () => {
 });
 
 it('Should fill array', async () => {
-  const events = {
-    created: '2020-03-27T01:28:07.000Z',
-    creator: {
-      email: 'bazerbachi.talal@gmail.com',
-      self: true,
-    },
-    end: {
-      dateTime: '2020-03-26T22:30:00-04:00',
-    },
-    etag: '\"3170544975746000\"',
-    htmlLink: 'https://www.google.com/calendar/event?eid=M2ZlMGRibDlpZWpqOHFsOHVhZnVrOWZlOWMgYmF6ZXJiYWNoaS50YWxhbEBt',
-    iCalUID: '3fe0dbl9iejj8ql8uafuk9fe9c@google.com',
-    id: '3fe0dbl9iejj8ql8uafuk9fe9c',
-    kind: 'calendar#event',
-    organizer: {
-      email: 'bazerbachi.talal@gmail.com',
-      self: true,
-    },
-    reminders: {
-      useDefault: true,
-    },
-    sequence: 0,
+  const events =
+  { items: [{
     start: {
-      dateTime: '2020-03-26T21:30:00-04:00',
+      dateTime: '2021-03-26T21:30:00-04:00',
     },
-    status: 'confirmed',
     summary: 'conpass',
-    updated: '2020-03-27T01:28:07.873Z',
+  },
+  {
+    start: {
+      dateTime: '2021-03-26T21:30:00-04:00',
+    },
+    summary: 'conpass',
+  }]
   };
-
+  const expected = [
+    {
+      "startDate": "2021-03-26T21:30:00-04:00",
+      "summary": "conpass",
+    },
+    {
+      "startDate": "2021-03-26T21:30:00-04:00",
+      "summary": "conpass",
+    },
+  ];
   const dashboardScreenComponent = renderer.create(<DashboardScreen navigation={navigation} />)
     .getInstance();
   const notify = dashboardScreenComponent
     .notify(events);
-  expect(typeof notify).toBe('object');
+  console.log(notify);
+  expect(notify).toEqual(expect.arrayContaining((expected)));
 });

@@ -282,7 +282,6 @@ export default class DashboardScreen extends Component {
             loadItemsForMonth={this.loadItems}
             selected="2020-03-27"
             renderItem={this.renderItem}
-            renderEmptyDate={this.renderEmptyDate}
             rowHasChanged={this.rowHasChanged}
             onRefresh={() => {
               this.refreshCalendar();
