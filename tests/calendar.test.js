@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 import React from 'react';
 import renderer from 'react-test-renderer';
 import DashboardScreen from '../components/menu/calendar/Screens/DashboardScreen';

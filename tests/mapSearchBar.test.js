@@ -1,8 +1,14 @@
-/* eslint-disable no-undef */
 /* eslint-disable max-len */
 import React from 'react';
 import renderer from 'react-test-renderer';
 import MapSearchBar from '../components/mapSearchBar';
+
+let mockPrediction;
+let mockResult;
+let mockTextSearchResults;
+let expectedJsonResultPredictions;
+let updateR;
+let mockFct;
 
 beforeEach(() => {
   mockPrediction = {

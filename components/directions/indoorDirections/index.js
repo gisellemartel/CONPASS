@@ -30,6 +30,10 @@ export default class IndoorDirections extends Component {
     const maxLength = 24;
     const cutUpTo = 21;
 
+    if (!name) {
+      return '';
+    }
+
     if (name.length > maxLength) {
       return `${name.substr(0, cutUpTo)}...`;
     }

@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 import React from 'react';
 import renderer from 'react-test-renderer';
 import OutdoorDirections from '../components/directions/outdoorDirections';
@@ -10,8 +9,8 @@ import Walking from '../components/directions/outdoorDirections/walking';
 
 it('Should change mode of transportation to transit', () => {
   const outdoorDirectionsComponent = renderer.create(<OutdoorDirections />);
-  instanceOutdoorDirections = outdoorDirectionsComponent.root;
-  const busComponent = instanceoutdoorDirections.findByType(Bus);
+  const instanceOutdoorDirections = outdoorDirectionsComponent.root;
+  const busComponent = instanceOutdoorDirections.findByType(Bus);
 
   busComponent.props.updateMode('transit');
   expect(outdoorDirectionsComponent.getInstance().state.mode).toBe('transit');
@@ -19,7 +18,7 @@ it('Should change mode of transportation to transit', () => {
 
 it('Should change mode of transportation to driving', () => {
   const outdoorDirectionsComponent = renderer.create(<OutdoorDirections />);
-  instanceoutdoorDirections = outdoorDirectionsComponent.root;
+  const instanceOutdoorDirections = outdoorDirectionsComponent.root;
   const carComponent = instanceOutdoorDirections.findByType(Car);
 
   carComponent.props.updateMode('driving');
@@ -28,7 +27,7 @@ it('Should change mode of transportation to driving', () => {
 
 it('Should change mode of transportation to bicycling', () => {
   const outdoorDirectionsComponent = renderer.create(<OutdoorDirections />);
-  instanceOutdoorDirections = outdoorDirectionsComponent.root;
+  const instanceOutdoorDirections = outdoorDirectionsComponent.root;
   const bikeComponent = instanceOutdoorDirections.findByType(Bike);
 
   bikeComponent.props.updateMode('bicycling');
@@ -37,7 +36,7 @@ it('Should change mode of transportation to bicycling', () => {
 
 it('Should change mode of transportation to walking', () => {
   const outdoorDirectionsComponent = renderer.create(<OutdoorDirections />);
-  instanceOutdoorDirections = outdoorDirectionsComponent.root;
+  const instanceOutdoorDirections = outdoorDirectionsComponent.root;
   const walkingComponent = instanceOutdoorDirections.findByType(Walking);
 
   walkingComponent.props.updateMode('walking');
