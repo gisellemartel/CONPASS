@@ -1,6 +1,6 @@
 import {
   YellowBox,
-  View, Text, TouchableOpacity, Alert, Platform
+  View, Text, TouchableOpacity, Alert, Platform, AsyncStorage
 } from 'react-native';
 import _ from 'lodash';
 /* eslint-disable no-plusplus */
@@ -38,7 +38,8 @@ export default class DashboardScreen extends Component {
   }
 
   async componentDidMount() {
-    this.setState({ currentUser: firebase.auth().currentUser }, this.registerForPushNotificationsAsync);
+    this.setState({ currentUser: firebase.auth().currentUser },
+      this.registerForPushNotificationsAsync);
     this._isMounted = true;
     if (Platform.OS === 'android') {
       Notifications.createChannelAndroidAsync('reminders', {
@@ -47,6 +48,7 @@ export default class DashboardScreen extends Component {
         vibrate: [0, 250, 250, 250],
       });
     }
+    Permissions.askAsync(Permissions.NOTIFICATIONS);
   }
 
   componentWillUnmount() {
@@ -167,6 +169,19 @@ export default class DashboardScreen extends Component {
       });
     }
 
+     refreshCalendar =async () => {
+       const accessToken = await AsyncStorage.getItem('accessToken');
+       const userInfoResponse = await fetch('https://www.googleapis.com/calendar/v3/calendars/primary/events?key=AIzaSyBAHObp5Ic3CbJpkX2500tNhf53e_3wBMA&timeMin=2020-01-01T01:00:00.000Z', {
+         headers: { Authorization: `Bearer ${accessToken}` },
+       });
+       const jsonFile = await userInfoResponse.json();
+       console.log("in dashboard the jsonFile is: ");
+       console.log(jsonFile);
+       const stringFile = JSON.stringify(jsonFile);
+       AsyncStorage.setItem('events', stringFile);
+       this.props.navigation.navigate('FetchScreen');
+     }
+
     /**
    * @param {boolean} boolean - True or false
    * Shows or hides the dialong box of 'Adjust time' button
@@ -278,6 +293,7 @@ export default class DashboardScreen extends Component {
             renderEmptyDate={this.renderEmptyDate}
             rowHasChanged={this.rowHasChanged}
             theme={{
+              calendarBackground: 'rgb(255,255,255)',
               selectedDayBackgroundColor: 'rgba(156,211,215,1)',
               agendaDayTextColor: 'black',
               agendaDayNumColor: 'black',
@@ -303,6 +319,15 @@ export default class DashboardScreen extends Component {
                 }}
               >
                 <Text>Adjust Time</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                style={styles.touchable}
+                onPress={() => {
+                  this.refreshCalendar();
+                }}
+              >
+                <Text>Refresh Calendar</Text>
               </TouchableOpacity>
             </View>
           </View>
