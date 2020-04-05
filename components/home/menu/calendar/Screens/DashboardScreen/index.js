@@ -266,14 +266,6 @@ export default class DashboardScreen extends Component {
       );
     }
 
-    renderEmptyDate() {
-      return (
-        <View style={styles.emptyDate}>
-          <Text>This is empty date!</Text>
-        </View>
-      );
-    }
-
 
     render() {
       return (
