@@ -69,10 +69,8 @@ export default class DashboardScreen extends Component {
       this.setState({ pushNotficationToken: token });
     }
     try {
-      console.log(this.state.currentUser.uid);
       firebase.database().ref(`users/${this.state.currentUser.uid}/push_token`).set(token);
     } catch (error) {
-      console.log(error);
     }
   }
 
@@ -133,7 +131,6 @@ export default class DashboardScreen extends Component {
      * Schedules push notifications to user upon adjusting the timer
      */
     sendPushNotification = () => {
-      console.log(this.state.timeToNotify);
       // Enable this to get immeaiate notifications
       if (Platform.OS === 'android') {
         Notifications.dismissAllNotificationsAsync();
@@ -176,7 +173,6 @@ export default class DashboardScreen extends Component {
        });
        const jsonFile = await userInfoResponse.json();
        const { error } = jsonFile;
-       console.log(error);
        if (error) {
          firebase.auth().signOut();
          this.props.navigation.navigate('LoadingScreen');

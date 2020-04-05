@@ -95,3 +95,41 @@ it('Should not load items', async () => {
   const eventFormatted = dashboardScreenComponent.loadItems(1);
   expect(eventFormatted).toEqual((undefined));
 });
+
+it('Should fill array', async () => {
+  const events = {
+    created: '2020-03-27T01:28:07.000Z',
+    creator: {
+      email: 'bazerbachi.talal@gmail.com',
+      self: true,
+    },
+    end: {
+      dateTime: '2020-03-26T22:30:00-04:00',
+    },
+    etag: '\"3170544975746000\"',
+    htmlLink: 'https://www.google.com/calendar/event?eid=M2ZlMGRibDlpZWpqOHFsOHVhZnVrOWZlOWMgYmF6ZXJiYWNoaS50YWxhbEBt',
+    iCalUID: '3fe0dbl9iejj8ql8uafuk9fe9c@google.com',
+    id: '3fe0dbl9iejj8ql8uafuk9fe9c',
+    kind: 'calendar#event',
+    organizer: {
+      email: 'bazerbachi.talal@gmail.com',
+      self: true,
+    },
+    reminders: {
+      useDefault: true,
+    },
+    sequence: 0,
+    start: {
+      dateTime: '2020-03-26T21:30:00-04:00',
+    },
+    status: 'confirmed',
+    summary: 'conpass',
+    updated: '2020-03-27T01:28:07.873Z',
+  };
+
+  const dashboardScreenComponent = renderer.create(<DashboardScreen navigation={navigation} />)
+    .getInstance();
+  const notify = dashboardScreenComponent
+    .notify(events);
+  expect(typeof notify).toBe('object');
+});
