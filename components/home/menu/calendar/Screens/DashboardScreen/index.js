@@ -174,14 +174,6 @@ export default class DashboardScreen extends Component {
     }
 
     /**
-   * @param {integer} number - Time in minutes
-   * Sets the minutes in which the user wants to get notfications before
-   */
-    rowHasChanged(r1, r2) {
-      return r1.name !== r2.name;
-    }
-
-    /**
    * @param {object} events - All the events the user has
    * Structures all the events the user has
    */
@@ -228,6 +220,14 @@ export default class DashboardScreen extends Component {
        const stringFile = JSON.stringify(jsonFile);
        AsyncStorage.setItem('events', stringFile);
        this.props.navigation.navigate('FetchScreen');
+     }
+
+     /**
+   * @param {integer} number - Time in minutes
+   * Sets the minutes in which the user wants to get notfications before
+   */
+     rowHasChanged(r1, r2) {
+       return r1.name !== r2.name;
      }
 
      renderItem(item) {
