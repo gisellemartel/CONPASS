@@ -117,7 +117,6 @@ it('Should fill array', async () => {
     .getInstance();
   const notify = dashboardScreenComponent
     .notify(events);
-  console.log(notify);
   expect(notify).toEqual(expect.arrayContaining((expected)));
 });
 
@@ -126,8 +125,6 @@ it('Should change state', () => {
     .getInstance();
   dashboardScreenComponent._isMounted = true;
   dashboardScreenComponent.sendInput(2);
-  const temp = dashboardScreenComponent.state.timeToNotify;
-  console.log(temp);
   const bool = dashboardScreenComponent.state.timeToNotify === 2;
   expect(bool).toBe(true);
 });
