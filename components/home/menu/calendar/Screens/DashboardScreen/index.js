@@ -175,7 +175,8 @@ export default class DashboardScreen extends Component {
          headers: { Authorization: `Bearer ${accessToken}` },
        });
        const jsonFile = await userInfoResponse.json();
-       const error = error;
+       const { error } = jsonFile;
+       console.log(error);
        if (error) {
          firebase.auth().signOut();
          this.props.navigation.navigate('LoadingScreen');
