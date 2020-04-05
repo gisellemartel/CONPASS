@@ -261,7 +261,7 @@ export default class DashboardScreen extends Component {
           style={[styles.item, { height: item.height }]}
           onPress={() => { return Alert.alert(item.name, `${item.startTime}  -  ${item.endTime}\n${item.description}\n${item.address}`); }}
         >
-          <Text>{item.name}</Text>
+          <Text style={{ color: 'white' }}>{item.name}</Text>
         </TouchableOpacity>
       );
     }

@@ -7,7 +7,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   item: {
-    backgroundColor: 'white',
+    backgroundColor: '#EEB462',
     flex: 1,
     borderRadius: 5,
     padding: 10,
