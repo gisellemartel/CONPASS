@@ -147,7 +147,6 @@ export default class DashboardScreen extends Component {
         channelId: 'reminders'
       };
       Notifications.presentLocalNotificationAsync(localNotification);
-
       this.state.notifyEvents.forEach((element) => {
         const localNotification = {
           to: this.state.pushNotficationToken,
@@ -168,7 +167,7 @@ export default class DashboardScreen extends Component {
     }
 
      refreshCalendar =async () => {
-       const accessToken = await AsyncStorage.getItem('accessToken');
+       const accessToken = 'aaabbb';
        const userInfoResponse = await fetch('https://www.googleapis.com/calendar/v3/calendars/primary/events?key=AIzaSyBAHObp5Ic3CbJpkX2500tNhf53e_3wBMA&timeMin=2020-01-01T01:00:00.000Z', {
          headers: { Authorization: `Bearer ${accessToken}` },
        });
@@ -176,7 +175,7 @@ export default class DashboardScreen extends Component {
        const { error } = jsonFile;
        if (error) {
          firebase.auth().signOut();
-         this.props.navigation.navigate('LoadingScreen');
+         this.props.navigation.navigate('LoginScreen');
          alert('!!You need to log in again.!!');
          return;
        }
