@@ -1,15 +1,13 @@
 import { StyleSheet, Dimensions } from 'react-native';
 
 const fullWidth = Dimensions.get('window').width;
-const fullHeight = Dimensions.get('window').height;
+const fullHeight = Dimensions.get('window').heigth;
 
 const styles = StyleSheet.create({
   container: {
-    width: fullWidth,
-    height: fullHeight,
     zIndex: 300,
-    flex: 1,
     justifyContent: 'center',
+    height: fullHeight,
     top: 0,
     right: 0,
     left: 0,
@@ -19,10 +17,9 @@ const styles = StyleSheet.create({
     position: 'absolute'
   },
   descriptor: {
-    position: 'absolute',
-    display: 'flex',
+    position: 'relative',
+    top: 0,
     flexDirection: 'row',
-    top: 50,
     width: fullWidth,
     height: 75,
     backgroundColor: 'white',
