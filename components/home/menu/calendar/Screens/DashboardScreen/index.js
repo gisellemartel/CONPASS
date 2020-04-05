@@ -71,6 +71,7 @@ export default class DashboardScreen extends Component {
     try {
       firebase.database().ref(`users/${this.state.currentUser.uid}/push_token`).set(token);
     } catch (error) {
+      alert(error);
     }
   }
 
@@ -196,7 +197,7 @@ export default class DashboardScreen extends Component {
    * @param {integer} number - Time in minutes
    * Sets the minutes in which the user wants to get notfications before
    */
-    sendInput=(number) => {
+    sendInput = (number) => {
       if (/^\d+$/.test(number.toString())) {
         if (this._isMounted) {
           this.setState({ timeToNotify: number });

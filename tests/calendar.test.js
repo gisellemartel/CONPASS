@@ -120,3 +120,23 @@ it('Should fill array', async () => {
   console.log(notify);
   expect(notify).toEqual(expect.arrayContaining((expected)));
 });
+
+it('Should change state', () => {
+  const dashboardScreenComponent = renderer.create(<DashboardScreen navigation={navigation} />)
+    .getInstance();
+  dashboardScreenComponent._isMounted = true;
+  dashboardScreenComponent.sendInput(2);
+  const temp = dashboardScreenComponent.state.timeToNotify;
+  console.log(temp);
+  const bool = dashboardScreenComponent.state.timeToNotify === 2;
+  expect(bool).toBe(true);
+});
+
+it('Should change isDialogVisible state', () => {
+  const dashboardScreenComponent = renderer.create(<DashboardScreen navigation={navigation} />)
+    .getInstance();
+  dashboardScreenComponent._isMounted = true;
+  dashboardScreenComponent.showDialog(true);
+  const bool = dashboardScreenComponent.state.isDialogVisible;
+  expect(bool).toBe(true);
+});
