@@ -177,6 +177,8 @@ export default class DashboardScreen extends Component {
        if (error) {
          firebase.auth().signOut();
          this.props.navigation.navigate('LoadingScreen');
+         alert('!!You need to log in again.!!');
+         return;
        }
        const stringFile = JSON.stringify(jsonFile);
        AsyncStorage.setItem('events', stringFile);
