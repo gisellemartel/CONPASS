@@ -173,10 +173,6 @@ export default class DashboardScreen extends Component {
       }, 100);
     }
 
-    timeToString(time) {
-      const date = new Date(time);
-      return date.toISOString().split('T')[0];
-    }
 
      refreshCalendar =async () => {
        const accessToken = await AsyncStorage.getItem('accessToken');
@@ -220,6 +216,11 @@ export default class DashboardScreen extends Component {
          });
        }
        return tempArray;
+     }
+
+     timeToString(time) {
+       const date = new Date(time);
+       return date.toISOString().split('T')[0];
      }
 
      /**
