@@ -89,28 +89,28 @@ it('Should not load items', async () => {
 });
 
 it('Should fill array', async () => {
-  const events =
-  { items: [{
-    start: {
-      dateTime: '2021-03-26T21:30:00-04:00',
+  const events = {
+    items: [{
+      start: {
+        dateTime: '2021-03-26T21:30:00-04:00',
+      },
+      summary: 'conpass',
     },
-    summary: 'conpass',
-  },
-  {
-    start: {
-      dateTime: '2021-03-26T21:30:00-04:00',
-    },
-    summary: 'conpass',
-  }]
+    {
+      start: {
+        dateTime: '2021-03-26T21:30:00-04:00',
+      },
+      summary: 'conpass',
+    }]
   };
   const expected = [
     {
-      "startDate": "2021-03-26T21:30:00-04:00",
-      "summary": "conpass",
+      startDate: '2021-03-26T21:30:00-04:00',
+      summary: 'conpass',
     },
     {
-      "startDate": "2021-03-26T21:30:00-04:00",
-      "summary": "conpass",
+      startDate: '2021-03-26T21:30:00-04:00',
+      summary: 'conpass',
     },
   ];
   const dashboardScreenComponent = renderer.create(<DashboardScreen navigation={navigation} />)
@@ -139,4 +139,10 @@ it('Should change isDialogVisible state', () => {
   dashboardScreenComponent.showDialog(true);
   const bool = dashboardScreenComponent.state.isDialogVisible;
   expect(bool).toBe(true);
+});
+
+it('Should return a string', () => {
+  const dashboardScreenComponent = renderer.create(<DashboardScreen navigation={navigation} />).getInstance();
+  const result = dashboardScreenComponent.sendPushNotification();
+  expect(result).toStrictEqual('Notifications sent');
 });

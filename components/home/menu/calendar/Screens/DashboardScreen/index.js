@@ -39,9 +39,7 @@ export default class DashboardScreen extends Component {
   }
 
   async componentDidMount() {
-    await Permissions.askAsync(Permissions.NOTIFICATIONS);
-    this.setState({ currentUser: firebase.auth().currentUser },
-      this.registerForPushNotificationsAsync);
+    this.registerForPushNotificationsAsync();
     this._isMounted = true;
     if (Platform.OS === 'android') {
       Notifications.createChannelAndroidAsync('reminders', {
@@ -63,16 +61,6 @@ export default class DashboardScreen extends Component {
     const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
     if (status !== 'granted') {
       alert('No notification permissions!');
-      return;
-    }
-    const token = await Notifications.getExpoPushTokenAsync();
-    if (this._isMounted) {
-      this.setState({ pushNotficationToken: token });
-    }
-    try {
-      firebase.database().ref(`users/${this.state.currentUser.uid}/push_token`).set(token);
-    } catch (error) {
-      alert(error);
     }
   }
 
@@ -132,22 +120,8 @@ export default class DashboardScreen extends Component {
     /**
      * Schedules push notifications to user upon adjusting the timer
      */
-    sendPushNotification = async () => {
-      // Enable this to get immeaiate notifications
-      if (Platform.OS === 'android') {
-        Notifications.dismissAllNotificationsAsync();
-      }
+    sendPushNotification = () => {
       Notifications.cancelAllScheduledNotificationsAsync();
-
-      const localnotification = {
-        to: this.state.pushNotficationToken,
-        sound: 'default',
-        priority: 'high',
-        title: 'Conpass Notification',
-        body: 'Ayyyyyyyyyyyyyyyyyyyyyyyyyyy we testing',
-        channelId: 'reminders',
-      };
-      Notifications.presentLocalNotificationAsync(localnotification);
       this.state.notifyEvents.forEach((element) => {
         const localNotification = {
           to: this.state.pushNotficationToken,
@@ -166,6 +140,7 @@ export default class DashboardScreen extends Component {
         };
         Notifications.scheduleLocalNotificationAsync(localNotification, schedulingOptions);
       });
+      return 'Notifications sent';
     }
 
      refreshCalendar =async () => {
