@@ -70,21 +70,3 @@ it('Polygon should define points outside of edges as outside', async () => {
   expect(bottomPartition).toBe(false);
   expect(topPartition).toBe(false);
 });
-
-/*
-it('Should return 1400 DeMaisonneuve W as the address', () => {
-  const withinBuildingComponent = renderer.create(<WithinBuilding updateCurrentBuildingCallBack={updateC} />).getInstance();
-  withinBuildingComponent.state.campusDisplayName = 'SGW';
-  withinBuildingComponent.state.buildingDisplayName = 'Webster Library Building';
-  const expectedAddress = withinBuildingComponent.updateCurrentBuildingProp();
-  expect(expectedAddress).toBe('1400 DeMaisonneuve W');
-});
-
-it('Should return an empty String as the address', () => {
-  const withinBuildingComponent = renderer.create(<WithinBuilding />).getInstance();
-  withinBuildingComponent.state.campusDisplayName = 'SGW';
-  withinBuildingComponent.state.buildingDisplayName = '';
-  const expectedAddress = withinBuildingComponent.updateCurrentBuildingProp();
-  expect(expectedAddress).toBe('');
-});
-*/
