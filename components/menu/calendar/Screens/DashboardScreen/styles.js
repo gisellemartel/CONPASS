@@ -7,7 +7,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   item: {
-    backgroundColor: 'white',
+    backgroundColor: '#EEB462',
     flex: 1,
     borderRadius: 5,
     padding: 10,
@@ -18,6 +18,14 @@ const styles = StyleSheet.create({
     height: 15,
     flex: 1,
     paddingTop: 30
+  },
+  touchable: {
+    alignItems: 'center',
+    backgroundColor: 'rgba(156,211,215,0.95)',
+    width: '50%',
+    height: '270%',
+    bottom: 45,
+    justifyContent: 'center',
   }
 });
 

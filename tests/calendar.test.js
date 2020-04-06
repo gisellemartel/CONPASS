@@ -94,3 +94,61 @@ it('Should not load items', async () => {
   const eventFormatted = dashboardScreenComponent.loadItems(1);
   expect(eventFormatted).toEqual((undefined));
 });
+
+it('Should fill array', async () => {
+  const events = {
+    items: [{
+      start: {
+        dateTime: '2021-03-26T21:30:00-04:00',
+      },
+      summary: 'conpass',
+    },
+    {
+      start: {
+        dateTime: '2021-03-26T21:30:00-04:00',
+      },
+      summary: 'conpass',
+    }]
+  };
+  const expected = [
+    {
+      startDate: '2021-03-26T21:30:00-04:00',
+      summary: 'conpass',
+    },
+    {
+      startDate: '2021-03-26T21:30:00-04:00',
+      summary: 'conpass',
+    },
+  ];
+  const dashboardScreenComponent = renderer.create(<DashboardScreen navigation={navigation} />)
+    .getInstance();
+  const notify = dashboardScreenComponent
+    .notify(events);
+  expect(notify).toEqual(expect.arrayContaining((expected)));
+});
+
+it('Should change state', () => {
+  const dashboardScreenComponent = renderer.create(<DashboardScreen navigation={navigation} />)
+    .getInstance();
+  dashboardScreenComponent._isMounted = true;
+  dashboardScreenComponent.sendInput(2);
+  const bool = dashboardScreenComponent.state.timeToNotify === 2;
+  expect(bool).toBe(true);
+});
+
+it('Should change isDialogVisible state', () => {
+  const dashboardScreenComponent = renderer.create(<DashboardScreen navigation={navigation} />)
+    .getInstance();
+  dashboardScreenComponent._isMounted = true;
+  dashboardScreenComponent.showDialog(true);
+  const bool = dashboardScreenComponent.state.isDialogVisible;
+  expect(bool).toBe(true);
+});
+
+it('Should return a string', () => {
+  const dashboardScreenComponent = renderer
+    .create(<DashboardScreen navigation={navigation} />)
+    .getInstance();
+  const result = dashboardScreenComponent.sendPushNotification();
+  expect(result).toStrictEqual('Notifications sent');
+});
