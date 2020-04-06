@@ -1,7 +1,6 @@
-/* eslint-disable no-undef */
 import React from 'react';
 import renderer from 'react-test-renderer';
-import DashboardScreen from '../components/home/menu/calendar/Screens/DashboardScreen';
+import DashboardScreen from '../components/menu/calendar/Screens/DashboardScreen';
 
 const navigation = {
   state: { params: { events: { items: [{ start: '1234', summary: '1234', end: '1234' }] } } }

@@ -2,15 +2,12 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
 import TheMap from '../map';
-import SearchBar from '../searchBar';
+import MapSearchBar from '../mapSearchBar';
 import Location from '../location';
-import SwitchCampuses from '../switchCampuses';
-import SetPath from '../setPath';
-import Addresses from '../addresses';
-import Building from '../map/building/index';
-import generateBuilding from '../indoorPlans/buildingRepository';
-import generateGraph from '../../indoor_directions_modules/graphRepository';
-import hall8FloorPlanCoordinates from '../../indoor_directions_modules/buildings/H/Hall8FloorPlanCoordinates'; // Until graph repository is implemented.
+import CampusToggle from '../campusToggle';
+import PathPolyline from '../pathPolyline';
+import OutdoorDirections from '../directions/outdoorDirections';
+import IndoorDirections from '../directions/indoorDirections';
 import styles from './styles';
 import Suggestions from '../suggestions';
 
@@ -129,18 +126,18 @@ class Home extends Component {
   };
 
   /**
-   * gets new region from 'Addresses' component and updates region state
+   * gets new region from 'OutdoorDirections' component and updates region state
    * @param {object} region - New region to be passed.
    */
-  getRegionFromAddresses = (region) => {
+  getRegionFromOutdoorDirections = (region) => {
     this.updateRegion(region);
   };
 
   /**
-   * gets new coordinates from 'Addresses' component and updates coordinates state
+   * gets new coordinates from 'OutdoorDirections' component and updates coordinates state
    * @param {object} coordinates - New coordinates to be passed.
    */
-  getCoordinatesFromAddresses = (coordinates) => {
+  getCoordinatesFromOutdoorDirections = (coordinates) => {
     this.updateCoordinates(coordinates);
   };
 
@@ -233,7 +230,7 @@ class Home extends Component {
           getSuggestions={this.getSuggestions}
         />
         {!this.state.showDirectionsMenu && (
-        <SearchBar
+        <MapSearchBar
           getDestinationIfSet={this.getDestinationIfSet}
           navigation={this.props.navigation}
           updateRegion={this.updateRegion}
@@ -244,7 +241,7 @@ class Home extends Component {
         />
         )}
         {this.state.showCampusToggle && (
-          <SwitchCampuses
+          <CampusToggle
             updateRegion={this.updateRegion}
             visiblityState={!this.state.showDirectionsMenu}
           />
@@ -253,16 +250,16 @@ class Home extends Component {
           updateRegion={this.updateRegion}
           updateCurrentBuildingCallBack={this.updateCurrentBuildingAddress}
         />
-        <SetPath
+        <PathPolyline
           changeVisibilityTo={this.changeVisibilityTo}
           newValue={this.state.value}
         />
         {this.state.showDirectionsMenu && (
-          <Addresses
+          <OutdoorDirections
             getDestinationIfSet={this.state.destinationToGo}
-            getRegion={this.getRegionFromAddresses}
+            getRegion={this.getRegionFromOutdoorDirections}
             getRegionFromSearch={this.state.region}
-            getCoordinates={this.getCoordinatesFromAddresses}
+            getCoordinates={this.getCoordinatesFromOutdoorDirections}
             changeVisibilityTo={this.changeVisibilityTo}
             navigation={this.props.navigation}
             currentBuildingPred={this.state.currentBuildingAddress}
@@ -271,12 +268,10 @@ class Home extends Component {
         {/* Building component contains all the interior floor views */}
         {this.state.interiorMode
         && (
-        <Building
-          building={this.state.building}
-          buildingFloorPlans={generateBuilding(this.state.building.building)}
-          adjacencyGraphs={generateGraph(this.state.building.building)}
-          interiorModeOff={this.interiorModeOff}
-        />
+          <IndoorDirections
+            building={this.state.building}
+            interiorModeOff={this.interiorModeOff}
+          />
         )}
         {this.state.showSuggestionsList && this.state.interiorMode && (
         <Suggestions

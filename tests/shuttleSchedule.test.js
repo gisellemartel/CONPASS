@@ -1,6 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import ShuttleSchedule from '../components/home/menu/shuttleBusSchedule';
+import ShuttleSchedule from '../components/menu/shuttleBusSchedule';
 
 let loyolaScheduleMonThu;
 let sgwScheduleMonThu;
