@@ -255,7 +255,8 @@ export default class DashboardScreen extends Component {
                [
                  { text: 'Cancel', onPress: () => { console.log('Cancel Pressed'); } },
                  { text: 'Get Directions', onPress: () => { console.log('OK Pressed'); } },
-               ]);
+               ],
+               { cancelable: false });
            }}
          >
            <Text style={{ color: 'white' }}>{item.name}</Text>
