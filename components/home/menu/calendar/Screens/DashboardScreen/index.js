@@ -27,7 +27,6 @@ export default class DashboardScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      localnotification : {},
       items: {},
       isDialogVisible: false,
       notifyEvents: this.notify(props.navigation.state.params.events),
@@ -64,6 +63,11 @@ export default class DashboardScreen extends Component {
     }
   }
 
+ /**
+   *
+   * @param {object} day - information of the current day
+   * formats items with information of the day
+   */
   loadItems = (day) => {
     setTimeout(() => {
       const uppderBoundForSync = 85;
@@ -118,8 +122,8 @@ export default class DashboardScreen extends Component {
   };
 
     /**
-     * Schedules push notifications to user upon adjusting the timer
-     */
+    * Schedules push notifications to user upon adjusting the timer
+    */
     sendPushNotification = () => {
       Notifications.cancelAllScheduledNotificationsAsync();
       this.state.notifyEvents.forEach((element) => {
@@ -144,9 +148,9 @@ export default class DashboardScreen extends Component {
     }
 
     /**
-   * @param {boolean} boolean - True or false
-   * Shows or hides the dialong box of 'Adjust time' button
-   */
+    * @param {boolean} boolean - True or false
+    * Shows or hides the dialong box of 'Adjust time' button
+    */
     showDialog=(boolean) => {
       if (this._isMounted) {
         this.setState({ isDialogVisible: boolean });
@@ -185,7 +189,7 @@ export default class DashboardScreen extends Component {
        const { error } = jsonFile;
        if (error) {
          firebase.auth().signOut();
-         this.props.navigation.navigate('LoadingScreen');
+         this.props.navigation.navigate('LoginScreen');
          alert('!!You need to log in again.!!');
          return;
        }
@@ -220,19 +224,27 @@ export default class DashboardScreen extends Component {
        return tempArray;
      }
 
+     /**
+     * @param {integer} time - time of the event
+     * restructure time in a certain format
+     */
      timeToString(time) {
        const date = new Date(time);
        return date.toISOString().split('T')[0];
      }
 
      /**
-   * @param {integer} number - Time in minutes
-   * Sets the minutes in which the user wants to get notfications before
-   */
+     * @param {integer} number - Time in minutes
+     * Sets the minutes in which the user wants to get notfications before
+     */
      rowHasChanged(r1, r2) {
        return r1.name !== r2.name;
      }
 
+     /**
+     * @param {object} item - information of item
+     * present event in the agenda
+     */
      renderItem(item) {
        return (
          <TouchableOpacity
@@ -244,6 +256,9 @@ export default class DashboardScreen extends Component {
        );
      }
 
+     /**
+     * add line to empty day
+     */
     renderEmptyDate = () => {
       return (
         <View
