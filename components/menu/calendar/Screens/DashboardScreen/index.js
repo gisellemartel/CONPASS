@@ -63,7 +63,7 @@ export default class DashboardScreen extends Component {
     }
   }
 
- /**
+  /**
    *
    * @param {object} day - information of the current day
    * formats items with information of the day
@@ -212,7 +212,7 @@ export default class DashboardScreen extends Component {
              startTime: event.start.dateTime != null ? event.start.dateTime : event.start.date,
              endTime: event.end.dateTime != null ? event.end.dateTime : event.end.date,
              description: event.description != null ? event.description : '',
-             address: ''
+             address: event.location != null ? event.location : ''
            }
          );
        });
@@ -241,6 +241,7 @@ export default class DashboardScreen extends Component {
        return r1.name !== r2.name;
      }
 
+
      /**
      * @param {object} item - information of item
      * present event in the agenda
@@ -254,7 +255,7 @@ export default class DashboardScreen extends Component {
                `${item.startTime}  -  ${item.endTime}\n${item.description}\n${item.address}`,
                [
                  { text: 'Cancel', onPress: () => { console.log('Cancel Pressed'); } },
-                 { text: 'Get Directions', onPress: () => { console.log('OK Pressed'); } },
+                 { text: 'Get Directions', onPress: () => { console.log(item.address); } },
                ],
                { cancelable: false });
            }}
