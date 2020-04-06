@@ -249,7 +249,14 @@ export default class DashboardScreen extends Component {
        return (
          <TouchableOpacity
            style={[styles.item, { height: item.height }]}
-           onPress={() => { return Alert.alert(item.name, `${item.startTime}  -  ${item.endTime}\n${item.description}\n${item.address}`); }}
+           onPress={() => {
+             return Alert.alert(item.name,
+               `${item.startTime}  -  ${item.endTime}\n${item.description}\n${item.address}`,
+               [
+                 { text: 'Cancel', onPress: () => { console.log('Cancel Pressed'); } },
+                 { text: 'Get Directions', onPress: () => { console.log('OK Pressed'); } },
+               ]);
+           }}
          >
            <Text style={{ color: 'white' }}>{item.name}</Text>
          </TouchableOpacity>
