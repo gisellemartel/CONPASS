@@ -198,7 +198,10 @@ export default class DashboardScreen extends Component {
        this.props.navigation.navigate('FetchScreen');
      }
 
-
+     /**
+     * @param {string} description - Time in minutes
+     * Sends the description of the event to the home
+     */
      sendDirections = (description) => {
        if (!description) {
          alert('their is no address in the event.');
