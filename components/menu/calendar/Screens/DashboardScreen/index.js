@@ -198,6 +198,31 @@ export default class DashboardScreen extends Component {
        this.props.navigation.navigate('FetchScreen');
      }
 
+
+     sendDirections = (address, description) => {
+       if (!address && !description) {
+         alert('their is no address in the event.');
+       }
+       this.props.navigation.navigate('HomeScreen', { description });
+     }
+
+     /**
+     * @param {integer} number - Time in minutes
+     * Sets the minutes in which the user wants to get notfications before
+     */
+     rowHasChanged(r1, r2) {
+       return r1.name !== r2.name;
+     }
+
+     /**
+     * @param {integer} time - time of the event
+     * restructure time in a certain format
+     */
+     timeToString(time) {
+       const date = new Date(time);
+       return date.toISOString().split('T')[0];
+     }
+
      /**
      * @param {object} events - All the events the user has
      * Structures all the events the user has
@@ -224,38 +249,14 @@ export default class DashboardScreen extends Component {
        return tempArray;
      }
 
-     /**
-     * @param {integer} time - time of the event
-     * restructure time in a certain format
-     */
-     timeToString(time) {
-       const date = new Date(time);
-       return date.toISOString().split('T')[0];
-     }
-
-     /**
-     * @param {integer} number - Time in minutes
-     * Sets the minutes in which the user wants to get notfications before
-     */
-     rowHasChanged(r1, r2) {
-       return r1.name !== r2.name;
-     }
-
-     sendDirections = (address, description) => {
-       if (!address && !description) {
-         alert("their is no address in the event.");
-       }
-       this.props.navigation.navigate('HomeScreen', { description });
-     }
-
 
      /**
      * @param {object} item - information of item
      * present event in the agenda
      */
      renderItem(item) {
-       const address = item.address;
-       const description = item.description;
+       const { address } = item;
+       const { description } = item;
        return (
          <TouchableOpacity
            style={[styles.item, { height: item.height }]}
@@ -273,7 +274,6 @@ export default class DashboardScreen extends Component {
          </TouchableOpacity>
        );
      }
-
 
 
      /**
