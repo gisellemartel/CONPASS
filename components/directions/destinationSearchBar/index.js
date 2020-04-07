@@ -41,6 +41,10 @@ export default class DestinationSearchBar extends Component {
       console.log(this.props.directionsId);
       this.getLatLong(this.props.directionsId);
     }
+    if(this.state.destination){
+      this.onChangeDestination(this.state.destination);
+      
+    }
   }
 
   componentDidUpdate(prevProps) {
