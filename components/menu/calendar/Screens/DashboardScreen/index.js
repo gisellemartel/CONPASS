@@ -204,7 +204,7 @@ export default class DashboardScreen extends Component {
      */
      sendDirections = (description) => {
        if (!description) {
-         alert('their is no address in the event.');
+         alert('their is no address in the event description.');
          return;
        }
        this.props.navigation.navigate('HomeScreen', { description });
