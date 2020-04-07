@@ -246,7 +246,7 @@ export default class DashboardScreen extends Component {
      * @param {object} item - information of item
      * present event in the agenda
      */
-     renderItem(item) {
+     renderItem(item, props) {
        return (
          <TouchableOpacity
            style={[styles.item, { height: item.height }]}
@@ -255,7 +255,7 @@ export default class DashboardScreen extends Component {
                `${item.startTime}  -  ${item.endTime}\n${item.description}\n${item.address}`,
                [
                  { text: 'Cancel', onPress: () => { console.log('Cancel Pressed'); } },
-                 { text: 'Get Directions', onPress: () => { console.log(item.address); } },
+                 { text: 'Get Directions', onPress: () => { props.navigation.navigate('HomeScreen'); } },
                ],
                { cancelable: false });
            }}
@@ -297,7 +297,7 @@ export default class DashboardScreen extends Component {
           <Agenda
             items={this.state.items}
             loadItemsForMonth={this.loadItems}
-            renderItem={this.renderItem}
+            renderItem={(item) => { return this.renderItem(item, this.props); }}
             renderEmptyDate={this.renderEmptyDate}
             rowHasChanged={this.rowHasChanged}
             onRefresh={() => {
