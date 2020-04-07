@@ -32,6 +32,8 @@ class BuildingWithFloors extends Component {
     this.setState({
       floor: this.props.buildingFloorPlans[index]
     });
+
+    console.log(this.indoorDirectionHandler('Steel Star Axe', '967')[0]);
   }
 
   /**
@@ -62,6 +64,46 @@ class BuildingWithFloors extends Component {
     this.setState({
       directionPath: updatedDirectionPath
     });
+  }
+
+  indoorDirectionHandler(originInput, destinationInput) {
+    const inputs = [];
+    let startNodeId;
+    let finishNodeId;
+    let startFloor;
+    let finishFloor;
+    [startNodeId, startFloor] = this.inputParser(originInput);
+    [finishNodeId, finishFloor] = this.inputParser(destinationInput);
+    if (this.props.adjacencyGraphs[startFloor][startNodeId] !== undefined
+      && this.props.adjacencyGraphs[finishFloor][finishNodeId] !== undefined) {
+      if (startFloor === finishFloor) {
+        return [[{ start: startNodeId, finish: finishNodeId }], [this.props.adjacencyGraphs[startFloor]]];
+      }
+      // Staircase 1 as default is temporary. US4C will take care of finding the optimal meeting point.
+      return [[{ start: startNodeId, finish: 'staircase_1' }, { start: 'staircase_1', finish: finishNodeId }],
+        [this.props.adjacencyGraphs[startFloor], this.props.adjacencyGraphs[finishFloor]]];
+    }
+    return [[], []];
+  }
+
+  inputParser(input) {
+    const globalRoomNumberRegex = /^\w-\d{3,}(\.\d{2})?$/i; // ex: H-837 (also H-837.05).
+    const localRoomNumberRegex = /^\d{3,}(\.\d{2})?$/i; // above except w/o building code.
+    const amenityRegex = /^\w+( \w+_*)$/i; // Words and spaces.
+
+    let id = '';
+    let { floor } = this.state.floor; // Assume current floor until input says otherwise.
+
+    if (globalRoomNumberRegex.test(input) || localRoomNumberRegex.test(input)) {
+      // Temporary: take current building until multi-building directions are complete.
+      if (globalRoomNumberRegex.test(input)) {
+        id = input.replace(/^\w-/, ''); // Snip the building code.
+      } else {
+        id = input;
+      }
+      floor = input.replace(/\d{0,2}(\.\d{2})?$/i, ''); // Snip all except the floor number.
+    }
+    return [id, floor];
   }
 
   render() {
