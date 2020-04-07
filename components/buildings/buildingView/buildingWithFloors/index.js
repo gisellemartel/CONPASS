@@ -33,33 +33,27 @@ class BuildingWithFloors extends Component {
       floor: this.props.buildingFloorPlans[index]
     });
 
-    console.log(this.indoorDirectionHandler('Male Bathroom', '967')[0]);
+    this.dijkstraHandler('Male Bathroom', '967');
   }
 
   /**
    * Handles the processing of input before the Dijkstra algorithm is invoked. Currently checks if
    * the directions handle a single floor or multiple floors, then gives the directions based
    * on either scenario.
-   * @param {Array} startNodeId - ID of the node the directions start off at.
-   * @param {Object} finishNodeId - ID of the node the directions start off at.
+   * @param {Array} originInput - What the user inputs as the origin of indoor directions.
+   * @param {Object} destinationInput - What the user inputs as the destination of indoor directions.
    */
-  dijkstraHandler(startNodeId, finishNodeId) {
-    // Need to account for room numbers that have decimals.
-    const startFloor = parseInt(startNodeId.split('.')[0].slice(0, startNodeId.split('.')[0].length - 2), 10);
-    const finishFloor = parseInt(finishNodeId.split('.')[0].slice(0, finishNodeId.split('.')[0].length - 2), 10);
+  dijkstraHandler(originInput, destinationInput) {
     const updatedDirectionPath = {};
-    if (startFloor !== finishFloor) {
-      const paths = dijkstraPathfinder.dijkstraPathfinder(
-        [{ start: startNodeId, finish: 'escalator' }, { start: 'escalator', finish: finishNodeId }],
-        [this.props.adjacencyGraphs[startFloor], this.props.adjacencyGraphs[finishFloor]]
-      );
-      [updatedDirectionPath[startFloor], updatedDirectionPath[finishFloor]] = [paths[0], paths[1]];
-    } else {
-      const paths = dijkstraPathfinder.dijkstraPathfinder(
-        [{ start: startNodeId, finish: finishNodeId }],
-        [this.props.adjacencyGraphs[startFloor]]
-      );
-      [updatedDirectionPath[startFloor]] = [paths[0]];
+    let waypoints;
+    let graphs;
+    let floors;
+    [waypoints, graphs, floors] = this.indoorDirectionHandler(originInput, destinationInput);
+    if (waypoints.length > 0) {
+      const paths = dijkstraPathfinder.dijkstraPathfinder(waypoints, graphs);
+      for (let i = 0; i < paths.length; i++) {
+        updatedDirectionPath[floors[i]] = paths[i];
+      }
     }
     this.setState({
       directionPath: updatedDirectionPath
@@ -76,14 +70,15 @@ class BuildingWithFloors extends Component {
     [finishNodeId, finishFloor] = this.inputParser(destinationInput);
     if (this.props.adjacencyGraphs[startFloor][startNodeId] !== undefined
       && this.props.adjacencyGraphs[finishFloor][finishNodeId] !== undefined) {
-      if (startFloor === finishFloor) {
-        return [[{ start: startNodeId, finish: finishNodeId }], [this.props.adjacencyGraphs[startFloor]]];
+      if (startFloor == finishFloor) {
+        return [[{ start: startNodeId, finish: finishNodeId }], [this.props.adjacencyGraphs[startFloor]], [startFloor]];
       }
       // Staircase 1 as default is temporary. US4C will take care of finding the optimal meeting point.
       return [[{ start: startNodeId, finish: 'staircase_1' }, { start: 'staircase_1', finish: finishNodeId }],
-        [this.props.adjacencyGraphs[startFloor], this.props.adjacencyGraphs[finishFloor]]];
+        [this.props.adjacencyGraphs[startFloor], this.props.adjacencyGraphs[finishFloor]],
+        [startFloor, finishFloor]];
     }
-    return [[], []];
+    return [[], [], []];
   }
 
   inputParser(input) {
