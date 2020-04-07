@@ -157,6 +157,6 @@ it('Should send address', () => {
   const dashboardScreenComponent = renderer
     .create(<DashboardScreen navigation={navigation} />)
     .getInstance();
-  const result = dashboardScreenComponent.sendDirections();
+  const result = dashboardScreenComponent.sendDirections('address');
   expect(result).toStrictEqual('address sent');
 });
