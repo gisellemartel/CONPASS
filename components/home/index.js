@@ -38,6 +38,7 @@ class Home extends Component {
       showDirectionsMenu: false,
       showCampusToggle: false,
       showSuggestionsList: false,
+      showBack: true
     };
     this.interiorModeOn = this.interiorModeOn.bind(this);
     this.interiorModeOff = this.interiorModeOff.bind(this);
@@ -54,9 +55,14 @@ class Home extends Component {
        console.log(this.props.navigation.state.params.description);
        this.setState({ destinationToGo: this.props.navigation.state.params.description });
        this.changeVisibilityTo(true);
+       this.changeVisibilityOfBack(false);
      }
    }
 
+
+   changeVisibilityOfBack=(boolean) => {
+     this.setState({ showBack: boolean });
+   }
 
   /**
    * updates region and passes the new region 'map' component.
@@ -272,6 +278,7 @@ class Home extends Component {
         />
         {this.state.showDirectionsMenu && (
           <OutdoorDirections
+            showBack={this.state.showBack}
             getDestinationIfSet={this.state.destinationToGo}
             getRegion={this.getRegionFromOutdoorDirections}
             getRegionFromSearch={this.state.region}
