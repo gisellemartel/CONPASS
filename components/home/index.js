@@ -49,17 +49,21 @@ class Home extends Component {
     this.getADirections();
   }
 
+  /**
+   * Gets directions when getting directions from calender component
+   */
    getADirections = () => {
      if (this.props.navigation.state) {
-       console.log('in calendar:');
-       console.log(this.props.navigation.state.params.description);
        this.setState({ destinationToGo: this.props.navigation.state.params.description });
        this.changeVisibilityTo(true);
        this.changeVisibilityOfBack(false);
      }
    }
 
-
+   /**
+   * Changes visibility of back button in outdoor directions component
+   * @param {boolean} boolean - desired visibility boolean
+   */
    changeVisibilityOfBack=(boolean) => {
      this.setState({ showBack: boolean });
    }
@@ -112,8 +116,6 @@ class Home extends Component {
    * @param {object} destination - current selected destination
    */
   getDestinationIfSet = (destination) => {
-    console.log('from searchbar:');
-    console.log(destination);
     this.setState({ destinationToGo: destination });
   };
 

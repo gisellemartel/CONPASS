@@ -202,6 +202,7 @@ export default class DashboardScreen extends Component {
      sendDirections = (address, description) => {
        if (!address && !description) {
          alert('their is no address in the event.');
+         return;
        }
        this.props.navigation.navigate('HomeScreen', { description });
        return 'address sent';
@@ -265,8 +266,8 @@ export default class DashboardScreen extends Component {
              return Alert.alert(item.name,
                `${item.startTime}  -  ${item.endTime}\n${item.description}\n${item.address}`,
                [
-                 { text: 'Cancel', onPress: () => { console.log('Cancel Pressed'); } },
-                 { text: 'Get Directions', onPress: () => { this.sendDirections(address, description); } },
+                 { text: 'Cancel' },
+                 { text: 'Get Directions', onPress: () => { description === '' ? this.sendDirections(address) : this.sendDirections(description); } },
                ],
                { cancelable: false });
            }}
