@@ -33,7 +33,7 @@ class BuildingWithFloors extends Component {
       floor: this.props.buildingFloorPlans[index]
     });
 
-    console.log(this.indoorDirectionHandler('Steel Star Axe', '967')[0]);
+    console.log(this.indoorDirectionHandler('Male Bathroom', '967')[0]);
   }
 
   /**
@@ -89,7 +89,7 @@ class BuildingWithFloors extends Component {
   inputParser(input) {
     const globalRoomNumberRegex = /^\w-\d{3,}(\.\d{2})?$/i; // ex: H-837 (also H-837.05).
     const localRoomNumberRegex = /^\d{3,}(\.\d{2})?$/i; // above except w/o building code.
-    const amenityRegex = /^\w+( \w+_*)$/i; // Words and spaces.
+    const amenityRegex = /^\w+( \w+)*$/i; // Words and spaces.
 
     let id = '';
     let { floor } = this.state.floor; // Assume current floor until input says otherwise.
@@ -102,6 +102,12 @@ class BuildingWithFloors extends Component {
         id = input;
       }
       floor = input.replace(/\d{0,2}(\.\d{2})?$/i, ''); // Snip all except the floor number.
+    } else if (amenityRegex.test(input)) {
+      id = input.replace(/ /g, '_').toLowerCase(); // Graph id's are denoted in lowercase and snake case.
+      if (/^node_/i.test(id)) {
+        // Do not allow directions to intermediate nodes.
+        id = ' ';
+      }
     }
     return [id, floor];
   }
