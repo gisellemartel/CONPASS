@@ -54,8 +54,6 @@ class Home extends Component {
    */
    getADirections = () => {
      if (this.props.navigation.state) {
-       console.log('in calendar:');
-       console.log(this.props.navigation.state.params.description);
        this.setState({ destinationToGo: this.props.navigation.state.params.description });
        this.changeVisibilityTo(true);
        this.changeVisibilityOfBack(false);
@@ -118,8 +116,6 @@ class Home extends Component {
    * @param {object} destination - current selected destination
    */
   getDestinationIfSet = (destination) => {
-    console.log('from searchbar:');
-    console.log(destination);
     this.setState({ destinationToGo: destination });
   };
 
