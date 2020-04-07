@@ -241,12 +241,21 @@ export default class DashboardScreen extends Component {
        return r1.name !== r2.name;
      }
 
+     sendDirections = (address, description) => {
+       if (!address && !description) {
+         alert("their is no address in the event.");
+       }
+       this.props.navigation.navigate('HomeScreen', { description });
+     }
+
 
      /**
      * @param {object} item - information of item
      * present event in the agenda
      */
-     renderItem(item, props) {
+     renderItem(item) {
+       const address = item.address;
+       const description = item.description;
        return (
          <TouchableOpacity
            style={[styles.item, { height: item.height }]}
@@ -255,7 +264,7 @@ export default class DashboardScreen extends Component {
                `${item.startTime}  -  ${item.endTime}\n${item.description}\n${item.address}`,
                [
                  { text: 'Cancel', onPress: () => { console.log('Cancel Pressed'); } },
-                 { text: 'Get Directions', onPress: () => { props.navigation.navigate('HomeScreen'); } },
+                 { text: 'Get Directions', onPress: () => { this.sendDirections(address, description); } },
                ],
                { cancelable: false });
            }}
@@ -264,6 +273,8 @@ export default class DashboardScreen extends Component {
          </TouchableOpacity>
        );
      }
+
+
 
      /**
      * add line to empty day
