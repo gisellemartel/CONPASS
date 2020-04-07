@@ -152,3 +152,11 @@ it('Should return a string', () => {
   const result = dashboardScreenComponent.sendPushNotification();
   expect(result).toStrictEqual('Notifications sent');
 });
+
+it('Should send address', () => {
+  const dashboardScreenComponent = renderer
+    .create(<DashboardScreen navigation={navigation} />)
+    .getInstance();
+  const result = dashboardScreenComponent.sendDirections();
+  expect(result).toStrictEqual('address sent');
+});
