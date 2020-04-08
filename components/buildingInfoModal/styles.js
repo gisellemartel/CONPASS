@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     backgroundColor: 'white',
-    opacity: 0.85,
+    opacity: 0.9,
   },
   buttonContainer: {
     zIndex: 400,

@@ -67,15 +67,26 @@ class BuildingInfoModal extends Component {
             </View>
 
             <View style={styles.buttonContainer}>
-              <TouchableOpacity
-                style={styles.button}
-                onPress={() => {
-                  return this.props.setBuildingInfoModalVisibilityTo(false);
-                }}
-              >
-                {/* TODO: check to see if building has floors, if so show button below, else show button to exit*/ }
-                <Text style={styles.textStyle}>View Interior Mode</Text>
-              </TouchableOpacity>
+              { this.props.hasInteriorMode ? (
+                <TouchableOpacity
+                  style={styles.button}
+                  onPress={() => {
+                    return this.props.setBuildingInfoModalVisibilityTo(false);
+                  }}
+                >
+                  <Text style={styles.textStyle}>View Interior Mode</Text>
+                </TouchableOpacity>
+              ) : (
+                <TouchableOpacity
+                  style={styles.button}
+                  onPress={() => {
+                    return this.props.turnInteriorModeOff();
+                  }}
+                >
+                  <Text style={styles.textStyle}>Return</Text>
+                </TouchableOpacity>
+              )}
+
             </View>
           </View>
 

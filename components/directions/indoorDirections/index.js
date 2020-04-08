@@ -70,8 +70,60 @@ export default class IndoorDirections extends Component {
     const { building } = this.props;
     const buildingFloorPlans = generateFloorPlan(building.building);
     const adjacencyGraphs = generateGraph(building.building);
+    const hasInteriorMode = buildingFloorPlans[0];
     return (
       <View style={styles.container}>
+
+        {/* Top screen building descriptor */}
+        {hasInteriorMode && (
+        <View style={styles.descriptor}>
+          <View style={styles.buildingLogoContainer}>
+            <Image style={styles.buildingLogo} source={buildingLogo} />
+          </View>
+          <View>
+            <Text style={styles.buildingName}>
+              {this.limitNameLength(building.buildingName)}
+            </Text>
+          </View>
+          <TouchableOpacity
+            style={styles.quitInterior}
+            onPress={() => { return this.props.turnInteriorModeOff(); }}
+          >
+            <Image style={styles.quitButton} source={quit} />
+          </TouchableOpacity>
+        </View>
+        )}
+
+        <View style={styles.buildingViewContainer}>
+          <BuildingView
+            building={building}
+            buildingFloorPlans={buildingFloorPlans}
+            adjacencyGraphs={adjacencyGraphs}
+            turnInteriorModeOff={this.props.turnInteriorModeOff}
+          />
+        </View>
+
+
+        {/* Navigation button*/}
+        {hasInteriorMode && (
+        <PathPolyline
+          changeVisibilityTo={this.changeVisibilityTo}
+        />
+        )}
+
+        {/* Building info button*/}
+        {hasInteriorMode && (
+        <View style={styles.buildingInfoButtonContainer}>
+          <TouchableOpacity
+            onPress={() => {
+              return this.props.setBuildingInfoModalVisibilityTo(true);
+            }}
+          >
+            <Image style={styles.buildingInfoButton} source={info} />
+          </TouchableOpacity>
+        </View>
+        )}
+
         {/* Indoor directions search view */}
         <Modal
           visible={this.state.showDirectionsModal}
@@ -89,55 +141,14 @@ export default class IndoorDirections extends Component {
           </View>
         </Modal>
 
-
-        {/* Top screen building descriptor */}
-        <View style={styles.descriptor}>
-          <View style={styles.buildingLogoContainer}>
-            <Image style={styles.buildingLogo} source={buildingLogo} />
-          </View>
-          <View>
-            <Text style={styles.buildingName}>
-              {this.limitNameLength(building.buildingName)}
-            </Text>
-          </View>
-          <TouchableOpacity
-            style={styles.quitInterior}
-            onPress={() => { return this.props.turnInteriorModeOff(); }}
-          >
-            <Image style={styles.quitButton} source={quit} />
-          </TouchableOpacity>
-        </View>
-        <View style={styles.buildingViewContainer}>
-          <BuildingView
-            building={building}
-            buildingFloorPlans={buildingFloorPlans}
-            adjacencyGraphs={adjacencyGraphs}
-            turnInteriorModeOff={this.props.turnInteriorModeOff}
-          />
-        </View>
-
-        {/* Navigation button*/}
-        <PathPolyline
-          changeVisibilityTo={this.changeVisibilityTo}
-        />
-
-        {/* Building info button*/}
-        <View style={styles.buildingInfoButtonContainer}>
-          <TouchableOpacity
-            onPress={() => {
-              return this.props.setBuildingInfoModalVisibilityTo(true);
-            }}
-          >
-            <Image style={styles.buildingInfoButton} source={info} />
-          </TouchableOpacity>
-        </View>
-
         <View style={styles.buildingInfoModalContainer}>
           {/* Building info pop-up*/}
           <BuildingInfoModal
             showBuildingInfoModal={this.props.showBuildingInfoModal}
             setBuildingInfoModalVisibilityTo={this.props.setBuildingInfoModalVisibilityTo}
             buildingInfoData={this.props.buildingInfoData}
+            hasInteriorMode={hasInteriorMode}
+            turnInteriorModeOff={this.props.turnInteriorModeOff}
           />
         </View>
 
