@@ -87,21 +87,31 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     backgroundColor: 'black',
-    opacity: 0.9,
+    opacity: 0.85,
   },
   buttonContainer: {
-    backgroundColor: 'white',
-    width: 100,
-    position: 'absolute',
-    bottom: 100,
-    left: '50%',
     zIndex: 400,
+    flex: 1,
+    flexDirection: 'row',
+    position: 'absolute',
+    justifyContent: 'center',
+    width: fullWidth,
+    bottom: 250
+  },
+  button: {
+    backgroundColor: 'white',
+    position: 'relative',
+    width: '40%',
+    height: 50,
+    borderRadius: 10,
+    margin: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   textStyle: {
     color: '#1a1a1a',
     fontWeight: '400',
     fontSize: 18,
-    justifyContent: 'center'
   }
 });
 

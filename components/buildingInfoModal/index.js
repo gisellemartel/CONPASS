@@ -65,11 +65,13 @@ class BuildingInfoModal extends Component {
               />
             </View>
             <View style={styles.buttonContainer}>
-              <TouchableOpacity onPress={() => {
-                return this.props.hideBuildingInfoModal();
-              }}
+              <TouchableOpacity
+                style={styles.button}
+                onPress={() => {
+                  return this.props.hideBuildingInfoModal();
+                }}
               >
-                <Text style={styles.textStyle}>Interior View</Text>
+                <Text style={styles.textStyle}>View Interior Mode</Text>
               </TouchableOpacity>
             </View>
           </View>
