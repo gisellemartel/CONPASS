@@ -42,17 +42,17 @@ class Home extends Component {
     };
     this.interiorModeOn = this.interiorModeOn.bind(this);
     this.interiorModeOff = this.interiorModeOff.bind(this);
-    this.getADirections = this.getADirections.bind(this);
+    this.getCalDirections = this.getCalDirections.bind(this);
   }
 
   componentDidMount() {
-    this.getADirections();
+    this.getCalDirections();
   }
 
   /**
    * Gets directions when getting directions from calender component
    */
-   getADirections = () => {
+   getCalDirections = () => {
      if (this.props.navigation.state) {
        this.setState({ destinationToGo: this.props.navigation.state.params.description });
        this.changeVisibilityTo(true);
