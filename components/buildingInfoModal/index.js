@@ -29,6 +29,7 @@ class BuildingInfoModal extends Component {
       const content = contentTemp || [];
       const tunnelAccessiblity = this.props.buildingInfoData.tunnelAccessiblity ? 'Tunnel is accessible' : 'Tunnel is not accessible';
 
+      console.log(`${this.props.showBuildingInfoModal} rendered`);
       return (
         <Modal
           visible={this.props.showBuildingInfoModal}
@@ -69,7 +70,7 @@ class BuildingInfoModal extends Component {
               <TouchableOpacity
                 style={styles.button}
                 onPress={() => {
-                  return this.props.hideBuildingInfoModal();
+                  return this.props.setBuildingInfoModalVisibilityTo(false);
                 }}
               >
                 {/* TODO: check to see if building has floors, if so show button below, else show button to exit*/ }

@@ -39,11 +39,6 @@ export default class IndoorDirections extends Component {
     });
   };
 
-  hideBuildingInfoModal() {
-    this.props.hideBuildingInfoModal();
-  }
-
-
   /**
    * Exits Interior mode to return to external map view
    */
@@ -130,27 +125,21 @@ export default class IndoorDirections extends Component {
         <View style={styles.buildingInfoButtonContainer}>
           <TouchableOpacity
             onPress={() => {
-              this.setState({
-                showBuildingInfoModal: true
-              });
+              return this.props.setBuildingInfoModalVisibilityTo(true);
             }}
           >
             <Image style={styles.buildingInfoButton} source={info} />
           </TouchableOpacity>
         </View>
 
-        { this.state.showBuildingInfoModal
-        && (
         <View style={styles.buildingInfoModalContainer}>
           {/* Building info pop-up*/}
           <BuildingInfoModal
             showBuildingInfoModal={this.props.showBuildingInfoModal}
-            hideBuildingInfoModal={this.props.hideBuildingInfoModal}
+            setBuildingInfoModalVisibilityTo={this.props.setBuildingInfoModalVisibilityTo}
             buildingInfoData={this.props.buildingInfoData}
           />
         </View>
-        )}
-
 
       </View>
 

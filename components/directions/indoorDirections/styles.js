@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
     opacity: 0.85,
   },
   buildingInfoButtonContainer: {
-    bottom: 125,
+    bottom: 135,
     right: 10,
     position: 'absolute',
     zIndex: 200

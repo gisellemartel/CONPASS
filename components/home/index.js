@@ -40,50 +40,7 @@ class Home extends Component {
     };
     this.turnInteriorModeOn = this.turnInteriorModeOn.bind(this);
     this.turnInteriorModeOff = this.turnInteriorModeOff.bind(this);
-    this.hideBuildingInfoModal = this.hideBuildingInfoModal.bind(this);
-  }
-
-
-  /**
-   * updates region and passes the new region 'map' component.
-   * @param {object} newRegion - New region to be passed.
-   */
-  updateRegion = (newRegion) => {
-    this.setState({
-      presetRegion: {
-        latitude: newRegion.latitude,
-        longitude: newRegion.longitude,
-        latitudeDelta: 0.05,
-        longitudeDelta: 0.05
-      }
-    });
-    this.setState({
-      region: {
-        latitude: newRegion.latitude,
-        longitude: newRegion.longitude,
-        latitudeDelta: 0.05,
-        longitudeDelta: 0.05
-      }
-    });
-  };
-
-  updateRegionCloser = (newRegion) => {
-    this.setState({
-      presetRegion: {
-        latitude: newRegion.latitude,
-        longitude: newRegion.longitude,
-        latitudeDelta: 0.001,
-        longitudeDelta: 0.001
-      }
-    });
-    this.setState({
-      region: {
-        latitude: newRegion.latitude,
-        longitude: newRegion.longitude,
-        latitudeDelta: 0.001,
-        longitudeDelta: 0.001
-      }
-    });
+    this.setBuildingInfoModalVisibilityTo = this.setBuildingInfoModalVisibilityTo.bind(this);
   }
 
   /**
@@ -96,32 +53,12 @@ class Home extends Component {
   };
 
   /**
-   * Changes visibility of directions search menus depending on context
-   * @param {*} showDirectionsMenu - desired visibility boolean
-   */
-  changeVisibilityTo = (showDirectionsMenu) => {
-    this.setState({
-      showDirectionsMenu
-    });
-  };
-
-  /**
    * Changes visibility of campus toggle when search bar is focused/blurred
    * @param {*} showCampusToggle - desired visibility boolean
    */
   setCampusToggleVisibility = (showCampusToggle) => {
     this.setState({
       showCampusToggle
-    });
-  };
-
-  /**
-   * updates coordinates and passes new coordinates 'Map' component.
-   * @param {object} newCoordinates - New coordinates to be passed.
-   */
-  updateCoordinates = (newCoordinates) => {
-    this.setState({
-      coordinates: newCoordinates
     });
   };
 
@@ -161,12 +98,6 @@ class Home extends Component {
     this.setState({ nearbyMarkers: markers });
   }
 
-  updateCurrentBuildingAddress = (childCurrentBuilding) => {
-    this.setState({
-      currentBuildingAddress: childCurrentBuilding
-    });
-  };
-
   /**
    * gets the curretly tapped on building information from 'map' component
    * @param {object} buildingInfoData - New coordinates to be passed.
@@ -181,10 +112,83 @@ class Home extends Component {
 
   /**
    * sets the visibility of showing the building information
+   * @param {boolean} visibility
    */
-  hideBuildingInfoModal() {
+  setBuildingInfoModalVisibilityTo(visibility) {
     this.setState({
-      showBuildingInfoModal: false
+      showBuildingInfoModal: visibility
+    });
+
+    console.log(this.state.showBuildingInfoModal);
+  }
+
+  /**
+   * Changes visibility of directions search menus depending on context
+   * @param {*} showDirectionsMenu - desired visibility boolean
+   */
+  changeVisibilityTo = (showDirectionsMenu) => {
+    this.setState({
+      showDirectionsMenu
+    });
+  };
+
+  updateCurrentBuildingAddress = (childCurrentBuilding) => {
+    this.setState({
+      currentBuildingAddress: childCurrentBuilding
+    });
+  };
+
+  /**
+   * updates coordinates and passes new coordinates 'Map' component.
+   * @param {object} newCoordinates - New coordinates to be passed.
+   */
+  updateCoordinates = (newCoordinates) => {
+    this.setState({
+      coordinates: newCoordinates
+    });
+  };
+
+
+  /**
+   * updates region and passes the new region 'map' component.
+   * @param {object} newRegion - New region to be passed.
+   */
+  updateRegion = (newRegion) => {
+    this.setState({
+      presetRegion: {
+        latitude: newRegion.latitude,
+        longitude: newRegion.longitude,
+        latitudeDelta: 0.05,
+        longitudeDelta: 0.05
+      }
+    });
+    this.setState({
+      region: {
+        latitude: newRegion.latitude,
+        longitude: newRegion.longitude,
+        latitudeDelta: 0.05,
+        longitudeDelta: 0.05
+      }
+    });
+  };
+
+
+  updateRegionCloser = (newRegion) => {
+    this.setState({
+      presetRegion: {
+        latitude: newRegion.latitude,
+        longitude: newRegion.longitude,
+        latitudeDelta: 0.001,
+        longitudeDelta: 0.001
+      }
+    });
+    this.setState({
+      region: {
+        latitude: newRegion.latitude,
+        longitude: newRegion.longitude,
+        latitudeDelta: 0.001,
+        longitudeDelta: 0.001
+      }
     });
   }
 
@@ -271,7 +275,7 @@ class Home extends Component {
           <IndoorDirections
             building={this.state.building}
             showBuildingInfoModal={this.state.showBuildingInfoModal}
-            hideBuildingInfoModal={this.hideBuildingInfoModal}
+            setBuildingInfoModalVisibilityTo={this.setBuildingInfoModalVisibilityTo}
             turnInteriorModeOff={this.turnInteriorModeOff}
             buildingInfoData={this.state.buildingInfoData}
           />
