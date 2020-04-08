@@ -1,10 +1,14 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
+
+const fullWidth = Dimensions.get('window').width;
+const fullHeight = Dimensions.get('window').height;
 
 const styles = StyleSheet.create({
   container: {
     backgroundColor: 'white',
-    bottom: 0,
-    width: '95%',
+    bottom: '35%',
+    width: fullWidth * 0.92,
+    left: fullWidth * 0.04,
     borderRadius: 10,
     margin: 0,
     height: 270,
@@ -21,8 +25,8 @@ const styles = StyleSheet.create({
   },
   accessiblity: {
     position: 'absolute',
-    left: 3,
-    top: 4
+    left: 20,
+    top: 8
   },
   slide: {
     backgroundColor: '#9CD3D7',
@@ -34,8 +38,9 @@ const styles = StyleSheet.create({
     position: 'absolute',
   },
   information: {
+    padding: 5,
     bottom: -105,
-    left: -10,
+    left: -20,
     fontSize: 300,
   },
   image: {
@@ -52,17 +57,17 @@ const styles = StyleSheet.create({
   },
   buildingName: {
     left: 20,
-    padding: 0,
+    padding: 10,
     fontSize: 20,
     fontWeight: 'bold'
   },
   tunnelAccessiblity: {
     left: 20,
-    padding: 0
+    paddingLeft: 10
   },
   address: {
     left: 20,
-    padding: 0
+    padding: 10
   },
   buttonContainer: {
     height: 180,
@@ -70,7 +75,18 @@ const styles = StyleSheet.create({
   name: {
     color: 'white',
 
-  }
+  },
+  modalBackground: {
+    width: fullWidth,
+    height: fullHeight,
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0,
+    backgroundColor: 'black',
+    opacity: 0.8,
+  },
 });
 
 export default styles;

@@ -4,12 +4,17 @@ import { Feather } from '@expo/vector-icons';
 import styles from './styles';
 
 
-export default class BackButton extends Component {
+export default class CloseModalButton extends Component {
+  hideBuildingInfoModal() {
+    this.props.hideBuildingInfoModal();
+  }
+
+
   render() {
     return (
       <View style={styles.container}>
         <TouchableOpacity onPress={() => {
-          this.props.changeSuggestionVisibility(false);
+          return this.props.hideBuildingInfoModal();
         }}
         >
           <Feather name="x-circle" size={30} color="black" />

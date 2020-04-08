@@ -9,7 +9,6 @@ import PathPolyline from '../pathPolyline';
 import OutdoorDirections from '../directions/outdoorDirections';
 import IndoorDirections from '../directions/indoorDirections';
 import styles from './styles';
-import Suggestions from '../suggestions';
 
 
 class Home extends Component {
@@ -17,7 +16,6 @@ class Home extends Component {
     super(props);
     this.state = {
       // Set Initial region of the map
-      value: '',
       coordinates: [],
       region: {
         latitude: '',
@@ -37,10 +35,12 @@ class Home extends Component {
       currentBuildingAddress: '',
       showDirectionsMenu: false,
       showCampusToggle: false,
-      showSuggestionsList: false
+      buildingInfoData: {},
+      showBuildingInfoModal: false
     };
-    this.interiorModeOn = this.interiorModeOn.bind(this);
-    this.interiorModeOff = this.interiorModeOff.bind(this);
+    this.turnInteriorModeOn = this.turnInteriorModeOn.bind(this);
+    this.turnInteriorModeOff = this.turnInteriorModeOff.bind(this);
+    this.hideBuildingInfoModal = this.hideBuildingInfoModal.bind(this);
   }
 
 
@@ -169,24 +169,25 @@ class Home extends Component {
 
   /**
    * gets the curretly tapped on building information from 'map' component
-   * @param {object} suggestion - New coordinates to be passed.
+   * @param {object} buildingInfoData - New coordinates to be passed.
    */
-  getSuggestions = (suggestion) => {
+  getBuildingInfoData = (buildingInfoData) => {
     this.setState({
-      suggestion,
-      showSuggestionsList: true
+      buildingInfoData,
+      showBuildingInfoModal: true
     });
   }
 
+
   /**
    * sets the visibility of showing the building information
-   * @param {object} suggestion - New coordinates to be passed.
    */
-  setSuggestionVisibility = () => {
+  hideBuildingInfoModal() {
     this.setState({
-      showSuggestionsList: false
+      showBuildingInfoModal: false
     });
   }
+
 
   /**
    *
@@ -195,7 +196,7 @@ class Home extends Component {
    * Activates interior mode when building is clicked on
    * Uses the building data to render floors
    */
-  interiorModeOn(building, region) {
+  turnInteriorModeOn(building, region) {
     this.setState({
       region,
       interiorMode: true,
@@ -207,7 +208,7 @@ class Home extends Component {
    *
    * Deactivates interior mode to return to outdoor map view
    */
-  interiorModeOff() {
+  turnInteriorModeOff() {
     this.setState({
       interiorMode: false,
       building: null
@@ -221,13 +222,13 @@ class Home extends Component {
         <TheMap
           updatedCoordinates={this.state.coordinates}
           encryptedLine={this.state.encryptedLine}
-          interiorModeOn={this.interiorModeOn}
+          turnInteriorModeOn={this.turnInteriorModeOn}
           updatedRegion={this.state.presetRegion}
           polylineVisibility={this.state.showDirectionsMenu}
           getDestinationIfSet={this.getDestinationIfSet}
           updateRegionCloser={this.updateRegionCloser}
           nearbyMarkers={this.state.nearbyMarkers}
-          getSuggestions={this.getSuggestions}
+          getBuildingInfoData={this.getBuildingInfoData}
         />
         {!this.state.showDirectionsMenu && (
         <MapSearchBar
@@ -252,7 +253,6 @@ class Home extends Component {
         />
         <PathPolyline
           changeVisibilityTo={this.changeVisibilityTo}
-          newValue={this.state.value}
         />
         {this.state.showDirectionsMenu && (
           <OutdoorDirections
@@ -270,15 +270,11 @@ class Home extends Component {
         && (
           <IndoorDirections
             building={this.state.building}
-            interiorModeOff={this.interiorModeOff}
+            showBuildingInfoModal={this.state.showBuildingInfoModal}
+            hideBuildingInfoModal={this.hideBuildingInfoModal}
+            turnInteriorModeOff={this.turnInteriorModeOff}
+            buildingInfoData={this.state.buildingInfoData}
           />
-        )}
-        {this.state.showSuggestionsList && this.state.interiorMode && (
-        <Suggestions
-          changeSuggestionVisibility={this.setSuggestionVisibility}
-          getDirections={this.setDirections}
-          suggestion={this.state.suggestion}
-        />
         )}
       </View>
     );

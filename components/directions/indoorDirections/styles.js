@@ -1,6 +1,7 @@
 import { StyleSheet, Dimensions } from 'react-native';
 
 const fullWidth = Dimensions.get('window').width;
+const fullHeight = Dimensions.get('window').height;
 
 const styles = StyleSheet.create({
   container: {
@@ -12,7 +13,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignContent: 'center',
     backgroundColor: 'white',
-    zIndex: 300
+    zIndex: 300,
   },
   descriptor: {
     position: 'relative',
@@ -57,12 +58,14 @@ const styles = StyleSheet.create({
     width: fullWidth * 0.84,
     left: fullWidth * 0.08,
     right: fullWidth * 0.08,
-    bottom: 50,
+    top: 150,
     borderBottomLeftRadius: 10,
     borderBottomRightRadius: 10,
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
     height: 165,
     position: 'absolute',
-    zIndex: 301
+    zIndex: 301,
   },
   searchContainer: {
     alignItems: 'center',
@@ -70,7 +73,22 @@ const styles = StyleSheet.create({
     left: 45,
     position: 'absolute',
     top: 0
-  }
+  },
+  buildingInfoModalContainer: {
+    top: 500,
+    position: 'absolute'
+  },
+  modalBackground: {
+    width: fullWidth,
+    height: fullHeight,
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0,
+    backgroundColor: 'black',
+    opacity: 0.8,
+  },
 });
 
 export default styles;

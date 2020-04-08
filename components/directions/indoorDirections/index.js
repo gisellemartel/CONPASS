@@ -1,24 +1,53 @@
 import React, { Component } from 'react';
-import { View, Image, Text } from 'react-native';
+import {
+  View, Image, Text, Modal
+} from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import CurrentLocation from '../currentLocation';
 import Destination from '../destination';
 import buildingLogo from '../../../assets/icons/building.png';
 import quit from '../../../assets/icons/quit.png';
-import MapSearchBar from '../../mapSearchBar';
-import DestinationSearchBar from '../destinationSearchBar';
+// import MapSearchBar from '../../mapSearchBar';
+// import DestinationSearchBar from '../destinationSearchBar';
 import BuildingView from '../../buildings/buildingView/index';
 import generateFloorPlan from '../../buildings/floorPlans/floorPlanRepository';
 import generateGraph from '../../../indoor_directions_modules/graphRepository';
 import BackButton from '../backButton';
+import BuildingInfoModal from '../../buildingInfoModal';
+import PathPolyline from '../../pathPolyline';
+
 import styles from './styles';
 
+
 export default class IndoorDirections extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      showDirectionsModal: false,
+    };
+  }
+
+
+  /**
+   * Changes visibility of directions search menus depending on context
+   * @param {*} showDirectionsMenu - desired visibility boolean
+   */
+  changeVisibilityTo = (showDirectionsModal) => {
+    this.setState({
+      showDirectionsModal
+    });
+  };
+
+  hideBuildingInfoModal() {
+    this.props.hideBuildingInfoModal();
+  }
+
+
   /**
    * Exits Interior mode to return to external map view
    */
-  interiorModeOff() {
-    this.props.interiorModeOff();
+  turnInteriorModeOff() {
+    this.props.turnInteriorModeOff();
   }
 
   /**
@@ -40,12 +69,31 @@ export default class IndoorDirections extends Component {
     return name;
   }
 
+
   render() {
     const { building } = this.props;
     const buildingFloorPlans = generateFloorPlan(building.building);
     const adjacencyGraphs = generateGraph(building.building);
     return (
       <View style={styles.container}>
+        {/* Indoor directions search view */}
+        <Modal
+          visible={this.state.showDirectionsModal}
+          animationType="fade"
+          transparent
+        >
+          <View style={styles.modalBackground} />
+          <View style={styles.directionsContainer}>
+            <BackButton
+              changeVisibilityTo={this.changeVisibilityTo}
+              coordinateCallback={this.updateCoordinates}
+            />
+            <CurrentLocation />
+            <Destination />
+          </View>
+        </Modal>
+
+
         {/* Top screen building descriptor */}
         <View style={styles.descriptor}>
           <View style={styles.buildingLogoContainer}>
@@ -58,7 +106,7 @@ export default class IndoorDirections extends Component {
           </View>
           <TouchableOpacity
             style={styles.quitInterior}
-            onPress={() => { return this.props.interiorModeOff(); }}
+            onPress={() => { return this.props.turnInteriorModeOff(); }}
           >
             <Image style={styles.quitButton} source={quit} />
           </TouchableOpacity>
@@ -68,16 +116,28 @@ export default class IndoorDirections extends Component {
             building={building}
             buildingFloorPlans={buildingFloorPlans}
             adjacencyGraphs={adjacencyGraphs}
-            interiorModeOff={this.props.interiorModeOff}
+            turnInteriorModeOff={this.props.turnInteriorModeOff}
           />
         </View>
-        <View style={styles.directionsContainer}>
-          <BackButton
-            changeVisibilityTo={this.props.changeVisibilityTo}
-            coordinateCallback={this.updateCoordinates}
+
+        {/* Navigation button*/}
+        <PathPolyline
+          changeVisibilityTo={this.changeVisibilityTo}
+        />
+
+        {/* Building info button*/}
+        <TouchableOpacity onPress={() => {
+
+        }}
+        />
+
+        <View style={styles.buildingInfoModalContainer}>
+          {/* Building info pop-up*/}
+          <BuildingInfoModal
+            showBuildingInfoModal={this.props.showBuildingInfoModal}
+            hideBuildingInfoModal={this.props.hideBuildingInfoModal}
+            buildingInfoData={this.props.buildingInfoData}
           />
-          <CurrentLocation />
-          <Destination />
         </View>
 
       </View>

@@ -12,7 +12,7 @@ class BuildingNoFloors extends Component {
         <TouchableOpacity
           style={styles.quitButton}
           onPress={() => {
-            return this.props.interiorModeOff();
+            return this.props.turnInteriorModeOff();
           }}
         >
           <Text>

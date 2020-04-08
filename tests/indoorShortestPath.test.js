@@ -209,14 +209,14 @@ it('Should convert the finish node to a proper SVG polyline', () => {
 it('Should give directions for a single floor', () => {
   const building = { building: 'T', buildingName: 'Test Building' };
   const floors = [{ floor: 1, component: null }, { floor: 2, component: null }];
-  const interiorModeOff = jest.fn();
+  const turnInteriorModeOff = jest.fn();
   const buildingWithFloorsComponent = renderer.create(
     <BuildingWithFloors
       building={building}
       buildingFloorPlans={floors}
       floor={floors[0]}
       adjacencyGraphs={mockGraphs}
-      interiorModeOff={interiorModeOff}
+      turnInteriorModeOff={turnInteriorModeOff}
     />
   ).getInstance();
   buildingWithFloorsComponent.dijkstraHandler('101', '107');
@@ -228,14 +228,14 @@ it('Should give directions for a single floor', () => {
 it('Should give directions for multiple floors', () => {
   const building = { building: 'T', buildingName: 'Test Building' };
   const floors = [{ floor: 1, component: null }, { floor: 2, component: null }];
-  const interiorModeOff = jest.fn();
+  const turnInteriorModeOff = jest.fn();
   const buildingWithFloorsComponent = renderer.create(
     <BuildingWithFloors
       building={building}
       buildingFloorPlans={floors}
       floor={floors[0]}
       adjacencyGraphs={mockGraphs}
-      interiorModeOff={interiorModeOff}
+      turnInteriorModeOff={turnInteriorModeOff}
     />
   ).getInstance();
   buildingWithFloorsComponent.dijkstraHandler('101', '203');
