@@ -198,7 +198,10 @@ export default class DashboardScreen extends Component {
        this.props.navigation.navigate('FetchScreen');
      }
 
-
+     /**
+     * @param {String} description - A location to go to
+     * Navigates to the home component
+     */
      sendDirections = (description) => {
        if (!description) {
          alert('There is no address or description for this event.');
