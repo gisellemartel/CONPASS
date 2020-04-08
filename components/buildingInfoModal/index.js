@@ -28,8 +28,6 @@ class BuildingInfoModal extends Component {
       const contentTemp = this.props.buildingInfoData.placesToGo || this.props.buildingInfoData.image;
       const content = contentTemp || [];
       const tunnelAccessiblity = this.props.buildingInfoData.tunnelAccessiblity ? 'Tunnel is accessible' : 'Tunnel is not accessible';
-
-      console.log(`${this.props.showBuildingInfoModal} rendered`);
       return (
         <Modal
           visible={this.props.showBuildingInfoModal}

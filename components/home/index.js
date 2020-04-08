@@ -118,8 +118,6 @@ class Home extends Component {
     this.setState({
       showBuildingInfoModal: visibility
     });
-
-    console.log(this.state.showBuildingInfoModal);
   }
 
   /**
