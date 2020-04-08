@@ -111,13 +111,11 @@ export default class DashboardScreen extends Component {
     const notifyArray = [];
     events.items.forEach((element) => {
       const date = new Date(element.start.dateTime);
-      if (element.summary) {
-        if (element.summary.includes('conpass') && date.getTime() > (new Date()).getTime()) {
-          notifyArray.push({
-            startDate: element.start.dateTime,
-            summary: element.summary,
-          });
-        }
+      if (element.summary.includes('conpass') && date.getTime() > (new Date()).getTime()) {
+        notifyArray.push({
+          startDate: element.start.dateTime,
+          summary: element.summary,
+        });
       }
     });
     return notifyArray;
