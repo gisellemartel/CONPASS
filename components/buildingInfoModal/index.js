@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import {
-  View, Text, Image, Modal
+  View, Text, Image, Modal, TouchableOpacity
 } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
 import { FontAwesome } from '@expo/vector-icons';
 import styles from './styles';
-import CloseModalButton from './closeModalButton';
 
 class BuildingInfoModal extends Component {
     renderItem = ({ item }) => {
@@ -38,35 +37,44 @@ class BuildingInfoModal extends Component {
         >
           <View style={styles.modalBackground} />
           <View style={styles.container}>
-            <CloseModalButton
-              hideBuildingInfoModal={this.props.hideBuildingInfoModal}
-              style={styles.button}
-            />
-            <View style={styles.accessiblity}>
-              <Icon accessiblity={this.props.buildingInfoData.accessiblity} />
+
+            <View style={styles.infoBox}>
+              <View style={styles.accessiblity}>
+                <Icon accessiblity={this.props.buildingInfoData.accessiblity} />
+              </View>
+              <View style={{ paddingLeft: 10 }}>
+                <Text style={styles.buildingName}>
+                  {this.props.buildingInfoData.buildingName}
+                  (
+                  {this.props.buildingInfoData.building}
+                  )
+                </Text>
+                <Text style={styles.tunnelAccessiblity}>{tunnelAccessiblity}</Text>
+                <Text style={styles.address}>{this.props.buildingInfoData.address}</Text>
+              </View>
+              <Carousel
+                data={content}
+                extraData={content}
+                renderItem={this.renderItem}
+                keyExtractor={(item) => { return `${item.name}-${item.id}-${item.placeID}`; }}
+                horizontal
+                itemWidth={300}
+                sliderWidth={375}
+                window
+                containerCustomStyle={styles.carousel}
+              />
             </View>
-            <View style={{ paddingLeft: 10 }}>
-              <Text style={styles.buildingName}>
-                {this.props.buildingInfoData.buildingName}
-                (
-                {this.props.buildingInfoData.building}
-                )
-              </Text>
-              <Text style={styles.tunnelAccessiblity}>{tunnelAccessiblity}</Text>
-              <Text style={styles.address}>{this.props.buildingInfoData.address}</Text>
+            <View style={styles.buttonContainer}>
+              <TouchableOpacity onPress={() => {
+                return this.props.hideBuildingInfoModal();
+              }}
+              >
+                <Text style={styles.textStyle}>Interior View</Text>
+              </TouchableOpacity>
             </View>
-            <Carousel
-              data={content}
-              extraData={content}
-              renderItem={this.renderItem}
-              keyExtractor={(item) => { return `${item.name}-${item.id}-${item.placeID}`; }}
-              horizontal
-              itemWidth={300}
-              sliderWidth={375}
-              window
-              containerCustomStyle={styles.carousel}
-            />
           </View>
+
+
         </Modal>
 
       );

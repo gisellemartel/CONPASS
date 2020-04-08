@@ -5,6 +5,11 @@ const fullHeight = Dimensions.get('window').height;
 
 const styles = StyleSheet.create({
   container: {
+    width: fullWidth,
+    height: fullHeight,
+    position: 'absolute',
+  },
+  infoBox: {
     backgroundColor: 'white',
     bottom: '35%',
     width: fullWidth * 0.92,
@@ -69,9 +74,6 @@ const styles = StyleSheet.create({
     left: 20,
     padding: 10
   },
-  buttonContainer: {
-    height: 180,
-  },
   name: {
     color: 'white',
 
@@ -85,8 +87,22 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     backgroundColor: 'black',
-    opacity: 0.8,
+    opacity: 0.9,
   },
+  buttonContainer: {
+    backgroundColor: 'white',
+    width: 100,
+    position: 'absolute',
+    bottom: 100,
+    left: '50%',
+    zIndex: 400,
+  },
+  textStyle: {
+    color: '#1a1a1a',
+    fontWeight: '400',
+    fontSize: 18,
+    justifyContent: 'center'
+  }
 });
 
 export default styles;
