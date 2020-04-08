@@ -15,6 +15,7 @@ import generateGraph from '../../../indoor_directions_modules/graphRepository';
 import BackButton from '../backButton';
 import BuildingInfoModal from '../../buildingInfoModal';
 import PathPolyline from '../../pathPolyline';
+import info from '../../../assets/icons/info.png';
 
 import styles from './styles';
 
@@ -126,11 +127,20 @@ export default class IndoorDirections extends Component {
         />
 
         {/* Building info button*/}
-        <TouchableOpacity onPress={() => {
+        <View style={styles.buildingInfoButtonContainer}>
+          <TouchableOpacity
+            onPress={() => {
+              this.setState({
+                showBuildingInfoModal: true
+              });
+            }}
+          >
+            <Image style={styles.buildingInfoButton} source={info} />
+          </TouchableOpacity>
+        </View>
 
-        }}
-        />
-
+        { this.state.showBuildingInfoModal
+        && (
         <View style={styles.buildingInfoModalContainer}>
           {/* Building info pop-up*/}
           <BuildingInfoModal
@@ -139,6 +149,8 @@ export default class IndoorDirections extends Component {
             buildingInfoData={this.props.buildingInfoData}
           />
         </View>
+        )}
+
 
       </View>
 

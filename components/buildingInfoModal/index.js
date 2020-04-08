@@ -64,6 +64,7 @@ class BuildingInfoModal extends Component {
                 containerCustomStyle={styles.carousel}
               />
             </View>
+
             <View style={styles.buttonContainer}>
               <TouchableOpacity
                 style={styles.button}
@@ -71,6 +72,7 @@ class BuildingInfoModal extends Component {
                   return this.props.hideBuildingInfoModal();
                 }}
               >
+                {/* TODO: check to see if building has floors, if so show button below, else show button to exit*/ }
                 <Text style={styles.textStyle}>View Interior Mode</Text>
               </TouchableOpacity>
             </View>

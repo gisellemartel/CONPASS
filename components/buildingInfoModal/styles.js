@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
     right: 0,
     bottom: 0,
     left: 0,
-    backgroundColor: 'black',
+    backgroundColor: 'white',
     opacity: 0.85,
   },
   buttonContainer: {
@@ -99,14 +99,18 @@ const styles = StyleSheet.create({
     bottom: 250
   },
   button: {
-    backgroundColor: 'white',
     position: 'relative',
     width: '40%',
     height: 50,
     borderRadius: 10,
     margin: 1,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    opacity: 0.9,
+    borderWidth: 1,
+    borderColor: 'black',
+    borderStyle: 'solid',
+    backgroundColor: '#ffffff',
   },
   textStyle: {
     color: '#1a1a1a',

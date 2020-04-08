@@ -86,9 +86,26 @@ const styles = StyleSheet.create({
     right: 0,
     bottom: 0,
     left: 0,
-    backgroundColor: 'black',
-    opacity: 0.8,
+    backgroundColor: 'white',
+    opacity: 0.85,
   },
+  buildingInfoButtonContainer: {
+    bottom: 125,
+    right: 10,
+    position: 'absolute',
+    zIndex: 200
+  },
+  buildingInfoButton: {
+    resizeMode: 'contain',
+    borderWidth: 1,
+    borderColor: 'rgba(0,0,0,0.2)',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 50,
+    height: 50,
+    borderRadius: 50,
+    backgroundColor: 'white'
+  }
 });
 
 export default styles;
