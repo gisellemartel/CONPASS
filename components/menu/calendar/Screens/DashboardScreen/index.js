@@ -272,7 +272,7 @@ export default class DashboardScreen extends Component {
                `${item.startTime}  -  ${item.endTime}\n${item.description}\n${item.address}`,
                [
                  { text: 'Cancel' },
-                 { text: 'Get Directions', onPress: () => { description === '' ? this.sendDirections(address.split(',')[0]) : this.sendDirections(description); } },
+                 { text: 'Get Directions', onPress: () => { description === '' ? this.sendDirections(address.split(',')[0]) : this.sendDirections(description.split('\n')[0]); } },
                ],
                { cancelable: false });
            }}
