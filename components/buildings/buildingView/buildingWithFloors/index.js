@@ -86,7 +86,8 @@ class BuildingWithFloors extends Component {
   }
 
   getFloorWaypoint(startGraph, finishGraph, startNodeId, finishNodeId) {
-    const transportPriorityList = [/^staircase/i, /^elevator/i];
+    const transportPriorityList = [/^escalator/, /^staircase/i, /^elevator/i];
+    const disabledTransportPriorityList = [/^elevator/i];
     for (let i = 0; i < transportPriorityList.length; i++) {
       const transportList = Object.keys(startGraph).filter((node) => { return transportPriorityList[i].test(node); });
       if (transportList.length === 1) {
