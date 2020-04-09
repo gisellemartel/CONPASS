@@ -8,7 +8,7 @@ import Svg, {
 } from 'react-native-svg';
 import styles from './styles';
 import dijkstraPathfinder from '../../../../indoor_directions_modules/dijkstraPathfinder';
-import pointToLine from '../../../../indoor_directions_modules/pointToLine';
+import floorWaypointFinder from '../../../../indoor_directions_modules/floorWaypointFinder';
 
 
 class BuildingWithFloors extends Component {
@@ -34,8 +34,7 @@ class BuildingWithFloors extends Component {
       floor: this.props.buildingFloorPlans[index]
     });
 
-    this.dijkstraHandler('831', '937');
-    console.log(pointToLine.pointToLineCalculator(this.props.adjacencyGraphs[8].staircase_1, [this.props.adjacencyGraphs[8][867], this.props.adjacencyGraphs[9][967]]));
+    this.dijkstraHandler('817', '929');
   }
 
   /**
@@ -96,10 +95,10 @@ class BuildingWithFloors extends Component {
       if (transportList.length > 1) {
         let waypoint = {
           id: transportList[0],
-          distance: pointToLine.pointToLineCalculator(startGraph[transportList[0]], [startGraph[startNodeId], finishGraph[finishNodeId]])
+          distance: floorWaypointFinder.distanceToWaypointCalculator(startGraph[transportList[0]], startGraph[startNodeId], finishGraph[finishNodeId])
         };
         for (let j = 1; j < transportList.length; j++) {
-          const currentDistance = pointToLine.pointToLineCalculator(startGraph[transportList[j]], [startGraph[startNodeId], finishGraph[finishNodeId]]);
+          const currentDistance = floorWaypointFinder.distanceToWaypointCalculator(startGraph[transportList[j]], startGraph[startNodeId], finishGraph[finishNodeId]);
           if (currentDistance < waypoint.distance) {
             waypoint = {
               id: transportList[j],
