@@ -8,6 +8,7 @@ import Svg, {
 } from 'react-native-svg';
 import styles from './styles';
 import dijkstraPathfinder from '../../../../indoor_directions_modules/dijkstraPathfinder';
+import pointToLine from '../../../../indoor_directions_modules/pointToLine';
 
 
 class BuildingWithFloors extends Component {
@@ -34,7 +35,7 @@ class BuildingWithFloors extends Component {
     });
 
     this.dijkstraHandler('Male Bathroom', '967');
-    console.log(this.getFloorWaypoint(this.props.adjacencyGraphs[8], this.props.adjacencyGraphs[9], '867', '967'));
+    console.log(pointToLine.pointToLineCalculator(this.props.adjacencyGraphs[8].staircase_1, [this.props.adjacencyGraphs[8][867], this.props.adjacencyGraphs[9][967]]));
   }
 
   /**
