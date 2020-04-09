@@ -34,7 +34,7 @@ class BuildingWithFloors extends Component {
       floor: this.props.buildingFloorPlans[index]
     });
 
-    this.dijkstraHandler('Male Bathroom', '967');
+    this.dijkstraHandler('831', '937');
     console.log(pointToLine.pointToLineCalculator(this.props.adjacencyGraphs[8].staircase_1, [this.props.adjacencyGraphs[8][867], this.props.adjacencyGraphs[9][967]]));
   }
 
@@ -76,19 +76,38 @@ class BuildingWithFloors extends Component {
         return [[{ start: startNodeId, finish: finishNodeId }], [this.props.adjacencyGraphs[startFloor]], [startFloor]];
       }
       // Staircase 1 as default is temporary. US4C will take care of finding the optimal meeting point.
-      return [[{ start: startNodeId, finish: 'staircase_1' }, { start: 'staircase_1', finish: finishNodeId }],
+      const floorTransitionWaypoint = this.getFloorWaypoint(
+        this.props.adjacencyGraphs[startFloor], this.props.adjacencyGraphs[finishFloor], startNodeId, finishNodeId
+      );
+      return [[{ start: startNodeId, finish: floorTransitionWaypoint }, { start: floorTransitionWaypoint, finish: finishNodeId }],
         [this.props.adjacencyGraphs[startFloor], this.props.adjacencyGraphs[finishFloor]],
         [startFloor, finishFloor]];
     }
     return [[], [], []];
   }
 
-  getFloorWaypoint(startGraph, endGraph, startNodeId, finishNodeId) {
-    const transportPriorityList = [/^escalator/i, /^staircase/i, /^elevator/i];
+  getFloorWaypoint(startGraph, finishGraph, startNodeId, finishNodeId) {
+    const transportPriorityList = [/^staircase/i, /^elevator/i];
     for (let i = 0; i < transportPriorityList.length; i++) {
-      const transportList = Object.entries(startGraph).filter((node) => { return transportPriorityList[i].test(node); });
-      if (transportList.length !== 0) {
-        return transportList[0][0];
+      const transportList = Object.keys(startGraph).filter((node) => { return transportPriorityList[i].test(node); });
+      if (transportList.length === 1) {
+        return transportList[0];
+      }
+      if (transportList.length > 1) {
+        let waypoint = {
+          id: transportList[0],
+          distance: pointToLine.pointToLineCalculator(startGraph[transportList[0]], [startGraph[startNodeId], finishGraph[finishNodeId]])
+        };
+        for (let j = 1; j < transportList.length; j++) {
+          const currentDistance = pointToLine.pointToLineCalculator(startGraph[transportList[j]], [startGraph[startNodeId], finishGraph[finishNodeId]]);
+          if (currentDistance < waypoint.distance) {
+            waypoint = {
+              id: transportList[j],
+              distance: currentDistance
+            };
+          }
+        }
+        return waypoint.id;
       }
     }
     return '';
