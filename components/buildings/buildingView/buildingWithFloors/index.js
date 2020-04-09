@@ -32,6 +32,8 @@ class BuildingWithFloors extends Component {
     this.setState({
       floor: this.props.buildingFloorPlans[index]
     });
+
+    this.props.changeCurrentFloorPlanTo(this.state.floor);
   }
 
   /**

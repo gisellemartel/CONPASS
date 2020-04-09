@@ -23,7 +23,13 @@ class BuildingView extends Component {
           initialZoom={1}
         >
           <View style={styles.indoorView}>
-            {floor && <BuildingWithFloors floor={floor} {...this.props} /> }
+            {floor && (
+            <BuildingWithFloors
+              floor={floor}
+              changeCurrentFloorPlanTo={this.props.changeCurrentFloorPlanTo}
+              {...this.props}
+            />
+            ) }
           </View>
         </ReactNativeZoomableView>
       </View>

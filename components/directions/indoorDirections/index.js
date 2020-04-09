@@ -24,9 +24,20 @@ export default class IndoorDirections extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      currentBuilding: this.props.building,
+      currentBuildingFloorPlans: [],
+      currentFloorPlan: null,
       showDirectionsModal: false,
-      drawPath: true
+      drawPath: true,
     };
+
+    if (this.state.currentBuilding) {
+      this.state.currentBuildingFloorPlans = generateFloorPlan(this.state.currentBuilding.building);
+
+      if (this.state.currentBuildingFloorPlans) {
+        [this.state.currentFloorPlan] = this.state.currentBuildingFloorPlans;
+      }
+    }
   }
 
 
@@ -39,6 +50,16 @@ export default class IndoorDirections extends Component {
       showDirectionsModal
     });
   };
+
+  /**
+   * changes current floor plan to the one selected in BuildingView component
+   * @param {object} - floorPlan to switch to
+   */
+  changeCurrentFloorPlanTo = (floorPlan) => {
+    this.setState({
+      currentFloorPlan: floorPlan
+    });
+  }
 
   /**
    * updates a draw path boolean. Draws a path when true
@@ -77,10 +98,11 @@ export default class IndoorDirections extends Component {
 
 
   render() {
-    const { building } = this.props;
-    const buildingFloorPlans = generateFloorPlan(building.building);
-    const adjacencyGraphs = generateGraph(building.building);
-    const hasInteriorMode = buildingFloorPlans[0];
+    const { currentBuilding } = this.state;
+    const { currentBuildingFloorPlans } = this.state;
+    const adjacencyGraphs = generateGraph(currentBuilding.building);
+    const hasInteriorMode = !!currentBuildingFloorPlans;
+
     return (
       <View style={styles.container}>
 
@@ -92,7 +114,7 @@ export default class IndoorDirections extends Component {
           </View>
           <View>
             <Text style={styles.buildingName}>
-              {this.limitNameLength(building.buildingName)}
+              {this.limitNameLength(currentBuilding.buildingName)}
             </Text>
           </View>
           <TouchableOpacity
@@ -106,10 +128,11 @@ export default class IndoorDirections extends Component {
 
         <View style={styles.buildingViewContainer}>
           <BuildingView
-            building={building}
-            buildingFloorPlans={buildingFloorPlans}
+            building={currentBuilding}
+            buildingFloorPlans={currentBuildingFloorPlans}
             adjacencyGraphs={adjacencyGraphs}
             turnInteriorModeOff={this.props.turnInteriorModeOff}
+            changeCurrentFloorPlanTo={this.changeCurrentFloorPlanTo}
           />
         </View>
 
@@ -149,7 +172,10 @@ export default class IndoorDirections extends Component {
             <CurrentLocation />
             <Destination />
 
-            <IndoorMapSearchBar />
+            <IndoorMapSearchBar
+              currentBuilding={currentBuilding}
+              currentFloor={this.state.currentFloorPlan}
+            />
             {/* <DestinationSearchBar
               drawPath={this.state.drawPath}
               getRegionFromSearch={this.props.getRegionFromSearch}
