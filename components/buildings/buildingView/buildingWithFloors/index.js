@@ -34,6 +34,7 @@ class BuildingWithFloors extends Component {
     });
 
     this.dijkstraHandler('Male Bathroom', '967');
+    console.log(this.getFloorWaypoint(this.props.adjacencyGraphs[8], this.props.adjacencyGraphs[9], '867', '967'));
   }
 
   /**
@@ -79,6 +80,17 @@ class BuildingWithFloors extends Component {
         [startFloor, finishFloor]];
     }
     return [[], [], []];
+  }
+
+  getFloorWaypoint(startGraph, endGraph, startNodeId, finishNodeId) {
+    const transportPriorityList = [/^escalator/i, /^staircase/i, /^elevator/i];
+    for (let i = 0; i < transportPriorityList.length; i++) {
+      const transportList = Object.entries(startGraph).filter((node) => { return transportPriorityList[i].test(node); });
+      if (transportList.length !== 0) {
+        return transportList[0][0];
+      }
+    }
+    return '';
   }
 
   inputParser(input) {
