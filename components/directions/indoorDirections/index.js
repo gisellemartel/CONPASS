@@ -7,8 +7,8 @@ import CurrentLocation from '../currentLocation';
 import Destination from '../destination';
 import buildingLogo from '../../../assets/icons/building.png';
 import quit from '../../../assets/icons/quit.png';
-// import MapSearchBar from '../../mapSearchBar';
-// import DestinationSearchBar from '../destinationSearchBar';
+import IndoorMapSearchBar from '../indoorMapSearchBar';
+import DestinationSearchBar from '../destinationSearchBar';
 import BuildingView from '../../buildings/buildingView/index';
 import generateFloorPlan from '../../buildings/floorPlans/floorPlanRepository';
 import generateGraph from '../../../indoor_directions_modules/graphRepository';
@@ -25,6 +25,7 @@ export default class IndoorDirections extends Component {
     super(props);
     this.state = {
       showDirectionsModal: false,
+      drawPath: true
     };
   }
 
@@ -36,6 +37,15 @@ export default class IndoorDirections extends Component {
   changeVisibilityTo = (showDirectionsModal) => {
     this.setState({
       showDirectionsModal
+    });
+  };
+
+  /**
+   * updates a draw path boolean. Draws a path when true
+   */
+  drawPath = () => {
+    this.setState((prevState) => {
+      return { drawPath: !prevState.drawPath };
     });
   };
 
@@ -138,6 +148,16 @@ export default class IndoorDirections extends Component {
             />
             <CurrentLocation />
             <Destination />
+
+            <IndoorMapSearchBar />
+            {/* <DestinationSearchBar
+              drawPath={this.state.drawPath}
+              getRegionFromSearch={this.props.getRegionFromSearch}
+              getDestinationIfSet={this.props.getDestinationIfSet}
+              updatedRegion={this.state.region}
+              coordinateCallback={this.updateCoordinates}
+              getMode={this.state.mode}
+            /> */}
           </View>
         </Modal>
 
