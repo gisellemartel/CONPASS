@@ -63,7 +63,7 @@ export default class DashboardScreen extends Component {
     }
   }
 
- /**
+  /**
    *
    * @param {object} day - information of the current day
    * formats items with information of the day
@@ -111,11 +111,13 @@ export default class DashboardScreen extends Component {
     const notifyArray = [];
     events.items.forEach((element) => {
       const date = new Date(element.start.dateTime);
-      if (element.summary.includes('conpass') && date.getTime() > (new Date()).getTime()) {
-        notifyArray.push({
-          startDate: element.start.dateTime,
-          summary: element.summary,
-        });
+      if (element.summary) {
+        if (element.summary.includes('conpass') && date.getTime() > (new Date()).getTime()) {
+          notifyArray.push({
+            startDate: element.start.dateTime,
+            summary: element.summary,
+          });
+        }
       }
     });
     return notifyArray;
@@ -199,6 +201,36 @@ export default class DashboardScreen extends Component {
      }
 
      /**
+     * @param {String} description - A location to go to
+     * Navigates to the home component
+     */
+     sendDirections = (description) => {
+       if (!description) {
+         alert('There is no address or description for this event.');
+         return;
+       }
+       this.props.navigation.navigate('HomeScreen', { description });
+       return 'address sent';
+     }
+
+     /**
+     * @param {integer} number - Time in minutes
+     * Sets the minutes in which the user wants to get notfications before
+     */
+     rowHasChanged(r1, r2) {
+       return r1.name !== r2.name;
+     }
+
+     /**
+     * @param {integer} time - time of the event
+     * restructure time in a certain format
+     */
+     timeToString(time) {
+       const date = new Date(time);
+       return date.toISOString().split('T')[0];
+     }
+
+     /**
      * @param {object} events - All the events the user has
      * Structures all the events the user has
      */
@@ -212,7 +244,7 @@ export default class DashboardScreen extends Component {
              startTime: event.start.dateTime != null ? event.start.dateTime : event.start.date,
              endTime: event.end.dateTime != null ? event.end.dateTime : event.end.date,
              description: event.description != null ? event.description : '',
-             address: ''
+             address: event.location != null ? event.location : ''
            }
          );
        });
@@ -224,37 +256,32 @@ export default class DashboardScreen extends Component {
        return tempArray;
      }
 
-     /**
-     * @param {integer} time - time of the event
-     * restructure time in a certain format
-     */
-     timeToString(time) {
-       const date = new Date(time);
-       return date.toISOString().split('T')[0];
-     }
-
-     /**
-     * @param {integer} number - Time in minutes
-     * Sets the minutes in which the user wants to get notfications before
-     */
-     rowHasChanged(r1, r2) {
-       return r1.name !== r2.name;
-     }
 
      /**
      * @param {object} item - information of item
      * present event in the agenda
      */
      renderItem(item) {
+       const { address } = item;
+       const { description } = item;
        return (
          <TouchableOpacity
            style={[styles.item, { height: item.height }]}
-           onPress={() => { return Alert.alert(item.name, `${item.startTime}  -  ${item.endTime}\n${item.description}\n${item.address}`); }}
+           onPress={() => {
+             return Alert.alert(item.name,
+               `${item.startTime}  -  ${item.endTime}\n${item.description}\n${item.address}`,
+               [
+                 { text: 'Cancel' },
+                 { text: 'Get Directions', onPress: () => { address ? this.sendDirections(address.split(',')[0]) : this.sendDirections(description.split('\n')[0]); } },
+               ],
+               { cancelable: false });
+           }}
          >
            <Text style={{ color: 'white' }}>{item.name}</Text>
          </TouchableOpacity>
        );
      }
+
 
      /**
      * add line to empty day
@@ -288,7 +315,7 @@ export default class DashboardScreen extends Component {
           <Agenda
             items={this.state.items}
             loadItemsForMonth={this.loadItems}
-            renderItem={this.renderItem}
+            renderItem={(item) => { return this.renderItem(item, this.props); }}
             renderEmptyDate={this.renderEmptyDate}
             rowHasChanged={this.rowHasChanged}
             onRefresh={() => {
