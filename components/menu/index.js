@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-  View, Text, Image, TouchableOpacity
+  View, Text, Image, TouchableOpacity, TouchableOpacityBase
 } from 'react-native';
 import i18n from 'i18n-js';
 import styles from './styles';
@@ -33,10 +33,15 @@ class Menu extends Component {
           <Text style={styles.option}>
             {i18n.t('accessibility')}
           </Text>
-        </View>
-        <Text style={styles.help}>
+        <TouchableOpacity onPress={() => {
+          return this.props.navigation.navigate('Help');
+        }}
+        >
+        <Text style={styles.option}>
           {i18n.t('help')}
         </Text>
+        </TouchableOpacity>
+        </View>
       </View>
     );
   }
