@@ -20,6 +20,7 @@ export default class IndoorMapSearchBar extends Component {
       predictions: [],
       currentBuilding: this.props.currentBuilding,
       currentFloor: this.props.currentFloor.floor,
+      currentAvailableRooms: [],
       startPoint: ''
     };
   }
@@ -31,11 +32,28 @@ export default class IndoorMapSearchBar extends Component {
     this.generatePredictionsForSearchBar();
   }
 
+  /**
+   * fetches all the possible predictions for start point for the current floor
+   */
   generatePredictionsForSearchBar = () => {
     const floors = fetchBuildingRooms(this.state.currentBuilding.building);
+    const rooms = floors[this.state.currentFloor];
+    const currentAvailableRooms = [];
 
-    this.setState((prevState) => {
-      return { predictions: floors[prevState.currentFloor] };
+    rooms.forEach((room) => {
+      const roomString = room.toString().replace('_', ' ');
+      const displayName = `${this.state.currentBuilding.displayName} ${roomString}`;
+
+      const currentAvailableRoom = {
+        id: room,
+        description: displayName
+      };
+
+      currentAvailableRooms.push(currentAvailableRoom);
+    });
+
+    this.setState({
+      currentAvailableRooms
     });
   }
 
@@ -44,10 +62,25 @@ export default class IndoorMapSearchBar extends Component {
    * @param {string} startPoint - Text input from search bar
    */
   onChangeText = (startPoint) => {
+    // TODO: logic for contextual search to go here
+    this.state.currentAvailableRooms.forEach((room) => {
+      // TODO use regex?
+      const query = room.toString().filter((substr) => { return substr === 'startPoint'; });
+
+      if (query) {
+        this.state.predictions.push(room);
+      }
+
+      console.log(this.state.predictions);
+    });
+
+
     this.setState({
       startPoint,
       showPredictions: true,
     });
+
+    console.log(this.state.predictions);
   }
 
   render() {
@@ -57,7 +90,7 @@ export default class IndoorMapSearchBar extends Component {
       return (
         <View key={prediction.id} style={styles.view}>
           <TouchableOpacity
-            style={styles.Touch}
+            style={styles.touch}
             onPress={() => {
               this.setState({
                 startPoint: prediction,
@@ -119,7 +152,7 @@ export default class IndoorMapSearchBar extends Component {
             blurOnSubmit
           />
         </View>
-        {this.state.showPredictions ? predictions : null}
+        {this.state.showPredictions && predictions ? predictions : null}
       </View>
     );
   }

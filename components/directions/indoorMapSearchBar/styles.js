@@ -14,6 +14,13 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     zIndex: 300
   },
+  touch: {
+    color: '#AFB9C4',
+    borderWidth: 1,
+    padding: 10,
+    margin: 1,
+    borderRadius: 5,
+  },
 });
 
 export default styles;
