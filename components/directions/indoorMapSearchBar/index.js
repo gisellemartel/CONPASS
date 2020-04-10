@@ -23,7 +23,7 @@ export default class IndoorMapSearchBar extends Component {
       currentFloor: this.props.currentFloor.floor,
       currentAvailableRooms: [],
       input: '',
-      startPoint: ''
+      startPoint: {}
     };
   }
 
@@ -65,7 +65,7 @@ export default class IndoorMapSearchBar extends Component {
   /**
    * Obtains the desired room based on the user search
    */
-  fetchStartPoint = () => {
+  onSubmitSearchQuery = () => {
     const userQuery = this.state.input;
     const roomsList = this.state.currentAvailableRooms;
 
@@ -76,8 +76,23 @@ export default class IndoorMapSearchBar extends Component {
     this.setState({
       startPoint: searchResult
     });
+  }
 
-    console.log(this.state.startPoint);
+
+  /**
+   * Obtains the desired room based on the user prediction selection
+   * @param {string} - the selected prediction by the user from the list
+   */
+  onSelectPrediction = (prediction) => {
+    const userQuery = prediction;
+    const roomsList = this.state.currentAvailableRooms;
+    const searchResult = roomsList.find((room) => {
+      return room.description === userQuery;
+    });
+
+    this.setState({
+      startPoint: searchResult
+    });
   }
 
   /**
@@ -90,17 +105,15 @@ export default class IndoorMapSearchBar extends Component {
     });
 
     const availableRooms = this.state.currentAvailableRooms;
-    // passing the inserted text in textinput
+
+    // contextual predictions based on user query
     const predictions = availableRooms.filter((room) => {
-      // applying filter for the inserted text in search bar
       const roomData = room.description ? room.description.toUpperCase() : ''.toUpperCase();
       const textData = input.toUpperCase();
       return roomData.indexOf(textData) > -1;
     });
 
     this.setState({
-      // setting the filtered newData on datasource
-      // After setting the data it will automatically re-render the view
       showPredictions: true,
       predictions,
       input,
@@ -117,11 +130,7 @@ export default class IndoorMapSearchBar extends Component {
           <TouchableOpacity
             style={styles.touch}
             onPress={() => {
-              this.fetchStartPoint();
-              this.setState({
-                input: prediction.description,
-                showPredictions: false
-              });
+              this.onSelectPrediction(prediction.description);
               Keyboard.dismiss();
             }}
           >
@@ -161,10 +170,11 @@ export default class IndoorMapSearchBar extends Component {
             autoCorrect={false}
             padding={5}
             returnKeyType="search"
-            onSubmitEditing={async () => {
+            onSubmitEditing={() => {
               this.setState({
                 showPredictions: false
               });
+              this.onSubmitSearchQuery();
             }}
             lightTheme
             containerStyle={containerStyle}
