@@ -1,3 +1,4 @@
+/* eslint-disable no-plusplus */
 import React, { Component } from 'react';
 import {
   View,
@@ -62,25 +63,45 @@ export default class IndoorMapSearchBar extends Component {
    * @param {string} startPoint - Text input from search bar
    */
   onChangeText = (startPoint) => {
+    this.setState({
+      predictions: []
+    });
+    const predictions = [];
     // TODO: logic for contextual search to go here
     this.state.currentAvailableRooms.forEach((room) => {
+      const { description } = room;
       // TODO use regex?
-      const query = room.toString().filter((substr) => { return substr === 'startPoint'; });
+      if (startPoint.length < description.length) {
+        let ctr = 0;
 
-      if (query) {
-        this.state.predictions.push(room);
+        for (let i = 0; i < startPoint.length; i++) {
+          console.log(startPoint);
+          console.log(description);
+          if (startPoint[i] !== description[i]) {
+            break;
+          } else {
+            ctr++;
+          }
+        }
+
+        const isValidQuery = ctr > 0;
+
+        if (isValidQuery) {
+          predictions.push(room);
+        }
       }
-
-      console.log(this.state.predictions);
     });
 
 
     this.setState({
       startPoint,
       showPredictions: true,
+      predictions
     });
 
-    console.log(this.state.predictions);
+    if (this.state.predictions) {
+      console.log(this.state.predictions);
+    }
   }
 
   render() {
