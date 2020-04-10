@@ -79,6 +79,21 @@ export default class IndoorMapSearchBar extends Component {
       justifyContent: 'center'
     };
 
+    /**
+     * Controller function for searchBar component
+     * sets state when search bar is cleared
+     */
+    const onClear = () => {
+      this.setState({ showPredictions: false });
+    };
+
+    /**
+     * Controller function for searchBar component
+     */
+    const onBlur = () => {
+      this.setState({ showPredictions: false });
+    };
+
     return (
       <View style={styles.container}>
         <View>
@@ -88,7 +103,9 @@ export default class IndoorMapSearchBar extends Component {
             padding={5}
             returnKeyType="search"
             onSubmitEditing={async () => {
-              this.setState({ showPredictions: false });
+              this.setState({
+                showPredictions: false
+              });
             }}
             lightTheme
             containerStyle={containerStyle}
@@ -97,14 +114,12 @@ export default class IndoorMapSearchBar extends Component {
             onChangeText={this.onChangeText}
             value={this.state.startPoint}
             style={styles.searchBar}
+            onClear={onClear}
+            onBlur={onBlur}
             blurOnSubmit
           />
         </View>
         {this.state.showPredictions ? predictions : null}
-        <Text>
-          hello
-        </Text>
-
       </View>
     );
   }
