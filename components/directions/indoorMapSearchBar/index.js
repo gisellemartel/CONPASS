@@ -22,6 +22,7 @@ export default class IndoorMapSearchBar extends Component {
       currentBuilding: this.props.currentBuilding,
       currentFloor: this.props.currentFloor.floor,
       currentAvailableRooms: [],
+      input: '',
       startPoint: ''
     };
   }
@@ -29,7 +30,6 @@ export default class IndoorMapSearchBar extends Component {
   componentDidMount() {
     SetLocaleContext();
     this.setState({ isMounted: true });
-
     this.generatePredictionsForSearchBar();
   }
 
@@ -58,50 +58,53 @@ export default class IndoorMapSearchBar extends Component {
     });
   }
 
+  getStartPoint = () => {
+    return this.state.startPoint;
+  }
+
+  /**
+   * Obtains the desired room based on the user search
+   */
+  fetchStartPoint = () => {
+    const userQuery = this.state.input;
+    const roomsList = this.state.currentAvailableRooms;
+
+    const searchResult = roomsList.find((room) => {
+      return room.description === userQuery;
+    });
+
+    this.setState({
+      startPoint: searchResult
+    });
+
+    console.log(this.state.startPoint);
+  }
+
   /**
    * Retrieves predictions via available data of current floor
    * @param {string} startPoint - Text input from search bar
    */
-  onChangeText = (startPoint) => {
+  onChangeText = (input) => {
     this.setState({
       predictions: []
     });
-    const predictions = [];
-    // TODO: logic for contextual search to go here
-    this.state.currentAvailableRooms.forEach((room) => {
-      const { description } = room;
-      // TODO use regex?
-      if (startPoint.length < description.length) {
-        let ctr = 0;
 
-        for (let i = 0; i < startPoint.length; i++) {
-          console.log(startPoint);
-          console.log(description);
-          if (startPoint[i] !== description[i]) {
-            break;
-          } else {
-            ctr++;
-          }
-        }
-
-        const isValidQuery = ctr > 0;
-
-        if (isValidQuery) {
-          predictions.push(room);
-        }
-      }
+    const availableRooms = this.state.currentAvailableRooms;
+    // passing the inserted text in textinput
+    const predictions = availableRooms.filter((room) => {
+      // applying filter for the inserted text in search bar
+      const roomData = room.description ? room.description.toUpperCase() : ''.toUpperCase();
+      const textData = input.toUpperCase();
+      return roomData.indexOf(textData) > -1;
     });
-
 
     this.setState({
-      startPoint,
+      // setting the filtered newData on datasource
+      // After setting the data it will automatically re-render the view
       showPredictions: true,
-      predictions
+      predictions,
+      input,
     });
-
-    if (this.state.predictions) {
-      console.log(this.state.predictions);
-    }
   }
 
   render() {
@@ -110,11 +113,13 @@ export default class IndoorMapSearchBar extends Component {
     const predictions = this.state.predictions.map((prediction) => {
       return (
         <View key={prediction.id} style={styles.view}>
+
           <TouchableOpacity
             style={styles.touch}
             onPress={() => {
+              this.fetchStartPoint();
               this.setState({
-                startPoint: prediction,
+                input: prediction.description,
                 showPredictions: false
               });
               Keyboard.dismiss();
@@ -166,7 +171,7 @@ export default class IndoorMapSearchBar extends Component {
             searchIcon={false}
             placeholder={placeholder}
             onChangeText={this.onChangeText}
-            value={this.state.startPoint}
+            value={this.state.input}
             style={styles.searchBar}
             onClear={onClear}
             onBlur={onBlur}
