@@ -33,7 +33,6 @@ const floorWaypointFinder = {
   intersectionOfTwoPoints(slope1, slope2, intercept1, intercept2) {
     const deltaX = slope1 - slope2;
     const deltaB = intercept2 - intercept1;
-    console.log(deltaX, deltaB);
     const intersectX = deltaB / deltaX;
     const intersectY = slope1 * intersectX + intercept1;
     return { x: intersectX, y: intersectY };

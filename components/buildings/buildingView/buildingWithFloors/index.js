@@ -18,7 +18,7 @@ class BuildingWithFloors extends Component {
     this.state = {
       floor: this.props.floor,
       directionPath: {},
-      accessibility: ''
+      accessibility: this.props.accessibility
     };
   }
 
@@ -88,8 +88,7 @@ class BuildingWithFloors extends Component {
   }
 
   getFloorWaypoint(startGraph, finishGraph, startNodeId, finishNodeId) {
-    const transportPriorityList = [/^escalator/, /^staircase/i, /^elevator/i];
-    const disabledTransportPriorityList = [/^elevator/i];
+    const transportPriorityList = this.state.accessibility === 'ACCESSIBILITY_OFF' ? [/^escalator/, /^staircase/i, /^elevator/i] : [/^elevator/i];
     for (let i = 0; i < transportPriorityList.length; i++) {
       const transportList = Object.keys(startGraph).filter((node) => { return transportPriorityList[i].test(node); });
       if (transportList.length === 1) {
@@ -116,8 +115,7 @@ class BuildingWithFloors extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.accessibility === this.props.accessibility) {
-      console.log('global accessibility changed');
+    if (prevProps.accessibility !== this.props.accessibility) {
       if (this.props.accessibility === 'ACCESSIBILITY_ON') {
         // set component state
         this.setState({ accessibility: 'ON' });
