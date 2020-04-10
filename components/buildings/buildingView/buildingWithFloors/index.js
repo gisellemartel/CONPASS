@@ -6,6 +6,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import Svg, {
   Polyline
 } from 'react-native-svg';
+import { connect } from 'react-redux';
 import styles from './styles';
 import dijkstraPathfinder from '../../../../indoor_directions_modules/dijkstraPathfinder';
 import floorWaypointFinder from '../../../../indoor_directions_modules/floorWaypointFinder';
@@ -16,7 +17,8 @@ class BuildingWithFloors extends Component {
     super(props);
     this.state = {
       floor: this.props.floor,
-      directionPath: {}
+      directionPath: {},
+      accessibility: ''
     };
   }
 
@@ -113,6 +115,19 @@ class BuildingWithFloors extends Component {
     return '';
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.accessibility === this.props.accessibility) {
+      console.log('global accessibility changed');
+      if (this.props.accessibility === 'ACCESSIBILITY_ON') {
+        // set component state
+        this.setState({ accessibility: 'ON' });
+      } else if (this.props.accessibility === 'ACCESSIBILITY_OFF') {
+        // set component state
+        this.setState({ accessibility: 'OFF' });
+      }
+    }
+  }
+
   inputParser(input) {
     const globalRoomNumberRegex = /^\w-\d{3,}(\.\d{2})?$/i; // ex: H-837 (also H-837.05).
     const localRoomNumberRegex = /^\d{3,}(\.\d{2})?$/i; // above except w/o building code.
@@ -194,11 +209,15 @@ class BuildingWithFloors extends Component {
             />
           </Svg>
         </View>
-
-
       </View>
     );
   }
 }
 
-export default BuildingWithFloors;
+const mapStateToProps = (state) => {
+  return {
+    accessibility: state.accessibility,
+  };
+};
+
+export default connect(mapStateToProps)(BuildingWithFloors);
