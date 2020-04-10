@@ -9,6 +9,7 @@ import { SearchBar } from 'react-native-elements';
 import i18n from 'i18n-js';
 import styles from './styles';
 import SetLocaleContext from '../../../localization-context';
+import fetchBuildingRooms from '../../../indoor_directions_modules/fetchBuildingRooms';
 
 export default class IndoorMapSearchBar extends Component {
   constructor(props) {
@@ -18,7 +19,7 @@ export default class IndoorMapSearchBar extends Component {
       showPredictions: false,
       predictions: [],
       currentBuilding: this.props.currentBuilding,
-      currentFloor: this.props.currentFloor,
+      currentFloor: this.props.currentFloor.floor,
       startPoint: ''
     };
   }
@@ -26,23 +27,27 @@ export default class IndoorMapSearchBar extends Component {
   componentDidMount() {
     SetLocaleContext();
     this.setState({ isMounted: true });
+
+    this.generatePredictionsForSearchBar();
   }
 
+  generatePredictionsForSearchBar = () => {
+    const floors = fetchBuildingRooms(this.state.currentBuilding.building);
+
+    this.setState((prevState) => {
+      return { predictions: floors[prevState.currentFloor] };
+    });
+  }
 
   /**
    * Retrieves predictions via available data of current floor
    * @param {string} startPoint - Text input from search bar
    */
-  async onChangeStartPoint(startPoint) {
-    console.log(this.state.currentBuilding.buildingName);
-    console.log(this.state.currentFloor);
-
-    await this.getPredictions(startPoint);
-  }
-
-
-  async getPredictions(startPoint) {
-    console.log(startPoint);
+  onChangeText = (startPoint) => {
+    this.setState({
+      startPoint,
+      showPredictions: true,
+    });
   }
 
   render() {
@@ -55,7 +60,7 @@ export default class IndoorMapSearchBar extends Component {
             style={styles.Touch}
             onPress={() => {
               this.setState({
-                startPoint: prediction.description,
+                startPoint: prediction,
                 showPredictions: false
               });
               Keyboard.dismiss();
@@ -66,16 +71,6 @@ export default class IndoorMapSearchBar extends Component {
         </View>
       );
     });
-
-    /**
-     *
-     * @param {*} startPoint
-     * Controller function for searchBar component
-     * manages contextual text entry
-     */
-    const onChangeText = (startPoint) => {
-      return this.onChangeStartPoint(startPoint);
-    };
 
     const containerStyle = {
       borderRadius: 10,
@@ -99,13 +94,17 @@ export default class IndoorMapSearchBar extends Component {
             containerStyle={containerStyle}
             searchIcon={false}
             placeholder={placeholder}
-            onChangeText={onChangeText}
+            onChangeText={this.onChangeText}
             value={this.state.startPoint}
             style={styles.searchBar}
             blurOnSubmit
           />
         </View>
         {this.state.showPredictions ? predictions : null}
+        <Text>
+          hello
+        </Text>
+
       </View>
     );
   }

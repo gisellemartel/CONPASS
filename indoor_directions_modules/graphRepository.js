@@ -11,6 +11,9 @@ import Hall10Graph from './buildings/H/Hall10FloorPlanCoordinates';
 import Hall11Graph from './buildings/H/Hall11FloorPlanCoordinates';
 import Hall12Graph from './buildings/H/Hall12FloorPlanCoordinates';
 import Hall13Graph from './buildings/H/Hall13FloorPlanCoordinates';
+import Vl1Graph from './buildings/VL/Vl1FloorPlanCoordinates';
+import Vl2Graph from './buildings/VL/Vl2FloorPlanCoordinates';
+
 /**
  *
  * @param {*} buildingName - name of building to pull adjacency graph from.
@@ -35,8 +38,8 @@ function generateGraph(buildingName) {
       };
     case 'VL':
       return {
-        8: Hall8Graph,
-        9: Hall9Graph
+        1: Vl1Graph,
+        2: Vl2Graph
       };
     default:
       return [];
