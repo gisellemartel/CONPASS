@@ -95,6 +95,7 @@ export default class DestinationSearchBar extends Component {
   * @param {string} prediction - placeid of destination to get path to.
   */
   async getLatLong(prediction) {
+    console.log(prediction);
     const key = 'AIzaSyCqNODizSqMIWbKbO8Iq3VWdBcK846n_3w';
     const geoUrl = `https://maps.googleapis.com/maps/api/place/details/json?key=${key}&placeid=${prediction}`;
     const georesult = await fetch(geoUrl);
@@ -107,7 +108,6 @@ export default class DestinationSearchBar extends Component {
     });
     this.drawPath();
   }
-
 
   /**
    * fetches all the possible indoor predictions for start point for any building and any floor
@@ -131,7 +131,8 @@ export default class DestinationSearchBar extends Component {
 
         const currentAvailableRoom = {
           id: roomString,
-          description: roomString
+          description: roomString,
+          place_id: 'ChIJtd6Zh2oayUwRAu_CnRIfoBw'
         };
         indoorRooms.push(currentAvailableRoom);
       });
@@ -147,7 +148,8 @@ export default class DestinationSearchBar extends Component {
         }
         const currentAvailableRoom = {
           id: roomString,
-          description: roomString
+          description: roomString,
+          place_id: 'ChIJDbfcNjIXyUwRcocn3RuPPiY'
         };
         indoorRooms.push(currentAvailableRoom);
       });
