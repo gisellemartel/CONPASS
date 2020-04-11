@@ -9,7 +9,8 @@ const styles = StyleSheet.create({
     overflow:'hidden'
 },
   topicElement: {
-    flexDirection: 'row'
+    flexDirection: 'row',
+    marginLeft: 20,
 },
   topicText: {
     flex: 1,

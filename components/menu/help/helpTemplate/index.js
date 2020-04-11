@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
 import {
-View, Text, Image, TouchableOpacity, LayoutAnimation, Platform, UIManager
-} from 'react-native';
+View, Text, Image, TouchableOpacity, LayoutAnimation } from 'react-native';
 import styles from './styles';
 import arrow from '../../../../assets/icons/downarrow.png'
-
-const titles = ['Guide to CONPASS', 'Accessibility'];
 
 export default class HelpTemplate extends Component{
 constructor (props) {
@@ -15,7 +12,11 @@ constructor (props) {
         title: props.title,
     }
 }
-
+/**
+ * @function updates the Layout to either expand or collapse 
+ * ConfigureNext schedules new animation changes to happen on next layout render
+ * easeInEaseOut are predefined configurations for animated elements
+ */
 changeLayout = () => {
     LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
     this.setState({ expanded: !this.state.expanded });
@@ -30,8 +31,7 @@ render() {
             <Image style={styles.arrowStyle} source={arrow} />
             </TouchableOpacity>
          </View>
-         <View style={{ height: this.state.expanded ? null : 0, overflow: 'hidden' ,padding: 20,
-  paddingTop: 10 }}>
+         <View style={{ height: this.state.expanded ? null : 0, overflow: 'hidden' , padding: 20, paddingTop: 10 }}>
             {this.props.children}
          </View>
     </View >
