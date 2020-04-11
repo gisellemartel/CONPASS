@@ -5,7 +5,6 @@ const buildings = [
   {
     campus: 'LOY',
     building: 'VL',
-    displayName: 'Vanier Library',
     buildingName: 'Vanier Library building',
     accessiblity: true,
     address: '7141 Sherbrooke W',
@@ -728,7 +727,6 @@ const buildings = [
   {
     campus: 'SGW',
     building: 'H',
-    displayName: 'Hall',
     buildingName: 'Henry F. Hall Building',
     accessiblity: true,
     placesToGo: [{

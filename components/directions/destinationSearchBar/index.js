@@ -69,7 +69,7 @@ export default class DestinationSearchBar extends Component {
       const result = await fetch(apiUrl);
       const json = await result.json();
 
-      const allPredictions = this.generateAllPredictions(destination, json.predictions);
+      const allPredictions = this.generateAllContextualPredictions(destination.toLowerCase(), json.predictions);
 
       this.setState({
         predictions: allPredictions
@@ -165,9 +165,9 @@ export default class DestinationSearchBar extends Component {
    * @param {string} - destination
    * @param {string} - googleApiPredictions
    */
-  generateAllPredictions(destination, googleApiPredictions) {
+  generateAllContextualPredictions(destination, googleApiPredictions) {
     const { indoorRooms } = this.state;
-    const MAX_NUM_PREDICTIONS = 5;
+    const MAX_NUM_PREDICTIONS = 6;
 
     // contextual predictions based on user query
     const predictions = indoorRooms.filter((room) => {
@@ -175,8 +175,8 @@ export default class DestinationSearchBar extends Component {
       const textData = destination.toUpperCase();
       return roomData.indexOf(textData) > -1;
     });
-
-    const allPredictions = googleApiPredictions.concat(predictions.slice(0, MAX_NUM_PREDICTIONS));
+    googleApiPredictions.slice(0, MAX_NUM_PREDICTIONS / 2);
+    const allPredictions = googleApiPredictions.concat(predictions.slice(0, MAX_NUM_PREDICTIONS / 2));
 
     return allPredictions;
   }

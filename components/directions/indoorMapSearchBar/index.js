@@ -42,12 +42,16 @@ export default class IndoorMapSearchBar extends Component {
     const currentAvailableRooms = [];
 
     rooms.forEach((room) => {
-      const roomString = room.toString().replace('_', ' ');
-      const displayName = `${this.state.currentBuilding.displayName} ${roomString}`;
+      let roomString;
+      if (typeof room !== 'number') {
+        roomString = `${this.state.currentBuilding.building}${this.state.currentFloor} - ${room.toString().replace('_', ' ')}`;
+      } else {
+        roomString = `${this.state.currentBuilding.building} - ${room.toString()}`;
+      }
 
       const currentAvailableRoom = {
-        id: room,
-        description: displayName
+        id: roomString,
+        description: roomString
       };
 
       currentAvailableRooms.push(currentAvailableRoom);
@@ -109,8 +113,8 @@ export default class IndoorMapSearchBar extends Component {
 
     // contextual predictions based on user query
     const predictions = availableRooms.filter((room) => {
-      const roomData = room.description ? room.description.toUpperCase() : ''.toUpperCase();
-      const textData = input.toUpperCase();
+      const roomData = room.description ? room.description.toLowerCase() : ''.toLowerCase();
+      const textData = input.toLowerCase();
       return roomData.indexOf(textData) > -1;
     });
 
@@ -127,7 +131,6 @@ export default class IndoorMapSearchBar extends Component {
     const predictions = this.state.predictions.map((prediction) => {
       return (
         <View key={prediction.id} style={styles.view}>
-
           <TouchableOpacity
             style={styles.touch}
             onPress={() => {
