@@ -271,6 +271,10 @@ class Home extends Component {
         {this.state.interiorMode
         && (
           <IndoorDirections
+            getDestinationIfSet={this.state.destinationToGo}
+            getRegion={this.getRegionFromOutdoorDirections}
+            getRegionFromSearch={this.state.region}
+            getCoordinates={this.getCoordinatesFromOutdoorDirections}
             building={this.state.building}
             showBuildingInfoModal={this.state.showBuildingInfoModal}
             setBuildingInfoModalVisibilityTo={this.setBuildingInfoModalVisibilityTo}

@@ -29,6 +29,13 @@ export default class IndoorDirections extends Component {
       currentFloorPlan: null,
       showDirectionsModal: false,
       drawPath: true,
+      mode: 'walking',
+      region: {
+        latitude: 0,
+        longitude: 0,
+        latitudeDelta: 0.05,
+        longitudeDelta: 0.05
+      },
     };
 
     if (this.state.currentBuilding) {
@@ -171,19 +178,22 @@ export default class IndoorDirections extends Component {
             />
             <CurrentLocation />
             <Destination />
+            <View style={styles.searchContainer}>
+              <IndoorMapSearchBar
+                currentBuilding={currentBuilding}
+                currentFloor={this.state.currentFloorPlan}
+              />
+              <DestinationSearchBar
+                style={styles.destinationSearchBar}
+                drawPath={this.state.drawPath}
+                getRegionFromSearch={this.props.getRegionFromSearch}
+                getDestinationIfSet={this.props.getDestinationIfSet}
+                updatedRegion={this.state.region}
+                coordinateCallback={this.props.getCoordinates}
+                getMode={this.state.mode}
+              />
+            </View>
 
-            <IndoorMapSearchBar
-              currentBuilding={currentBuilding}
-              currentFloor={this.state.currentFloorPlan}
-            />
-            {/* <DestinationSearchBar
-              drawPath={this.state.drawPath}
-              getRegionFromSearch={this.props.getRegionFromSearch}
-              getDestinationIfSet={this.props.getDestinationIfSet}
-              updatedRegion={this.state.region}
-              coordinateCallback={this.updateCoordinates}
-              getMode={this.state.mode}
-            /> */}
           </View>
         </Modal>
 

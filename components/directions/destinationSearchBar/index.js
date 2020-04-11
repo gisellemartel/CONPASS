@@ -129,11 +129,9 @@ export default class DestinationSearchBar extends Component {
           roomString = room.toString();
         }
 
-        const displayName = `H-${roomString}`;
-
         const currentAvailableRoom = {
           id: roomString,
-          description: displayName
+          description: roomString
         };
         indoorRooms.push(currentAvailableRoom);
       });
@@ -147,11 +145,9 @@ export default class DestinationSearchBar extends Component {
         } else {
           roomString = room.toString();
         }
-        const displayName = `VL-${roomString}`;
-
         const currentAvailableRoom = {
           id: roomString,
-          description: displayName
+          description: roomString
         };
         indoorRooms.push(currentAvailableRoom);
       });

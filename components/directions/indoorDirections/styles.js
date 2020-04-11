@@ -55,9 +55,6 @@ const styles = StyleSheet.create({
   },
   directionsContainer: {
     backgroundColor: 'rgba(156,211,215,0.8)',
-    width: fullWidth * 0.84,
-    left: fullWidth * 0.08,
-    right: fullWidth * 0.08,
     top: 150,
     borderBottomLeftRadius: 10,
     borderBottomRightRadius: 10,
@@ -66,6 +63,8 @@ const styles = StyleSheet.create({
     height: 165,
     position: 'absolute',
     zIndex: 301,
+    width: '99%',
+    left: '0.5%'
   },
   searchContainer: {
     alignItems: 'center',
@@ -105,6 +104,9 @@ const styles = StyleSheet.create({
     height: 50,
     borderRadius: 50,
     backgroundColor: 'white'
+  },
+  destinationSearchBar: {
+    width: 100
   }
 });
 
