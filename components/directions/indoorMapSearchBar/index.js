@@ -91,7 +91,8 @@ export default class IndoorMapSearchBar extends Component {
     });
 
     this.setState({
-      startPoint: searchResult
+      startPoint: searchResult,
+      input: searchResult.description
     });
   }
 
