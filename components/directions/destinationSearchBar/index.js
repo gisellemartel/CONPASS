@@ -8,6 +8,7 @@ import { SearchBar } from 'react-native-elements';
 import decodePolyline from 'decode-google-map-polyline';
 import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
+import fetchBuildingRooms from '../../../indoor_directions_modules/fetchBuildingRooms';
 import styles from './styles';
 
 export default class DestinationSearchBar extends Component {
@@ -18,6 +19,7 @@ export default class DestinationSearchBar extends Component {
       showPredictions: true,
       destination: this.props.getDestinationIfSet,
       predictions: [],
+      indoorRooms: [],
       destinationRegion: {
         latitude: '',
         longitude: '',
@@ -38,9 +40,10 @@ export default class DestinationSearchBar extends Component {
     }
 
     if (this.props.directionsId) {
-      console.log(this.props.directionsId);
       this.getLatLong(this.props.directionsId);
     }
+
+    this.generateIndoorPredictionsForSearchBar();
   }
 
   componentDidUpdate(prevProps) {
@@ -65,8 +68,11 @@ export default class DestinationSearchBar extends Component {
     try {
       const result = await fetch(apiUrl);
       const json = await result.json();
+
+      const allPredictions = this.generateAllPredictions(destination, json.predictions);
+
       this.setState({
-        predictions: json.predictions
+        predictions: allPredictions
       });
     } catch (err) {
       console.error(err);
@@ -100,6 +106,83 @@ export default class DestinationSearchBar extends Component {
       }
     });
     this.drawPath();
+  }
+
+
+  /**
+   * fetches all the possible indoor predictions for start point for any building and any floor
+   */
+  generateIndoorPredictionsForSearchBar = () => {
+    const hallData = fetchBuildingRooms('H');
+    const vlData = fetchBuildingRooms('VL');
+    const indoorRooms = [];
+
+    const hallRooms = Object.keys(hallData);
+    const vlRooms = Object.keys(vlData);
+
+    hallRooms.forEach((floor) => {
+      hallData[floor].forEach((room) => {
+        let roomString;
+        if (typeof room !== 'number') {
+          roomString = `H${floor} - ${room.toString().replace('_', ' ')}`;
+        } else {
+          roomString = room.toString();
+        }
+
+        const displayName = `H-${roomString}`;
+
+        const currentAvailableRoom = {
+          id: roomString,
+          description: displayName
+        };
+        indoorRooms.push(currentAvailableRoom);
+      });
+    });
+
+    vlRooms.forEach((floor) => {
+      vlData[floor].forEach((room) => {
+        let roomString;
+        if (typeof room !== 'number') {
+          roomString = `VL${floor} - ${room.toString().replace('_', ' ')}`;
+        } else {
+          roomString = room.toString();
+        }
+        const displayName = `VL-${roomString}`;
+
+        const currentAvailableRoom = {
+          id: roomString,
+          description: displayName
+        };
+        indoorRooms.push(currentAvailableRoom);
+      });
+    });
+
+
+    this.setState({
+      indoorRooms
+    });
+  }
+
+
+  /**
+   * Concatenates indoor predictions to result from Google API
+   * @param {string} - destination
+   * @param {string} - googleApiPredictions
+   */
+  generateAllPredictions(destination, googleApiPredictions) {
+    const { indoorRooms } = this.state;
+    const MAX_NUM_PREDICTIONS = 5;
+
+    // contextual predictions based on user query
+    const predictions = indoorRooms.filter((room) => {
+      const roomData = room.description ? room.description.toUpperCase() : ''.toUpperCase();
+      const textData = destination.toUpperCase();
+      return roomData.indexOf(textData) > -1;
+    });
+
+    const allPredictions = googleApiPredictions.concat(predictions.slice(0, MAX_NUM_PREDICTIONS));
+
+    return allPredictions;
   }
 
 
@@ -138,7 +221,7 @@ export default class DestinationSearchBar extends Component {
 
   render() {
     const placeholder = this.state.isMounted ? i18n.t('destinationSearch') : 'Choose your destination';
-    const predictions = this.state.predictions.map((prediction) => {
+    const predictions = this.state.predictions ? this.state.predictions.map((prediction) => {
       return (
         <View key={prediction.id} style={styles.view}>
           <TouchableOpacity
@@ -154,7 +237,7 @@ export default class DestinationSearchBar extends Component {
           </TouchableOpacity>
         </View>
       );
-    });
+    }) : null;
 
     return (
       <View style={styles.container}>
@@ -181,7 +264,7 @@ export default class DestinationSearchBar extends Component {
           />
         </View>
         {
-          this.state.showPredictions
+          this.state.showPredictions && predictions
             ? predictions : null
         }
       </View>
