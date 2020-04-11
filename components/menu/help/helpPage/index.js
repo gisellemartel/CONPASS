@@ -18,8 +18,11 @@ export default class HelpPage extends Component {
         <HelpTemplate title = "Guide to CONPASS">
           <Text> {HelpInformation.Guide} </Text>
       </HelpTemplate>
-      <HelpTemplate title = "Accessibility {       }   ">
+      <HelpTemplate title = "Accessibility Option  ">
           <Text> {HelpInformation.Accesibility} </Text>
+      </HelpTemplate>
+      <HelpTemplate title = "Concordia Shuttle">
+          <Text> {HelpInformation.ShuttleService} </Text>
       </HelpTemplate>
       </View>
     );
