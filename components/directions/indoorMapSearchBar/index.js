@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-globals */
 /* eslint-disable no-plusplus */
 import React, { Component } from 'react';
 import {
@@ -43,10 +44,11 @@ export default class IndoorMapSearchBar extends Component {
 
     rooms.forEach((room) => {
       let roomString;
-      if (typeof room !== 'number') {
-        roomString = `${this.state.currentBuilding.building}${this.state.currentFloor} - ${room.toString().replace('_', ' ')}`;
+      const isNumeric = !isNaN(room);
+      if (!isNumeric) {
+        roomString = `${this.state.currentBuilding.building}-${this.state.currentFloor} ${room.toString().replace('_', ' ')}`;
       } else {
-        roomString = `${this.state.currentBuilding.building} - ${room.toString()}`;
+        roomString = `${this.state.currentBuilding.building}-${room.toString()}`;
       }
 
       const currentAvailableRoom = {

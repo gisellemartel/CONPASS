@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-globals */
 /* eslint-disable max-len */
 import React, { Component } from 'react';
 import {
@@ -123,10 +124,11 @@ export default class DestinationSearchBar extends Component {
     hallRooms.forEach((floor) => {
       hallData[floor].forEach((room) => {
         let roomString;
-        if (typeof room !== 'number') {
-          roomString = `H${floor} - ${room.toString().replace('_', ' ')}`;
+        const isNumeric = !isNaN(room);
+        if (!isNumeric) {
+          roomString = `H-${floor} ${room.toString().replace('_', ' ')}`;
         } else {
-          roomString = room.toString();
+          roomString = `H-${room.toString()}`;
         }
 
         const currentAvailableRoom = {
@@ -141,10 +143,11 @@ export default class DestinationSearchBar extends Component {
     vlRooms.forEach((floor) => {
       vlData[floor].forEach((room) => {
         let roomString;
-        if (typeof room !== 'number') {
-          roomString = `VL${floor} - ${room.toString().replace('_', ' ')}`;
+        const isNumeric = !isNaN(room);
+        if (!isNumeric) {
+          roomString = `VL-${floor} ${room.toString().replace('_', ' ')}`;
         } else {
-          roomString = room.toString();
+          roomString = `VL-${room.toString()}`;
         }
         const currentAvailableRoom = {
           id: roomString,
@@ -154,7 +157,6 @@ export default class DestinationSearchBar extends Component {
         indoorRooms.push(currentAvailableRoom);
       });
     });
-
 
     this.setState({
       indoorRooms
@@ -169,18 +171,25 @@ export default class DestinationSearchBar extends Component {
    */
   generateAllContextualPredictions(destination, googleApiPredictions) {
     const { indoorRooms } = this.state;
-    const MAX_NUM_PREDICTIONS = 6;
-
+    const MAX_NUM_PREDICTIONS = 10;
     // contextual predictions based on user query
     const predictions = indoorRooms.filter((room) => {
       const roomData = room.description ? room.description.toUpperCase() : ''.toUpperCase();
       const textData = destination.toUpperCase();
       return roomData.indexOf(textData) > -1;
     });
-    googleApiPredictions.slice(0, MAX_NUM_PREDICTIONS / 2);
-    const allPredictions = googleApiPredictions.concat(predictions.slice(0, MAX_NUM_PREDICTIONS / 2));
 
-    return allPredictions;
+    // if H- or VL- prefix entered by user only show relevant indoor predictions
+    if (destination.startsWith('h-') || destination.startsWith('vl-')) {
+      return predictions.slice(0, MAX_NUM_PREDICTIONS);
+    }
+
+    // return both google and relevant indoor predictions
+    const googlePredictions = googleApiPredictions.slice(0, MAX_NUM_PREDICTIONS / 2);
+    const indoorPredictions = predictions.slice(0, MAX_NUM_PREDICTIONS / 2);
+    const mixedPredictions = indoorPredictions.concat(googlePredictions);
+
+    return mixedPredictions;
   }
 
 
@@ -256,7 +265,7 @@ export default class DestinationSearchBar extends Component {
             }}
             value={this.state.destination}
             onClear={() => {
-              this.setState({ showPredictions: true });
+              this.setState({ showPredictions: false });
             }}
             blurOnSubmit
           />
