@@ -108,7 +108,7 @@ export default class IndoorDirections extends Component {
     const { currentBuilding } = this.state;
     const { currentBuildingFloorPlans } = this.state;
     const adjacencyGraphs = generateGraph(currentBuilding.building);
-    const hasInteriorMode = !!currentBuildingFloorPlans;
+    const hasInteriorMode = currentBuildingFloorPlans.length > 0;
 
     return (
       <View style={styles.container}>
