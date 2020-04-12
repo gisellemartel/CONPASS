@@ -112,18 +112,6 @@ class BuildingWithFloors extends Component {
     const { floor } = this.state;
     return (
       <View style={styles.container}>
-        {/* <TouchableOpacity
-          onPress={
-                () => {
-                  this.dijkstraHandler('817', '967');
-                }
-              }
-        >
-          <Text>
-            Get Directions
-          </Text>
-        </TouchableOpacity> */}
-
         {/* Renders floor switcher button for each available in current building */}
         <ScrollView zoomScale="0" horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.switcher} scrollEnabled>
           {this.props.buildingFloorPlans.map((lvl) => {
