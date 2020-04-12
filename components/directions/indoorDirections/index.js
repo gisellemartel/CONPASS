@@ -32,14 +32,13 @@ export default class IndoorDirections extends Component {
       showDirectionsModal: false,
       drawPath: true,
       origin: '',
-      indoorDestination: '',
       mode: 'walking',
       region: {
         latitude: 0,
         longitude: 0,
         latitudeDelta: 0.05,
         longitudeDelta: 0.05
-      },
+      }
     };
 
     if (this.state.currentBuilding) {
@@ -49,6 +48,9 @@ export default class IndoorDirections extends Component {
         [this.state.currentFloorPlan] = this.state.currentBuildingFloorPlans;
       }
     }
+
+    this.dijkstraHandler = this.dijkstraHandler.bind(this);
+    this.indoorDirectionHandler = this.indoorDirectionHandler.bind(this);
   }
 
 
@@ -80,17 +82,6 @@ export default class IndoorDirections extends Component {
       return { drawPath: !prevState.drawPath };
     });
   };
-
-
-  /**
-   * Set the destination for directions within same building
-   * (indoor start point to indoor end point)
-   * @param {string} destination - name of destination
-   */
-  setDestinationInSameBuildingInput = (indoorDestination) => {
-    this.setState({ indoorDestination });
-    this.dijkstraHandler();
-  }
 
   /**
    * Set the origin for indoor directions
@@ -125,11 +116,12 @@ export default class IndoorDirections extends Component {
    * the directions handle a single floor or multiple floors, then gives the directions based
    * on either scenario.
    */
-  dijkstraHandler() {
+  dijkstraHandler(indoorDestination, indoorDestinationFloor) {
     const updatedDirectionPath = {};
-    const [waypoints, graphs, floors] = this.indoorDirectionHandler();
+    const [waypoints, graphs, floors] = this.indoorDirectionHandler(indoorDestination, indoorDestinationFloor);
     if (waypoints.length > 0) {
       const paths = dijkstraPathfinder.dijkstraPathfinder(waypoints, graphs);
+      // eslint-disable-next-line no-plusplus
       for (let i = 0; i < paths.length; i++) {
         updatedDirectionPath[floors[i]] = paths[i];
       }
@@ -139,11 +131,17 @@ export default class IndoorDirections extends Component {
     });
   }
 
-  indoorDirectionHandler() {
-    const [startNodeId, startFloor] = this.inputParser(this.state.origin);
-    const [finishNodeId, finishFloor] = this.inputParser(this.state.indoorDestination);
-    if (this.props.adjacencyGraphs[startFloor][startNodeId] !== undefined
-      && this.props.adjacencyGraphs[finishFloor][finishNodeId] !== undefined) {
+  indoorDirectionHandler(indoorDestination, indoorDestinationFloor) {
+    const { floor } = this.state.currentFloorPlan;
+    const [startNodeId, startFloor] = [this.state.origin, floor];
+    const [finishNodeId, finishFloor] = [indoorDestination, indoorDestinationFloor];
+
+    const adjacencyGraphs = generateGraph(this.state.currentBuilding.building);
+    console.log(`start node: ${startNodeId} floor ${startFloor}`);
+    console.log(`finish node: ${finishNodeId} floor ${finishFloor}`);
+
+    if (adjacencyGraphs[startFloor][startNodeId] !== undefined
+      && adjacencyGraphs[finishFloor][finishNodeId] !== undefined) {
       if (startFloor === finishFloor) {
         return [
           [
@@ -153,7 +151,7 @@ export default class IndoorDirections extends Component {
             }
           ],
           [
-            this.props.adjacencyGraphs[startFloor]
+            adjacencyGraphs[startFloor]
           ],
           [
             startFloor
@@ -174,8 +172,8 @@ export default class IndoorDirections extends Component {
           }
         ],
         [
-          this.props.adjacencyGraphs[startFloor],
-          this.props.adjacencyGraphs[finishFloor]
+          adjacencyGraphs[startFloor],
+          adjacencyGraphs[finishFloor]
         ],
         [
           startFloor,
@@ -196,7 +194,7 @@ export default class IndoorDirections extends Component {
     const amenityRegex = /^\w+( \w+)*$/i; // Words and spaces.
 
     let id = '';
-    let { floor } = this.state.floor; // Assume current floor until input says otherwise.
+    let { floor } = this.state.currentFloorPlan.floor; // Assume current floor until input says otherwise.
 
     if (globalRoomNumberRegex.test(input) || localRoomNumberRegex.test(input)) {
       // Temporary: take current building until multi-building directions are complete.
@@ -219,7 +217,6 @@ export default class IndoorDirections extends Component {
   render() {
     const { currentBuilding } = this.state;
     const { currentBuildingFloorPlans } = this.state;
-    const adjacencyGraphs = generateGraph(currentBuilding.building);
     const hasInteriorMode = currentBuildingFloorPlans.length > 0;
 
     return (
@@ -249,7 +246,6 @@ export default class IndoorDirections extends Component {
           <BuildingView
             building={currentBuilding}
             buildingFloorPlans={currentBuildingFloorPlans}
-            adjacencyGraphs={adjacencyGraphs}
             turnInteriorModeOff={this.props.turnInteriorModeOff}
             changeCurrentFloorPlanTo={this.changeCurrentFloorPlanTo}
             indoorDirectionsPolyLine={this.state.indoorDirectionsPolyLine}
@@ -306,7 +302,7 @@ export default class IndoorDirections extends Component {
                 getMode={this.state.mode}
                 indoorRoomsList={this.props.indoorRoomsList}
                 currentBuildingName={currentBuilding.building}
-                setDestinationInSameBuildingInput={this.setDestinationInSameBuildingInput}
+                dijkstraHandler={this.dijkstraHandler}
               />
             </View>
 

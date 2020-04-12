@@ -113,8 +113,7 @@ export default class DestinationSearchBar extends Component {
     const roomName = destination.description.toLowerCase();
     if ((roomName.startsWith('h-') && this.props.currentBuildingName === 'H')
      || (roomName.startsWith('vl-') && this.props.currentBuildingName === 'VL')) {
-      this.props.setDestinationInSameBuildingInput(destination.dijkstraId);
-      console.log('Setting destination');
+      this.props.dijkstraHandler(destination.dijkstraId, destination.floor);
     }
   }
 
