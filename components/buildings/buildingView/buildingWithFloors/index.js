@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-  View, Text
+  View, Text, ScrollView
 } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Svg, {
@@ -83,27 +83,29 @@ class BuildingWithFloors extends Component {
         </TouchableOpacity> */}
 
         {/* Renders floor switcher button for each available in current building */}
-        <View style={styles.switcher}>
+        <ScrollView zoomScale="0" horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.switcher} scrollEnabled>
           {this.props.buildingFloorPlans.map((lvl) => {
             return (
-              <TouchableOpacity
-                key={lvl.floor}
-                onPress={
+              <View style={styles.textContainer} key={lvl.floor}>
+                <TouchableOpacity
+                  key={lvl.floor}
+                  onPress={
                       () => {
                         return this.changeFloor(lvl.floor);
                       }
                     }
-              >
-                <Text
-                  key={lvl.floor}
-                  style={styles.lvl}
                 >
-                  {lvl.floor}
-                </Text>
-              </TouchableOpacity>
+                  <Text
+                    key={lvl.floor}
+                    style={styles.lvl}
+                  >
+                    {lvl.floor}
+                  </Text>
+                </TouchableOpacity>
+              </View>
             );
           })}
-        </View>
+        </ScrollView>
 
         {/* Renders map for current floor in building */}
         <View style={styles.buildingContainer}>
