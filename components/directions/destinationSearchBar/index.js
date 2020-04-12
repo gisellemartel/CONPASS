@@ -91,7 +91,6 @@ export default class DestinationSearchBar extends Component {
   * @param {string} prediction - placeid of destination to get path to.
   */
   async getLatLong(prediction) {
-    console.log(prediction);
     const key = 'AIzaSyCqNODizSqMIWbKbO8Iq3VWdBcK846n_3w';
     const geoUrl = `https://maps.googleapis.com/maps/api/place/details/json?key=${key}&placeid=${prediction}`;
     const georesult = await fetch(geoUrl);
