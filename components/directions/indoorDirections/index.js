@@ -31,6 +31,8 @@ export default class IndoorDirections extends Component {
       indoorDirectionsPolyLine: {},
       showDirectionsModal: false,
       drawPath: true,
+      origin: '',
+      indoorDestination: '',
       mode: 'walking',
       region: {
         latitude: 0,
@@ -79,12 +81,25 @@ export default class IndoorDirections extends Component {
     });
   };
 
+
   /**
-   * Exits Interior mode to return to external map view
+   * Set the destination for directions within same building
+   * (indoor start point to indoor end point)
+   * @param {string} destination - name of destination
    */
-  turnInteriorModeOff() {
-    this.props.turnInteriorModeOff();
+  setDestinationInSameBuildingInput = (indoorDestination) => {
+    this.setState({ indoorDestination });
+    this.dijkstraHandler();
   }
+
+  /**
+   * Set the origin for indoor directions
+   * @param {string} origin - name of origin
+   */
+  setOriginInput = (origin) => {
+    this.setState({ origin });
+  }
+
 
   /**
    *
@@ -109,12 +124,10 @@ export default class IndoorDirections extends Component {
    * Handles the processing of input before the Dijkstra algorithm is invoked. Currently checks if
    * the directions handle a single floor or multiple floors, then gives the directions based
    * on either scenario.
-   * @param {Array} originInput - What the user inputs as the origin of indoor directions.
-   * @param {Object} destinationInput - What the user inputs as the destination of indoor directions
    */
-  dijkstraHandler(originInput, destinationInput) {
+  dijkstraHandler() {
     const updatedDirectionPath = {};
-    const [waypoints, graphs, floors] = this.indoorDirectionHandler(originInput, destinationInput);
+    const [waypoints, graphs, floors] = this.indoorDirectionHandler();
     if (waypoints.length > 0) {
       const paths = dijkstraPathfinder.dijkstraPathfinder(waypoints, graphs);
       for (let i = 0; i < paths.length; i++) {
@@ -126,9 +139,9 @@ export default class IndoorDirections extends Component {
     });
   }
 
-  indoorDirectionHandler(originInput, destinationInput) {
-    const [startNodeId, startFloor] = this.inputParser(originInput);
-    const [finishNodeId, finishFloor] = this.inputParser(destinationInput);
+  indoorDirectionHandler() {
+    const [startNodeId, startFloor] = this.inputParser(this.state.origin);
+    const [finishNodeId, finishFloor] = this.inputParser(this.state.indoorDestination);
     if (this.props.adjacencyGraphs[startFloor][startNodeId] !== undefined
       && this.props.adjacencyGraphs[finishFloor][finishNodeId] !== undefined) {
       if (startFloor === finishFloor) {
@@ -173,6 +186,10 @@ export default class IndoorDirections extends Component {
     return [[], [], []];
   }
 
+  /**
+   *
+   * @param {*} input - input string to be parsed into format for djikstra
+   */
   inputParser(input) {
     const globalRoomNumberRegex = /^\w-\d{3,}(\.\d{2})?$/i; // ex: H-837 (also H-837.05).
     const localRoomNumberRegex = /^\d{3,}(\.\d{2})?$/i; // above except w/o building code.
@@ -198,7 +215,6 @@ export default class IndoorDirections extends Component {
     }
     return [id, floor];
   }
-
 
   render() {
     const { currentBuilding } = this.state;
@@ -279,9 +295,9 @@ export default class IndoorDirections extends Component {
               <IndoorMapSearchBar
                 currentBuilding={currentBuilding}
                 currentFloor={this.state.currentFloorPlan}
+                setOriginInput={this.setOriginInput}
               />
               <DestinationSearchBar
-                style={styles.destinationSearchBar}
                 drawPath={this.state.drawPath}
                 getRegionFromSearch={this.props.getRegionFromSearch}
                 getDestinationIfSet={this.props.getDestinationIfSet}
@@ -289,6 +305,8 @@ export default class IndoorDirections extends Component {
                 coordinateCallback={this.props.getCoordinates}
                 getMode={this.state.mode}
                 indoorRoomsList={this.props.indoorRoomsList}
+                currentBuildingName={currentBuilding.building}
+                setDestinationInSameBuildingInput={this.setDestinationInSameBuildingInput}
               />
             </View>
 

@@ -23,8 +23,7 @@ export default class IndoorMapSearchBar extends Component {
       currentBuilding: this.props.currentBuilding,
       currentFloor: this.props.currentFloor.floor,
       currentAvailableRooms: [],
-      input: '',
-      startPoint: {}
+      input: ''
     };
   }
 
@@ -53,7 +52,8 @@ export default class IndoorMapSearchBar extends Component {
 
       const currentAvailableRoom = {
         id: roomString,
-        description: roomString
+        description: roomString,
+        dijkstraId: room
       };
 
       currentAvailableRooms.push(currentAvailableRoom);
@@ -62,10 +62,6 @@ export default class IndoorMapSearchBar extends Component {
     this.setState({
       currentAvailableRooms
     });
-  }
-
-  getStartPoint = () => {
-    return this.state.startPoint;
   }
 
   /**
@@ -79,9 +75,7 @@ export default class IndoorMapSearchBar extends Component {
       return room.description === userQuery;
     });
 
-    this.setState({
-      startPoint: searchResult
-    });
+    this.props.setOriginInput(searchResult.dijkstraId);
   }
 
 
@@ -97,9 +91,10 @@ export default class IndoorMapSearchBar extends Component {
     });
 
     this.setState({
-      startPoint: searchResult,
       input: searchResult.description
     });
+
+    this.props.setOriginInput(searchResult.dijkstraId);
   }
 
   /**

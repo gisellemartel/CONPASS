@@ -104,6 +104,19 @@ export default class DestinationSearchBar extends Component {
     this.drawPath();
   }
 
+  /**
+   * Sets indoor destination for directions between points in same building
+   */
+  setIndoorDestination = (destination) => {
+    // if the prediction is an indoor destination in the same current building, we do not need to
+    // set lat long region
+    const roomName = destination.description.toLowerCase();
+    if ((roomName.startsWith('h-') && this.props.currentBuildingName === 'H')
+     || (roomName.startsWith('vl-') && this.props.currentBuildingName === 'VL')) {
+      this.props.setDestinationInSameBuildingInput(destination.dijkstraId);
+      console.log('Setting destination');
+    }
+  }
 
   /**
    * Concatenates custom indoor predictions with predictions from Google API
@@ -185,6 +198,7 @@ export default class DestinationSearchBar extends Component {
             onPress={() => {
               this.setState({ destination: prediction.description });
               this.getLatLong(prediction.place_id);
+              this.setIndoorDestination(prediction);
               this.setState({ showPredictions: false });
               Keyboard.dismiss();
             }}
@@ -202,7 +216,6 @@ export default class DestinationSearchBar extends Component {
     const onClear = () => {
       this.setState({
         showPredictions: false,
-        predictions: []
       });
     };
 
@@ -212,7 +225,6 @@ export default class DestinationSearchBar extends Component {
     const onBlur = () => {
       this.setState({
         showPredictions: false,
-        predictions: []
       });
     };
 

@@ -36,8 +36,8 @@ class BuildingWithFloors extends Component {
 
   render() {
     const { floorPlan } = this.state;
-
     const { indoorDirectionsPolyLine } = this.props;
+
     return (
       <View style={styles.container}>
         {/* Renders floor switcher button for each available in current building */}
