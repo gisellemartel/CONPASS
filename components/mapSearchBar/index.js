@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable react/no-access-state-in-setstate */
 import React, { Component } from 'react';
 import {
@@ -28,8 +29,7 @@ export default class MapSearchBar extends Component {
         longitudeDelta: 0.0421
       },
       isMounted: false,
-      prevCurrentBuilding: '',
-      currentBuilding: null
+      prevCurrentBuilding: ''
     };
   }
 
@@ -53,22 +53,31 @@ export default class MapSearchBar extends Component {
    * Retrieves predictions through google's from text entered in searchbar.
    * @param {string} destination - Text input from search bar
    */
-  async onChangeDestination(destination) {
+  onChangeDestination(destination) {
     try {
+      let currentBuilding;
+      let prevCurrentBuilding;
       if (this.props.currentBuildingPred !== this.state.prevCurrentBuilding) {
-        this.setState({
-          prevCurrentBuilding: this.props.currentBuildingPred
-        });
-        await this.updateCurrentBuilding();
+        currentBuilding = this.updateCurrentBuilding();
+        prevCurrentBuilding = this.props.currentBuildingPred;
       }
 
-      const json = await this.getGoogleApiPredictions(destination);
+      const json = this.getGoogleApiPredictions(destination);
 
-      const allPredictions = this.generateAllContextualPredictions(destination.toLowerCase(), json.predictions);
+      const predictions = this.generateAllContextualPredictions(currentBuilding, destination.toLowerCase(), json.predictions);
 
-      this.setState({
-        predictions: allPredictions
-      });
+      if (prevCurrentBuilding) {
+        this.setState({
+          destination,
+          prevCurrentBuilding,
+          predictions
+        });
+      } else {
+        this.setState({
+          destination,
+          predictions
+        });
+      }
     } catch (err) {
       console.error(err);
     }
@@ -81,7 +90,6 @@ export default class MapSearchBar extends Component {
    * @returns {Promise} - Promise object represents Google's API json response
    */
   async getGoogleApiPredictions(destination) {
-    this.setState({ destination });
     const key = 'AIzaSyCqNODizSqMIWbKbO8Iq3VWdBcK846n_3w';
     const apiUrl = `https://maps.googleapis.com/maps/api/place/autocomplete/json?key=${key}&input=${destination}&location=45.492409, -73.582153&radius=2000`;
 
@@ -188,7 +196,7 @@ export default class MapSearchBar extends Component {
    * @param {string} - destination entered by user in search bar
    * @param {string} - googleApiPredictions
    */
-  generateAllContextualPredictions(destination, googleApiPredictions) {
+  generateAllContextualPredictions(currentBuilding, destination, googleApiPredictions) {
     if (destination.length === 0) {
       return [];
     }
@@ -202,12 +210,10 @@ export default class MapSearchBar extends Component {
       return roomData.indexOf(textData) > -1;
     });
 
-    const currBuilding = [this.state.currentBuilding];
-
     // if H- or VL- prefix entered by user only show relevant indoor predictions
     if (destination.startsWith('h-') || destination.startsWith('vl-')) {
-      const allPredictions = currBuilding
-        ? currBuilding.concat(predictions.slice(0, MAX_NUM_PREDICTIONS - 1))
+      const allPredictions = currentBuilding
+        ? [currentBuilding].concat(predictions.slice(0, MAX_NUM_PREDICTIONS - 1))
         : predictions.slice(0, MAX_NUM_PREDICTIONS);
       return allPredictions;
     }
@@ -219,8 +225,8 @@ export default class MapSearchBar extends Component {
     // return mix of both google and relevant indoor predictions
     const googlePredictions = googleApiPredictions.slice(0, 2);
 
-    const allPredictions = currBuilding
-      ? currBuilding.concat(googlePredictions.concat(predictions.slice(0, MAX_NUM_PREDICTIONS - 1)))
+    const allPredictions = currentBuilding
+      ? [currentBuilding].concat(googlePredictions.concat(predictions.slice(0, MAX_NUM_PREDICTIONS - 1)))
       : googlePredictions.concat(predictions.slice(0, MAX_NUM_PREDICTIONS));
 
     return allPredictions;
@@ -235,12 +241,12 @@ export default class MapSearchBar extends Component {
       const json = await this.getGoogleApiPredictions(this.props.currentBuildingPred);
 
       if (json.predictions.length > 0) {
-        this.setState({
-          currentBuilding: json.predictions[0]
-        });
+        return json.predictions[0];
       }
+      return null;
     } catch (err) {
       console.error(err);
+      return null;
     }
   }
 
