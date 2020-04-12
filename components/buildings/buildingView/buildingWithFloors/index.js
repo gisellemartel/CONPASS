@@ -46,10 +46,7 @@ class BuildingWithFloors extends Component {
    */
   dijkstraHandler(originInput, destinationInput) {
     const updatedDirectionPath = {};
-    let waypoints;
-    let graphs;
-    let floors;
-    [waypoints, graphs, floors] = this.indoorDirectionHandler(originInput, destinationInput);
+    const [waypoints, graphs, floors] = this.indoorDirectionHandler(originInput, destinationInput);
     if (waypoints.length > 0) {
       const paths = dijkstraPathfinder.dijkstraPathfinder(waypoints, graphs);
       for (let i = 0; i < paths.length; i++) {
@@ -62,22 +59,37 @@ class BuildingWithFloors extends Component {
   }
 
   indoorDirectionHandler(originInput, destinationInput) {
-    const inputs = [];
-    let startNodeId;
-    let finishNodeId;
-    let startFloor;
-    let finishFloor;
-    [startNodeId, startFloor] = this.inputParser(originInput);
-    [finishNodeId, finishFloor] = this.inputParser(destinationInput);
+    const [startNodeId, startFloor] = this.inputParser(originInput);
+    const [finishNodeId, finishFloor] = this.inputParser(destinationInput);
     if (this.props.adjacencyGraphs[startFloor][startNodeId] !== undefined
       && this.props.adjacencyGraphs[finishFloor][finishNodeId] !== undefined) {
-      if (startFloor == finishFloor) {
-        return [[{ start: startNodeId, finish: finishNodeId }], [this.props.adjacencyGraphs[startFloor]], [startFloor]];
+      if (startFloor === finishFloor) {
+        return [
+          [
+            { start: startNodeId, finish: finishNodeId }
+          ],
+          [
+            this.props.adjacencyGraphs[startFloor]
+          ],
+          [startFloor]
+        ];
       }
-      // Staircase 1 as default is temporary. US4C will take care of finding the optimal meeting point.
-      return [[{ start: startNodeId, finish: 'staircase_1' }, { start: 'staircase_1', finish: finishNodeId }],
-        [this.props.adjacencyGraphs[startFloor], this.props.adjacencyGraphs[finishFloor]],
-        [startFloor, finishFloor]];
+      // Staircase 1 as default is temporary.
+      // US4C will take care of finding the optimal meeting point.
+      return [
+        [
+          { start: startNodeId, finish: 'staircase_1' },
+          { start: 'staircase_1', finish: finishNodeId }
+        ],
+        [
+          this.props.adjacencyGraphs[startFloor],
+          this.props.adjacencyGraphs[finishFloor]
+        ],
+        [
+          startFloor,
+          finishFloor
+        ]
+      ];
     }
     return [[], [], []];
   }
@@ -112,18 +124,6 @@ class BuildingWithFloors extends Component {
     const { floor } = this.state;
     return (
       <View style={styles.container}>
-        {/* <TouchableOpacity
-          onPress={
-                () => {
-                  this.dijkstraHandler('817', '967');
-                }
-              }
-        >
-          <Text>
-            Get Directions
-          </Text>
-        </TouchableOpacity> */}
-
         {/* Renders floor switcher button for each available in current building */}
         <ScrollView zoomScale="0" horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.switcher} scrollEnabled>
           {this.props.buildingFloorPlans.map((lvl) => {
