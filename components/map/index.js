@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Image } from 'react-native';
 import MapView, { Polyline, PROVIDER_GOOGLE } from 'react-native-maps';
-import buildings from '../../assets/polygons/polygons';
+import buildings from '../../assets/polygons/buildings';
 import CustomPolygon from './customPolygon';
 import styles from './styles';
 

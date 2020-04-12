@@ -10,13 +10,13 @@ beforeEach(() => {
   // eslint-disable-next-line no-underscore-dangle
   const _Date = Date;
   const MockDate = (...args) => {
-    switch (args.length) {
-      case 0:
-        return DATE_TO_USE;
-      default:
-        return new _Date(...args);
+    if (args.length === 0) {
+      return DATE_TO_USE;
     }
-  };
+    else {
+      return new _Date(...args);
+    }
+    
   MockDate.UTC = _Date.UTC;
   MockDate.now = () => { DATE_TO_USE.getTime(); };
   MockDate.parse = _Date.parse;

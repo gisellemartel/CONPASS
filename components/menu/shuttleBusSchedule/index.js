@@ -3,7 +3,7 @@ import {
   View, Text, ScrollView, SectionList
 } from 'react-native';
 import { ButtonGroup } from 'react-native-elements';
-import shuttleScheduleInformation from './shuttleScheduleService';
+import shuttleScheduleSchedule from './shuttleScheduleInformation';
 import styles from './styles';
 
 const buttons = ['SGW', 'LOY'];
