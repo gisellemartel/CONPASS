@@ -107,9 +107,15 @@ export default class IndoorMapSearchBar extends Component {
    * @param {string} startPoint - Text input from search bar
    */
   onChangeText = (input) => {
-    this.setState({
-      predictions: []
-    });
+    if (input.length === 0) {
+      this.setState({
+        input,
+        showPredictions: false,
+        predictions: []
+      });
+
+      return;
+    }
 
     const availableRooms = this.state.currentAvailableRooms;
 
@@ -120,9 +126,10 @@ export default class IndoorMapSearchBar extends Component {
       return roomData.indexOf(textData) > -1;
     });
 
+
     this.setState({
       showPredictions: true,
-      predictions,
+      predictions: predictions.slice(0, 5),
       input,
     });
   }
@@ -158,14 +165,20 @@ export default class IndoorMapSearchBar extends Component {
      * sets state when search bar is cleared
      */
     const onClear = () => {
-      this.setState({ showPredictions: false });
+      this.setState({
+        predictions: [],
+        showPredictions: false
+      });
     };
 
     /**
      * Controller function for searchBar component
      */
     const onBlur = () => {
-      this.setState({ showPredictions: false });
+      this.setState({
+        predictions: [],
+        showPredictions: false
+      });
     };
 
     return (

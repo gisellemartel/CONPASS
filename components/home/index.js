@@ -342,7 +342,7 @@ class Home extends Component {
             setBuildingInfoModalVisibilityTo={this.setBuildingInfoModalVisibilityTo}
             turnInteriorModeOff={this.turnInteriorModeOff}
             buildingInfoData={this.state.buildingInfoData}
-            indoorRoomsList={this.props.indoorRoomsList}
+            indoorRoomsList={this.state.indoorRoomsList}
           />
         )}
       </View>

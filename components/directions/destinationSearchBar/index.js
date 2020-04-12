@@ -112,6 +112,10 @@ export default class DestinationSearchBar extends Component {
    * @param {string} - googleApiPredictions
    */
   generateAllContextualPredictions(destination, googleApiPredictions) {
+    if (destination.length === 0) {
+      return [];
+    }
+
     const { indoorRoomsList } = this.props;
     const MAX_NUM_PREDICTIONS = 5;
     // contextual predictions based on user query
@@ -124,6 +128,10 @@ export default class DestinationSearchBar extends Component {
     // if H- or VL- prefix entered by user only show relevant indoor predictions
     if (destination.startsWith('h-') || destination.startsWith('vl-')) {
       return predictions.slice(0, MAX_NUM_PREDICTIONS);
+    }
+
+    if (predictions.length === 0) {
+      return googleApiPredictions;
     }
 
     // return mix of both google and relevant indoor predictions
@@ -188,6 +196,27 @@ export default class DestinationSearchBar extends Component {
       );
     }) : null;
 
+    /**
+     * Controller function for searchBar component
+     * sets state when search bar is cleared
+     */
+    const onClear = () => {
+      this.setState({
+        showPredictions: false,
+        predictions: []
+      });
+    };
+
+    /**
+     * Controller function for searchBar component
+     */
+    const onBlur = () => {
+      this.setState({
+        showPredictions: false,
+        predictions: []
+      });
+    };
+
     return (
       <View style={styles.container}>
         <View>
@@ -206,9 +235,8 @@ export default class DestinationSearchBar extends Component {
               return this.onChangeDestination(destination);
             }}
             value={this.state.destination}
-            onClear={() => {
-              this.setState({ showPredictions: false });
-            }}
+            onClear={onClear}
+            onBlur={onBlur}
             blurOnSubmit
           />
         </View>

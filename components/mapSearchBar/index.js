@@ -189,6 +189,10 @@ export default class MapSearchBar extends Component {
    * @param {string} - googleApiPredictions
    */
   generateAllContextualPredictions(destination, googleApiPredictions) {
+    if (destination.length === 0) {
+      return [];
+    }
+
     const { indoorRoomsList } = this.props;
     const MAX_NUM_PREDICTIONS = 6;
     // contextual predictions based on user query
@@ -206,6 +210,10 @@ export default class MapSearchBar extends Component {
         ? currBuilding.concat(predictions.slice(0, MAX_NUM_PREDICTIONS - 1))
         : predictions.slice(0, MAX_NUM_PREDICTIONS);
       return allPredictions;
+    }
+
+    if (predictions.length === 0) {
+      return googleApiPredictions;
     }
 
     // return mix of both google and relevant indoor predictions
