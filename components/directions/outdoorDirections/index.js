@@ -80,6 +80,7 @@ export default class OutdoorDirections extends Component {
             hideMenu={this.state.hide}
             drawPath={this.drawPath}
             currentBuildingPred={this.props.currentBuildingPred}
+            indoorRoomsList={this.props.indoorRoomsList}
           />
           <DestinationSearchBar
             drawPath={this.state.drawPath}

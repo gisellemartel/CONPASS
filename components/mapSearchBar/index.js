@@ -200,38 +200,44 @@ export default class MapSearchBar extends Component {
     }
 
     const { indoorRoomsList } = this.props;
-    const MAX_NUM_PREDICTIONS = 6;
-    // contextual predictions based on user query
-    const predictions = indoorRoomsList.filter((room) => {
-      const roomData = room.description ? room.description.toUpperCase() : ''.toUpperCase();
-      const textData = destination.toUpperCase();
-      return roomData.indexOf(textData) > -1;
-    });
 
-    // if H- or VL- prefix entered by user only show relevant indoor predictions
-    if (destination.startsWith('h-') || destination.startsWith('vl-')) {
-      const allPredictions = currentBuilding
-        ? [currentBuilding].concat(predictions.slice(0, MAX_NUM_PREDICTIONS - 1))
-        : predictions.slice(0, MAX_NUM_PREDICTIONS);
-      return allPredictions;
+    if (indoorRoomsList) {
+      const MAX_NUM_PREDICTIONS = 6;
+      // contextual predictions based on user query
+      const predictions = indoorRoomsList.filter((room) => {
+        const roomData = room.description ? room.description.toUpperCase() : ''.toUpperCase();
+        const textData = destination.toUpperCase();
+        return roomData.indexOf(textData) > -1;
+      });
+
+      // if H- or VL- prefix entered by user only show relevant indoor predictions
+      if (destination.startsWith('h-') || destination.startsWith('vl-')) {
+        const allPredictions = currentBuilding
+          ? [currentBuilding].concat(predictions.slice(0, MAX_NUM_PREDICTIONS - 1))
+          : predictions.slice(0, MAX_NUM_PREDICTIONS);
+        return allPredictions;
+      }
+
+      if (predictions.length === 0) {
+        const allPredictions = currentBuilding ? [currentBuilding].concat(googleApiPredictions) : googleApiPredictions;
+        return allPredictions;
+      }
+
+      if (googleApiPredictions && googleApiPredictions.length > 0) {
+      // return mix of both google and relevant indoor predictions
+        const googlePredictions = googleApiPredictions.slice(0, 2);
+
+        const allPredictions = currentBuilding
+          ? [currentBuilding].concat(googlePredictions.concat(predictions.slice(0, MAX_NUM_PREDICTIONS - 1)))
+          : googlePredictions.concat(predictions.slice(0, MAX_NUM_PREDICTIONS));
+
+        return allPredictions;
+      }
+
+      return predictions.slice(0, MAX_NUM_PREDICTIONS);
     }
-
-    if (predictions.length === 0) {
-      return googleApiPredictions;
-    }
-
-    if (googleApiPredictions && googleApiPredictions.length > 0) {
-    // return mix of both google and relevant indoor predictions
-      const googlePredictions = googleApiPredictions.slice(0, 2);
-
-      const allPredictions = currentBuilding
-        ? [currentBuilding].concat(googlePredictions.concat(predictions.slice(0, MAX_NUM_PREDICTIONS - 1)))
-        : googlePredictions.concat(predictions.slice(0, MAX_NUM_PREDICTIONS));
-
-      return allPredictions;
-    }
-
-    return predictions.slice(0, MAX_NUM_PREDICTIONS);
+    const allPredictions = currentBuilding ? [currentBuilding].concat(googleApiPredictions) : googleApiPredictions;
+    return allPredictions;
   }
 
 
@@ -256,9 +262,9 @@ export default class MapSearchBar extends Component {
     const placeholder = this.state.isMounted ? i18n.t('search') : 'search';
     // Predictions mapped and formmated from the current state predictions
     const predictions = this.state.predictions && this.state.predictions.length > 0 ? this.state.predictions.map((prediction) => {
-      const getDestinationIfSet = this.props.getDestinationIfSet
-        ? this.props.getDestinationIfSet(prediction.description)
-        : () => {};
+      // const getDestinationIfSet = this.props.getDestinationIfSet
+      //   ? this.props.getDestinationIfSet(prediction.description)
+      //   : () => {};
       return (
         <View key={prediction.id} style={styles.view}>
           <TouchableOpacity
@@ -269,7 +275,9 @@ export default class MapSearchBar extends Component {
                 showPredictions: false
               });
               this.getLatLong(prediction.place_id);
-              getDestinationIfSet();
+              if (this.props.getDestinationIfSet) {
+                this.props.getDestinationIfSet(prediction.description);
+              }
               Keyboard.dismiss();
             }}
           >
