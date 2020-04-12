@@ -151,7 +151,9 @@ class Home extends Component {
         const currentAvailableRoom = {
           id: roomString,
           description: roomString,
-          place_id: 'ChIJtd6Zh2oayUwRAu_CnRIfoBw'
+          place_id: 'ChIJtd6Zh2oayUwRAu_CnRIfoBw',
+          dijkstraId: room,
+          floor,
         };
         indoorRoomsList.push(currentAvailableRoom);
       });
@@ -169,7 +171,9 @@ class Home extends Component {
         const currentAvailableRoom = {
           id: roomString,
           description: roomString,
-          place_id: 'ChIJDbfcNjIXyUwRcocn3RuPPiY'
+          place_id: 'ChIJDbfcNjIXyUwRcocn3RuPPiY',
+          dijkstraId: room,
+          floor,
         };
         indoorRoomsList.push(currentAvailableRoom);
       });

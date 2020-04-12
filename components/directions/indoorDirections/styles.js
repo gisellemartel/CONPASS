@@ -104,9 +104,6 @@ const styles = StyleSheet.create({
     height: 50,
     borderRadius: 50,
     backgroundColor: 'white'
-  },
-  destinationSearchBar: {
-    width: 100
   }
 });
 
