@@ -29,6 +29,7 @@ class BuildingView extends Component {
               buildingFloorPlans={this.props.buildingFloorPlans}
               changeCurrentFloorPlanTo={this.props.changeCurrentFloorPlanTo}
               indoorDirectionsPolyLine={this.props.indoorDirectionsPolyLine}
+              showPolyline={this.props.showPolyline}
               {...this.props}
             />
             ) }

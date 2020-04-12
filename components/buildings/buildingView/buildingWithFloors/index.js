@@ -71,6 +71,7 @@ class BuildingWithFloors extends Component {
         </View>
 
         {/* Renders the needed svg path */}
+        {indoorDirectionsPolyLine && this.props.showPolyline && (
         <View style={styles.buildingContainer}>
           <Svg width="100%" height="100%">
             <Polyline
@@ -81,6 +82,7 @@ class BuildingWithFloors extends Component {
             />
           </Svg>
         </View>
+        )}
 
 
       </View>

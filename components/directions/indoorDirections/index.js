@@ -32,6 +32,7 @@ export default class IndoorDirections extends Component {
       showDirectionsModal: false,
       drawPath: true,
       origin: '',
+      showPolyline: false,
       mode: 'walking',
       region: {
         latitude: 0,
@@ -73,6 +74,16 @@ export default class IndoorDirections extends Component {
       currentFloorPlan: floorPlan
     });
   }
+
+  /**
+   * Changes visibility of directions polyline
+   * @param {*} showPolyline - desired visibility boolean
+   */
+  changePolylineVisibilityTo = (showPolyline) => {
+    this.setState({
+      showPolyline
+    });
+  };
 
   /**
    * updates a draw path boolean. Draws a path when true
@@ -127,7 +138,9 @@ export default class IndoorDirections extends Component {
       }
     }
     this.setState({
-      indoorDirectionsPolyLine: updatedDirectionPath
+      indoorDirectionsPolyLine: updatedDirectionPath,
+      showDirectionsModal: false,
+      showPolyline: true
     });
   }
 
@@ -249,15 +262,14 @@ export default class IndoorDirections extends Component {
             turnInteriorModeOff={this.props.turnInteriorModeOff}
             changeCurrentFloorPlanTo={this.changeCurrentFloorPlanTo}
             indoorDirectionsPolyLine={this.state.indoorDirectionsPolyLine}
+            showPolyline={this.state.showPolyline}
           />
         </View>
 
 
         {/* Navigation button*/}
         {hasInteriorMode && (
-        <PathPolyline
-          changeVisibilityTo={this.changeVisibilityTo}
-        />
+          <PathPolyline changeVisibilityTo={this.changeVisibilityTo} />
         )}
 
         {/* Building info button*/}
@@ -283,6 +295,7 @@ export default class IndoorDirections extends Component {
           <View style={styles.directionsContainer}>
             <BackButton
               changeVisibilityTo={this.changeVisibilityTo}
+              changePolylineVisibilityTo={this.changePolylineVisibilityTo}
               coordinateCallback={this.updateCoordinates}
             />
             <CurrentLocation />
