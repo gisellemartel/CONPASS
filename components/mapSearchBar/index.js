@@ -53,29 +53,27 @@ export default class MapSearchBar extends Component {
    * Retrieves predictions through google's from text entered in searchbar.
    * @param {string} destination - Text input from search bar
    */
-  onChangeDestination(destination) {
+  async onChangeDestination(destination) {
+    this.setState({ destination });
     try {
       let currentBuilding;
-      let prevCurrentBuilding;
+      let prevCurrBuilding;
       if (this.props.currentBuildingPred !== this.state.prevCurrentBuilding) {
-        currentBuilding = this.updateCurrentBuilding();
-        prevCurrentBuilding = this.props.currentBuildingPred;
+        currentBuilding = await this.updateCurrentBuilding();
+        prevCurrBuilding = this.props.currentBuildingPred;
       }
 
-      const json = this.getGoogleApiPredictions(destination);
+      const json = await this.getGoogleApiPredictions(destination);
+      const allPredictions = this.generateAllContextualPredictions(currentBuilding, destination.toLowerCase(), json.predictions);
 
-      const predictions = this.generateAllContextualPredictions(currentBuilding, destination.toLowerCase(), json.predictions);
-
-      if (prevCurrentBuilding) {
+      if (prevCurrBuilding) {
         this.setState({
-          destination,
-          prevCurrentBuilding,
-          predictions
+          prevCurrentBuilding: prevCurrBuilding,
+          predictions: allPredictions
         });
       } else {
         this.setState({
-          destination,
-          predictions
+          predictions: allPredictions
         });
       }
     } catch (err) {
@@ -222,14 +220,18 @@ export default class MapSearchBar extends Component {
       return googleApiPredictions;
     }
 
+    if (googleApiPredictions && googleApiPredictions.length > 0) {
     // return mix of both google and relevant indoor predictions
-    const googlePredictions = googleApiPredictions.slice(0, 2);
+      const googlePredictions = googleApiPredictions.slice(0, 2);
 
-    const allPredictions = currentBuilding
-      ? [currentBuilding].concat(googlePredictions.concat(predictions.slice(0, MAX_NUM_PREDICTIONS - 1)))
-      : googlePredictions.concat(predictions.slice(0, MAX_NUM_PREDICTIONS));
+      const allPredictions = currentBuilding
+        ? [currentBuilding].concat(googlePredictions.concat(predictions.slice(0, MAX_NUM_PREDICTIONS - 1)))
+        : googlePredictions.concat(predictions.slice(0, MAX_NUM_PREDICTIONS));
 
-    return allPredictions;
+      return allPredictions;
+    }
+
+    return predictions.slice(0, MAX_NUM_PREDICTIONS);
   }
 
 
@@ -253,7 +255,7 @@ export default class MapSearchBar extends Component {
   render() {
     const placeholder = this.state.isMounted ? i18n.t('search') : 'search';
     // Predictions mapped and formmated from the current state predictions
-    const predictions = this.state.predictions.map((prediction) => {
+    const predictions = this.state.predictions && this.state.predictions.length > 0 ? this.state.predictions.map((prediction) => {
       const getDestinationIfSet = this.props.getDestinationIfSet
         ? this.props.getDestinationIfSet(prediction.description)
         : () => {};
@@ -275,7 +277,7 @@ export default class MapSearchBar extends Component {
           </TouchableOpacity>
         </View>
       );
-    });
+    }) : null;
 
     const searchIcon = this.state.hideMenu && (
       <Icon navigation={this.props.navigation} />
@@ -296,7 +298,7 @@ export default class MapSearchBar extends Component {
      * sets state when search bar is cleared
      */
     const onClear = () => {
-      this.setState({ showPredictions: true });
+      this.setState({ showPredictions: false });
 
       // Clear markers on the map
       if (this.props.nearbyMarkers) { this.props.nearbyMarkers([]); }
