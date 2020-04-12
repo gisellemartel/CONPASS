@@ -88,6 +88,7 @@ export default class OutdoorDirections extends Component {
             updatedRegion={this.state.region}
             coordinateCallback={this.updateCoordinates}
             getMode={this.state.mode}
+            indoorRoomsList={this.props.indoorRoomsList}
           />
           <Car updateMode={this.updateMode} />
           <Bus

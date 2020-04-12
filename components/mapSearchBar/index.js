@@ -54,7 +54,6 @@ export default class MapSearchBar extends Component {
    * @param {string} destination - Text input from search bar
    */
   async onChangeDestination(destination) {
-    this.setState({ destination });
     try {
       if (this.props.currentBuildingPred !== this.state.prevCurrentBuilding) {
         this.setState({
@@ -63,27 +62,26 @@ export default class MapSearchBar extends Component {
         await this.updateCurrentBuilding();
       }
 
-      const json = await this.getPredictions(destination);
-      const finalPredictions = this.state.currentBuilding !== null && destination !== ''
-        ? [
-          this.state.currentBuilding,
-          ...json.predictions.slice(0, json.predictions.length - 1)
-        ]
-        : json.predictions;
+      const json = await this.getGoogleApiPredictions(destination);
+
+      const allPredictions = this.generateAllContextualPredictions(destination.toLowerCase(), json.predictions);
+
       this.setState({
-        predictions: finalPredictions
+        predictions: allPredictions
       });
     } catch (err) {
       console.error(err);
     }
   }
 
+
   /**
    * Retrieves predictions through Google's API for a given string
    * @param {String} destination - String to get predictions for
    * @returns {Promise} - Promise object represents Google's API json response
    */
-  async getPredictions(destination) {
+  async getGoogleApiPredictions(destination) {
+    this.setState({ destination });
     const key = 'AIzaSyCqNODizSqMIWbKbO8Iq3VWdBcK846n_3w';
     const apiUrl = `https://maps.googleapis.com/maps/api/place/autocomplete/json?key=${key}&input=${destination}&location=45.492409, -73.582153&radius=2000`;
 
@@ -186,11 +184,47 @@ export default class MapSearchBar extends Component {
   }
 
   /**
+   * Concatenates custom indoor predictions with predictions from Google API
+   * @param {string} - destination entered by user in search bar
+   * @param {string} - googleApiPredictions
+   */
+  generateAllContextualPredictions(destination, googleApiPredictions) {
+    const { indoorRoomsList } = this.props;
+    const MAX_NUM_PREDICTIONS = 6;
+    // contextual predictions based on user query
+    const predictions = indoorRoomsList.filter((room) => {
+      const roomData = room.description ? room.description.toUpperCase() : ''.toUpperCase();
+      const textData = destination.toUpperCase();
+      return roomData.indexOf(textData) > -1;
+    });
+
+    const currBuilding = [this.state.currentBuilding];
+
+    // if H- or VL- prefix entered by user only show relevant indoor predictions
+    if (destination.startsWith('h-') || destination.startsWith('vl-')) {
+      const allPredictions = currBuilding
+        ? currBuilding.concat(predictions.slice(0, MAX_NUM_PREDICTIONS - 1))
+        : predictions.slice(0, MAX_NUM_PREDICTIONS);
+      return allPredictions;
+    }
+
+    // return mix of both google and relevant indoor predictions
+    const googlePredictions = googleApiPredictions.slice(0, 2);
+
+    const allPredictions = currBuilding
+      ? currBuilding.concat(googlePredictions.concat(predictions.slice(0, MAX_NUM_PREDICTIONS - 1)))
+      : googlePredictions.concat(predictions.slice(0, MAX_NUM_PREDICTIONS));
+
+    return allPredictions;
+  }
+
+
+  /**
    * Sets currentBuilding state with a prediction of the current building the user is in
    */
   async updateCurrentBuilding() {
     try {
-      const json = await this.getPredictions(this.props.currentBuildingPred);
+      const json = await this.getGoogleApiPredictions(this.props.currentBuildingPred);
 
       if (json.predictions.length > 0) {
         this.setState({
@@ -324,7 +358,7 @@ export default class MapSearchBar extends Component {
           </Tooltip>
 
         </View>
-        {this.state.showPredictions ? predictions : null}
+        {this.state.showPredictions && this.state.predictions ? predictions : null}
       </View>
     );
   }

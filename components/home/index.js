@@ -1,4 +1,5 @@
 
+/* eslint-disable no-restricted-globals */
 import React, { Component } from 'react';
 import { View } from 'react-native';
 import TheMap from '../map';
@@ -8,6 +9,7 @@ import CampusToggle from '../campusToggle';
 import PathPolyline from '../pathPolyline';
 import OutdoorDirections from '../directions/outdoorDirections';
 import IndoorDirections from '../directions/indoorDirections';
+import fetchBuildingRooms from '../../indoor_directions_modules/fetchBuildingRooms';
 import styles from './styles';
 
 
@@ -36,11 +38,16 @@ class Home extends Component {
       showDirectionsMenu: false,
       showCampusToggle: false,
       buildingInfoData: {},
-      showBuildingInfoModal: false
+      showBuildingInfoModal: false,
+      indoorRoomsList: []
     };
     this.turnInteriorModeOn = this.turnInteriorModeOn.bind(this);
     this.turnInteriorModeOff = this.turnInteriorModeOff.bind(this);
     this.setBuildingInfoModalVisibilityTo = this.setBuildingInfoModalVisibilityTo.bind(this);
+  }
+
+  componentDidMount() {
+    this.generateIndoorPredictionsForSearchBar();
   }
 
   /**
@@ -117,6 +124,59 @@ class Home extends Component {
   setBuildingInfoModalVisibilityTo(visibility) {
     this.setState({
       showBuildingInfoModal: visibility
+    });
+  }
+
+  /**
+   * fetches all the possible indoor predictions for start point for any building and any floor
+   */
+  generateIndoorPredictionsForSearchBar = () => {
+    const hallData = fetchBuildingRooms('H');
+    const vlData = fetchBuildingRooms('VL');
+    const indoorRoomsList = [];
+
+    const hallRooms = Object.keys(hallData);
+    const vlRooms = Object.keys(vlData);
+
+    hallRooms.forEach((floor) => {
+      hallData[floor].forEach((room) => {
+        let roomString;
+        const isNumeric = !isNaN(room);
+        if (!isNumeric) {
+          roomString = `H-${floor} ${room.toString().replace('_', ' ')}`;
+        } else {
+          roomString = `H-${room.toString()}`;
+        }
+
+        const currentAvailableRoom = {
+          id: roomString,
+          description: roomString,
+          place_id: 'ChIJtd6Zh2oayUwRAu_CnRIfoBw'
+        };
+        indoorRoomsList.push(currentAvailableRoom);
+      });
+    });
+
+    vlRooms.forEach((floor) => {
+      vlData[floor].forEach((room) => {
+        let roomString;
+        const isNumeric = !isNaN(room);
+        if (!isNumeric) {
+          roomString = `VL-${floor} ${room.toString().replace('_', ' ')}`;
+        } else {
+          roomString = `VL-${room.toString()}`;
+        }
+        const currentAvailableRoom = {
+          id: roomString,
+          description: roomString,
+          place_id: 'ChIJDbfcNjIXyUwRcocn3RuPPiY'
+        };
+        indoorRoomsList.push(currentAvailableRoom);
+      });
+    });
+
+    this.setState({
+      indoorRoomsList
     });
   }
 
@@ -241,6 +301,7 @@ class Home extends Component {
           setCampusToggleVisibility={this.setCampusToggleVisibility}
           currentBuildingPred={this.state.currentBuildingAddress}
           nearbyMarkers={this.getNearbyMarkers}
+          indoorRoomsList={this.state.indoorRoomsList}
         />
         )}
         {this.state.showCampusToggle && (
@@ -265,6 +326,7 @@ class Home extends Component {
             changeVisibilityTo={this.changeVisibilityTo}
             navigation={this.props.navigation}
             currentBuildingPred={this.state.currentBuildingAddress}
+            indoorRoomsList={this.state.indoorRoomsList}
           />
         )}
         {/* Building component contains all the interior floor views */}
@@ -280,6 +342,7 @@ class Home extends Component {
             setBuildingInfoModalVisibilityTo={this.setBuildingInfoModalVisibilityTo}
             turnInteriorModeOff={this.turnInteriorModeOff}
             buildingInfoData={this.state.buildingInfoData}
+            indoorRoomsList={this.props.indoorRoomsList}
           />
         )}
       </View>

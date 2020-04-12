@@ -191,6 +191,7 @@ export default class IndoorDirections extends Component {
                 updatedRegion={this.state.region}
                 coordinateCallback={this.props.getCoordinates}
                 getMode={this.state.mode}
+                indoorRoomsList={this.props.indoorRoomsList}
               />
             </View>
 

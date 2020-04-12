@@ -1,4 +1,3 @@
-/* eslint-disable no-restricted-globals */
 /* eslint-disable max-len */
 import React, { Component } from 'react';
 import {
@@ -9,7 +8,6 @@ import { SearchBar } from 'react-native-elements';
 import decodePolyline from 'decode-google-map-polyline';
 import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
-import fetchBuildingRooms from '../../../indoor_directions_modules/fetchBuildingRooms';
 import styles from './styles';
 
 export default class DestinationSearchBar extends Component {
@@ -20,7 +18,6 @@ export default class DestinationSearchBar extends Component {
       showPredictions: true,
       destination: this.props.getDestinationIfSet,
       predictions: [],
-      indoorRooms: [],
       destinationRegion: {
         latitude: '',
         longitude: '',
@@ -43,8 +40,6 @@ export default class DestinationSearchBar extends Component {
     if (this.props.directionsId) {
       this.getLatLong(this.props.directionsId);
     }
-
-    this.generateIndoorPredictionsForSearchBar();
   }
 
   componentDidUpdate(prevProps) {
@@ -110,70 +105,17 @@ export default class DestinationSearchBar extends Component {
     this.drawPath();
   }
 
-  /**
-   * fetches all the possible indoor predictions for start point for any building and any floor
-   */
-  generateIndoorPredictionsForSearchBar = () => {
-    const hallData = fetchBuildingRooms('H');
-    const vlData = fetchBuildingRooms('VL');
-    const indoorRooms = [];
-
-    const hallRooms = Object.keys(hallData);
-    const vlRooms = Object.keys(vlData);
-
-    hallRooms.forEach((floor) => {
-      hallData[floor].forEach((room) => {
-        let roomString;
-        const isNumeric = !isNaN(room);
-        if (!isNumeric) {
-          roomString = `H-${floor} ${room.toString().replace('_', ' ')}`;
-        } else {
-          roomString = `H-${room.toString()}`;
-        }
-
-        const currentAvailableRoom = {
-          id: roomString,
-          description: roomString,
-          place_id: 'ChIJtd6Zh2oayUwRAu_CnRIfoBw'
-        };
-        indoorRooms.push(currentAvailableRoom);
-      });
-    });
-
-    vlRooms.forEach((floor) => {
-      vlData[floor].forEach((room) => {
-        let roomString;
-        const isNumeric = !isNaN(room);
-        if (!isNumeric) {
-          roomString = `VL-${floor} ${room.toString().replace('_', ' ')}`;
-        } else {
-          roomString = `VL-${room.toString()}`;
-        }
-        const currentAvailableRoom = {
-          id: roomString,
-          description: roomString,
-          place_id: 'ChIJDbfcNjIXyUwRcocn3RuPPiY'
-        };
-        indoorRooms.push(currentAvailableRoom);
-      });
-    });
-
-    this.setState({
-      indoorRooms
-    });
-  }
-
 
   /**
-   * Concatenates indoor predictions to result from Google API
-   * @param {string} - destination
+   * Concatenates custom indoor predictions with predictions from Google API
+   * @param {string} - destination entered by user in search bar
    * @param {string} - googleApiPredictions
    */
   generateAllContextualPredictions(destination, googleApiPredictions) {
-    const { indoorRooms } = this.state;
-    const MAX_NUM_PREDICTIONS = 10;
+    const { indoorRoomsList } = this.props;
+    const MAX_NUM_PREDICTIONS = 5;
     // contextual predictions based on user query
-    const predictions = indoorRooms.filter((room) => {
+    const predictions = indoorRoomsList.filter((room) => {
       const roomData = room.description ? room.description.toUpperCase() : ''.toUpperCase();
       const textData = destination.toUpperCase();
       return roomData.indexOf(textData) > -1;
@@ -184,9 +126,9 @@ export default class DestinationSearchBar extends Component {
       return predictions.slice(0, MAX_NUM_PREDICTIONS);
     }
 
-    // return both google and relevant indoor predictions
-    const googlePredictions = googleApiPredictions.slice(0, MAX_NUM_PREDICTIONS / 2);
-    const indoorPredictions = predictions.slice(0, MAX_NUM_PREDICTIONS / 2);
+    // return mix of both google and relevant indoor predictions
+    const googlePredictions = googleApiPredictions.slice(0, 2);
+    const indoorPredictions = predictions.slice(0, 3);
     const mixedPredictions = indoorPredictions.concat(googlePredictions);
 
     return mixedPredictions;
