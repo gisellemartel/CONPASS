@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View,FlatList, AsyncStorage, Text,TouchableOpacity, CheckBox } from 'react-native';
+import { View,FlatList, AsyncStorage, Text,TouchableOpacity, StyleSheet } from 'react-native';
 import { Checkbox,ListItem } from 'react-native-elements'
 
 
@@ -22,7 +22,7 @@ render() {
                 data={this.props.options}
                 renderItem={({item}) => (
                   <TouchableOpacity onPress={()=>this.setCalendarsToSyncList(item.storageId)}>
-                    <Text>{item.summary}</Text>
+                    <Text style={styles.item}>{item.summary}</Text>
                   </TouchableOpacity>
                 )}
             />
@@ -30,3 +30,12 @@ render() {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  item:{
+    marginTop: 24,
+    padding: 30,
+    backgroundColor: 'pink',
+    fontSize: 24
+  }
+});
