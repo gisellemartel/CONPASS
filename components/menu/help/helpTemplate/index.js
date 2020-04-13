@@ -26,12 +26,12 @@ render() {
     return (
     <View style= {styles.container}>
         <View style = {styles.topicElement}>
-            <Text style = {styles.TextStyle}> {this.state.title} </Text>
+            <Text style = {styles.TextStyle}>{this.state.title} </Text>
             <TouchableOpacity onPress={this.changeLayout}>
             <Image style={styles.arrowStyle} source={arrow} />
             </TouchableOpacity>
          </View>
-         <View style={{ height: this.state.expanded ? null : 0, overflow: 'hidden' , padding: 20, paddingTop: 10 }}>
+         <View style={{height: this.state.expanded ? null : 0, overflow: 'hidden' , flexDirection: 'column', marginLeft: 1, padding: 20, paddingTop: 10, marginRight: 18, alignItems: 'flex-start', justifyContent: 'space-evenly'}}>
             {this.props.children}
          </View>
     </View >

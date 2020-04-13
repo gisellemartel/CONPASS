@@ -4,16 +4,13 @@ const styles = StyleSheet.create({
   container: {
     width: '95%',
     backgroundColor: '#F5FCFF',
-    paddingTop: 30,
     margin:10,
     overflow:'hidden'
 },
   topicElement: {
     flexDirection: 'row',
-    marginLeft: 20,
-},
-  topicText: {
-    flex: 1,
+    marginLeft: '5%',
+    marginRight: '10%'
 },
   arrowStyle: {
     width : 35,

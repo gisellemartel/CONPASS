@@ -7,11 +7,11 @@ const styles = StyleSheet.create({
       paddingTop: 20,
     },
     pageHeader: {
-      flex: 0.3,
+      flex: 0.3 ,
       width: '100%',
       fontWeight: 'bold',
-      top: 30,
-      marginLeft: 20,
+      top: '4%',
+      marginLeft: '5%',
     }
 });
 export default styles;
