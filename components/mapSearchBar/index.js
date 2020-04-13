@@ -262,9 +262,6 @@ export default class MapSearchBar extends Component {
     const placeholder = this.state.isMounted ? i18n.t('search') : 'search';
     // Predictions mapped and formmated from the current state predictions
     const predictions = this.state.predictions && this.state.predictions.length > 0 ? this.state.predictions.map((prediction) => {
-      // const getDestinationIfSet = this.props.getDestinationIfSet
-      //   ? this.props.getDestinationIfSet(prediction.description)
-      //   : () => {};
       return (
         <View key={prediction.id} style={styles.view}>
           <TouchableOpacity
@@ -306,8 +303,6 @@ export default class MapSearchBar extends Component {
      * sets state when search bar is cleared
      */
     const onClear = () => {
-      this.setState({ showPredictions: false });
-
       // Clear markers on the map
       if (this.props.nearbyMarkers) { this.props.nearbyMarkers([]); }
     };

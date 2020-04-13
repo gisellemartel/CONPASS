@@ -208,19 +208,6 @@ export default class DestinationSearchBar extends Component {
       );
     }) : null;
 
-    /**
-     * Controller function for searchBar component
-     * sets state when search bar is cleared
-     */
-    const onClear = () => {
-      this.setState({
-        showPredictions: false,
-      });
-    };
-
-    /**
-     * Controller function for searchBar component
-     */
     const onBlur = () => {
       this.setState({
         showPredictions: false,
@@ -245,7 +232,6 @@ export default class DestinationSearchBar extends Component {
               return this.onChangeDestination(destination);
             }}
             value={this.state.destination}
-            onClear={onClear}
             onBlur={onBlur}
             blurOnSubmit
           />
