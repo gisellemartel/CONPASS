@@ -31,6 +31,7 @@ render() {
                   </TouchableOpacity>
                 )}
             />
+    
             <View style={styles.button}>
               <Button
                 title="Synchronize Calendars"
@@ -57,5 +58,9 @@ const styles = StyleSheet.create({
     backgroundColor: 'pink',
     fontSize: 24
   },
-
+  button:{
+    width:'50%',
+    marginLeft:'25%',
+    marginVertical:'10%'
+  }
 });
