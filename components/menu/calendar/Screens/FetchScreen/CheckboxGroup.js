@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View,FlatList, AsyncStorage, Text,ActivityIndicator, CheckBox } from 'react-native';
+import { View,FlatList, AsyncStorage, Text,TouchableOpacity, CheckBox } from 'react-native';
 import { Checkbox,ListItem } from 'react-native-elements'
 
 
@@ -11,15 +11,20 @@ export default class CheckboxGroup extends Component {
       checkedList: []
     }
 }
-
+setCalendarsToSyncList = (storageId)=>{
+  console.log('event pressed ',storageId);
+}
 render() {
-    console.log('Checkbox ',this.props.options);
     return (
         <View>
             <FlatList
                 keyExtractor={(item)=>item.id}
                 data={this.props.options}
-                renderItem={({item}) => (<Text>{item.summary}</Text>)}
+                renderItem={({item}) => (
+                  <TouchableOpacity onPress={()=>this.setCalendarsToSyncList(item.storageId)}>
+                    <Text>{item.summary}</Text>
+                  </TouchableOpacity>
+                )}
             />
         </View>
     );
