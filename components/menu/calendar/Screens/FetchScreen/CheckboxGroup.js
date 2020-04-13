@@ -26,6 +26,16 @@ setCalendarsToSyncList = (storageId)=>{
   //console.log('calendarsToSync: ',this.state.calendarsToSync,'\nIncludes: ',this.state.calendarsToSync.includes(storageId));
 }
 
+getCalendarsToBeSynced= ()=>{
+  const calendarsSummaryToBeSynced = [];
+  const calendarsTemp =this.props.options.filter((item)=> this.state.calendarsToSync.includes(item.storageId));
+  calendarsTemp.forEach(element => {
+    calendarsSummaryToBeSynced.push(element.summary);
+  });
+  return calendarsSummaryToBeSynced;
+}
+
+
 
 render() {
     return (
