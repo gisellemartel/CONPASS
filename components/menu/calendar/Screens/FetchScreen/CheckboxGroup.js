@@ -31,6 +31,13 @@ render() {
                   </TouchableOpacity>
                 )}
             />
+            <View style={styles.button}>
+              <Button
+                title="Synchronize Calendars"
+                type="solid"
+                style={styles.button}
+              />
+            </View>
 
         </View>
     );
@@ -40,7 +47,7 @@ render() {
 const styles = StyleSheet.create({
   flatListContainer: {
     marginTop:'10%',
-    height:'80%',
+    height:'70%',
     width:'80%',
     marginLeft:'10%'
   },
@@ -49,5 +56,6 @@ const styles = StyleSheet.create({
     padding: 30,
     backgroundColor: 'pink',
     fontSize: 24
-  }
+  },
+
 });
