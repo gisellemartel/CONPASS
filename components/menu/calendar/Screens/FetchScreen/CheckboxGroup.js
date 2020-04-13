@@ -21,6 +21,7 @@ setCalendarsToSyncList = (storageId)=>{
 render() {
     return (
         <View>
+            <Text style={styles.title}>Availabe Calendars For Synchronization</Text>
             <FlatList
                 style={styles.flatListContainer}
                 keyExtractor={(item)=>item.id}
@@ -46,9 +47,15 @@ render() {
 }
 
 const styles = StyleSheet.create({
+  title: {
+    fontSize: 20,
+    fontWeight: "bold",
+    marginVertical: '5%',
+    marginStart:'5%'
+  },
   flatListContainer: {
-    marginTop:'10%',
-    height:'70%',
+    marginTop:'5%',
+    height:'60%',
     width:'80%',
     marginLeft:'10%'
   },
