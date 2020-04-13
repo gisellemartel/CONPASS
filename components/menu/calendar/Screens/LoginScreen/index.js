@@ -62,13 +62,22 @@ export default class LoginScreen extends Component {
 
         //getting an array of available calendars for the users. This includes calendar id and summer (i.e. name).
         const userCalendarsInfo = await this.getUserCalendars(accessToken);
-        
-        const userInfoResponse = await fetch('https://www.googleapis.com/calendar/v3/calendars/primary/events?key=AIzaSyBAHObp5Ic3CbJpkX2500tNhf53e_3wBMA&timeMin=2020-01-01T01:00:00.000Z', {
-          headers: { Authorization: `Bearer ${accessToken}` },
-        });
-        const jsonFile = await userInfoResponse.json();
-        const stringFile = JSON.stringify(jsonFile);
-        AsyncStorage.setItem('events', stringFile);
+
+        let calendarCount = 1;
+        for(const calendar of userCalendarsInfo){
+          console.log('count: ',calendarCount);
+          const userInfoResponse = await fetch(`https://www.googleapis.com/calendar/v3/calendars/${calendar.id}/events?key=AIzaSyBAHObp5Ic3CbJpkX2500tNhf53e_3wBMA&timeMin=2020-01-01T01:00:00.000Z`, {
+            headers: { Authorization: `Bearer ${accessToken}` },
+          });
+          const jsonFile = await userInfoResponse.json();
+         /* if(calendarCount == 2)
+            console.log('First calendar: ',jsonFile);*/
+          const stringFile = JSON.stringify(jsonFile);
+          AsyncStorage.setItem(`events${calendarCount}`, stringFile);
+          calendar.storageId =`events${calendarCount}`;
+          calendarCount++;
+        }
+        console.log('last Check inshala: ',userCalendarsInfo);
         this.props.navigation.navigate('FetchScreen');
         return result.accessToken;
       }
