@@ -12,14 +12,15 @@ export default class FetchScreen extends Component {
   }
 
   componentDidMount() {
-    console.log('length:');
+    //console.log('length:');
     console.log(this.state.calendarsGeneralInfo.length);
     this.getDatta();
     if (this.state.calendarsGeneralInfo.length === 0) {
-      console.log('am here');
+      //console.log('am here');
       this.forceUpdate();
     }
-    this.getData();
+    console.log('--!!!_--~~~~-  The moment of truth ');
+    this.asyncStorageChecker();
   }
 
   // eslint-disable-next-line consistent-return
@@ -36,10 +37,15 @@ export default class FetchScreen extends Component {
     }
   }
 
-  getData = async () => {
+  asyncStorageChecker = async () => {
     const evnts = await AsyncStorage.getItem('events');
     const events = JSON.parse(evnts);
-//this.props.navigation.navigate('DashboardScreen', { events });
+
+    if(evnts != null){
+      this.props.navigation.navigate('DashboardScreen', { events });
+    }else{
+      console.log('Check AsyncStorage. evnts is null!');
+    }
   }
 
 navigationHandler=async (events) => {
@@ -48,7 +54,7 @@ navigationHandler=async (events) => {
 
 render() {
   console.log('in render');
-  console.log(this.state.calendarsGeneralInfo);
+  //console.log(this.state.calendarsGeneralInfo);
 
   return (
     <View>
