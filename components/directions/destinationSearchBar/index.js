@@ -214,6 +214,12 @@ export default class DestinationSearchBar extends Component {
       });
     };
 
+    const showPredictions = () => {
+      this.setState({
+        showPredictions: true,
+      });
+    };
+
     return (
       <View style={styles.container}>
         <View>
@@ -232,7 +238,9 @@ export default class DestinationSearchBar extends Component {
               return this.onChangeDestination(destination);
             }}
             value={this.state.destination}
+            onTouchStart={showPredictions}
             onBlur={onBlur}
+            onClear={showPredictions}
             blurOnSubmit
           />
         </View>

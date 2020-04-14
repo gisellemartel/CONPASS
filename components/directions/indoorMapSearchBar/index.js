@@ -197,6 +197,7 @@ export default class IndoorMapSearchBar extends Component {
             onChangeText={this.onChangeText}
             value={this.state.input}
             style={styles.searchBar}
+            onTouchStart={this.setState({ showPredictions: true })}
             onClear={onClear}
             onBlur={onBlur}
             blurOnSubmit

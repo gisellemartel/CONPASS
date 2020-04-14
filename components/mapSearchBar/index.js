@@ -305,6 +305,10 @@ export default class MapSearchBar extends Component {
     const onClear = () => {
       // Clear markers on the map
       if (this.props.nearbyMarkers) { this.props.nearbyMarkers([]); }
+
+      this.setState({
+        showPredictions: true,
+      });
     };
 
     /**
@@ -317,6 +321,10 @@ export default class MapSearchBar extends Component {
       }
       // Clear markers on the map
       if (this.props.nearbyMarkers) { this.props.nearbyMarkers([]); }
+
+      this.setState({
+        showPredictions: true,
+      });
     };
 
     /**
