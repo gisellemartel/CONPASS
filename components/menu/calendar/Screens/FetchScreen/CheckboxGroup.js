@@ -10,6 +10,8 @@ export default class CheckboxGroup extends Component {
     super(props);
 
     this.state={
+      itemsSelected: [],
+      buttonColor: 'black',
       calendarsToSync: [],
       itemColor: 'pink'
     }
@@ -78,7 +80,15 @@ getFinalEventsArray= async()=>{
     return finalCalendarToBeSynced;
   }
 }
+
+  // changeColor(id){
+  //   var currentColor = 'blue';
+  //   this.setState({buttonColor: this.state.itemSelected === id? currentColor,});
+  // }
+
 render() {
+  const itemsSelected = [];
+  console.log(itemsSelected.length);
     return (
         <View>
             <Text style={styles.title}>Availabe Calendars For Synchronization</Text>
@@ -88,8 +98,16 @@ render() {
                 data={this.props.options}
                 extraData={this.state}
                 renderItem={({item}) => (
-                  <TouchableOpacity onPress={()=>this.setCalendarsToSyncList(item.storageId)}>
-                    <Text style={styles.item}>{item.summary}</Text>
+                  <TouchableOpacity onPress={()=>{itemsSelected.push(item.id); console.log(itemsSelected.length); this.setCalendarsToSyncList(item.storageId)}}>
+                    <Text id={item.id}
+                      style={{
+                        marginTop: 24,
+                        padding: 30,
+                        backgroundColor: itemsSelected.includes(item.id)? 'blue' : 'black',
+                        fontSize: 24,
+                        borderRadius: 5}}>
+                          {item.summary}
+                    </Text>
                   </TouchableOpacity>
                 )}
             />
