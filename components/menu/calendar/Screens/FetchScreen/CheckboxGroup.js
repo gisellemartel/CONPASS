@@ -82,6 +82,8 @@ getFinalEventsArray= async()=>{
     }
     //console.log(finalCalendarToBeSynced);
     return finalCalendarToBeSynced;
+  }else{
+    finalCalendarToBeSynced = {items:[]};
   }
 }
 render() {
