@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
-import { View, AsyncStorage, ActivityIndicator } from 'react-native';
+import { View, AsyncStorage } from 'react-native';
 import CheckboxGroup from './CheckboxGroup';
 
 export default class FetchScreen extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
-
-    this.state={
-      calendarsGeneralInfo : [],
+    this.state = {
+      calendarsGeneralInfo: [],
     };
     //this.getDatta=this.getDatta.bind(this);
   }
@@ -16,20 +15,21 @@ export default class FetchScreen extends Component {
     this.getDatta();
     this.getData();
   }
-  getDatta(){
-    if(this.props.navigation.state.params){
-      console.log('am here');
-      console.log(this.props.navigation.state.params.userCalendarsInfo);
-    this.setState({calendarsGeneralInfo: this.props.navigation.state.params.userCalendarsInfo});
-      console.log('after am here:');
-      console.log(this.state.calendarsGeneralInfo);
-    }
-  }
 
   getData = async () => {
     const evnts = await AsyncStorage.getItem('events');
     const events = JSON.parse(evnts);
     this.props.navigation.navigate('DashboardScreen', { events });
+  }
+
+  getDatta() {
+    if (this.props.navigation.state.params) {
+      console.log('am here');
+      console.log(this.props.navigation.state.params.userCalendarsInfo);
+      this.setState({ calendarsGeneralInfo: this.props.navigation.state.params.userCalendarsInfo });
+      console.log('after am here:');
+      console.log(this.state.calendarsGeneralInfo);
+    }
   }
 
   render() {
