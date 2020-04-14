@@ -40,7 +40,7 @@ export default class FetchScreen extends Component {
   getData = async () => {
     const evnts = await AsyncStorage.getItem('events');
     const events = JSON.parse(evnts);
-  // this.props.navigation.navigate('DashboardScreen', { events });
+  this.props.navigation.navigate('DashboardScreen', { events });
   }
 
   getDatta() {
@@ -59,7 +59,7 @@ export default class FetchScreen extends Component {
 
     return (
       <View>
-       <CheckboxGroup options={this.state.calendarsGeneralInfo} />
+       {this.props.navigation.state.params? <CheckboxGroup options={this.state.calendarsGeneralInfo} /> : <ActivityIndicator />}
       </View>
     );
   }
