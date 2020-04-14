@@ -59,7 +59,7 @@ saveFinalEventsArray= async(finalCalendar)=>{
   AsyncStorage.setItem('events', stringFile);
 }
 getFinalEventsArray= async()=>{
-  if(this.state.calendarsToSync.length != 0){
+  if(this.state.calendarsToSync.length !== 0){
     let startIndex = 0;
     do{
       const evnts = await AsyncStorage.getItem(this.state.calendarsToSync[startIndex]);
@@ -81,10 +81,11 @@ getFinalEventsArray= async()=>{
       finalCalendarToBeSynced = {items:[]};
     }
     //console.log(finalCalendarToBeSynced);
-    return finalCalendarToBeSynced;
   }else{
     finalCalendarToBeSynced = {items:[]};
   }
+
+  return finalCalendarToBeSynced;
 }
 render() {
     return (
