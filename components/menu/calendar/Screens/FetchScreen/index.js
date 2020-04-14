@@ -17,8 +17,10 @@ export default class FetchScreen extends Component {
     this.getData();
   }
   getDatta(){
+    if(this.props.navigation.state.params){
     console.log('user calendar info:');
     console.log(this.props.navigation.state.params.userCalendarsInfo);
+    }
   }
 
   getData = async () => {
