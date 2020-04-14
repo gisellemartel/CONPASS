@@ -98,12 +98,12 @@ render() {
                 data={this.props.options}
                 extraData={this.state}
                 renderItem={({item}) => (
-                  <TouchableOpacity onPress={()=>{itemsSelected.push(item.id); console.log(itemsSelected.length); this.setCalendarsToSyncList(item.storageId)}}>
+                  <TouchableOpacity onPress={()=>{ this.setCalendarsToSyncList(item.storageId); this.forceUpdate();}}>
                     <Text id={item.id}
                       style={{
                         marginTop: 24,
                         padding: 30,
-                        backgroundColor: itemsSelected.includes(item.id)? 'blue' : 'black',
+                        backgroundColor: this.state.calendarsToSync.includes(item.storageId) ? '#EEB462' : 'rgba(156,211,215,0.95)',
                         fontSize: 24,
                         borderRadius: 5}}>
                           {item.summary}
@@ -146,7 +146,9 @@ const styles = StyleSheet.create({
     borderRadius: 5
   },
   button:{
-    width:'50%',
+    alignContent: 'center',
+    alignItems: 'center',
+    alignSelf: 'center',
     marginLeft:'25%',
     marginVertical:'10%'
   }
