@@ -75,6 +75,7 @@ export default class OutdoorDirections extends Component {
       return (
         <View style={styles.searchContainer}>
           <MapSearchBar
+            withRedux={true}
             updateRegion={this.updateRegion}
             urCurentLocation={this.state.value}
             hideMenu={this.state.hide}

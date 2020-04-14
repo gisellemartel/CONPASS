@@ -11,6 +11,7 @@ import OutdoorDirections from '../directions/outdoorDirections';
 import IndoorDirections from '../directions/indoorDirections';
 import fetchBuildingRooms from '../../indoor_directions_modules/fetchBuildingRooms';
 import styles from './styles';
+import buildings from '../../assets/polygons/polygons';
 
 
 class Home extends Component {
@@ -153,6 +154,9 @@ class Home extends Component {
           description: roomString,
           place_id: 'ChIJtd6Zh2oayUwRAu_CnRIfoBw',
           dijkstraId: room,
+          building: 'H',
+          // replace with official origin
+          origin: '101',
           floor,
         };
         indoorRoomsList.push(currentAvailableRoom);
@@ -173,6 +177,8 @@ class Home extends Component {
           description: roomString,
           place_id: 'ChIJDbfcNjIXyUwRcocn3RuPPiY',
           dijkstraId: room,
+          building: 'VL',
+          origin: '122',
           floor,
         };
         indoorRoomsList.push(currentAvailableRoom);

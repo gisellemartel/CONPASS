@@ -14,8 +14,10 @@ import i18n from 'i18n-js';
 import styles from './styles';
 import SetLocaleContext from '../../localization-context';
 import burger from '../../assets/icons/burger.png';
+import { connect } from 'react-redux';
+import { setStartBuildingNode } from '../../store/actions';
 
-export default class MapSearchBar extends Component {
+class MapSearchBar extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -258,6 +260,12 @@ export default class MapSearchBar extends Component {
     }
   }
 
+  sendNodeToRedux(prediction) {
+    if (prediction.dijkstraId && this.props.withRedux) {
+      this.props.setStartBuildingNode(prediction);
+    }
+  }
+
   render() {
     const placeholder = this.state.isMounted ? i18n.t('search') : 'search';
     // Predictions mapped and formmated from the current state predictions
@@ -271,6 +279,7 @@ export default class MapSearchBar extends Component {
                 destination: prediction.description,
                 showPredictions: false
               });
+              this.sendNodeToRedux(prediction);
               this.getLatLong(prediction.place_id);
               if (this.props.getDestinationIfSet) {
                 this.props.getDestinationIfSet(prediction.description);
@@ -394,3 +403,12 @@ const Icon = (props) => {
     </TouchableHighlight>
   );
 };
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setStartBuildingNode: (prediction) => { dispatch(setStartBuildingNode(prediction)); },
+  };
+};
+
+
+export default connect(null, mapDispatchToProps)(MapSearchBar);

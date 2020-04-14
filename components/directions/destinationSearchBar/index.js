@@ -8,9 +8,11 @@ import { SearchBar } from 'react-native-elements';
 import decodePolyline from 'decode-google-map-polyline';
 import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
+import { connect } from 'react-redux';
+import { setEndBuildingNode } from '../../../store/actions';
 import styles from './styles';
 
-export default class DestinationSearchBar extends Component {
+class DestinationSearchBar extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -113,7 +115,7 @@ export default class DestinationSearchBar extends Component {
     const roomName = destination.description.toLowerCase();
     if ((roomName.startsWith('h-') && this.props.currentBuildingName === 'H')
      || (roomName.startsWith('vl-') && this.props.currentBuildingName === 'VL')) {
-      this.props.dijkstraHandler(destination.dijkstraId, destination.floor);
+      // this.props.dijkstraHandler(destination.dijkstraId, destination.floor);
     }
   }
 
@@ -187,6 +189,13 @@ export default class DestinationSearchBar extends Component {
     }
   }
 
+  sendNodeToRedux(prediction) {
+    console.log(prediction);
+    if (prediction.dijkstraId) {
+      this.props.setEndBuildingNode(prediction);
+    }
+  }
+
   render() {
     const placeholder = this.state.isMounted ? i18n.t('destinationSearch') : 'Choose your destination';
     const predictions = this.state.predictions ? this.state.predictions.map((prediction) => {
@@ -199,6 +208,7 @@ export default class DestinationSearchBar extends Component {
               this.getLatLong(prediction.place_id);
               this.setIndoorDestination(prediction);
               this.setState({ showPredictions: false });
+              this.sendNodeToRedux(prediction);
               Keyboard.dismiss();
             }}
           >
@@ -244,3 +254,11 @@ export default class DestinationSearchBar extends Component {
     );
   }
 }
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setEndBuildingNode: (prediction) => { dispatch(setEndBuildingNode(prediction)); },
+  };
+};
+
+export default connect(null, mapDispatchToProps)(DestinationSearchBar);

@@ -1,8 +1,10 @@
+/* eslint-disable react/sort-comp */
 import React, { Component } from 'react';
 import {
   View, Image, Text, Modal
 } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { connect } from 'react-redux';
 import CurrentLocation from '../currentLocation';
 import Destination from '../destination';
 import buildingLogo from '../../../assets/icons/building.png';
@@ -21,7 +23,7 @@ import dijkstraPathfinder from '../../../indoor_directions_modules/dijkstraPathf
 import styles from './styles';
 
 
-export default class IndoorDirections extends Component {
+class IndoorDirections extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -32,6 +34,7 @@ export default class IndoorDirections extends Component {
       showDirectionsModal: false,
       drawPath: true,
       origin: '',
+      originFloor: '',
       showPolyline: false,
       mode: 'walking',
       region: {
@@ -54,6 +57,36 @@ export default class IndoorDirections extends Component {
     this.indoorDirectionHandler = this.indoorDirectionHandler.bind(this);
   }
 
+  componentDidMount() {
+    console.log(this.state.currentBuilding.building);
+    const { startBuildingNode, endBuildingNode, navType } = this.props;
+    // console.log(startBuildingNode);
+    // console.log(endBuildingNode);
+    // console.log(navType);
+    this.prepareBuilding();
+  }
+
+
+  prepareBuilding() {
+    const { currentBuilding } = this.state;
+    const { startBuildingNode, endBuildingNode, navType } = this.props;
+    const floor = generateFloorPlan(currentBuilding.building).find((fl) => {
+      return fl.floor === 1;
+    });
+
+    if (startBuildingNode.building === currentBuilding.building) {
+      console.log('right start');
+    } else if (endBuildingNode.building === currentBuilding.building) {
+      console.log('right end');
+    }
+
+    if (navType === 'POI_TO_BUILDING') {
+      this.setState({
+        origin: endBuildingNode.origin,
+        originFloor: floor,
+      }, () => { this.dijkstraHandler(endBuildingNode.dijkstraId, endBuildingNode.floor); });
+    }
+  }
 
   /**
    * Changes visibility of directions search menus depending on context
@@ -145,11 +178,13 @@ export default class IndoorDirections extends Component {
   }
 
   indoorDirectionHandler(indoorDestination, indoorDestinationFloor) {
-    const { floor } = this.state.currentFloorPlan;
-    const [startNodeId, startFloor] = [this.state.origin, floor];
+    const { originFloor, origin } = this.state;
+    const [startNodeId, startFloor] = [origin, originFloor.floor];
     const [finishNodeId, finishFloor] = [indoorDestination, indoorDestinationFloor];
 
     const adjacencyGraphs = generateGraph(this.state.currentBuilding.building);
+    
+
     console.log(`start node: ${startNodeId} floor ${startFloor}`);
     console.log(`finish node: ${finishNodeId} floor ${finishFloor}`);
 
@@ -304,7 +339,6 @@ export default class IndoorDirections extends Component {
               <IndoorMapSearchBar
                 currentBuilding={currentBuilding}
                 currentFloor={this.state.currentFloorPlan}
-                setOriginInput={this.setOriginInput}
               />
               <DestinationSearchBar
                 drawPath={this.state.drawPath}
@@ -315,7 +349,6 @@ export default class IndoorDirections extends Component {
                 getMode={this.state.mode}
                 indoorRoomsList={this.props.indoorRoomsList}
                 currentBuildingName={currentBuilding.building}
-                dijkstraHandler={this.dijkstraHandler}
               />
             </View>
 
@@ -338,3 +371,14 @@ export default class IndoorDirections extends Component {
     );
   }
 }
+
+
+const mapStateToProps = (state) => {
+  return {
+    endBuildingNode: state.endBuildingNode,
+    startBuildingNode: state.startBuildingNode,
+    navType: state.navType,
+  };
+};
+
+export default connect(mapStateToProps)(IndoorDirections);

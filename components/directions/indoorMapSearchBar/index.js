@@ -94,7 +94,8 @@ export default class IndoorMapSearchBar extends Component {
       input: searchResult.description
     });
 
-    this.props.setOriginInput(searchResult.dijkstraId);
+    // setHere
+    // this.props.setOriginInput(searchResult.dijkstraId);
   }
 
   /**

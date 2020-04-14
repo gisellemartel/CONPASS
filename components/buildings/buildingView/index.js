@@ -16,12 +16,12 @@ class BuildingView extends Component {
     const { floorPlan } = this.state;
     return (
       <View style={styles.container}>
-        <ReactNativeZoomableView
+        {/* <ReactNativeZoomableView
           maxZoom={1.25}
           minZoom={1}
           zoomStep={0.05}
           initialZoom={1}
-        >
+        > */}
           <View style={styles.indoorView}>
             {floorPlan && (
             <BuildingWithFloors
@@ -34,7 +34,7 @@ class BuildingView extends Component {
             />
             ) }
           </View>
-        </ReactNativeZoomableView>
+        {/* </ReactNativeZoomableView> */}
       </View>
     );
   }
