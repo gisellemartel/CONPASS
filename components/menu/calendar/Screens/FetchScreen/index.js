@@ -26,10 +26,14 @@ export default class FetchScreen extends Component {
 
   getDatta() {
     if (this.props.navigation.state.params) {
-      console.log(this.props.navigation.state.params.userCalendarsInfo);
-      this.setState({ calendarsGeneralInfo: this.props.navigation.state.params.userCalendarsInfo }, () => {this.forceUpdate();});
-      console.log('after am here:');
-      console.log(this.state.calendarsGeneralInfo);
+      this.setState({ calendarsGeneralInfo: this.props.navigation.state.params.userCalendarsInfo },
+        () => { this.forceUpdate(); });
+      this.forceUpdate();
+      return (
+        <View>
+          <CheckboxGroup options={this.state.calendarsGeneralInfo} />
+        </View>
+      );
     }
   }
 
