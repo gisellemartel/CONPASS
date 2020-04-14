@@ -66,26 +66,42 @@ class IndoorDirections extends Component {
     this.prepareBuilding();
   }
 
+  findFloor(currentBuilding, floorNumber) {
+    const floor = generateFloorPlan(currentBuilding.building).find((fl) => {
+      return fl.floor == floorNumber;
+    });
+    return floor;
+  }
 
   prepareBuilding() {
     const { currentBuilding } = this.state;
     const { startBuildingNode, endBuildingNode, navType } = this.props;
-    const floor = generateFloorPlan(currentBuilding.building).find((fl) => {
-      return fl.floor === 1;
-    });
 
     if (startBuildingNode.building === currentBuilding.building) {
       console.log('right start');
-    } else if (endBuildingNode.building === currentBuilding.building) {
-      console.log('right end');
-    }
+      // floorObject
+      const floor = this.findFloor(currentBuilding, 1);
 
-    if (navType === 'POI_TO_BUILDING') {
+      this.setState({
+        origin: startBuildingNode.origin,
+        originFloor: floor,
+      }, () => { this.dijkstraHandler(startBuildingNode.dijkstraId, startBuildingNode.floor); });
+    } else if (endBuildingNode.building === currentBuilding.building) {
+      // floor object
+      const floor = this.findFloor(currentBuilding, 1);
+
       this.setState({
         origin: endBuildingNode.origin,
         originFloor: floor,
-      }, () => { this.dijkstraHandler(endBuildingNode.dijkstraId, endBuildingNode.floor); });
+      }, () => { this.dijkstraHandler(endBuildingNode.dijkstraId, endBuildingNode.floor); }); // (string, int)
     }
+
+    // if (navType === 'POI_TO_BUILDING') {
+    //   this.setState({
+    //     origin: endBuildingNode.origin,
+    //     originFloor: floor,
+    //   }, () => { this.dijkstraHandler(endBuildingNode.dijkstraId, endBuildingNode.floor); });
+    // }
   }
 
   /**
@@ -183,7 +199,7 @@ class IndoorDirections extends Component {
     const [finishNodeId, finishFloor] = [indoorDestination, indoorDestinationFloor];
 
     const adjacencyGraphs = generateGraph(this.state.currentBuilding.building);
-    
+
 
     console.log(`start node: ${startNodeId} floor ${startFloor}`);
     console.log(`finish node: ${finishNodeId} floor ${finishFloor}`);

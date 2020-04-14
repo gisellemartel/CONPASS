@@ -153,7 +153,7 @@ class Home extends Component {
           id: roomString,
           description: roomString,
           place_id: 'ChIJtd6Zh2oayUwRAu_CnRIfoBw',
-          dijkstraId: room,
+          dijkstraId: room.toString(),
           building: 'H',
           // replace with official origin
           origin: '101',
@@ -176,7 +176,7 @@ class Home extends Component {
           id: roomString,
           description: roomString,
           place_id: 'ChIJDbfcNjIXyUwRcocn3RuPPiY',
-          dijkstraId: room,
+          dijkstraId: room.toString(),
           building: 'VL',
           origin: '122',
           floor,

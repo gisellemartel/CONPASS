@@ -190,7 +190,6 @@ class DestinationSearchBar extends Component {
   }
 
   sendNodeToRedux(prediction) {
-    console.log(prediction);
     if (prediction.dijkstraId) {
       this.props.setEndBuildingNode(prediction);
     }
