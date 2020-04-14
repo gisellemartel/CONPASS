@@ -105,20 +105,22 @@ render() {
                         padding: 30,
                         backgroundColor: this.state.calendarsToSync.includes(item.storageId) ? '#EEB462' : 'rgba(156,211,215,0.95)',
                         fontSize: 24,
-                        borderRadius: 5}}>
+                        overflow: 'hidden',
+                        borderRadius: 10}}>
                           {item.summary}
                     </Text>
                   </TouchableOpacity>
+                  
                 )}
             />
-            <View style={styles.button}>
+           
               <Button
                 title="Synchronize Calendars"
                 type="solid"
                 style={styles.button}
                 onPress={this.handleSyncronizeButton}
               />
-            </View>
+            
 
         </View>
     );
@@ -128,7 +130,7 @@ render() {
 const styles = StyleSheet.create({
   title: {
     fontSize: 20,
-    fontWeight: "bold",
+    fontWeight: 'bold',
     marginVertical: '5%',
     marginStart:'5%'
   },
@@ -146,10 +148,8 @@ const styles = StyleSheet.create({
     borderRadius: 5
   },
   button:{
-    alignContent: 'center',
+    justifyContent: 'center',
     alignItems: 'center',
-    alignSelf: 'center',
-    marginLeft:'25%',
-    marginVertical:'10%'
+    marginVertical: '10%'
   }
 });
