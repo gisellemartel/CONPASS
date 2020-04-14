@@ -40,9 +40,11 @@ export default class FetchScreen extends Component {
   getData = async () => {
     const evnts = await AsyncStorage.getItem('events');
     const events = JSON.parse(evnts);
-  this.props.navigation.navigate('DashboardScreen', { events });
+  //this.props.navigation.navigate('DashboardScreen', { events });
   }
-
+navigationHandler=async(events)=>{
+  this.props.navigation.navigate('DashboardScreen', { events });
+}
   getDatta() {
     if (this.props.navigation.state.params) {
       console.log('am here');
@@ -59,7 +61,7 @@ export default class FetchScreen extends Component {
 
     return (
       <View>
-       {this.props.navigation.state.params? <CheckboxGroup options={this.state.calendarsGeneralInfo} /> : <ActivityIndicator />}
+       {this.props.navigation.state.params? <CheckboxGroup options={this.state.calendarsGeneralInfo} navigationHandlerCallback={this.navigationHandler}/> : <ActivityIndicator />}
       </View>
     );
   }

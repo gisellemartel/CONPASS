@@ -49,7 +49,8 @@ handleSyncronizeButton=async ()=>{
   { cancelable: false });
 }
 navigateToDashboardScreen = async()=>{
-  const event = await this.getFinalEventsArray();
+  const events = await this.getFinalEventsArray();
+  this.props.navigationHandlerCallback(events);
 }
 getFinalEventsArray= async()=>{
   if(this.state.calendarsToSync.length != 0){
