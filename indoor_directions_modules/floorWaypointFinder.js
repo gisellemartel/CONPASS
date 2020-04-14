@@ -19,9 +19,9 @@ const floorWaypointFinder = {
     // If the lines are horizontal and vertical, cannot find the intersect by systems of
     // equations.
     if (originalX === 0) {
-      intersectPoint = { x: startPoint.x, y: waypoint.y };
-    } else if (originalX === Infinity) {
       intersectPoint = { x: waypoint.x, y: startPoint.y };
+    } else if (originalX === Infinity) {
+      intersectPoint = { x: startPoint.x, y: waypoint.y };
     } else {
       const originalB = this.calculateIntercept(originalX, startPoint);
       const perpendicularX = -1 / originalX;
@@ -32,12 +32,12 @@ const floorWaypointFinder = {
     // To determine if the waypoint is not in between start point and finish point, simply determine if it's
     // outside the x boundaries or the y boundaries (a straight line formation guarantees that these
     // conditions satisfies being "outside the line").
-    if ((intersectPoint.x >= startPoint.x && intersectPoint.x >= endPoint.x)
-    || (intersectPoint.x <= startPoint.x && intersectPoint.x <= endPoint.x)
-    || (intersectPoint.y >= startPoint.y && intersectPoint.y >= endPoint.y)
-    || (intersectPoint.y <= startPoint.y && intersectPoint.y <= endPoint.y)
+    if ((intersectPoint.x > startPoint.x && intersectPoint.x > endPoint.x)
+    || (intersectPoint.x < startPoint.x && intersectPoint.x < endPoint.x)
+    || (intersectPoint.y > startPoint.y && intersectPoint.y > endPoint.y)
+    || (intersectPoint.y < startPoint.y && intersectPoint.y < endPoint.y)
     ) {
-      distance += Math.min(this.nodeDistance(waypoint, startPoint), this.nodeDistance(waypoint, endPoint));
+      distance += Math.min(this.nodeDistance(intersectPoint, startPoint), this.nodeDistance(intersectPoint, endPoint));
     }
     return distance;
   },
