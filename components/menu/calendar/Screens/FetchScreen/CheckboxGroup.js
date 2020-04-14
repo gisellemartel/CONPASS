@@ -10,6 +10,8 @@ export default class CheckboxGroup extends Component {
     super(props);
 
     this.state={
+      itemsSelected: [],
+      buttonColor: 'black',
       calendarsToSync: [],
       itemColor: 'pink'
     }
@@ -87,7 +89,15 @@ getFinalEventsArray= async()=>{
 
   return finalCalendarToBeSynced;
 }
+
+  // changeColor(id){
+  //   var currentColor = 'blue';
+  //   this.setState({buttonColor: this.state.itemSelected === id? currentColor,});
+  // }
+
 render() {
+  const itemsSelected = [];
+  console.log(itemsSelected.length);
     return (
         <View>
             <Text style={styles.title}>Availabe Calendars For Synchronization</Text>
@@ -97,19 +107,29 @@ render() {
                 data={this.props.options}
                 extraData={this.state}
                 renderItem={({item}) => (
-                  <TouchableOpacity onPress={()=>this.setCalendarsToSyncList(item.storageId)}>
-                    <Text style={styles.item}>{item.summary}</Text>
+                  <TouchableOpacity onPress={()=>{ this.setCalendarsToSyncList(item.storageId); this.forceUpdate();}}>
+                    <Text id={item.id}
+                      style={{
+                        marginTop: 24,
+                        padding: 30,
+                        backgroundColor: this.state.calendarsToSync.includes(item.storageId) ? '#EEB462' : 'rgba(156,211,215,0.95)',
+                        fontSize: 24,
+                        overflow: 'hidden',
+                        borderRadius: 10}}>
+                          {item.summary}
+                    </Text>
                   </TouchableOpacity>
+                  
                 )}
             />
-            <View style={styles.button}>
+           
               <Button
                 title="Synchronize Calendars"
                 type="solid"
                 style={styles.button}
                 onPress={this.handleSyncronizeButton}
               />
-            </View>
+            
 
         </View>
     );
@@ -119,7 +139,7 @@ render() {
 const styles = StyleSheet.create({
   title: {
     fontSize: 20,
-    fontWeight: "bold",
+    fontWeight: 'bold',
     marginVertical: '5%',
     marginStart:'5%'
   },
@@ -137,8 +157,8 @@ const styles = StyleSheet.create({
     borderRadius: 5
   },
   button:{
-    width:'50%',
-    marginLeft:'25%',
-    marginVertical:'10%'
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginVertical: '10%'
   }
 });
