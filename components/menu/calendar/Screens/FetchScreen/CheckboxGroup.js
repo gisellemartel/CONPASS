@@ -35,7 +35,7 @@ getCalendarsToBeSynced= ()=>{
   return calendarsSummaryToBeSynced;
 }
 
-handleSyncronizeButton=()=>{
+handleSyncronizeButton=async ()=>{
   Alert.alert('The following calendars will be synchronized',
   `${this.getCalendarsToBeSynced()}`,
   [
@@ -44,11 +44,33 @@ handleSyncronizeButton=()=>{
       onPress: () => console.log("Cancel Pressed"),
       style: "cancel"
     },
-    { text: "OK", onPress: () => console.log("OK Pressed") }
+    { text: "OK", onPress: () => this.getFinalEventsArray() }
   ],
   { cancelable: false });
 }
 
+getFinalEventsArray=async ()=>{
+  if(this.state.calendarsToSync.length != 0){
+    let startIndex = 0;
+    do{
+      const evnts = await AsyncStorage.getItem(this.state.calendarsToSync[startIndex]);
+      let finalCalendarToBeSynced = JSON.parse(evnts);
+      startIndex++;
+    }while(!('items' in finalCalendarToBeSynced) && startIndex < this.state.calendarsToSync)
+    
+    let i;
+    for(i=1; i<this.state.calendarsToSync.length; i++){
+      const tempEvnts = await AsyncStorage.getItem(this.state.calendarsToSync[i]);
+      let tempCalendarToBeMerged = JSON.parse(tempEvnts);
+
+      if('items' in tempCalendarToBeMerged){
+        finalCalendarToBeSynced.items = (finalCalendarToBeSynced.items).concat(tempCalendarToBeMerged.items);
+      }
+    }
+
+    console.log('-X-Y-Z-A-B-~~~-->',finalCalendarToBeSynced);
+  }
+}
 render() {
     return (
         <View>
