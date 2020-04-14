@@ -51,7 +51,13 @@ handleSyncronizeButton=async ()=>{
 
 getFinalEventsArray=async ()=>{
   if(this.state.calendarsToSync.length != 0){
-
+    let startIndex = 0;
+    do{
+      const evnts = await AsyncStorage.getItem(this.state.calendarsToSync[startIndex]);
+      let finalCalendarToBeSynced = JSON.parse(evnts);
+      startIndex++;
+    }while(!('items' in finalCalendarToBeSynced) && startIndex < this.state.calendarsToSync)
+    
     let i;
     for(i=1; i<this.state.calendarsToSync.length; i++){
       const tempEvnts = await AsyncStorage.getItem(this.state.calendarsToSync[i]);
