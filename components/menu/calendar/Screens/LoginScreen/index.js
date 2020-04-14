@@ -77,11 +77,9 @@ export default class LoginScreen extends Component {
           calendarCount += 1;
         });
         //console.log('last Check inshala: ',userCalendarsInfo);
-        const finalStored = await AsyncStorage.getItem('events') 
-        if(finalStored!=null){
-          console.log('The storage is null, indeed!');
-          AsyncStorage.removeItem('events');
-        }
+        console.log('here i am!!!!!');
+        await this.removeOldStoredEvents();
+
         this.props.navigation.navigate('FetchScreen', {userCalendarsInfo});
         return result.accessToken;
       }
@@ -91,6 +89,16 @@ export default class LoginScreen extends Component {
     }
   };
 
+  removeOldStoredEvents=async()=>{
+    const finalStored = await AsyncStorage.getItem('events'); 
+    if(finalStored!=null){
+      console.log('The storage is null, indeed!');
+      AsyncStorage.removeItem('events');
+      return true;
+    }else{
+      return false;
+    }
+  }
   getUserCalendars = async (accessToken) => {
     const userCalendars = await fetch('https://www.googleapis.com/calendar/v3/users/me/calendarList?key=AIzaSyBAHObp5Ic3CbJpkX2500tNhf53e_3wBMA&timeMin=2020-01-01T01:00:00.000Z', {
       headers: { Authorization: `Bearer ${accessToken}` },
