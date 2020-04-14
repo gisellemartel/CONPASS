@@ -41,7 +41,7 @@ export default class DestinationSearchBar extends Component {
       console.log(this.props.directionsId);
       this.getLatLong(this.props.directionsId);
     }
-    if (this.state.destination) {
+    if (this.state.destination && this.props.navigateFromCalender === true) {
       this.onChangeDestination(this.state.destination);
     }
   }

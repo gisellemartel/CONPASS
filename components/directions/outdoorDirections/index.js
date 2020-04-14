@@ -85,6 +85,7 @@ export default class OutdoorDirections extends Component {
             drawPath={this.state.drawPath}
             getRegionFromSearch={this.props.getRegionFromSearch}
             getDestinationIfSet={this.props.getDestinationIfSet}
+            navigateFromCalender={this.props.navigateFromCalender}
             updatedRegion={this.state.region}
             coordinateCallback={this.updateCoordinates}
             getMode={this.state.mode}

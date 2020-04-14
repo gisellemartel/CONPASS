@@ -38,7 +38,8 @@ class Home extends Component {
       showDirectionsMenu: false,
       showCampusToggle: false,
       showSuggestionsList: false,
-      showBack: true
+      showBack: true,
+      navigateFromCalender: false
     };
     this.interiorModeOn = this.interiorModeOn.bind(this);
     this.interiorModeOff = this.interiorModeOff.bind(this);
@@ -46,15 +47,18 @@ class Home extends Component {
   }
 
   componentDidMount() {
-    this.getCalDirections();
+    if (this.props.navigation.state) {
+      this.getCalDirections();
+    }
   }
 
   /**
    * Gets directions when getting directions from calender component
    */
    getCalDirections = () => {
-     if (this.props.navigation.state) {
+     if (this.props.navigation.state.params.description) {
        this.setState({ destinationToGo: this.props.navigation.state.params.description });
+       this.navigateFromCalender(true);
        this.changeVisibilityTo(true);
        this.changeVisibilityOfBack(false);
      }
@@ -67,6 +71,7 @@ class Home extends Component {
    changeVisibilityOfBack=(boolean) => {
      this.setState({ showBack: boolean });
    }
+
 
   /**
    * updates region and passes the new region 'map' component.
@@ -212,6 +217,10 @@ class Home extends Component {
     });
   }
 
+  navigateFromCalender(boolean) {
+    this.setState({ navigateFromCalender: boolean });
+  }
+
   /**
    *
    * @param {*} building
@@ -286,6 +295,7 @@ class Home extends Component {
             getRegionFromSearch={this.state.region}
             getCoordinates={this.getCoordinatesFromOutdoorDirections}
             changeVisibilityTo={this.changeVisibilityTo}
+            navigateFromCalender={this.state.navigateFromCalender}
             navigation={this.props.navigation}
             currentBuildingPred={this.state.currentBuildingAddress}
           />
