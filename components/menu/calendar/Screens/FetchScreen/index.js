@@ -40,7 +40,17 @@ export default class FetchScreen extends Component {
   getData = async () => {
     const evnts = await AsyncStorage.getItem('events');
     const events = JSON.parse(evnts);
-  //this.props.navigation.navigate('DashboardScreen', { events });
+  // this.props.navigation.navigate('DashboardScreen', { events });
+  }
+
+  getDatta() {
+    if (this.props.navigation.state.params) {
+      console.log('am here');
+      console.log(this.props.navigation.state.params.userCalendarsInfo);
+      this.setState({ calendarsGeneralInfo: this.props.navigation.state.params.userCalendarsInfo });
+      console.log('after am here:');
+      console.log(this.state.calendarsGeneralInfo);
+    }
   }
 
   render() {
@@ -49,7 +59,7 @@ export default class FetchScreen extends Component {
 
     return (
       <View>
-        <CheckboxGroup options={this.state.calendarsGeneralInfo} />
+       <CheckboxGroup options={this.state.calendarsGeneralInfo} />
       </View>
     );
   }

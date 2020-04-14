@@ -64,19 +64,18 @@ export default class LoginScreen extends Component {
         const userCalendarsInfo = await this.getUserCalendars(accessToken);
 
         let calendarCount = 1;
-        for(const calendar of userCalendarsInfo){
-          console.log('count: ',calendarCount);
+        userCalendarsInfo.map(async (calendar) => {
           const userInfoResponse = await fetch(`https://www.googleapis.com/calendar/v3/calendars/${calendar.id}/events?key=AIzaSyBAHObp5Ic3CbJpkX2500tNhf53e_3wBMA&timeMin=2020-01-01T01:00:00.000Z`, {
             headers: { Authorization: `Bearer ${accessToken}` },
           });
           const jsonFile = await userInfoResponse.json();
-         /* if(calendarCount == 2)
+          /* if(calendarCount == 2)
             console.log('First calendar: ',jsonFile);*/
           const stringFile = JSON.stringify(jsonFile);
           AsyncStorage.setItem(`events${calendarCount}`, stringFile);
-          calendar.storageId =`events${calendarCount}`;
-          calendarCount++;
-        }
+          calendar.storageId = `events${calendarCount}`;
+          calendarCount += 1;
+        });
         console.log('last Check inshala: ',userCalendarsInfo);
         this.props.navigation.navigate('FetchScreen', {userCalendarsInfo});
         return result.accessToken;
@@ -87,22 +86,23 @@ export default class LoginScreen extends Component {
     }
   };
 
-  getUserCalendars = async (accessToken)=>{
+  getUserCalendars = async (accessToken) => {
     const userCalendars = await fetch('https://www.googleapis.com/calendar/v3/users/me/calendarList?key=AIzaSyBAHObp5Ic3CbJpkX2500tNhf53e_3wBMA&timeMin=2020-01-01T01:00:00.000Z', {
       headers: { Authorization: `Bearer ${accessToken}` },
     });
     const jsonFile = await userCalendars.json();
     let userCalendarsGeneralInfo = [];
-    jsonFile.items.forEach(calendar => {
+    jsonFile.items.forEach( (calendar) => {
       userCalendarsGeneralInfo.push({
-          id:calendar.id,
-          summary:calendar.summary,
-          backgroundColor:calendar.backgroundColor,
-          storageId:'',
-        });
+        id: calendar.id,
+        summary: calendar.summary,
+        backgroundColor: calendar.backgroundColor,
+        storageId: '',
+      });
     });
     return userCalendarsGeneralInfo;
   }
+
   render() {
     return (
       <View style={styles.container}>
