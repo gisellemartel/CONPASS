@@ -44,12 +44,14 @@ handleSyncronizeButton=async ()=>{
       onPress: () => console.log("Cancel Pressed"),
       style: "cancel"
     },
-    { text: "OK", onPress: () => this.getFinalEventsArray() }
+    { text: "OK", onPress: () => this.navigateToDashboardScreen() }
   ],
   { cancelable: false });
 }
-
-getFinalEventsArray=async ()=>{
+navigateToDashboardScreen = async()=>{
+  const event = await this.getFinalEventsArray();
+}
+getFinalEventsArray= async()=>{
   if(this.state.calendarsToSync.length != 0){
     let startIndex = 0;
     do{
