@@ -76,7 +76,12 @@ export default class LoginScreen extends Component {
           calendar.storageId = `events${calendarCount}`;
           calendarCount += 1;
         });
-        console.log('last Check inshala: ',userCalendarsInfo);
+        //console.log('last Check inshala: ',userCalendarsInfo);
+        const finalStored = await AsyncStorage.getItem('events') 
+        if(finalStored!=null){
+          console.log('The storage is null, indeed!');
+          AsyncStorage.removeItem('events');
+        }
         this.props.navigation.navigate('FetchScreen', {userCalendarsInfo});
         return result.accessToken;
       }
