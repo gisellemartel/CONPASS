@@ -58,12 +58,22 @@ class IndoorDirections extends Component {
   }
 
   componentDidMount() {
-    console.log(this.state.currentBuilding.building);
-    const { startBuildingNode, endBuildingNode, navType } = this.props;
-    // console.log(startBuildingNode);
-    // console.log(endBuildingNode);
-    // console.log(navType);
     this.prepareBuilding();
+  }
+
+  componentDidUpdate(prevProps) {
+    const { fromWithinBuildingNode } = this.props;
+    const { currentBuilding } = this.state;
+    if (prevProps.fromWithinBuildingNode !== fromWithinBuildingNode) {
+      this.props.changeVisibilityTo(true);
+      if (fromWithinBuildingNode) {
+        const floor = this.findFloor(currentBuilding, 1);
+        this.setState({
+          origin: fromWithinBuildingNode.origin,
+          originFloor: floor,
+        }, () => { this.dijkstraHandler(fromWithinBuildingNode.dijkstraId, fromWithinBuildingNode.floor); });
+      }
+    }
   }
 
   findFloor(currentBuilding, floorNumber) {
@@ -355,6 +365,7 @@ class IndoorDirections extends Component {
               <IndoorMapSearchBar
                 currentBuilding={currentBuilding}
                 currentFloor={this.state.currentFloorPlan}
+                indoorRoomsList={this.props.indoorRoomsList}
               />
               <DestinationSearchBar
                 drawPath={this.state.drawPath}
@@ -388,11 +399,11 @@ class IndoorDirections extends Component {
   }
 }
 
-
 const mapStateToProps = (state) => {
   return {
     endBuildingNode: state.endBuildingNode,
     startBuildingNode: state.startBuildingNode,
+    fromWithinBuildingNode: state.fromWithinBuildingNode,
     navType: state.navType,
   };
 };

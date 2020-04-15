@@ -12,8 +12,10 @@ import i18n from 'i18n-js';
 import styles from './styles';
 import SetLocaleContext from '../../../localization-context';
 import fetchBuildingRooms from '../../../indoor_directions_modules/fetchBuildingRooms';
+import { connect } from 'react-redux';
+import { setFromWithinBuildingNode } from '../../../store/actions';
 
-export default class IndoorMapSearchBar extends Component {
+class IndoorMapSearchBar extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -53,9 +55,10 @@ export default class IndoorMapSearchBar extends Component {
       const currentAvailableRoom = {
         id: roomString,
         description: roomString,
-        dijkstraId: room
+        dijkstraId: room.toString(),
+        floor: this.state.currentFloor,
+        origin: this.state.currentBuilding.building == 'H' ? '101':'122',
       };
-
       currentAvailableRooms.push(currentAvailableRoom);
     });
 
@@ -75,7 +78,7 @@ export default class IndoorMapSearchBar extends Component {
       return room.description === userQuery;
     });
 
-    this.props.setOriginInput(searchResult.dijkstraId);
+    // this.props.setOriginInput(searchResult.dijkstraId);
   }
 
 
@@ -84,7 +87,7 @@ export default class IndoorMapSearchBar extends Component {
    * @param {string} - the selected prediction by the user from the list
    */
   onSelectPrediction = (prediction) => {
-    const userQuery = prediction;
+    const userQuery = prediction.description;
     const roomsList = this.state.currentAvailableRooms;
     const searchResult = roomsList.find((room) => {
       return room.description === userQuery;
@@ -93,9 +96,8 @@ export default class IndoorMapSearchBar extends Component {
     this.setState({
       input: searchResult.description
     });
-
-    // setHere
-    // this.props.setOriginInput(searchResult.dijkstraId);
+    
+    this.props.setFromWithinBuildingNode(prediction);
   }
 
   /**
@@ -139,7 +141,7 @@ export default class IndoorMapSearchBar extends Component {
           <TouchableOpacity
             style={styles.touch}
             onPress={() => {
-              this.onSelectPrediction(prediction.description);
+              this.onSelectPrediction(prediction);
               Keyboard.dismiss();
             }}
           >
@@ -208,3 +210,11 @@ export default class IndoorMapSearchBar extends Component {
     );
   }
 }
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setFromWithinBuildingNode: (prediction) => { dispatch(setFromWithinBuildingNode(prediction)); },
+  };
+};
+
+export default connect(null, mapDispatchToProps)(IndoorMapSearchBar);

@@ -1,5 +1,7 @@
 import { createStore } from 'redux';
-import { SET_END_BUILDING_NODE, RESET_NAVIGATION, SET_START_BUILDING_NODE } from './actionTypes';
+import {
+  SET_END_BUILDING_NODE, RESET_NAVIGATION, SET_START_BUILDING_NODE, SET_FROM_WITHIN_BUILDING_NODE
+} from './actionTypes';
 
 // initial store state
 const initialState = {
@@ -24,13 +26,22 @@ const reducer = (state = initialState, action) => {
       startBuildingNode: action.startBuildingNode,
     };
   }
-  
+
+  if (action.type === SET_FROM_WITHIN_BUILDING_NODE) {
+    console.log(SET_FROM_WITHIN_BUILDING_NODE);
+    return {
+      ...state,
+      fromWithinBuildingNode: action.fromWithinBuildingNode,
+    };
+  }
+
   if (action.type === RESET_NAVIGATION) {
     console.log(RESET_NAVIGATION);
     return {
       ...state,
       endBuildingNode: '',
       startBuildingNode: '',
+      fromWithinBuildingNode: '',
       navType: ''
     };
   }

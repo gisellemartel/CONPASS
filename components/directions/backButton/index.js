@@ -7,7 +7,9 @@ import { resetNavigation } from '../../../store/actions';
 
 class BackButton extends Component {
   back() {
-    this.props.resetNavigation();
+    if (this.props.withRedux) {
+      this.props.resetNavigation();
+    }
     this.props.changeVisibilityTo(false);
     if (this.props.changePolylineVisibilityTo) {
       this.props.changePolylineVisibilityTo(false);
@@ -18,7 +20,10 @@ class BackButton extends Component {
     return (
       <View style={styles.container}>
         <TouchableOpacity onPress={() => {
-          this.back();
+          this.props.changeVisibilityTo(false);
+          if (this.props.changePolylineVisibilityTo) {
+            this.props.changePolylineVisibilityTo(false);
+          }
         }}
         >
           <Entypo name="chevron-left" size={32} color="black" />
@@ -31,7 +36,6 @@ class BackButton extends Component {
 const mapDispatchToProps = (dispatch) => {
   return {
     resetNavigation: () => { dispatch(resetNavigation()); },
-
   };
 };
 

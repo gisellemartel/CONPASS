@@ -352,6 +352,7 @@ class Home extends Component {
             setBuildingInfoModalVisibilityTo={this.setBuildingInfoModalVisibilityTo}
             turnInteriorModeOff={this.turnInteriorModeOff}
             buildingInfoData={this.state.buildingInfoData}
+            changeVisibilityTo={this.changeVisibilityTo}
             indoorRoomsList={this.state.indoorRoomsList}
           />
         )}

@@ -27,11 +27,11 @@ class BuildingWithFloors extends Component {
       return i.floor === lvl;
     });
 
-    this.setState({
-      floorPlan: this.props.buildingFloorPlans[index]
-    });
+    const floorPlan = this.props.buildingFloorPlans[index];
 
-    this.props.changeCurrentFloorPlanTo(this.state.floorPlan);
+    this.setState({
+      floorPlan
+    }, () => { this.props.changeCurrentFloorPlanTo(floorPlan); });
   }
 
   render() {
