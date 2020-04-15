@@ -11,10 +11,8 @@ const styles = StyleSheet.create({
   buildingContainer: {
     justifyContent: 'center',
     alignItems: 'center',
-    position: 'relative',
-    left: 0,
-    right: 0,
-    top: 0,
+    position: 'absolute',
+    top: 150,
     bottom: fullHeight * 0.20,
     width: fullWidth * 0.85,
     height: fullWidth * 0.85,

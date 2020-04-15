@@ -1,14 +1,40 @@
 import { createStore } from 'redux';
+import { SET_END_BUILDING_NODE, RESET_NAVIGATION, SET_START_BUILDING_NODE } from './actionTypes';
 
 // initial store state
 const initialState = {
-  language: 'en'
+  endBuildingNode: '',
+  startBuildingNode: '',
+  navType: '',
 };
 
-// Redux Reducer1, this receives actions that are being DISPATCHED
-// Remove eslint comment below when adding action to the reducer.
-// eslint-disable-next-line no-unused-vars
 const reducer = (state = initialState, action) => {
+  if (action.type === SET_END_BUILDING_NODE) {
+    console.log(SET_END_BUILDING_NODE);
+    return {
+      ...state,
+      endBuildingNode: action.endBuildingNode,
+      navType: 'POI_TO_BUILDING'
+    };
+  }
+
+  if (action.type === SET_START_BUILDING_NODE) {
+    return {
+      ...state,
+      startBuildingNode: action.startBuildingNode,
+    };
+  }
+  
+  if (action.type === RESET_NAVIGATION) {
+    console.log(RESET_NAVIGATION);
+    return {
+      ...state,
+      endBuildingNode: '',
+      startBuildingNode: '',
+      navType: ''
+    };
+  }
+
   return state;
 };
 
