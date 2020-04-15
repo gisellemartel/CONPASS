@@ -178,7 +178,7 @@ const vl1FloorPlanCoordinates = {
     y: 522,
     adjacencyList: [
       'node_library_door',
-      'node_outside_door',
+      'exit',
       'node_female_bathroom_2'
     ]
   },
@@ -198,7 +198,7 @@ const vl1FloorPlanCoordinates = {
       'node_female_bathroom_2'
     ]
   },
-  node_outside_door: {
+  exit: {
     x: 958,
     y: 554,
     adjacencyList: [
