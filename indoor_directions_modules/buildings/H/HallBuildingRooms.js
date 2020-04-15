@@ -63,6 +63,8 @@ const hallBuildingRooms = {
     'elevator_1',
     'elevator_2',
     'escalator',
+    'north_exit',
+    'south_exit',
     'female_bathroom',
     'male_bathroom',
     'staircase_1',

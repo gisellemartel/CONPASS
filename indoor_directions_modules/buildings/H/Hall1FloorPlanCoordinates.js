@@ -1007,6 +1007,20 @@ const hall1FloorPlanCoordinates = {
       'node_135'
     ]
   },
+  south_exit: {
+    x: 535,
+    y: 950,
+    adjacencyList: [
+      'node_south_intersection'
+    ]
+  },
+  north_exit: {
+    x: 535,
+    y: 75,
+    adjacencyList: [
+      'node_north_intersection'
+    ]
+  }
 };
 
 export default hall1FloorPlanCoordinates;
