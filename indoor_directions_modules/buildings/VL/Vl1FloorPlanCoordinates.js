@@ -9,7 +9,7 @@ const vl1FloorPlanCoordinates = {
     x: 372.6664,
     y: 423.99981,
     adjacencyList: [
-      'node_321'
+      'node_122'
     ]
   },
   admin: {
@@ -115,7 +115,6 @@ const vl1FloorPlanCoordinates = {
     x: 618,
     y: 160,
     adjacencyList: [
-      'node_special_collections_3',
       'node_hallway_northeast',
       'node_staircase_5'
     ]
@@ -330,7 +329,7 @@ const vl1FloorPlanCoordinates = {
     x: 248.39114,
     y: 260,
     adjacencyList: [
-      'node_special_collections_1',
+      'node_special_collections_1_2',
       'node_staircase_4'
     ]
   },

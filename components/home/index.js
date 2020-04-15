@@ -11,7 +11,6 @@ import OutdoorDirections from '../directions/outdoorDirections';
 import IndoorDirections from '../directions/indoorDirections';
 import fetchBuildingRooms from '../../indoor_directions_modules/fetchBuildingRooms';
 import styles from './styles';
-import buildings from '../../assets/polygons/polygons';
 
 
 class Home extends Component {

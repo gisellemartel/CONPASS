@@ -22,8 +22,8 @@ class BuildingView extends Component {
           zoomStep={0.05}
           initialZoom={1}
         > */}
-          <View style={styles.indoorView}>
-            {floorPlan && (
+        <View style={styles.indoorView}>
+          {floorPlan && (
             <BuildingWithFloors
               floorPlan={floorPlan}
               buildingFloorPlans={this.props.buildingFloorPlans}
@@ -32,8 +32,8 @@ class BuildingView extends Component {
               showPolyline={this.props.showPolyline}
               {...this.props}
             />
-            ) }
-          </View>
+          ) }
+        </View>
         {/* </ReactNativeZoomableView> */}
       </View>
     );

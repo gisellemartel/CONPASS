@@ -312,7 +312,8 @@ const vl2FloorPlanCoordinates = {
     x: 612,
     y: 730,
     adjacencyList: [
-      'node_study_area_2'
+      'node_study_area_2_1',
+      'node_study_area_2_2'
     ]
   },
   study_area_3: {
