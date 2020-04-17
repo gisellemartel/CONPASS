@@ -57,19 +57,25 @@ class IndoorDirections extends Component {
     this.indoorDirectionHandler = this.indoorDirectionHandler.bind(this);
   }
 
+  /**
+   * called when user clicks a building. Directions are set if navigation has been set
+   */
   componentDidMount() {
     this.coordinatesFromOutside();
   }
 
+  /**
+   * called when user is within a building. Directions are updated
+   */
   componentDidUpdate(prevProps) {
     const { startBuildingNode, endBuildingNode } = this.props;
 
-    if (startBuildingNode !== prevProps.startBuildingNode) {
-      if (startBuildingNode && endBuildingNode) {
-        this.coordinatesFromInside(startBuildingNode, endBuildingNode);
+    if (startBuildingNode !== prevProps.startBuildingNode) { // start input from within building changed
+      if (startBuildingNode && endBuildingNode) { // both ready
+        this.coordinatesFromInside(startBuildingNode, endBuildingNode); // initiate
       }
-    } else if (endBuildingNode !== prevProps.endBuildingNode) {
-      if (startBuildingNode && endBuildingNode) {
+    } else if (endBuildingNode !== prevProps.endBuildingNode) { // start input from within building changed
+      if (startBuildingNode && endBuildingNode) { // both ready
         this.coordinatesFromInside(startBuildingNode, endBuildingNode);
       }
     }
@@ -90,20 +96,16 @@ class IndoorDirections extends Component {
       end: endBuildingNode
     };
 
-    const floor = this.findFloor(currentBuilding, 1);
-
+    // from class to class same building
     if (currentBuilding.building === endBuildingNode.building) {
-      console.log('dest inside');
       this.setState({
         origin: startBuildingNode.dijkstraId,
         originFloor: this.findFloor(currentBuilding, startBuildingNode.floor),
       }, () => {
         this.dijkstraHandler(endBuildingNode.dijkstraId, endBuildingNode.floor);
       });
-
-    } else {
-      console.log('dest outside');
-      this.props.sendDirectionsToOutdoor(directions); 
+    } else {  // from class to external point
+      this.props.sendDirectionsToOutdoor(directions);
       this.setState({
         origin: startBuildingNode.dijkstraId,
         originFloor: this.findFloor(currentBuilding, startBuildingNode.floor),
