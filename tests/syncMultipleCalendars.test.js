@@ -40,7 +40,7 @@ it('Should update calendarsToSync array state by adding ev3', ()=>{
     CheckboxGroupComponent.setCalendarsToSyncList('ev3');
     const calendarsToSyncFirstElement = CheckboxGroupComponent.state.calendarsToSync[0];
     expect(calendarsToSyncFirstElement).toBe('ev3');
-})
+});
 
 it('Should update calendarsToSync array state by removing ev3', ()=>{
     const CheckboxGroupComponent = renderer.create(<CheckboxGroup/>).getInstance();
@@ -48,14 +48,13 @@ it('Should update calendarsToSync array state by removing ev3', ()=>{
     CheckboxGroupComponent.setCalendarsToSyncList('ev3');
     const calendarsToSyncArray = CheckboxGroupComponent.state.calendarsToSync;
     expect(calendarsToSyncArray).toEqual(expect.not.arrayContaining(['ev3']));
-})
+});
 
-it('Should return a non-empty array', async ()=>{
+it('Should return a non-empty object', async ()=>{
     const CheckboxGroupComponent = renderer.create(<CheckboxGroup/>).getInstance();
-    CheckboxGroupComponent.setState({calendarsToSync:['ev1']});
-    CheckboxGroupComponent.setState({calendarsToSync:['ev2']});
+    CheckboxGroupComponent.setState({calendarsToSync:['ev1','ev2']});
     AsyncStorage.setItem('ev1','{"items":["A","B"]}');
     AsyncStorage.setItem('ev2','{"items":["C","D"]}');
     const finalArrayToBeSynced = CheckboxGroupComponent.getFinalEventsArray();
     expect(finalArrayToBeSynced.length).not.toBe(0);
-})
+});
