@@ -11,7 +11,6 @@ import OutdoorDirections from '../directions/outdoorDirections';
 import IndoorDirections from '../directions/indoorDirections';
 import fetchBuildingRooms from '../../indoor_directions_modules/fetchBuildingRooms';
 import styles from './styles';
-import buildings from '../../assets/polygons/polygons';
 
 
 class Home extends Component {
@@ -157,6 +156,10 @@ class Home extends Component {
           building: 'H',
           // replace with official origin
           origin: '101',
+          coordinates: {
+            latitude: 45.497092,
+            longitude: -73.578800,
+          },
           floor,
         };
         indoorRoomsList.push(currentAvailableRoom);
@@ -179,6 +182,7 @@ class Home extends Component {
           dijkstraId: room.toString(),
           building: 'VL',
           origin: '122',
+          coordinates: { latitude: 45.459026, longitude: -73.638606, },
           floor,
         };
         indoorRoomsList.push(currentAvailableRoom);
@@ -329,7 +333,6 @@ class Home extends Component {
         />
         {this.state.showDirectionsMenu && (
           <OutdoorDirections
-            getDestinationIfSet={this.state.destinationToGo}
             getRegion={this.getRegionFromOutdoorDirections}
             getRegionFromSearch={this.state.region}
             getCoordinates={this.getCoordinatesFromOutdoorDirections}

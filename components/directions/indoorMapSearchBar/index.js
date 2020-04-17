@@ -9,11 +9,12 @@ import {
 } from 'react-native';
 import { SearchBar } from 'react-native-elements';
 import i18n from 'i18n-js';
+import { connect } from 'react-redux';
 import styles from './styles';
 import SetLocaleContext from '../../../localization-context';
 import fetchBuildingRooms from '../../../indoor_directions_modules/fetchBuildingRooms';
-import { connect } from 'react-redux';
 import { setFromWithinBuildingNode } from '../../../store/actions';
+import { setStartBuildingNode } from '../../../store/actions';
 
 class IndoorMapSearchBar extends Component {
   constructor(props) {
@@ -57,7 +58,12 @@ class IndoorMapSearchBar extends Component {
         description: roomString,
         dijkstraId: room.toString(),
         floor: this.state.currentFloor,
-        origin: this.state.currentBuilding.building == 'H' ? '101':'122',
+        origin: this.state.currentBuilding.building == 'H' ? '101' : '122',
+        coordinates: this.state.currentBuilding.building == 'H' ? {
+          latitude: 45.497092,
+          longitude: -73.578800,
+        } : { latitude: 45.459026, longitude: -73.638606, }
+
       };
       currentAvailableRooms.push(currentAvailableRoom);
     });
@@ -70,16 +76,16 @@ class IndoorMapSearchBar extends Component {
   /**
    * Obtains the desired room based on the user search
    */
-  onSubmitSearchQuery = () => {
-    const userQuery = this.state.input;
-    const roomsList = this.state.currentAvailableRooms;
+  // onSubmitSearchQuery = () => {
+  //   const userQuery = this.state.input;
+  //   const roomsList = this.state.currentAvailableRooms;
 
-    const searchResult = roomsList.find((room) => {
-      return room.description === userQuery;
-    });
+  //   const searchResult = roomsList.find((room) => {
+  //     return room.description === userQuery;
+  //   });
 
-    // this.props.setOriginInput(searchResult.dijkstraId);
-  }
+  //   // this.props.setOriginInput(searchResult.dijkstraId);
+  // }
 
 
   /**
@@ -96,8 +102,8 @@ class IndoorMapSearchBar extends Component {
     this.setState({
       input: searchResult.description
     });
-    
-    this.props.setFromWithinBuildingNode(prediction);
+
+    this.props.setStartBuildingNode(prediction);
   }
 
   /**
@@ -123,7 +129,6 @@ class IndoorMapSearchBar extends Component {
       const textData = input.toLowerCase();
       return roomData.indexOf(textData) > -1;
     });
-
 
     this.setState({
       showPredictions: true,
@@ -213,6 +218,7 @@ class IndoorMapSearchBar extends Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    setStartBuildingNode: (prediction) => { dispatch(setStartBuildingNode(prediction)); },
     setFromWithinBuildingNode: (prediction) => { dispatch(setFromWithinBuildingNode(prediction)); },
   };
 };

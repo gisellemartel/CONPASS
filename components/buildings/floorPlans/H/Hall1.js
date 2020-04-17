@@ -1475,7 +1475,31 @@ function SvgHall1(props) {
             O
           </Text>
 
-
+          </Text>
+           <Text
+            stroke="#000"
+            strokeWidth={0}
+            strokeOpacity="null"
+            fillOpacity="null"
+            x={535}
+            y={75}
+            fontSize={14}
+            fontFamily="Helvetica, Arial, sans-serif"
+          >
+            north_exit
+          </Text>
+           <Text
+            stroke="#000"
+            strokeWidth={0}
+            strokeOpacity="null"
+            fillOpacity="null"
+            x={535}
+            y={950}
+            fontSize={14}
+            fontFamily="Helvetica, Arial, sans-serif"
+          >
+            south_exit
+          </Text>
           */}
       </G>
     </Svg>

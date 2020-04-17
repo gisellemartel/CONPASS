@@ -1,13 +1,17 @@
 import { createStore } from 'redux';
 import {
-  SET_END_BUILDING_NODE, RESET_NAVIGATION, SET_START_BUILDING_NODE, SET_FROM_WITHIN_BUILDING_NODE
+  SET_END_BUILDING_NODE, RESET_NAVIGATION, SET_START_BUILDING_NODE, SET_FROM_WITHIN_BUILDING_NODE, END_FROM_WITHIN_INDOOR_READY, SEND_DIRECTIONS_TO_OUTDOOR, SET_FROM_WITHIN_END_NODE
 } from './actionTypes';
 
 // initial store state
 const initialState = {
   endBuildingNode: '',
   startBuildingNode: '',
-  navType: '',
+  // fromWithinBuildingNode: '',
+  // navType: '',
+  // startFromWithinIndoorReady: false,
+  // endFromWithinIndoorReady: false,
+  directionsToOutdoor: '',
 };
 
 const reducer = (state = initialState, action) => {
@@ -16,22 +20,38 @@ const reducer = (state = initialState, action) => {
     return {
       ...state,
       endBuildingNode: action.endBuildingNode,
-      navType: 'POI_TO_BUILDING'
     };
   }
 
   if (action.type === SET_START_BUILDING_NODE) {
+    console.log(SET_START_BUILDING_NODE);
     return {
       ...state,
       startBuildingNode: action.startBuildingNode,
     };
   }
 
-  if (action.type === SET_FROM_WITHIN_BUILDING_NODE) {
-    console.log(SET_FROM_WITHIN_BUILDING_NODE);
+  // if (action.type === SET_FROM_WITHIN_BUILDING_NODE) {
+  //   console.log(SET_FROM_WITHIN_BUILDING_NODE);
+  //   return {
+  //     ...state,
+  //     fromWithinBuildingNode: action.fromWithinBuildingNode,
+  //   };
+  // }
+
+  // if (action.type === SET_FROM_WITHIN_END_NODE) {
+  //   console.log(SET_FROM_WITHIN_END_NODE);
+  //   return {
+  //     ...state,
+  //     endBuildingNode: action.fromWithinEndNode,
+  //   };
+  // }
+
+  if (action.type === SEND_DIRECTIONS_TO_OUTDOOR) {
+    console.log(SEND_DIRECTIONS_TO_OUTDOOR);
     return {
       ...state,
-      fromWithinBuildingNode: action.fromWithinBuildingNode,
+      directionsToOutdoor: action.directionsToOutdoor
     };
   }
 
@@ -41,8 +61,9 @@ const reducer = (state = initialState, action) => {
       ...state,
       endBuildingNode: '',
       startBuildingNode: '',
-      fromWithinBuildingNode: '',
-      navType: ''
+      // fromWithinBuildingNode: '',
+      // startFromWithinIndoorReady: false,
+      // endFromWithinIndoorReady: false,
     };
   }
 

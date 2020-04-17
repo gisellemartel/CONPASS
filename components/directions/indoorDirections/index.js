@@ -19,8 +19,9 @@ import BuildingInfoModal from '../../buildingInfoModal';
 import PathPolyline from '../../pathPolyline';
 import info from '../../../assets/icons/info.png';
 import dijkstraPathfinder from '../../../indoor_directions_modules/dijkstraPathfinder';
-
 import styles from './styles';
+import { sendDirectionsToOutdoor } from '../../../store/actions';
+import IndoorDestinationSearchBar from '../indoorDestinationSearchBar/index';
 
 
 class IndoorDirections extends Component {
@@ -58,20 +59,30 @@ class IndoorDirections extends Component {
   }
 
   componentDidMount() {
-    this.prepareBuilding();
+    this.coordinatesFromOutside();
   }
 
   componentDidUpdate(prevProps) {
-    const { fromWithinBuildingNode } = this.props;
+    const { startBuildingNode, endBuildingNode } = this.props;
     const { currentBuilding } = this.state;
-    if (prevProps.fromWithinBuildingNode !== fromWithinBuildingNode) {
-      this.props.changeVisibilityTo(true);
-      if (fromWithinBuildingNode) {
-        const floor = this.findFloor(currentBuilding, 1);
-        this.setState({
-          origin: fromWithinBuildingNode.origin,
-          originFloor: floor,
-        }, () => { this.dijkstraHandler(fromWithinBuildingNode.dijkstraId, fromWithinBuildingNode.floor); });
+    // if (prevProps.fromWithinBuildingNode !== fromWithinBuildingNode) {
+    //   this.props.changeVisibilityTo(true);
+    //   if (fromWithinBuildingNode) {
+    //     const floor = this.findFloor(currentBuilding, 1);
+    //     this.setState({
+    //       origin: fromWithinBuildingNode.origin,
+    //       originFloor: floor,
+    //     }, () => { this.dijkstraHandler(fromWithinBuildingNode.dijkstraId, fromWithinBuildingNode.floor); });
+    //   }w
+    // }
+
+    if (startBuildingNode !== prevProps.startBuildingNode) {
+      if (startBuildingNode && endBuildingNode) {
+        this.coordinatesFromInside(startBuildingNode, endBuildingNode);
+      }
+    } else if (endBuildingNode !== prevProps.endBuildingNode) {
+      if (startBuildingNode && endBuildingNode) {
+        this.coordinatesFromInside(startBuildingNode, endBuildingNode);
       }
     }
   }
@@ -83,9 +94,28 @@ class IndoorDirections extends Component {
     return floor;
   }
 
-  prepareBuilding() {
+  coordinatesFromInside(startBuildingNode, endBuildingNode) {
     const { currentBuilding } = this.state;
-    const { startBuildingNode, endBuildingNode, navType } = this.props;
+
+    const directions = {
+      start: startBuildingNode,
+      end: endBuildingNode
+    };
+
+    this.props.sendDirectionsToOutdoor(directions);
+    const floor = this.findFloor(currentBuilding, 1);
+    this.setState({
+      origin: startBuildingNode.origin,
+      originFloor: floor,
+    }, () => {
+      this.dijkstraHandler(startBuildingNode.dijkstraId, startBuildingNode.floor);
+      this.props.changeVisibilityTo(true);
+    });
+  }
+
+  coordinatesFromOutside() {
+    const { currentBuilding } = this.state;
+    const { startBuildingNode, endBuildingNode } = this.props;
 
     if (startBuildingNode.building === currentBuilding.building) {
       console.log('right start');
@@ -105,13 +135,6 @@ class IndoorDirections extends Component {
         originFloor: floor,
       }, () => { this.dijkstraHandler(endBuildingNode.dijkstraId, endBuildingNode.floor); }); // (string, int)
     }
-
-    // if (navType === 'POI_TO_BUILDING') {
-    //   this.setState({
-    //     origin: endBuildingNode.origin,
-    //     originFloor: floor,
-    //   }, () => { this.dijkstraHandler(endBuildingNode.dijkstraId, endBuildingNode.floor); });
-    // }
   }
 
   /**
@@ -355,6 +378,7 @@ class IndoorDirections extends Component {
           <View style={styles.modalBackground} />
           <View style={styles.directionsContainer}>
             <BackButton
+              withRedux
               changeVisibilityTo={this.changeVisibilityTo}
               changePolylineVisibilityTo={this.changePolylineVisibilityTo}
               coordinateCallback={this.updateCoordinates}
@@ -367,7 +391,8 @@ class IndoorDirections extends Component {
                 currentFloor={this.state.currentFloorPlan}
                 indoorRoomsList={this.props.indoorRoomsList}
               />
-              <DestinationSearchBar
+              <IndoorDestinationSearchBar
+                changeVisibilityTo={this.props.changeVisibilityTo}
                 drawPath={this.state.drawPath}
                 getRegionFromSearch={this.props.getRegionFromSearch}
                 getDestinationIfSet={this.props.getDestinationIfSet}
@@ -404,8 +429,16 @@ const mapStateToProps = (state) => {
     endBuildingNode: state.endBuildingNode,
     startBuildingNode: state.startBuildingNode,
     fromWithinBuildingNode: state.fromWithinBuildingNode,
-    navType: state.navType,
+    fromWithinEndNode: state.fromWithinEndNode,
+    endFromWithinIndoorReady: state.endFromWithinIndoorReady,
+    startFromWithinIndoorReady: state.startFromWithinIndoorReady,
   };
 };
 
-export default connect(mapStateToProps)(IndoorDirections);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    sendDirectionsToOutdoor: (directions) => { dispatch(sendDirectionsToOutdoor(directions)); },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(IndoorDirections);

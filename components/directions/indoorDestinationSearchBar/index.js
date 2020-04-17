@@ -13,13 +13,12 @@ import { connect } from 'react-redux';
 import { setEndBuildingNode, endFromWithinIndoorReady, setFromWithinEndNode } from '../../../store/actions';
 import styles from './styles';
 
-class DestinationSearchBar extends Component {
+class IndoorDestinationSearchBar extends Component {
   constructor(props) {
     super(props);
     this.state = {
       isMounted: false,
       showPredictions: true,
-      destination: this.props.getDestinationIfSet,
       predictions: [],
       destinationRegion: {
         latitude: '',
@@ -30,26 +29,6 @@ class DestinationSearchBar extends Component {
 
   componentDidMount() {
     this._isMounted = true;
-    console.log('mounted');
-    if (this.props.directionsToOutdoor) {
-      console.log('here');
-      this.drawPathNichita(this.props.directionsToOutdoor);
-    } else {
-      this.setState({ isMounted: true });
-      if (this.props.getRegionFromSearch && this.props.getRegionFromSearch.latitude !== '') {
-        this.setState({
-          destinationRegion: {
-            latitude: this.props.getRegionFromSearch.latitude,
-            longitude: this.props.getRegionFromSearch.longitude
-          }
-        });
-        this.drawPath();
-      }
-
-      if (this.props.directionsId) {
-        this.getLatLong(this.props.directionsId);
-      }
-    }
   }
 
   componentWillUnmount() {
@@ -57,24 +36,18 @@ class DestinationSearchBar extends Component {
   }
 
   async drawPathNichita(directions) {
-    console.log(directions.start.coordinates.latitude);
-    console.log(directions.start.coordinates.longitude);
-    console.log(directions.end.coordinates.latitude);
-    console.log(directions.end.coordinates.longitude);
-
     try {
       const key = 'AIzaSyBsMjuj6q76Vcna8G5z9PDyTH2z16fNPDk';
-      const originLat = directions.start.coordinates.latitude;
-      const originLong = directions.start.coordinates.longitude;
-      const destinationLat = directions.end.coordinates.latitude;
-      const destinationLong = directions.end.coordinates.longitude;
-      const mode = 'walking';
+      const originLat = directions.start.latitude;
+      const originLong = directions.start.longitude;
+      const destinationLat = directions.end.latitude;
+      const destinationLong = directions.end.longitude;
+      const mode = 'waliking';
       const directionUrl = `https://maps.googleapis.com/maps/api/directions/json?key=${key}&origin=${originLat},${originLong}&destination=${destinationLat},${destinationLong}&mode=${mode}`;
       const result = await fetch(directionUrl);
       const json = await result.json();
       // eslint-disable-next-line camelcase
       const encryptedPath = json.routes[0]?.overview_polyline.points;
-      console.log(encryptedPath);
       if (encryptedPath) {
         const rawPolylinePoints = decodePolyline(encryptedPath);
         // Incompatible field names for direct decode. Need to do a trivial conversion.
@@ -84,22 +57,10 @@ class DestinationSearchBar extends Component {
             longitude: point.lng
           };
         });
-        console.log(waypoints);
         this.props.coordinateCallback(waypoints);
       }
     } catch (err) {
       console.error(err);
-    }
-  }
-
-  componentDidUpdate(prevProps) {
-    if (prevProps.drawPath !== this.props.drawPath || prevProps.getMode !== this.props.getMode) {
-      this.drawPath();
-    }
-
-    if (prevProps.directionsId !== this.props.directionsId) {
-      this.getLatLong(this.props.directionsId);
-      this.drawPath();
     }
   }
 
@@ -122,48 +83,6 @@ class DestinationSearchBar extends Component {
       });
     } catch (err) {
       console.error(err);
-    }
-  }
-
-  /** Retrieves the current location of a user. */
-  async getCurrentLocation() {
-    const { status } = await Permissions.askAsync(Permissions.LOCATION);
-    if (status !== 'granted') {
-      console.err('Permission to access location was denied');
-      return;
-    }
-    const location = await Location.getCurrentPositionAsync({});
-    this.setState({ location });
-  }
-
-  /**
-  * Draws path between two selected locations.
-  * @param {string} prediction - placeid of destination to get path to.
-  */
-  async getLatLong(prediction) {
-    const key = 'AIzaSyCqNODizSqMIWbKbO8Iq3VWdBcK846n_3w';
-    const geoUrl = `https://maps.googleapis.com/maps/api/place/details/json?key=${key}&placeid=${prediction}`;
-    const georesult = await fetch(geoUrl);
-    const gjson = await georesult.json();
-    this.setState({
-      destinationRegion: {
-        latitude: gjson.result.geometry.location.lat,
-        longitude: gjson.result.geometry.location.lng,
-      }
-    });
-    this.drawPath();
-  }
-
-  /**
-   * Sets indoor destination for directions between points in same building
-   */
-  setIndoorDestination = (destination) => {
-    // if the prediction is an indoor destination in the same current building, we do not need to
-    // set lat long region
-    const roomName = destination.description.toLowerCase();
-    if ((roomName.startsWith('h-') && this.props.currentBuildingName === 'H')
-     || (roomName.startsWith('vl-') && this.props.currentBuildingName === 'VL')) {
-      // this.props.dijkstraHandler(destination.dijkstraId, destination.floor);
     }
   }
 
@@ -203,43 +122,10 @@ class DestinationSearchBar extends Component {
     return mixedPredictions;
   }
 
-
-  async drawPath() {
-    try {
-      await this.getCurrentLocation();
-      const { location } = this.state;
-      const urLatitude = location.coords.latitude;
-      const urLongitude = location.coords.longitude;
-      const key = 'AIzaSyBsMjuj6q76Vcna8G5z9PDyTH2z16fNPDk';
-      const originLat = this.props.updatedRegion.latitude === 0 ? urLatitude : this.props.updatedRegion.latitude;
-      const originLong = this.props.updatedRegion.longitude === 0 ? urLongitude : this.props.updatedRegion.longitude;
-      const destinationLat = this.state.destinationRegion.latitude;
-      const destinationLong = this.state.destinationRegion.longitude;
-      const mode = this.props.getMode;
-      const directionUrl = `https://maps.googleapis.com/maps/api/directions/json?key=${key}&origin=${originLat},${originLong}&destination=${destinationLat},${destinationLong}&mode=${mode}`;
-      const result = await fetch(directionUrl);
-      const json = await result.json();
-      // eslint-disable-next-line camelcase
-      const encryptedPath = json.routes[0]?.overview_polyline.points;
-      if (encryptedPath) {
-        const rawPolylinePoints = decodePolyline(encryptedPath);
-        // Incompatible field names for direct decode. Need to do a trivial conversion.
-        const waypoints = rawPolylinePoints.map((point) => {
-          return {
-            latitude: point.lat,
-            longitude: point.lng
-          };
-        });
-        this.props.coordinateCallback(waypoints);
-      }
-    } catch (err) {
-      console.error(err);
-    }
-  }
-
   async sendNodeToRedux(prediction) {
     const modifiedPrediction = prediction;
     let coordinates;
+    // this.props.endFromWithinIndoorReady();
     if (!prediction.dijkstraId) {
       const key = 'AIzaSyCqNODizSqMIWbKbO8Iq3VWdBcK846n_3w';
       const geoUrl = `https://maps.googleapis.com/maps/api/place/details/json?key=${key}&placeid=${prediction.place_id}`;
@@ -253,6 +139,7 @@ class DestinationSearchBar extends Component {
       modifiedPrediction.coordinates = coordinates;
     }
     this.props.setEndBuildingNode(modifiedPrediction);
+    // console.log(modifiedPrediction);
   }
 
   render() {
@@ -264,8 +151,6 @@ class DestinationSearchBar extends Component {
             style={styles.Touch}
             onPress={() => {
               this.setState({ destination: prediction.description });
-              this.getLatLong(prediction.place_id);
-              this.setIndoorDestination(prediction);
               this.setState({ showPredictions: false });
               this.sendNodeToRedux(prediction);
               Keyboard.dismiss();
@@ -329,10 +214,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-const mapStateToProps = (state) => {
-  return {
-    directionsToOutdoor: state.directionsToOutdoor,
-  };
-};
-
-export default connect(null, mapDispatchToProps)(DestinationSearchBar);
+export default connect(null, mapDispatchToProps)(IndoorDestinationSearchBar);

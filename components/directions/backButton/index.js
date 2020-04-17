@@ -20,13 +20,10 @@ class BackButton extends Component {
     return (
       <View style={styles.container}>
         <TouchableOpacity onPress={() => {
-          this.props.changeVisibilityTo(false);
-          if (this.props.changePolylineVisibilityTo) {
-            this.props.changePolylineVisibilityTo(false);
-          }
+          this.back();
         }}
         >
-          <Entypo name="chevron-left" size={32} color="black" />
+          <Entypo name="chevron-left" size={32} color="red" />
         </TouchableOpacity>
       </View>
     );
