@@ -27,3 +27,12 @@ test('Should return a false value', async() => {
     expect(userEquality).toBeFalsy();
 });
 
+test('Should throw an error message', async() => {
+    const loginScreenComponent = renderer.create(<LoginScreen/>).getInstance();
+    try {
+        await loginScreenComponent.isUserEqual('hani','trevor');
+        expect(1).toEqual(2);//this will fail if ever reached which is the case because the previous statemnet shall throw an error
+    } catch (error) {
+        expect(error.message).toEqual('Cannot read property \'length\' of undefined');
+    }
+});
