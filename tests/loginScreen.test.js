@@ -14,9 +14,9 @@ test('Should throw and error message', async() => {
     }
 });
 
-test('Should throw and error message', async() => {
+test('Should return a false value', async() => {
     const loginScreenComponent = renderer.create(<LoginScreen/>).getInstance();
-        const removalStatus = await loginScreenComponent.removeOldStoredEvents();
-        expect(removalStatus).toBeFalsy();
+    const removalStatus = await loginScreenComponent.removeOldStoredEvents();
+    expect(removalStatus).toBeFalsy();
 
 });
