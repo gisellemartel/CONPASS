@@ -902,7 +902,7 @@ const hall1FloorPlanCoordinates = {
     adjacencyList: [
       'node_escalator_up',
       'node_escalator_corner_north',
-      // 'node_138.01'
+      'node_138_01'
     ]
   },
   node_escalator_down: {
@@ -955,7 +955,8 @@ const hall1FloorPlanCoordinates = {
     adjacencyList: [
       'node_107',
       'node_female_bathroom',
-      'node_109_01'
+      'node_109_01',
+      'north_exit'
     ]
   },
   node_south_intersection: {
@@ -964,7 +965,8 @@ const hall1FloorPlanCoordinates = {
     adjacencyList: [
       'node_132_01',
       'node_138_01',
-      'node_138_141'
+      'node_138_141',
+      'south_exit'
     ]
   },
   node_staircase_1: {
