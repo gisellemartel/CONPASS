@@ -1,3 +1,5 @@
+import distanceBetweenTwoNodes from './distanceBetweenTwoNodes';
+
 const floorWaypointFinder = {
   /**
    * The calculator to determine which exit point is the closest for the multi-floor pathfinder.
@@ -28,7 +30,7 @@ const floorWaypointFinder = {
       const perpendicularB = this.calculateIntercept(perpendicularX, waypoint);
       intersectPoint = this.intersectionOfTwoPoints(originalX, perpendicularX, originalB, perpendicularB);
     }
-    let distance = this.nodeDistance(waypoint, intersectPoint);
+    let distance = distanceBetweenTwoNodes.nodeDistance(waypoint, intersectPoint);
     // To determine if the waypoint is not in between start point and finish point, simply determine if it's
     // outside the x boundaries or the y boundaries (a straight line formation guarantees that these
     // conditions satisfies being "outside the line").
@@ -37,7 +39,10 @@ const floorWaypointFinder = {
     || (intersectPoint.y > startPoint.y && intersectPoint.y > endPoint.y)
     || (intersectPoint.y < startPoint.y && intersectPoint.y < endPoint.y)
     ) {
-      distance += Math.min(this.nodeDistance(intersectPoint, startPoint), this.nodeDistance(intersectPoint, endPoint));
+      distance += Math.min(
+        distanceBetweenTwoNodes.nodeDistance(intersectPoint, startPoint),
+        distanceBetweenTwoNodes.nodeDistance(intersectPoint, endPoint)
+      );
     }
     return distance;
   },
@@ -74,11 +79,6 @@ const floorWaypointFinder = {
     const intersectX = deltaB / deltaX;
     const intersectY = slope1 * intersectX + intercept1;
     return { x: intersectX, y: intersectY };
-  },
-  nodeDistance(firstNode, secondNode) {
-    const deltaXSquared = (secondNode.x - firstNode.x) ** 2;
-    const deltaYSquared = (secondNode.y - firstNode.y) ** 2;
-    return Math.sqrt(deltaXSquared + deltaYSquared);
   }
 };
 

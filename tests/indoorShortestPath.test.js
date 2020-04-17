@@ -5,6 +5,7 @@ import renderer from 'react-test-renderer';
 import BuildingWithFloors from '../components/buildings/buildingView/buildingWithFloors';
 import dijkstraPathfinder from '../indoor_directions_modules/dijkstraPathfinder';
 import floorWaypointFinder from '../indoor_directions_modules/floorWaypointFinder';
+import distanceBetweenTwoNodes from '../indoor_directions_modules/distanceBetweenTwoNodes';
 
 beforeEach(() => {
   mockGraphFloor1 = {
@@ -132,7 +133,7 @@ beforeEach(() => {
 });
 
 it('Should return the proper distance', () => {
-  const distance = dijkstraPathfinder.nodeDistance('101', '102', mockGraphFloor1);
+  const distance = distanceBetweenTwoNodes.nodeDistance(mockGraphFloor1['101'], mockGraphFloor1['102']);
   expect(distance).toBe(1.118033988749895);
 });
 
