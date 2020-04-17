@@ -1,4 +1,5 @@
 import React from 'react';
+import {AsyncStorage} from 'react-native';
 import renderer from 'react-test-renderer';
 import { shallow } from 'enzyme';
 import CheckboxGroup from '../components/menu/calendar/Screens/FetchScreen/CheckboxGroup';
@@ -47,4 +48,14 @@ it('Should update calendarsToSync array state by removing ev3', ()=>{
     CheckboxGroupComponent.setCalendarsToSyncList('ev3');
     const calendarsToSyncArray = CheckboxGroupComponent.state.calendarsToSync;
     expect(calendarsToSyncArray).toEqual(expect.not.arrayContaining(['ev3']));
+})
+
+it('Should return a non-empty array', async ()=>{
+    const CheckboxGroupComponent = renderer.create(<CheckboxGroup/>).getInstance();
+    CheckboxGroupComponent.setState({calendarsToSync:['ev1']});
+    CheckboxGroupComponent.setState({calendarsToSync:['ev2']});
+    AsyncStorage.setItem('ev1','{"items":["A","B"]}');
+    AsyncStorage.setItem('ev2','{"items":["C","D"]}');
+    const finalArrayToBeSynced = CheckboxGroupComponent.getFinalEventsArray();
+    expect(finalArrayToBeSynced.length).not.toBe(0);
 })
