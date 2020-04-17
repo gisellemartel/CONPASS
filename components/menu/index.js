@@ -9,6 +9,13 @@ import conpass from '../../assets/icons/conpass.png';
 import { accessibilityOn, accessibilityOff } from '../../store/actions';
 
 class Menu extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      accessibility: this.props.accessibility
+    };
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -33,28 +40,14 @@ class Menu extends Component {
           </Text>
           <TouchableOpacity
             onPress={() => {
-              // return this.props.navigation.navigate('ShuttleSchedule');
-            }}
-          />
-          <Text style={styles.option}>
-            {i18n.t('accessibility')}
-          </Text>
-          <TouchableOpacity
-            onPress={() => {
+              if (this.state.accessibility === 'ACCESSIBILITY_ON') {
+                return this.props.accessibilityOff();
+              }
               return this.props.accessibilityOn();
             }}
           >
             <Text style={styles.option}>
-              ON
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => {
-              return this.props.accessibilityOff();
-            }}
-          >
-            <Text style={styles.option}>
-              OFF
+              {this.state.accessibility === 'ACCESSIBILITY_ON' ? i18n.t('accessibility_off') : i18n.t('accessibility_on')}
             </Text>
           </TouchableOpacity>
         </View>
@@ -64,7 +57,26 @@ class Menu extends Component {
       </View>
     );
   }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.accessibility === this.props.accessibility) {
+      console.log('global accessibility changed');
+      if (this.props.accessibility === 'ACCESSIBILITY_ON') {
+        // set component state
+        this.setState({ accessibility: 'ON' });
+      } else if (this.props.accessibility === 'ACCESSIBILITY_OFF') {
+        // set component state
+        this.setState({ accessibility: 'OFF' });
+      }
+    }
+  }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    accessibility: state.accessibility,
+  };
+};
 
 const mapDispatch = (dispatch) => {
   return {
@@ -73,4 +85,4 @@ const mapDispatch = (dispatch) => {
   };
 };
 
-export default connect(null, mapDispatch)(Menu);
+export default connect(mapStateToProps, mapDispatch)(Menu);
