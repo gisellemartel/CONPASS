@@ -26,3 +26,10 @@ it('Should return an array with "events1" in first element', () => {
     const calendarsSummary = CheckboxGroupComponent.getCalendarsToBeSynced();
     expect(calendarsSummary[0]).toBe('Holidays');
 });
+
+it('Should return an empty array', () => {
+    const CheckboxGroupComponent = renderer.create(<CheckboxGroup options={calendarsGeneralInfo}/>).getInstance();
+    CheckboxGroupComponent.setState({calendarsToSync:[]});
+    const calendarsSummary = CheckboxGroupComponent.getCalendarsToBeSynced();
+    expect(calendarsSummary.length).toBe(0);
+});
