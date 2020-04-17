@@ -122,14 +122,15 @@ render() {
                   
                 )}
             />
-           
+
+            <View style={styles.button}>
               <Button
                 title="Synchronize Calendars"
                 type="solid"
-                style={styles.button}
+                
                 onPress={this.handleSyncronizeButton}
               />
-            
+            </View>
 
         </View>
     );
@@ -157,8 +158,9 @@ const styles = StyleSheet.create({
     borderRadius: 5
   },
   button:{
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginVertical: '10%'
+    position: 'absolute',
+    width: '50%',
+    bottom: '-25%',
+    left: '25%'
   }
 });
