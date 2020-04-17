@@ -90,15 +90,28 @@ class IndoorDirections extends Component {
       end: endBuildingNode
     };
 
-    this.props.sendDirectionsToOutdoor(directions);
     const floor = this.findFloor(currentBuilding, 1);
-    this.setState({
-      origin: startBuildingNode.origin,
-      originFloor: floor,
-    }, () => {
-      this.dijkstraHandler(startBuildingNode.dijkstraId, startBuildingNode.floor);
-      this.props.changeVisibilityTo(true);
-    });
+
+    if (currentBuilding.building === endBuildingNode.building) {
+      console.log('dest inside');
+      this.setState({
+        origin: startBuildingNode.dijkstraId,
+        originFloor: this.findFloor(currentBuilding, startBuildingNode.floor),
+      }, () => {
+        this.dijkstraHandler(endBuildingNode.dijkstraId, endBuildingNode.floor);
+      });
+
+    } else {
+      console.log('dest outside');
+      this.props.sendDirectionsToOutdoor(directions); 
+      this.setState({
+        origin: startBuildingNode.dijkstraId,
+        originFloor: this.findFloor(currentBuilding, startBuildingNode.floor),
+      }, () => {
+        this.dijkstraHandler(startBuildingNode.origin, 1);
+        this.props.changeVisibilityTo(true);
+      });
+    }
   }
 
   coordinatesFromOutside() {
