@@ -13,3 +13,10 @@ test('Should throw and error message', async() => {
         expect(error.message).toEqual('Cannot read property \'forEach\' of undefined');
     }
 });
+
+test('Should throw and error message', async() => {
+    const loginScreenComponent = renderer.create(<LoginScreen/>).getInstance();
+        const removalStatus = await loginScreenComponent.removeOldStoredEvents();
+        expect(removalStatus).toBeFalsy();
+
+});
