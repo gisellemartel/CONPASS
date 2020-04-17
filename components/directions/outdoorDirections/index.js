@@ -76,7 +76,7 @@ class OutdoorDirections extends Component {
       return (
         <View style={styles.searchContainer}>
           <MapSearchBar
-            withRedux
+            startDescription={this.props.directionsToOutdoor ? this.props.directionsToOutdoor.start.description : ''}
             updateRegion={this.updateRegion}
             urCurentLocation={this.state.value}
             hideMenu={this.state.hide}

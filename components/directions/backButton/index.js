@@ -23,7 +23,7 @@ class BackButton extends Component {
           this.back();
         }}
         >
-          <Entypo name="chevron-left" size={32} color="red" />
+          <Entypo name="chevron-left" size={32} color="black" />
         </TouchableOpacity>
       </View>
     );

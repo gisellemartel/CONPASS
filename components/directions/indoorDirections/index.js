@@ -10,7 +10,6 @@ import Destination from '../destination';
 import buildingLogo from '../../../assets/icons/building.png';
 import quit from '../../../assets/icons/quit.png';
 import IndoorMapSearchBar from '../indoorMapSearchBar';
-import DestinationSearchBar from '../destinationSearchBar';
 import BuildingView from '../../buildings/buildingView/index';
 import generateFloorPlan from '../../buildings/floorPlans/floorPlanRepository';
 import generateGraph from '../../../indoor_directions_modules/graphRepository';
@@ -64,17 +63,6 @@ class IndoorDirections extends Component {
 
   componentDidUpdate(prevProps) {
     const { startBuildingNode, endBuildingNode } = this.props;
-    const { currentBuilding } = this.state;
-    // if (prevProps.fromWithinBuildingNode !== fromWithinBuildingNode) {
-    //   this.props.changeVisibilityTo(true);
-    //   if (fromWithinBuildingNode) {
-    //     const floor = this.findFloor(currentBuilding, 1);
-    //     this.setState({
-    //       origin: fromWithinBuildingNode.origin,
-    //       originFloor: floor,
-    //     }, () => { this.dijkstraHandler(fromWithinBuildingNode.dijkstraId, fromWithinBuildingNode.floor); });
-    //   }w
-    // }
 
     if (startBuildingNode !== prevProps.startBuildingNode) {
       if (startBuildingNode && endBuildingNode) {
@@ -118,22 +106,17 @@ class IndoorDirections extends Component {
     const { startBuildingNode, endBuildingNode } = this.props;
 
     if (startBuildingNode.building === currentBuilding.building) {
-      console.log('right start');
-      // floorObject
       const floor = this.findFloor(currentBuilding, 1);
-
       this.setState({
         origin: startBuildingNode.origin,
         originFloor: floor,
       }, () => { this.dijkstraHandler(startBuildingNode.dijkstraId, startBuildingNode.floor); });
     } else if (endBuildingNode.building === currentBuilding.building) {
-      // floor object
       const floor = this.findFloor(currentBuilding, 1);
-
       this.setState({
         origin: endBuildingNode.origin,
         originFloor: floor,
-      }, () => { this.dijkstraHandler(endBuildingNode.dijkstraId, endBuildingNode.floor); }); // (string, int)
+      }, () => { this.dijkstraHandler(endBuildingNode.dijkstraId, endBuildingNode.floor); });
     }
   }
 
@@ -211,7 +194,9 @@ class IndoorDirections extends Component {
    */
   dijkstraHandler(indoorDestination, indoorDestinationFloor) {
     const updatedDirectionPath = {};
-    const [waypoints, graphs, floors] = this.indoorDirectionHandler(indoorDestination, indoorDestinationFloor);
+    const [waypoints, graphs, floors] = this.indoorDirectionHandler(
+      indoorDestination, indoorDestinationFloor
+    );
     if (waypoints.length > 0) {
       const paths = dijkstraPathfinder.dijkstraPathfinder(waypoints, graphs);
       // eslint-disable-next-line no-plusplus
@@ -392,12 +377,6 @@ class IndoorDirections extends Component {
                 indoorRoomsList={this.props.indoorRoomsList}
               />
               <IndoorDestinationSearchBar
-                changeVisibilityTo={this.props.changeVisibilityTo}
-                drawPath={this.state.drawPath}
-                getRegionFromSearch={this.props.getRegionFromSearch}
-                getDestinationIfSet={this.props.getDestinationIfSet}
-                updatedRegion={this.state.region}
-                coordinateCallback={this.props.getCoordinates}
                 getMode={this.state.mode}
                 indoorRoomsList={this.props.indoorRoomsList}
                 currentBuildingName={currentBuilding.building}
@@ -428,10 +407,6 @@ const mapStateToProps = (state) => {
   return {
     endBuildingNode: state.endBuildingNode,
     startBuildingNode: state.startBuildingNode,
-    fromWithinBuildingNode: state.fromWithinBuildingNode,
-    fromWithinEndNode: state.fromWithinEndNode,
-    endFromWithinIndoorReady: state.endFromWithinIndoorReady,
-    startFromWithinIndoorReady: state.startFromWithinIndoorReady,
   };
 };
 

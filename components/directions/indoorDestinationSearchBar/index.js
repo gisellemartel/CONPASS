@@ -1,16 +1,11 @@
-/* eslint-disable react/sort-comp */
-/* eslint-disable max-len */
 import React, { Component } from 'react';
 import {
   View, Keyboard, TouchableOpacity, Text
 } from 'react-native';
 import i18n from 'i18n-js';
 import { SearchBar } from 'react-native-elements';
-import decodePolyline from 'decode-google-map-polyline';
-import * as Location from 'expo-location';
-import * as Permissions from 'expo-permissions';
 import { connect } from 'react-redux';
-import { setEndBuildingNode, endFromWithinIndoorReady, setFromWithinEndNode } from '../../../store/actions';
+import { setEndBuildingNode } from '../../../store/actions';
 import styles from './styles';
 
 class IndoorDestinationSearchBar extends Component {
@@ -20,48 +15,7 @@ class IndoorDestinationSearchBar extends Component {
       isMounted: false,
       showPredictions: true,
       predictions: [],
-      destinationRegion: {
-        latitude: '',
-        longitude: '',
-      },
     };
-  }
-
-  componentDidMount() {
-    this._isMounted = true;
-  }
-
-  componentWillUnmount() {
-    this._isMounted = false;
-  }
-
-  async drawPathNichita(directions) {
-    try {
-      const key = 'AIzaSyBsMjuj6q76Vcna8G5z9PDyTH2z16fNPDk';
-      const originLat = directions.start.latitude;
-      const originLong = directions.start.longitude;
-      const destinationLat = directions.end.latitude;
-      const destinationLong = directions.end.longitude;
-      const mode = 'waliking';
-      const directionUrl = `https://maps.googleapis.com/maps/api/directions/json?key=${key}&origin=${originLat},${originLong}&destination=${destinationLat},${destinationLong}&mode=${mode}`;
-      const result = await fetch(directionUrl);
-      const json = await result.json();
-      // eslint-disable-next-line camelcase
-      const encryptedPath = json.routes[0]?.overview_polyline.points;
-      if (encryptedPath) {
-        const rawPolylinePoints = decodePolyline(encryptedPath);
-        // Incompatible field names for direct decode. Need to do a trivial conversion.
-        const waypoints = rawPolylinePoints.map((point) => {
-          return {
-            latitude: point.lat,
-            longitude: point.lng
-          };
-        });
-        this.props.coordinateCallback(waypoints);
-      }
-    } catch (err) {
-      console.error(err);
-    }
   }
 
   /**
@@ -76,7 +30,8 @@ class IndoorDestinationSearchBar extends Component {
       const result = await fetch(apiUrl);
       const json = await result.json();
 
-      const allPredictions = this.generateAllContextualPredictions(destination.toLowerCase(), json.predictions);
+      const allPredictions = this.generateAllContextualPredictions(destination.toLowerCase(),
+        json.predictions);
 
       this.setState({
         predictions: allPredictions
@@ -122,10 +77,13 @@ class IndoorDestinationSearchBar extends Component {
     return mixedPredictions;
   }
 
+  /**
+   * Send the prediction to redux global store for components to update
+   * @param {object} prediction object
+   */
   async sendNodeToRedux(prediction) {
     const modifiedPrediction = prediction;
     let coordinates;
-    // this.props.endFromWithinIndoorReady();
     if (!prediction.dijkstraId) {
       const key = 'AIzaSyCqNODizSqMIWbKbO8Iq3VWdBcK846n_3w';
       const geoUrl = `https://maps.googleapis.com/maps/api/place/details/json?key=${key}&placeid=${prediction.place_id}`;
@@ -139,7 +97,6 @@ class IndoorDestinationSearchBar extends Component {
       modifiedPrediction.coordinates = coordinates;
     }
     this.props.setEndBuildingNode(modifiedPrediction);
-    // console.log(modifiedPrediction);
   }
 
   render() {
@@ -210,7 +167,6 @@ class IndoorDestinationSearchBar extends Component {
 const mapDispatchToProps = (dispatch) => {
   return {
     setEndBuildingNode: (prediction) => { dispatch(setEndBuildingNode(prediction)); },
-    setFromWithinEndNode: (prediction) => { dispatch(setFromWithinEndNode(prediction)); }
   };
 };
 

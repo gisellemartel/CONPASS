@@ -10,7 +10,7 @@ import decodePolyline from 'decode-google-map-polyline';
 import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
 import { connect } from 'react-redux';
-import { setEndBuildingNode, endFromWithinIndoorReady, setFromWithinEndNode } from '../../../store/actions';
+import { setEndBuildingNode } from '../../../store/actions';
 import styles from './styles';
 
 class DestinationSearchBar extends Component {
@@ -29,11 +29,11 @@ class DestinationSearchBar extends Component {
   }
 
   componentDidMount() {
-    this._isMounted = true;
-    console.log('mounted');
+
+    console.log(this.props.getDestinationIfSet);
     if (this.props.directionsToOutdoor) {
-      console.log('here');
-      this.drawPathNichita(this.props.directionsToOutdoor);
+      this.drawPathSentFromInterior(this.props.directionsToOutdoor);
+      this.setState({destination: this.props.directionsToOutdoor.end.description});
     } else {
       this.setState({ isMounted: true });
       if (this.props.getRegionFromSearch && this.props.getRegionFromSearch.latitude !== '') {
@@ -52,16 +52,11 @@ class DestinationSearchBar extends Component {
     }
   }
 
-  componentWillUnmount() {
-    this._isMounted = false;
-  }
-
-  async drawPathNichita(directions) {
-    console.log(directions.start.coordinates.latitude);
-    console.log(directions.start.coordinates.longitude);
-    console.log(directions.end.coordinates.latitude);
-    console.log(directions.end.coordinates.longitude);
-
+  /**
+   * Draw the Path that is sent from interiorDirections Modules
+   * @param {*} directions object
+   */
+  async drawPathSentFromInterior(directions) {
     try {
       const key = 'AIzaSyBsMjuj6q76Vcna8G5z9PDyTH2z16fNPDk';
       const originLat = directions.start.coordinates.latitude;
@@ -74,7 +69,6 @@ class DestinationSearchBar extends Component {
       const json = await result.json();
       // eslint-disable-next-line camelcase
       const encryptedPath = json.routes[0]?.overview_polyline.points;
-      console.log(encryptedPath);
       if (encryptedPath) {
         const rawPolylinePoints = decodePolyline(encryptedPath);
         // Incompatible field names for direct decode. Need to do a trivial conversion.
@@ -84,7 +78,7 @@ class DestinationSearchBar extends Component {
             longitude: point.lng
           };
         });
-        console.log(waypoints);
+
         this.props.coordinateCallback(waypoints);
       }
     } catch (err) {
@@ -152,19 +146,6 @@ class DestinationSearchBar extends Component {
       }
     });
     this.drawPath();
-  }
-
-  /**
-   * Sets indoor destination for directions between points in same building
-   */
-  setIndoorDestination = (destination) => {
-    // if the prediction is an indoor destination in the same current building, we do not need to
-    // set lat long region
-    const roomName = destination.description.toLowerCase();
-    if ((roomName.startsWith('h-') && this.props.currentBuildingName === 'H')
-     || (roomName.startsWith('vl-') && this.props.currentBuildingName === 'VL')) {
-      // this.props.dijkstraHandler(destination.dijkstraId, destination.floor);
-    }
   }
 
   /**
@@ -265,7 +246,6 @@ class DestinationSearchBar extends Component {
             onPress={() => {
               this.setState({ destination: prediction.description });
               this.getLatLong(prediction.place_id);
-              this.setIndoorDestination(prediction);
               this.setState({ showPredictions: false });
               this.sendNodeToRedux(prediction);
               Keyboard.dismiss();
@@ -324,14 +304,7 @@ class DestinationSearchBar extends Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    setEndBuildingNode: (prediction) => { dispatch(setEndBuildingNode(prediction)); },
-    setFromWithinEndNode: (prediction) => { dispatch(setFromWithinEndNode(prediction)); }
-  };
-};
-
-const mapStateToProps = (state) => {
-  return {
-    directionsToOutdoor: state.directionsToOutdoor,
+    setEndBuildingNode: (prediction) => { dispatch(setEndBuildingNode(prediction)); }
   };
 };
 

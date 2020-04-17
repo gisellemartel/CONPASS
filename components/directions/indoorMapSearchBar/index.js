@@ -58,8 +58,8 @@ class IndoorMapSearchBar extends Component {
         description: roomString,
         dijkstraId: room.toString(),
         floor: this.state.currentFloor,
-        origin: this.state.currentBuilding.building == 'H' ? '101' : '122',
-        coordinates: this.state.currentBuilding.building == 'H' ? {
+        origin: this.state.currentBuilding.building === 'H' ? '101' : '122',
+        coordinates: this.state.currentBuilding.building === 'H' ? {
           latitude: 45.497092,
           longitude: -73.578800,
         } : { latitude: 45.459026, longitude: -73.638606, }
@@ -72,21 +72,6 @@ class IndoorMapSearchBar extends Component {
       currentAvailableRooms
     });
   }
-
-  /**
-   * Obtains the desired room based on the user search
-   */
-  // onSubmitSearchQuery = () => {
-  //   const userQuery = this.state.input;
-  //   const roomsList = this.state.currentAvailableRooms;
-
-  //   const searchResult = roomsList.find((room) => {
-  //     return room.description === userQuery;
-  //   });
-
-  //   // this.props.setOriginInput(searchResult.dijkstraId);
-  // }
-
 
   /**
    * Obtains the desired room based on the user prediction selection
@@ -218,8 +203,7 @@ class IndoorMapSearchBar extends Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    setStartBuildingNode: (prediction) => { dispatch(setStartBuildingNode(prediction)); },
-    setFromWithinBuildingNode: (prediction) => { dispatch(setFromWithinBuildingNode(prediction)); },
+    setStartBuildingNode: (prediction) => { dispatch(setStartBuildingNode(prediction)); }
   };
 };
 

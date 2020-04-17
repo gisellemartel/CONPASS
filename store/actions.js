@@ -1,20 +1,6 @@
 import {
-  SET_END_BUILDING_NODE, RESET_NAVIGATION, SET_START_BUILDING_NODE, SET_FROM_WITHIN_BUILDING_NODE, END_FROM_WITHIN_INDOOR_READY, SEND_DIRECTIONS_TO_OUTDOOR, SET_FROM_WITHIN_END_NODE
+  SET_END_BUILDING_NODE, RESET_NAVIGATION, SET_START_BUILDING_NODE, SEND_DIRECTIONS_TO_OUTDOOR
 } from './actionTypes';
-
-export const setFromWithinBuildingNode = (fromWithinBuildingNode) => {
-  return { type: SET_FROM_WITHIN_BUILDING_NODE, fromWithinBuildingNode };
-};
-
-export const setFromWithinEndNode = (fromWithinEndNode) => {
-  return { type: SET_FROM_WITHIN_END_NODE, fromWithinEndNode };
-};
-
-export const endFromWithinIndoorReady = () => {
-  return { type: END_FROM_WITHIN_INDOOR_READY };
-};
-
-
 
 export const setStartBuildingNode = (startBuildingNode) => {
   return { type: SET_START_BUILDING_NODE, startBuildingNode };

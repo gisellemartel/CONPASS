@@ -333,6 +333,7 @@ class Home extends Component {
         />
         {this.state.showDirectionsMenu && (
           <OutdoorDirections
+            getDestinationIfSet={this.state.destinationToGo}
             getRegion={this.getRegionFromOutdoorDirections}
             getRegionFromSearch={this.state.region}
             getCoordinates={this.getCoordinatesFromOutdoorDirections}

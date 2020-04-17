@@ -11,10 +11,10 @@ import {
 } from 'react-native';
 import { SearchBar, Tooltip } from 'react-native-elements';
 import i18n from 'i18n-js';
+import { connect } from 'react-redux';
 import styles from './styles';
 import SetLocaleContext from '../../localization-context';
 import burger from '../../assets/icons/burger.png';
-import { connect } from 'react-redux';
 import { setStartBuildingNode } from '../../store/actions';
 
 class MapSearchBar extends Component {
@@ -46,7 +46,10 @@ class MapSearchBar extends Component {
     } else {
       this.setState({ hideMenu: false });
     }
-    if (this.props.urCurentLocation !== undefined) {
+
+    if (this.props.startDescription) {
+      this.setState({ destination: this.props.startDescription });
+    } else if (this.props.urCurentLocation !== undefined) {
       this.setState({ destination: this.props.urCurentLocation });
     }
   }
@@ -261,7 +264,7 @@ class MapSearchBar extends Component {
   }
 
   sendNodeToRedux(prediction) {
-    if (prediction.dijkstraId && this.props.withRedux) {
+    if (prediction.dijkstraId) {
       this.props.setStartBuildingNode(prediction);
     }
   }
