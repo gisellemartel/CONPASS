@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 import {
   YellowBox,
   View, Text, TouchableOpacity, Alert, Platform, AsyncStorage
@@ -210,6 +211,7 @@ export default class DashboardScreen extends Component {
          return;
        }
        this.props.navigation.navigate('HomeScreen', { description });
+       // eslint-disable-next-line consistent-return
        return 'address sent';
      }
 
@@ -272,6 +274,7 @@ export default class DashboardScreen extends Component {
                `${item.startTime}  -  ${item.endTime}\n${item.description}\n${item.address}`,
                [
                  { text: 'Cancel' },
+                 // eslint-disable-next-line no-unused-expressions
                  { text: 'Get Directions', onPress: () => { address ? this.sendDirections(address.split(',')[0]) : this.sendDirections(description.split('\n')[0]); } },
                ],
                { cancelable: false });

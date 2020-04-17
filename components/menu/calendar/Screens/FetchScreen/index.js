@@ -1,22 +1,23 @@
 import React, { Component } from 'react';
 import { View, AsyncStorage, ActivityIndicator } from 'react-native';
-import CheckboxGroup from './CheckboxGroup';
 import firebase from 'firebase';
+import CheckboxGroup from './CheckboxGroup';
+
 export default class FetchScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
       calendarsGeneralInfo: [],
     };
-    //this.getDatta=this.getDatta.bind(this);
+    // this.getDatta=this.getDatta.bind(this);
   }
 
   componentDidMount() {
-    //console.log('length:');
+    // console.log('length:');
     console.log(this.state.calendarsGeneralInfo.length);
     this.getDatta();
     if (this.state.calendarsGeneralInfo.length === 0) {
-      //console.log('am here');
+      // console.log('am here');
       this.forceUpdate();
     }
     console.log('--!!!_--~~~~-  The moment of truth ');
@@ -41,20 +42,20 @@ export default class FetchScreen extends Component {
     const evnts = await AsyncStorage.getItem('events');
     const events = JSON.parse(evnts);
 
-    if(evnts != null){
+    if (evnts != null) {
       this.props.navigation.navigate('DashboardScreen', { events });
-    }else{
+    } else {
       firebase.auth().signOut();
     }
   }
 
 navigationHandler=async (events) => {
- this.props.navigation.navigate('DashboardScreen', { events });
+  this.props.navigation.navigate('DashboardScreen', { events });
 }
 
 render() {
   console.log('in render');
-  //console.log(this.state.calendarsGeneralInfo);
+  // console.log(this.state.calendarsGeneralInfo);
 
   return (
     <View>

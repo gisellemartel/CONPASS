@@ -60,7 +60,7 @@ export default class LoginScreen extends Component {
         const { accessToken } = result;
         AsyncStorage.setItem('accessToken', accessToken);
 
-        //getting an array of available calendars for the users. This includes calendar id and summer (i.e. name).
+        // getting an array of available calendars for the users. This includes calendar id and summer (i.e. name).
         const userCalendarsInfo = await this.getUserCalendars(accessToken);
 
         let calendarCount = 1;
@@ -76,11 +76,11 @@ export default class LoginScreen extends Component {
           calendar.storageId = `events${calendarCount}`;
           calendarCount += 1;
         });
-        //console.log('last Check inshala: ',userCalendarsInfo);
+        // console.log('last Check inshala: ',userCalendarsInfo);
         console.log('here i am!!!!!');
         await this.removeOldStoredEvents();
 
-        this.props.navigation.navigate('FetchScreen', {userCalendarsInfo});
+        this.props.navigation.navigate('FetchScreen', { userCalendarsInfo });
         return result.accessToken;
       }
       return { cancelled: true };
@@ -89,23 +89,23 @@ export default class LoginScreen extends Component {
     }
   };
 
-  removeOldStoredEvents=async()=>{
-    const finalStored = await AsyncStorage.getItem('events'); 
-    if(finalStored!=null){
+  removeOldStoredEvents=async () => {
+    const finalStored = await AsyncStorage.getItem('events');
+    if (finalStored != null) {
       console.log('The storage is null, indeed!');
       AsyncStorage.removeItem('events');
       return true;
-    }else{
-      return false;
     }
+    return false;
   }
+
   getUserCalendars = async (accessToken) => {
     const userCalendars = await fetch('https://www.googleapis.com/calendar/v3/users/me/calendarList?key=AIzaSyBAHObp5Ic3CbJpkX2500tNhf53e_3wBMA&timeMin=2020-01-01T01:00:00.000Z', {
       headers: { Authorization: `Bearer ${accessToken}` },
     });
     const jsonFile = await userCalendars.json();
-    let userCalendarsGeneralInfo = [];
-    jsonFile.items.forEach( (calendar) => {
+    const userCalendarsGeneralInfo = [];
+    jsonFile.items.forEach((calendar) => {
       userCalendarsGeneralInfo.push({
         id: calendar.id,
         summary: calendar.summary,
