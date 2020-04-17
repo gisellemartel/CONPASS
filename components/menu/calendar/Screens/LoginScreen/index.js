@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 import React, { Component } from 'react';
 import {
   View, Image, TouchableOpacity, AsyncStorage
