@@ -25,6 +25,7 @@ export default class LoginScreen extends Component {
            .signInWithCredential(credential).then(() => {
            })
            .catch((error) => {
+             // eslint-disable-next-line no-alert
              alert(error);
            // ...
            });
@@ -35,7 +36,8 @@ export default class LoginScreen extends Component {
   isUserEqual = (googleUser, firebaseUser) => {
     if (firebaseUser) {
       const providerData = providerData;
-      for (const i = 0; i < providerData.length; i++) {
+      // eslint-disable-next-line no-plusplus
+      for (let i = 0; i < providerData.length; i++) {
         if (providerData[i].providerId === firebase.auth.GoogleAuthProvider.PROVIDER_ID
           && providerData[i].uid === googleUser.getBasicProfile().getId()) {
         // We don't need to reauth the Firebase connection.
@@ -60,7 +62,8 @@ export default class LoginScreen extends Component {
         const { accessToken } = result;
         AsyncStorage.setItem('accessToken', accessToken);
 
-        // getting an array of available calendars for the users. This includes calendar id and summer (i.e. name).
+        // getting an array of available calendars for the users.
+        // This includes calendar id and summer (i.e. name).
         const userCalendarsInfo = await this.getUserCalendars(accessToken);
 
         let calendarCount = 1;
