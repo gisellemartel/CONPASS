@@ -155,7 +155,7 @@ class Home extends Component {
           dijkstraId: room.toString(),
           building: 'H',
           // replace with official origin
-          origin: '101',
+          origin: 'north_exit',
           coordinates: {
             latitude: 45.497092,
             longitude: -73.578800,
@@ -181,7 +181,7 @@ class Home extends Component {
           place_id: 'ChIJDbfcNjIXyUwRcocn3RuPPiY',
           dijkstraId: room.toString(),
           building: 'VL',
-          origin: '122',
+          origin: 'exit',
           coordinates: { latitude: 45.459026, longitude: -73.638606, },
           floor,
         };

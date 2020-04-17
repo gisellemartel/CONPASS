@@ -13,7 +13,6 @@ import { connect } from 'react-redux';
 import styles from './styles';
 import SetLocaleContext from '../../../localization-context';
 import fetchBuildingRooms from '../../../indoor_directions_modules/fetchBuildingRooms';
-import { setFromWithinBuildingNode } from '../../../store/actions';
 import { setStartBuildingNode } from '../../../store/actions';
 
 class IndoorMapSearchBar extends Component {
@@ -58,7 +57,7 @@ class IndoorMapSearchBar extends Component {
         description: roomString,
         dijkstraId: room.toString(),
         floor: this.state.currentFloor,
-        origin: this.state.currentBuilding.building === 'H' ? '101' : '122',
+        origin: this.state.currentBuilding.building === 'H' ? 'north_exit' : 'exit',
         coordinates: this.state.currentBuilding.building === 'H' ? {
           latitude: 45.497092,
           longitude: -73.578800,
