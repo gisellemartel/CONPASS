@@ -146,7 +146,7 @@ const styles = StyleSheet.create({
   },
   flatListContainer: {
     marginTop:'5%',
-    height:'60%',
+    height:'70%',
     width:'80%',
     marginLeft:'10%'
   },
@@ -158,9 +158,9 @@ const styles = StyleSheet.create({
     borderRadius: 5
   },
   button:{
-    position: 'absolute',
+    position: 'relative',
     width: '50%',
-    bottom: '-25%',
+    bottom: -10,
     left: '25%'
   }
 });
