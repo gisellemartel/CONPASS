@@ -36,3 +36,13 @@ test('Should throw an error message', async() => {
         expect(error.message).toEqual('Cannot read property \'length\' of undefined');
     }
 });
+
+test('Should throw an error message', async() => {
+    const loginScreenComponent = renderer.create(<LoginScreen/>).getInstance();
+    try {
+        await loginScreenComponent.onSignIn('hani');
+        expect(1).toEqual(2);//this will fail if ever reached which is the case because the previous statemnet shall throw an error
+    } catch (error) {
+        expect(error.message.trim()).toMatch(new RegExp('Firebase'));
+    }
+});
