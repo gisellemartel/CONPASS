@@ -40,3 +40,11 @@ it('Should update calendarsToSync array state by adding ev3', ()=>{
     const calendarsToSyncFirstElement = CheckboxGroupComponent.state.calendarsToSync[0];
     expect(calendarsToSyncFirstElement).toBe('ev3');
 })
+
+it('Should update calendarsToSync array state by removing ev3', ()=>{
+    const CheckboxGroupComponent = renderer.create(<CheckboxGroup/>).getInstance();
+    CheckboxGroupComponent.setState({calendarsToSync:['ev3']});
+    CheckboxGroupComponent.setCalendarsToSyncList('ev3');
+    const calendarsToSyncArray = CheckboxGroupComponent.state.calendarsToSync;
+    expect(calendarsToSyncArray).toEqual(expect.not.arrayContaining(['ev3']));
+})
