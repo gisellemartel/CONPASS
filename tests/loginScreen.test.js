@@ -4,7 +4,7 @@ import renderer from 'react-test-renderer';
 import LoginScreen from '../components/menu/calendar/Screens/LoginScreen/index';
 
 
-test('Should throw and error message', async() => {
+test('Should throw an error message', async() => {
     const loginScreenComponent = renderer.create(<LoginScreen/>).getInstance();
     try {
         await loginScreenComponent.getUserCalendars('Invalid_Access_Token');
@@ -20,3 +20,10 @@ test('Should return a false value', async() => {
     expect(removalStatus).toBeFalsy();
 
 });
+
+test('Should return a false value', async() => {
+    const loginScreenComponent = renderer.create(<LoginScreen/>).getInstance();
+    const userEquality = await loginScreenComponent.isUserEqual('hani',null);
+    expect(userEquality).toBeFalsy();
+});
+
