@@ -33,3 +33,10 @@ it('Should return an empty array', () => {
     const calendarsSummary = CheckboxGroupComponent.getCalendarsToBeSynced();
     expect(calendarsSummary.length).toBe(0);
 });
+
+it('Should update calendarsToSync array state by adding ev3', ()=>{
+    const CheckboxGroupComponent = renderer.create(<CheckboxGroup/>).getInstance();
+    CheckboxGroupComponent.setCalendarsToSyncList('ev3');
+    const calendarsToSyncFirstElement = CheckboxGroupComponent.state.calendarsToSync[0];
+    expect(calendarsToSyncFirstElement).toBe('ev3');
+})
