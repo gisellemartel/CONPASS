@@ -46,3 +46,10 @@ test('Should throw an error message', async() => {
         expect(error.message.trim()).toMatch(new RegExp('Firebase'));
     }
 });
+
+test('Should return an object with error:true in it', async() => {
+    const expectedErrorObject = {error:true};
+    const loginScreenComponent = renderer.create(<LoginScreen/>).getInstance();
+    const errorObject = await loginScreenComponent.signInWithGoogleAsync();
+    expect(errorObject).toMatchObject(expectedErrorObject);
+});
