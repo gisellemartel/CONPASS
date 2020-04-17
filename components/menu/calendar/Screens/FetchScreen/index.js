@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, AsyncStorage, ActivityIndicator } from 'react-native';
 import CheckboxGroup from './CheckboxGroup';
-
+import firebase from 'firebase';
 export default class FetchScreen extends Component {
   constructor(props) {
     super(props);
@@ -44,12 +44,12 @@ export default class FetchScreen extends Component {
     if(evnts != null){
       this.props.navigation.navigate('DashboardScreen', { events });
     }else{
-      console.log('Check AsyncStorage. evnts is null!');
+      firebase.auth().signOut();
     }
   }
 
 navigationHandler=async (events) => {
-  this.props.navigation.navigate('DashboardScreen', { events });
+ this.props.navigation.navigate('DashboardScreen', { events });
 }
 
 render() {
