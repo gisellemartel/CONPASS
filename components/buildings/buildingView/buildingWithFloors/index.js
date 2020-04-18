@@ -92,3 +92,5 @@ class BuildingWithFloors extends Component {
     );
   }
 }
+
+export default BuildingWithFloors;
