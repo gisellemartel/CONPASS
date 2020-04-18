@@ -220,9 +220,9 @@ it('Should Update the currentBuilding state with given a prediction from Google\
   });
   const searchBarComponent = renderer.create(<MapSearchBar currentBuildingPred="1400 DeMaisonneuve W" />).getInstance();
   await searchBarComponent.updateCurrentBuilding();
-  expect(searchBarComponent.state.currentBuilding.description).toBe(result.predictions[0].description);
-  expect(searchBarComponent.state.currentBuilding.id).toBe(result.predictions[0].id);
-  expect(searchBarComponent.state.currentBuilding.place_id).toBe(result.predictions[0].place_id);
+  expect(searchBarComponent.state.prevCurrentBuilding.description).toBe(result.predictions[0].description);
+  expect(searchBarComponent.state.prevCurrentBuilding.id).toBe(result.predictions[0].id);
+  expect(searchBarComponent.state.prevCurrentBuilding.place_id).toBe(result.predictions[0].place_id);
 });
 
 it('Should keep the currentBuilding state null', async () => {
@@ -239,7 +239,7 @@ it('Should keep the currentBuilding state null', async () => {
   });
   const searchBarComponent = renderer.create(<MapSearchBar currentBuildingPred="" />).getInstance();
   await searchBarComponent.updateCurrentBuilding();
-  expect(searchBarComponent.state.currentBuilding).toBeNull();
+  expect(searchBarComponent.state.currentBuilding).toBe(undefined);
 });
 
 it('Should return an object identical to expectedJsonResult', async () => {
@@ -255,6 +255,6 @@ it('Should return an object identical to expectedJsonResult', async () => {
     return promise;
   });
   const searchBarComponent = renderer.create(<MapSearchBar currentBuildingPred="Webster Library Building" />).getInstance();
-  const json = await searchBarComponent.getPredictions(searchBarComponent.props.currentBuildingPred);
+  const json = await searchBarComponent.getGoogleApiPredictions(searchBarComponent.props.currentBuildingPred);
   expect(json).toEqual(expectedJsonResultPredictions);
 });

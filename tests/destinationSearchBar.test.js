@@ -1,4 +1,4 @@
-/* eslint-disable max-len */
+  /* eslint-disable max-len */
 import React from 'react';
 import renderer from 'react-test-renderer';
 import { DestinationSearchBar } from '../components/directions/destinationSearchBar';
@@ -48,6 +48,7 @@ it('Should populate prediction state with content', async () => {
   });
 
   const searchBarComponent = renderer.create(<DestinationSearchBar />).getInstance();
+  searchBarComponent.generateAllContextualPredictions = jest.fn().mockReturnValueOnce(mockPrediction.predictions);
   await searchBarComponent.onChangeDestination('Loyola');
   expect(searchBarComponent.state.predictions).toBe(mockPrediction.predictions);
 });

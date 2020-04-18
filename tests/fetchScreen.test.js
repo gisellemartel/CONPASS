@@ -9,9 +9,9 @@ const userGeneralInfo = [{ id: 'ev1', storageId: 'evs1', summary: 'Math A+' },
 
 it('Should return a react native component', () => {
   const fetchScreenComponent = renderer.create(<FetchScreen
-    navigation={{ state: { params: { userCalendarsInfo: userGeneralInfo } } }}
+    navigation={{ state: { params: { calendarsGeneralInfo: userGeneralInfo } } }}
   />).getInstance();
-  const returnedComponent = fetchScreenComponent.getDatta();
+  const returnedComponent = fetchScreenComponent.getUserCalendarsGeneralData();
   expect(returnedComponent.$$typeof.toString()).toBe('Symbol(react.element)');
 });
 
@@ -19,6 +19,6 @@ it('Should return an undefined', () => {
   const fetchScreenComponent = renderer.create(<FetchScreen
     navigation={{ state: { params: null } }}
   />).getInstance();
-  const returnedValue = fetchScreenComponent.getDatta();
-  expect(returnedValue).toBeUndefined();
+  const returnedValue = fetchScreenComponent.getUserCalendarsGeneralData();
+  expect(returnedValue).toBe(null);
 });

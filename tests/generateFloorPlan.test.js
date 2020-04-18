@@ -1,7 +1,7 @@
 import React from 'react';
 import generateFloorPlan from '../components/buildings/floorPlans/floorPlanRepository';
 import {
-  Hall8, Hall9, Vl1, Vl2
+  Hall1, Hall2, Hall3, Hall4, Hall5, Hall6, Hall7, Hall8, Hall9, Hall10, Hall11, Hall12, Hall13, Vl1, Vl2
 } from '../components/buildings/floorPlans';
 
 let mockDefaultAttributes;
@@ -13,16 +13,45 @@ let mockVLBuildingData;
 
 beforeEach(() => {
   mockDefaultAttributes = {
-    height: '100%',
     preserveAspectRatio: 'xMinYMin slice',
-    width: '100%',
-    viewBox: '0 0 1000 1000'
+    viewBox: '0 0 1024 1024',
+    width: 360,
+    height: 360,
   };
 
   mockHallBuildingName = 'H';
   mockVLBuildingName = 'VL';
 
   mockHallBuildingData = [
+
+    {
+      floor: 1,
+      component: <Hall1 {...mockDefaultAttributes} />
+    },
+    {
+      floor: 2,
+      component: <Hall2 {...mockDefaultAttributes} />
+    },
+    {
+      floor: 3,
+      component: <Hall3 {...mockDefaultAttributes} />
+    },
+    {
+      floor: 4,
+      component: <Hall4 {...mockDefaultAttributes} />
+    },
+    {
+      floor: 5,
+      component: <Hall5 {...mockDefaultAttributes} />
+    },
+    {
+      floor: 6,
+      component: <Hall6 {...mockDefaultAttributes} />
+    },
+    {
+      floor: 7,
+      component: <Hall7 {...mockDefaultAttributes} />
+    },
     {
       floor: 8,
       component: <Hall8 {...mockDefaultAttributes} />
@@ -30,7 +59,23 @@ beforeEach(() => {
     {
       floor: 9,
       component: <Hall9 {...mockDefaultAttributes} />
-    }
+    },
+    {
+      floor: 10,
+      component: <Hall10 {...mockDefaultAttributes} />
+    },
+    {
+      floor: 11,
+      component: <Hall11 {...mockDefaultAttributes} />
+    },
+    {
+      floor: 12,
+      component: <Hall12 {...mockDefaultAttributes} />
+    },
+    {
+      floor: 13,
+      component: <Hall13 {...mockDefaultAttributes} />
+    },
   ];
 
 
@@ -49,7 +94,7 @@ beforeEach(() => {
 /**
  * Invalid
 */
-it('Should return a null list when invalid value is passed', async () => {
+it('Should return a null list when invalid value is passed',  () => {
   const result = generateFloorPlan('not a valid argument');
   expect(result).toStrictEqual([]);
 });
@@ -57,7 +102,7 @@ it('Should return a null list when invalid value is passed', async () => {
 /**
  * Hall building
  */
-it('Should return valid building data when passed valid argument, Hall Building (H)', async () => {
+it('Should return valid building data when passed valid argument, Hall Building (H)',  () => {
   const result = generateFloorPlan(mockHallBuildingName);
   expect(result).toStrictEqual(mockHallBuildingData);
 });
@@ -65,7 +110,7 @@ it('Should return valid building data when passed valid argument, Hall Building 
 /**
  * Hall building
  */
-it('Should return valid building data when passed valid argument, Vanier Library (VL)', async () => {
+it('Should return valid building data when passed valid argument, Vanier Library (VL)',  () => {
   const result = generateFloorPlan(mockVLBuildingName);
   expect(result).toStrictEqual(mockVLBuildingData);
 });
