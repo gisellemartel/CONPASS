@@ -15,7 +15,11 @@ const Stack = createStackNavigator();
 export default class App extends Component {
   render() {
     return (
-      <SafeAreaView style={{ flex: 1 }}>
+      <SafeAreaView
+        forceInset={{ top: 'always' }}
+        style={{ backgroundColor: '#212121', flex: 1 }}
+      >
+
         <Provider store={store}>
           <NavigationContainer>
             <Stack.Navigator
