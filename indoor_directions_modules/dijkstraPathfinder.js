@@ -1,5 +1,8 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable max-len */
+
+import distanceBetweenTwoNodes from './distanceBetweenTwoNodes';
+
 const dijkstraPathfinder = {
   /**
    * The main function that streamlines the entirety of the Dijkstra algorithm. Comprises of the
@@ -26,7 +29,9 @@ const dijkstraPathfinder = {
         const adjacentNode = {
           id: adjacencyNodes[i],
           predecessor: currentNode,
-          distance: currentNode.distance + this.nodeDistance(currentNode.id, adjacencyNodes[i], adjacencyGraphs[0])
+          distance: currentNode.distance + distanceBetweenTwoNodes.nodeDistance(
+            adjacencyGraphs[0][currentNode.id], adjacencyGraphs[0][adjacencyNodes[i]]
+          )
         };
         if (!this.isAnalyzed(closedList, adjacentNode)) {
           openList = this.handleNodeAnalysis(openList, adjacentNode);
@@ -131,19 +136,6 @@ const dijkstraPathfinder = {
       return [shortestPath].concat(this.dijkstraPathfinder(waypoints, adjacencyGraphs));
     }
     return [shortestPath];
-  },
-  /**
-   * Distance between two points (assumes points are in two dimensions).
-   * @param {String} startNodeId - ID of first node.
-   * @param {String} endNodeId - ID of second node.
-   * @param {Object} adjacencyGraph - The graph data structure representing the
-   * relevant floor. Needed to gather the x & y coordinates of each node to calculate the
-   * shortest distance.
-   */
-  nodeDistance(startNodeId, endNodeId, adjacencyGraph) {
-    const deltaXSquared = (adjacencyGraph[endNodeId].x - adjacencyGraph[startNodeId].x) ** 2;
-    const deltaYSquared = (adjacencyGraph[endNodeId].y - adjacencyGraph[startNodeId].y) ** 2;
-    return Math.sqrt(deltaXSquared + deltaYSquared);
   }
 };
 

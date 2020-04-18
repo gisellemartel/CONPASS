@@ -17,8 +17,10 @@ import BuildingInfoModal from '../../buildingInfoModal';
 import PathPolyline from '../../pathPolyline';
 import info from '../../../assets/icons/info.png';
 import dijkstraPathfinder from '../../../indoor_directions_modules/dijkstraPathfinder';
+import floorWaypointFinder from '../../../indoor_directions_modules/floorWaypointFinder';
 import styles from './styles';
-import { sendDirectionsToOutdoor } from '../../../store/actions';
+import { accessibilityOn, accessibilityOff, sendDirectionsToOutdoor } from '../../../store/actions';
+import { ACCESSIBILITY_ON, ACCESSIBILITY_OFF } from '../../../store/actionTypes';
 import IndoorDestinationSearchBar from '../indoorDestinationSearchBar/index';
 
 
@@ -35,7 +37,8 @@ class IndoorDirections extends Component {
       origin: '',
       originFloor: '',
       showPolyline: false,
-      mode: 'walking'
+      mode: 'walking',
+      accessibility: this.props.accessibility
     };
 
     if (this.state.currentBuilding) {
@@ -61,8 +64,15 @@ class IndoorDirections extends Component {
    * called when user is within a building. Directions are updated
    */
   componentDidUpdate(prevProps) {
-    const { startBuildingNode, endBuildingNode } = this.props;
-
+    const { accessibility, startBuildingNode, endBuildingNode } = this.props;
+    if (prevProps.accessibility !== accessibility) {
+      if (accessibility) {
+        this.setState({ accessibility });
+      } else {
+        this.setState({ accessibility });
+      }
+    }
+    
     if (startBuildingNode !== prevProps.startBuildingNode) { // start input from within building changed
       if (startBuildingNode && endBuildingNode) { // both ready
         this.coordinatesFromInside(startBuildingNode, endBuildingNode); // initiate
@@ -112,6 +122,33 @@ class IndoorDirections extends Component {
       return { drawPath: !prevState.drawPath };
     });
   };
+
+  getFloorWaypoint(startGraph, finishGraph, startNodeId, finishNodeId) {
+    const transportPriorityList = !this.state.accessibility ? [/^escalator/, /^staircase/i, /^elevator/i] : [/^elevator/i];
+    for (let i = 0; i < transportPriorityList.length; i++) {
+      const transportList = Object.keys(startGraph).filter((node) => { return transportPriorityList[i].test(node); });
+      if (transportList.length === 1) {
+        return transportList[0];
+      }
+      if (transportList.length > 1) {
+        let waypoint = {
+          id: transportList[0],
+          distance: floorWaypointFinder.distanceToWaypointCalculator(startGraph[transportList[0]], startGraph[startNodeId], finishGraph[finishNodeId])
+        };
+        for (let j = 1; j < transportList.length; j++) {
+          const currentDistance = floorWaypointFinder.distanceToWaypointCalculator(startGraph[transportList[j]], startGraph[startNodeId], finishGraph[finishNodeId]);
+          if (currentDistance < waypoint.distance) {
+            waypoint = {
+              id: transportList[j],
+              distance: currentDistance
+            };
+          }
+        }
+        return waypoint.id;
+      }
+    }
+    return '';
+  }
 
   /**
    * Set the origin for indoor directions
@@ -267,16 +304,17 @@ class IndoorDirections extends Component {
           ]
         ];
       }
-      // Staircase 1 as default is temporary.
-      // TODO: US4C will take care of finding the optimal meeting point.
+      const floorTransitionWaypoint = this.getFloorWaypoint(
+        adjacencyGraphs[startFloor], adjacencyGraphs[finishFloor], startNodeId, finishNodeId
+      );
       return [
         [
           {
             start: startNodeId,
-            finish: 'staircase_1'
+            finish: floorTransitionWaypoint
           },
           {
-            start: 'staircase_1',
+            start: floorTransitionWaypoint,
             finish: finishNodeId
           }
         ],
@@ -404,6 +442,7 @@ class IndoorDirections extends Component {
 
 const mapStateToProps = (state) => {
   return {
+    accessibility: state.accessibility,
     endBuildingNode: state.endBuildingNode,
     startBuildingNode: state.startBuildingNode,
   };
@@ -411,6 +450,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    // accessibilityOn: () => { dispatch(accessibilityOn()); },
+    // accessibilityOff: () => { dispatch(accessibilityOff()); },
     sendDirectionsToOutdoor: (directions) => { dispatch(sendDirectionsToOutdoor(directions)); },
   };
 };

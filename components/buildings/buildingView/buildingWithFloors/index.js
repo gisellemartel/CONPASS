@@ -9,7 +9,6 @@ import Svg, {
 } from 'react-native-svg';
 import styles from './styles';
 
-
 class BuildingWithFloors extends Component {
   constructor(props) {
     super(props);
@@ -114,8 +113,6 @@ class BuildingWithFloors extends Component {
           </Svg>
         </View>
         )}
-
-
       </View>
     );
   }
