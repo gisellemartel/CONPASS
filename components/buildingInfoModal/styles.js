@@ -11,12 +11,12 @@ const styles = StyleSheet.create({
   },
   infoBox: {
     backgroundColor: 'white',
-    bottom: '35%',
+    bottom: fullHeight * 0.32,
     width: fullWidth * 0.92,
     left: fullWidth * 0.04,
     borderRadius: 10,
     margin: 0,
-    height: 270,
+    height: fullHeight * 0.32,
     position: 'absolute',
     borderWidth: 1,
     zIndex: 300
@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     justifyContent: 'center',
     width: fullWidth,
-    bottom: 250
+    bottom: fullHeight * 0.22
   },
   button: {
     position: 'relative',
