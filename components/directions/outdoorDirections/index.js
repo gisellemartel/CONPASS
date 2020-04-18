@@ -89,6 +89,7 @@ class OutdoorDirections extends Component {
             drawPath={this.state.drawPath}
             getRegionFromSearch={this.props.getRegionFromSearch}
             getDestinationIfSet={this.props.getDestinationIfSet}
+            navigateFromCalender={this.props.navigateFromCalender}
             updatedRegion={this.state.region}
             coordinateCallback={this.updateCoordinates}
             getMode={this.state.mode}
@@ -106,11 +107,13 @@ class OutdoorDirections extends Component {
             updateMode={this.updateMode}
           />
           <View style={styles.container}>
+            {this.props.showBack && (
             <BackButton
               changeVisibilityTo={this.props.changeVisibilityTo}
               coordinateCallback={this.updateCoordinates}
               withRedux
             />
+            )}
             <CurrentLocation />
             <Destination />
           </View>
