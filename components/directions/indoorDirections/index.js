@@ -65,15 +65,14 @@ class IndoorDirections extends Component {
    */
   componentDidUpdate(prevProps) {
     const { accessibility, startBuildingNode, endBuildingNode } = this.props;
-    if (prevProps.accessibility !== this.props.accessibility) {
-      if (this.props.accessibility === ACCESSIBILITY_ON) {
-        // set component state
-        this.setState({ accessibility: 'ON' });
-      } else if (this.props.accessibility === ACCESSIBILITY_OFF) {
-        // set component state
-        this.setState({ accessibility: 'OFF' });
+    if (prevProps.accessibility !== accessibility) {
+      if (accessibility) {
+        this.setState({ accessibility });
+      } else {
+        this.setState({ accessibility });
       }
     }
+    
     if (startBuildingNode !== prevProps.startBuildingNode) { // start input from within building changed
       if (startBuildingNode && endBuildingNode) { // both ready
         this.coordinatesFromInside(startBuildingNode, endBuildingNode); // initiate
@@ -125,7 +124,7 @@ class IndoorDirections extends Component {
   };
 
   getFloorWaypoint(startGraph, finishGraph, startNodeId, finishNodeId) {
-    const transportPriorityList = this.state.accessibility === 'ACCESSIBILITY_OFF' ? [/^escalator/, /^staircase/i, /^elevator/i] : [/^elevator/i];
+    const transportPriorityList = !this.state.accessibility ? [/^escalator/, /^staircase/i, /^elevator/i] : [/^elevator/i];
     for (let i = 0; i < transportPriorityList.length; i++) {
       const transportList = Object.keys(startGraph).filter((node) => { return transportPriorityList[i].test(node); });
       if (transportList.length === 1) {
@@ -306,7 +305,7 @@ class IndoorDirections extends Component {
         ];
       }
       const floorTransitionWaypoint = this.getFloorWaypoint(
-        this.props.adjacencyGraphs[startFloor], this.props.adjacencyGraphs[finishFloor], startNodeId, finishNodeId
+        adjacencyGraphs[startFloor], adjacencyGraphs[finishFloor], startNodeId, finishNodeId
       );
       return [
         [
@@ -449,8 +448,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    accessibilityOn: () => { dispatch(accessibilityOn()); },
-    accessibilityOff: () => { dispatch(accessibilityOff()); },
+    // accessibilityOn: () => { dispatch(accessibilityOn()); },
+    // accessibilityOff: () => { dispatch(accessibilityOff()); },
     sendDirectionsToOutdoor: (directions) => { dispatch(sendDirectionsToOutdoor(directions)); },
   };
 };

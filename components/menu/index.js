@@ -10,12 +10,24 @@ import { accessibilityOn, accessibilityOff } from '../../store/actions';
 import { ACCESSIBILITY_ON, ACCESSIBILITY_OFF } from '../../store/actionTypes';
 
 class Menu extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      accessibility: this.props.accessibility
-    };
-  }
+  // constructor(props) {
+  //   super(props);
+  //   this.state = {
+  //     accessibility: this.props.accessibility
+  //   };
+  // }
+
+  // componentDidUpdate(prevProps) {
+  //   if (prevProps.accessibility !== this.props.accessibility) {
+  //     if (this.props.accessibility === ACCESSIBILITY_ON) {
+  //       // set component state
+  //       this.setState({ accessibility: 'ON' });
+  //     } else if (this.props.accessibility === ACCESSIBILITY_OFF) {
+  //       // set component state
+  //       this.setState({ accessibility: 'OFF' });
+  //     }
+  //   }
+  // }
 
   render() {
     return (
@@ -41,14 +53,14 @@ class Menu extends Component {
           </Text>
           <TouchableOpacity
             onPress={() => {
-              if (this.state.accessibility === 'ACCESSIBILITY_ON') {
+              if (this.props.accessibility) {
                 return this.props.accessibilityOff();
               }
               return this.props.accessibilityOn();
             }}
           >
             <Text style={styles.option}>
-              {this.state.accessibility === ACCESSIBILITY_ON ? i18n.t('accessibility_off') : i18n.t('accessibility_on')}
+              {this.props.accessibility ? i18n.t('accessibility_off') : i18n.t('accessibility_on')}
             </Text>
           </TouchableOpacity>
         </View>
@@ -57,18 +69,6 @@ class Menu extends Component {
         </Text>
       </View>
     );
-  }
-
-  componentDidUpdate(prevProps) {
-    if (prevProps.accessibility === this.props.accessibility) {
-      if (this.props.accessibility === ACCESSIBILITY_ON) {
-        // set component state
-        this.setState({ accessibility: 'ON' });
-      } else if (this.props.accessibility === ACCESSIBILITY_OFF) {
-        // set component state
-        this.setState({ accessibility: 'OFF' });
-      }
-    }
   }
 }
 

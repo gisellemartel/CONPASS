@@ -6,7 +6,7 @@ import {
 // initial store state
 const initialState = {
   language: 'en',
-  accessibility: '',
+  accessibility: false,
   endBuildingNode: '',
   startBuildingNode: '',
   directionsToOutdoor: '',
@@ -16,13 +16,13 @@ const reducer = (state = initialState, action) => {
   if (action.type === ACCESSIBILITY_ON) {
     return {
       ...state,
-      accessibility: action.accessibilityOn,
+      accessibility: true,
     };
   }
   if (action.type === ACCESSIBILITY_OFF) {
     return {
       ...state,
-      accessibility: action.accessibilityOff,
+      accessibility: false,
     };
   }
 
