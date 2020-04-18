@@ -955,6 +955,7 @@ const hall8FloorPlanCoordinates = {
       'male_bathroom',
       'node_807',
       'node_corner_805',
+      '805.01'
     ]
   },
   node_north_intersection: {
