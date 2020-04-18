@@ -85,7 +85,7 @@ saveFinalEventsArray= async (finalCalendar) => {
  * This calendar object contains all the events in items array.
  */
 getFinalEventsArray= async () => {
-  let finalCalendarToBeSynced = { items: [] };
+  let finalCalendarToBeSynced = null;
   if (this.state.calendarsToSync.length !== 0) {
     let startIndex = 0;
     let evnts;
