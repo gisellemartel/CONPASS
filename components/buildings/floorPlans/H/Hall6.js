@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* istanbul ignore file */
 import Svg, {
   Path, G, Text, Image

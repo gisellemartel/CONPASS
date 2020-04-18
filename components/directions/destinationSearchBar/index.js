@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-comp */
 /* eslint-disable max-len */
 import React, { Component } from 'react';
 import {
@@ -29,11 +28,9 @@ class DestinationSearchBar extends Component {
   }
 
   componentDidMount() {
-
-    console.log(this.props.getDestinationIfSet);
     if (this.props.directionsToOutdoor) {
       this.drawPathSentFromInterior(this.props.directionsToOutdoor);
-      this.setState({destination: this.props.directionsToOutdoor.end.description});
+      this.setState({ destination: this.props.directionsToOutdoor.end.description });
     } else {
       this.setState({ isMounted: true });
       if (this.props.getRegionFromSearch && this.props.getRegionFromSearch.latitude !== '') {
@@ -49,40 +46,6 @@ class DestinationSearchBar extends Component {
       if (this.props.directionsId) {
         this.getLatLong(this.props.directionsId);
       }
-    }
-  }
-
-  /**
-   * Draw the Path that is sent from interiorDirections Modules
-   * @param {*} directions object
-   */
-  async drawPathSentFromInterior(directions) {
-    try {
-      const key = 'AIzaSyBsMjuj6q76Vcna8G5z9PDyTH2z16fNPDk';
-      const originLat = directions.start.coordinates.latitude;
-      const originLong = directions.start.coordinates.longitude;
-      const destinationLat = directions.end.coordinates.latitude;
-      const destinationLong = directions.end.coordinates.longitude;
-      const mode = 'walking';
-      const directionUrl = `https://maps.googleapis.com/maps/api/directions/json?key=${key}&origin=${originLat},${originLong}&destination=${destinationLat},${destinationLong}&mode=${mode}`;
-      const result = await fetch(directionUrl);
-      const json = await result.json();
-      // eslint-disable-next-line camelcase
-      const encryptedPath = json.routes[0]?.overview_polyline.points;
-      if (encryptedPath) {
-        const rawPolylinePoints = decodePolyline(encryptedPath);
-        // Incompatible field names for direct decode. Need to do a trivial conversion.
-        const waypoints = rawPolylinePoints.map((point) => {
-          return {
-            latitude: point.lat,
-            longitude: point.lng
-          };
-        });
-
-        this.props.coordinateCallback(waypoints);
-      }
-    } catch (err) {
-      console.error(err);
     }
   }
 
@@ -149,6 +112,41 @@ class DestinationSearchBar extends Component {
   }
 
   /**
+   * Draw the Path that is sent from interiorDirections Modules
+   * @param {*} directions object
+   */
+  async drawPathSentFromInterior(directions) {
+    try {
+      const key = 'AIzaSyBsMjuj6q76Vcna8G5z9PDyTH2z16fNPDk';
+      const originLat = directions.start.coordinates.latitude;
+      const originLong = directions.start.coordinates.longitude;
+      const destinationLat = directions.end.coordinates.latitude;
+      const destinationLong = directions.end.coordinates.longitude;
+      const mode = 'walking';
+      const directionUrl = `https://maps.googleapis.com/maps/api/directions/json?key=${key}&origin=${originLat},${originLong}&destination=${destinationLat},${destinationLong}&mode=${mode}`;
+      const result = await fetch(directionUrl);
+      const json = await result.json();
+      // eslint-disable-next-line camelcase
+      const encryptedPath = json.routes[0]?.overview_polyline.points;
+      if (encryptedPath) {
+        const rawPolylinePoints = decodePolyline(encryptedPath);
+        // Incompatible field names for direct decode. Need to do a trivial conversion.
+        const waypoints = rawPolylinePoints.map((point) => {
+          return {
+            latitude: point.lat,
+            longitude: point.lng
+          };
+        });
+
+        this.props.coordinateCallback(waypoints);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+
+  /**
    * Concatenates custom indoor predictions with predictions from Google API
    * @param {string} - destination entered by user in search bar
    * @param {string} - googleApiPredictions
@@ -192,8 +190,10 @@ class DestinationSearchBar extends Component {
       const urLatitude = location.coords.latitude;
       const urLongitude = location.coords.longitude;
       const key = 'AIzaSyBsMjuj6q76Vcna8G5z9PDyTH2z16fNPDk';
-      const originLat = this.props.updatedRegion.latitude === 0 ? urLatitude : this.props.updatedRegion.latitude;
-      const originLong = this.props.updatedRegion.longitude === 0 ? urLongitude : this.props.updatedRegion.longitude;
+      const originLat = this.props.updatedRegion.latitude === 0
+        ? urLatitude : this.props.updatedRegion.latitude;
+      const originLong = this.props.updatedRegion.longitude === 0
+        ? urLongitude : this.props.updatedRegion.longitude;
       const destinationLat = this.state.destinationRegion.latitude;
       const destinationLong = this.state.destinationRegion.longitude;
       const mode = this.props.getMode;

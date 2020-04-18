@@ -12,7 +12,6 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   if (action.type === SET_END_BUILDING_NODE) {
-    console.log(SET_END_BUILDING_NODE);
     return {
       ...state,
       endBuildingNode: action.endBuildingNode,
@@ -20,7 +19,6 @@ const reducer = (state = initialState, action) => {
   }
 
   if (action.type === SET_START_BUILDING_NODE) {
-    console.log(SET_START_BUILDING_NODE);
     return {
       ...state,
       startBuildingNode: action.startBuildingNode,
@@ -28,7 +26,6 @@ const reducer = (state = initialState, action) => {
   }
 
   if (action.type === SEND_DIRECTIONS_TO_OUTDOOR) {
-    console.log(SEND_DIRECTIONS_TO_OUTDOOR);
     return {
       ...state,
       directionsToOutdoor: action.directionsToOutdoor
@@ -36,7 +33,6 @@ const reducer = (state = initialState, action) => {
   }
 
   if (action.type === RESET_NAVIGATION) {
-    console.log(RESET_NAVIGATION);
     return {
       ...state,
       endBuildingNode: '',

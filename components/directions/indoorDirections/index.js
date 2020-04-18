@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-comp */
 import React, { Component } from 'react';
 import {
   View, Image, Text, Modal
@@ -36,13 +35,7 @@ class IndoorDirections extends Component {
       origin: '',
       originFloor: '',
       showPolyline: false,
-      mode: 'walking',
-      region: {
-        latitude: 0,
-        longitude: 0,
-        latitudeDelta: 0.05,
-        longitudeDelta: 0.05
-      }
+      mode: 'walking'
     };
 
     if (this.state.currentBuilding) {
@@ -78,60 +71,6 @@ class IndoorDirections extends Component {
       if (startBuildingNode && endBuildingNode) { // both ready
         this.coordinatesFromInside(startBuildingNode, endBuildingNode);
       }
-    }
-  }
-
-  findFloor(currentBuilding, floorNumber) {
-    const floor = generateFloorPlan(currentBuilding.building).find((fl) => {
-      return fl.floor.toString() === floorNumber.toString();
-    });
-    return floor;
-  }
-
-  coordinatesFromInside(startBuildingNode, endBuildingNode) {
-    const { currentBuilding } = this.state;
-
-    const directions = {
-      start: startBuildingNode,
-      end: endBuildingNode
-    };
-
-    // from class to class same building
-    if (currentBuilding.building === endBuildingNode.building) {
-      this.setState({
-        origin: startBuildingNode.dijkstraId,
-        originFloor: this.findFloor(currentBuilding, startBuildingNode.floor),
-      }, () => {
-        this.dijkstraHandler(endBuildingNode.dijkstraId, endBuildingNode.floor);
-      });
-    } else { // from class to external point
-      this.props.sendDirectionsToOutdoor(directions);
-      this.setState({
-        origin: startBuildingNode.dijkstraId,
-        originFloor: this.findFloor(currentBuilding, startBuildingNode.floor),
-      }, () => {
-        this.dijkstraHandler(startBuildingNode.origin, 1);
-        this.props.changeVisibilityTo(true);
-      });
-    }
-  }
-
-  coordinatesFromOutside() {
-    const { currentBuilding } = this.state;
-    const { startBuildingNode, endBuildingNode } = this.props;
-
-    if (startBuildingNode.building === currentBuilding.building) {
-      const floor = this.findFloor(currentBuilding, 1);
-      this.setState({
-        origin: startBuildingNode.origin,
-        originFloor: floor,
-      }, () => { this.dijkstraHandler(startBuildingNode.dijkstraId, startBuildingNode.floor); });
-    } else if (endBuildingNode.building === currentBuilding.building) {
-      const floor = this.findFloor(currentBuilding, 1);
-      this.setState({
-        origin: endBuildingNode.origin,
-        originFloor: floor,
-      }, () => { this.dijkstraHandler(endBuildingNode.dijkstraId, endBuildingNode.floor); });
     }
   }
 
@@ -182,6 +121,75 @@ class IndoorDirections extends Component {
     this.setState({ origin });
   }
 
+  /**
+   * Finds the correct floor in the current adjacency graph
+   * @param {*} currentBuilding - building we are currently located in
+   * @param {*} floorNumber - floor we are searching for
+   */
+  findFloor(currentBuilding, floorNumber) {
+    const floor = generateFloorPlan(currentBuilding.building).find((fl) => {
+      return fl.floor.toString() === floorNumber.toString();
+    });
+    return floor;
+  }
+
+  /**
+   *
+   * @param {*} startBuildingNode
+   * @param {*} endBuildingNode
+   *
+   * Triggers indoorDirection to initiate navigation from external source of directions
+   */
+  coordinatesFromInside(startBuildingNode, endBuildingNode) {
+    const { currentBuilding } = this.state;
+
+    const directions = {
+      start: startBuildingNode,
+      end: endBuildingNode
+    };
+
+    // from class to class same building
+    if (currentBuilding.building === endBuildingNode.building) {
+      this.setState({
+        origin: startBuildingNode.dijkstraId,
+        originFloor: this.findFloor(currentBuilding, startBuildingNode.floor),
+      }, () => {
+        this.dijkstraHandler(endBuildingNode.dijkstraId, endBuildingNode.floor);
+      });
+    } else { // from class to external point
+      this.props.sendDirectionsToOutdoor(directions);
+      this.setState({
+        origin: startBuildingNode.dijkstraId,
+        originFloor: this.findFloor(currentBuilding, startBuildingNode.floor),
+      }, () => {
+        this.dijkstraHandler(startBuildingNode.origin, 1);
+        this.props.changeVisibilityTo(true);
+      });
+    }
+  }
+
+  /**
+   * Triggers indoorDirection to initiate navigation from internal souce of directions
+   */
+  coordinatesFromOutside() {
+    const { currentBuilding } = this.state;
+    const { startBuildingNode, endBuildingNode } = this.props;
+
+    if (startBuildingNode.building === currentBuilding.building) {
+      const floor = this.findFloor(currentBuilding, 1);
+      this.setState({
+        origin: startBuildingNode.origin,
+        originFloor: floor,
+      }, () => { this.dijkstraHandler(startBuildingNode.dijkstraId, startBuildingNode.floor); });
+    } else if (endBuildingNode.building === currentBuilding.building) {
+      const floor = this.findFloor(currentBuilding, 1);
+      this.setState({
+        origin: endBuildingNode.origin,
+        originFloor: floor,
+      }, () => { this.dijkstraHandler(endBuildingNode.dijkstraId, endBuildingNode.floor); });
+    }
+  }
+
 
   /**
    *
@@ -215,14 +223,10 @@ class IndoorDirections extends Component {
 
     if (waypoints.length > 0) {
       const paths = dijkstraPathfinder.dijkstraPathfinder(waypoints, graphs);
-      // const paths = ['0, 0, 360, 360'];
       // eslint-disable-next-line no-plusplus
-      console.log('Starting to trace path:');
       for (let i = 0; i < paths.length; i++) {
         updatedDirectionPath[floors[i]] = paths[i];
-        console.log(`path ${i}: ${updatedDirectionPath[floors[i]]}`);
       }
-      console.log('\n');
     }
     this.setState({
       indoorDirectionsPolyLine: updatedDirectionPath,
@@ -231,6 +235,13 @@ class IndoorDirections extends Component {
     });
   }
 
+  /**
+   *
+   * Obtains relevant info pertaining to coordinates, adjacency graphs, and floors
+   * related to indoor directions between one indoor point to another
+   * @param {*} indoorDestination - the indoor destination point
+   * @param {*} indoorDestinationFloor - the floor that the indoor destination is found on
+   */
   indoorDirectionHandler(indoorDestination, indoorDestinationFloor) {
     const { originFloor, origin } = this.state;
     const [startNodeId, startFloor] = [origin, originFloor.floor];
@@ -238,18 +249,8 @@ class IndoorDirections extends Component {
 
     const adjacencyGraphs = generateGraph(this.state.currentBuilding.building);
 
-
-    console.log(`start node: ${startNodeId} floor ${startFloor}`);
-    console.log(`finish node: ${finishNodeId} floor ${finishFloor}`);
-
     if (adjacencyGraphs[startFloor][startNodeId] !== undefined
       && adjacencyGraphs[finishFloor][finishNodeId] !== undefined) {
-      console.log('\nstarting graph: ');
-      console.log(adjacencyGraphs[startFloor][startNodeId]);
-      console.log('\nending graph:');
-      console.log(adjacencyGraphs[finishFloor][finishNodeId]);
-      console.log('\n');
-
       if (startFloor.toString() === finishFloor.toString()) {
         return [
           [
@@ -267,7 +268,7 @@ class IndoorDirections extends Component {
         ];
       }
       // Staircase 1 as default is temporary.
-      // US4C will take care of finding the optimal meeting point.
+      // TODO: US4C will take care of finding the optimal meeting point.
       return [
         [
           {

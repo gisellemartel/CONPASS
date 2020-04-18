@@ -1,4 +1,5 @@
 /* istanbul ignore file */
+/* eslint-disable max-len */
 import Svg, {
   Path, G, Text, Image
 } from 'react-native-svg';

@@ -41,7 +41,13 @@ class BuildingWithFloors extends Component {
     return (
       <View style={styles.container}>
         {/* Renders floor switcher button for each available in current building */}
-        <ScrollView zoomScale="0" horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.switcher} scrollEnabled>
+        <ScrollView
+          zoomScale="0"
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={styles.switcher}
+          scrollEnabled
+        >
           {this.props.buildingFloorPlans.map((lvl) => {
             return (
               <View style={styles.textContainer} key={lvl.floor}>
@@ -78,7 +84,7 @@ class BuildingWithFloors extends Component {
               points={indoorDirectionsPolyLine[floorPlan.floor]}
               fill="none"
               stroke="black"
-              strokeWidth="3"
+              strokeWidth="2"
             />
           </Svg>
         </View>
