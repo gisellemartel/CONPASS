@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { View, Image, TouchableOpacity, AsyncStorage } from 'react-native';
+import {
+  View, Image, TouchableOpacity, AsyncStorage
+} from 'react-native';
 import * as Google from 'expo-google-app-auth';
 import firebase from 'firebase';
 import styles from './styles';
@@ -56,6 +58,7 @@ export default class LoginScreen extends Component {
       if (result.type === 'success') {
         this.onSignIn(result);
         const { accessToken } = result;
+        AsyncStorage.setItem('accessToken', accessToken);
         const userInfoResponse = await fetch('https://www.googleapis.com/calendar/v3/calendars/primary/events?key=AIzaSyBAHObp5Ic3CbJpkX2500tNhf53e_3wBMA&timeMin=2020-01-01T01:00:00.000Z', {
           headers: { Authorization: `Bearer ${accessToken}` },
         });

@@ -1,4 +1,5 @@
 /* istanbul ignore file */
+/* eslint-disable max-len */
 import Svg, {
   Path, G, Text, Image
 } from 'react-native-svg';
@@ -6,7 +7,7 @@ import * as React from 'react';
 
 function SvgHall8(props) {
   return (
-    <Svg {...props}>
+    <Svg width={1024} height={1024} {...props}>
       <Path fill="none" d="M-1-1h1026v1026H-1z" />
       <G>
         <G strokeWidth={2.55} fill="#9CD3D7" stroke="#000">
@@ -1426,7 +1427,7 @@ function SvgHall8(props) {
         >
           O
         </Text>
-         <Text
+        <Text
           stroke="#000"
           strokeWidth={0}
           strokeOpacity="null"
@@ -1438,7 +1439,7 @@ function SvgHall8(props) {
         >
           O
         </Text>
-         <Text
+        <Text
           stroke="#000"
           strokeWidth={0}
           strokeOpacity="null"
@@ -1450,7 +1451,7 @@ function SvgHall8(props) {
         >
           O
         </Text>
-         <Text
+        <Text
           stroke="#000"
           strokeWidth={0}
           strokeOpacity="null"
@@ -1462,7 +1463,7 @@ function SvgHall8(props) {
         >
           O
         </Text>
-         <Text
+        <Text
           stroke="#000"
           strokeWidth={0}
           strokeOpacity="null"
@@ -1473,10 +1474,9 @@ function SvgHall8(props) {
           fontFamily="Helvetica, Arial, sans-serif"
         >
           O
-        </Text>
+        </Text> */}
 
 
-        */}
       </G>
     </Svg>
   );

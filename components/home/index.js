@@ -1,4 +1,5 @@
 
+/* eslint-disable no-restricted-globals */
 import React, { Component } from 'react';
 import { View } from 'react-native';
 import TheMap from '../map';
@@ -8,8 +9,8 @@ import CampusToggle from '../campusToggle';
 import PathPolyline from '../pathPolyline';
 import OutdoorDirections from '../directions/outdoorDirections';
 import IndoorDirections from '../directions/indoorDirections';
+import fetchBuildingRooms from '../../indoor_directions_modules/fetchBuildingRooms';
 import styles from './styles';
-import Suggestions from '../suggestions';
 
 
 class Home extends Component {
@@ -17,7 +18,6 @@ class Home extends Component {
     super(props);
     this.state = {
       // Set Initial region of the map
-      value: '',
       coordinates: [],
       region: {
         latitude: '',
@@ -37,54 +37,31 @@ class Home extends Component {
       currentBuildingAddress: '',
       showDirectionsMenu: false,
       showCampusToggle: false,
-      showSuggestionsList: false
+      buildingInfoData: {},
+      showBuildingInfoModal: false,
+      indoorRoomsList: []
     };
-    this.interiorModeOn = this.interiorModeOn.bind(this);
-    this.interiorModeOff = this.interiorModeOff.bind(this);
+    this.turnInteriorModeOn = this.turnInteriorModeOn.bind(this);
+    this.turnInteriorModeOff = this.turnInteriorModeOff.bind(this);
+    this.setBuildingInfoModalVisibilityTo = this.setBuildingInfoModalVisibilityTo.bind(this);
+    this.getCalDirections = this.getCalDirections.bind(this);
   }
 
+  componentDidMount() {
+    this.generateIndoorPredictionsForSearchBar();
+    this.getCalDirections();
+  }
 
   /**
-   * updates region and passes the new region 'map' component.
-   * @param {object} newRegion - New region to be passed.
+   * Gets directions when getting directions from calender component
    */
-  updateRegion = (newRegion) => {
-    this.setState({
-      presetRegion: {
-        latitude: newRegion.latitude,
-        longitude: newRegion.longitude,
-        latitudeDelta: 0.05,
-        longitudeDelta: 0.05
-      }
-    });
-    this.setState({
-      region: {
-        latitude: newRegion.latitude,
-        longitude: newRegion.longitude,
-        latitudeDelta: 0.05,
-        longitudeDelta: 0.05
-      }
-    });
-  };
-
-  updateRegionCloser = (newRegion) => {
-    this.setState({
-      presetRegion: {
-        latitude: newRegion.latitude,
-        longitude: newRegion.longitude,
-        latitudeDelta: 0.001,
-        longitudeDelta: 0.001
-      }
-    });
-    this.setState({
-      region: {
-        latitude: newRegion.latitude,
-        longitude: newRegion.longitude,
-        latitudeDelta: 0.001,
-        longitudeDelta: 0.001
-      }
-    });
-  }
+   getCalDirections = () => {
+     if (this.props.navigation.state) {
+       this.setState({ destinationToGo: this.props.navigation.state.params.description });
+       this.changeVisibilityTo(true);
+       this.changeVisibilityOfBack(false);
+     }
+   }
 
   /**
    * Fetches the currently searched destination in order to automatically populate
@@ -96,32 +73,12 @@ class Home extends Component {
   };
 
   /**
-   * Changes visibility of directions search menus depending on context
-   * @param {*} showDirectionsMenu - desired visibility boolean
-   */
-  changeVisibilityTo = (showDirectionsMenu) => {
-    this.setState({
-      showDirectionsMenu
-    });
-  };
-
-  /**
    * Changes visibility of campus toggle when search bar is focused/blurred
    * @param {*} showCampusToggle - desired visibility boolean
    */
   setCampusToggleVisibility = (showCampusToggle) => {
     this.setState({
       showCampusToggle
-    });
-  };
-
-  /**
-   * updates coordinates and passes new coordinates 'Map' component.
-   * @param {object} newCoordinates - New coordinates to be passed.
-   */
-  updateCoordinates = (newCoordinates) => {
-    this.setState({
-      coordinates: newCoordinates
     });
   };
 
@@ -161,6 +118,105 @@ class Home extends Component {
     this.setState({ nearbyMarkers: markers });
   }
 
+  /**
+   * gets the curretly tapped on building information from 'map' component
+   * @param {object} buildingInfoData - New coordinates to be passed.
+   */
+  getBuildingInfoData = (buildingInfoData) => {
+    this.setState({
+      buildingInfoData,
+      showBuildingInfoModal: true
+    });
+  }
+
+
+  /**
+   * sets the visibility of showing the building information
+   * @param {boolean} visibility
+   */
+  setBuildingInfoModalVisibilityTo(visibility) {
+    this.setState({
+      showBuildingInfoModal: visibility
+    });
+  }
+
+  /**
+   * fetches all the possible indoor predictions for start point for any building and any floor
+   */
+  generateIndoorPredictionsForSearchBar = () => {
+    const hallData = fetchBuildingRooms('H');
+    const vlData = fetchBuildingRooms('VL');
+    const indoorRoomsList = [];
+
+    const hallRooms = Object.keys(hallData);
+    const vlRooms = Object.keys(vlData);
+
+    hallRooms.forEach((floor) => {
+      hallData[floor].forEach((room) => {
+        let roomString;
+        const isNumeric = !isNaN(room);
+        if (!isNumeric) {
+          roomString = `H-${floor} ${room.toString().replace('_', ' ')}`;
+        } else {
+          roomString = `H-${room.toString()}`;
+        }
+
+        const currentAvailableRoom = {
+          id: roomString,
+          description: roomString,
+          place_id: 'ChIJtd6Zh2oayUwRAu_CnRIfoBw',
+          dijkstraId: room.toString(),
+          building: 'H',
+          // replace with official origin
+          origin: 'north_exit',
+          coordinates: {
+            latitude: 45.497092,
+            longitude: -73.578800,
+          },
+          floor,
+        };
+        indoorRoomsList.push(currentAvailableRoom);
+      });
+    });
+
+    vlRooms.forEach((floor) => {
+      vlData[floor].forEach((room) => {
+        let roomString;
+        const isNumeric = !isNaN(room);
+        if (!isNumeric) {
+          roomString = `VL-${floor} ${room.toString().replace('_', ' ')}`;
+        } else {
+          roomString = `VL-${room.toString()}`;
+        }
+        const currentAvailableRoom = {
+          id: roomString,
+          description: roomString,
+          place_id: 'ChIJDbfcNjIXyUwRcocn3RuPPiY',
+          dijkstraId: room.toString(),
+          building: 'VL',
+          origin: 'exit',
+          coordinates: { latitude: 45.459026, longitude: -73.638606, },
+          floor,
+        };
+        indoorRoomsList.push(currentAvailableRoom);
+      });
+    });
+
+    this.setState({
+      indoorRoomsList
+    });
+  }
+
+  /**
+   * Changes visibility of directions search menus depending on context
+   * @param {*} showDirectionsMenu - desired visibility boolean
+   */
+  changeVisibilityTo = (showDirectionsMenu) => {
+    this.setState({
+      showDirectionsMenu
+    });
+  };
+
   updateCurrentBuildingAddress = (childCurrentBuilding) => {
     this.setState({
       currentBuildingAddress: childCurrentBuilding
@@ -168,25 +224,59 @@ class Home extends Component {
   };
 
   /**
-   * gets the curretly tapped on building information from 'map' component
-   * @param {object} suggestion - New coordinates to be passed.
+   * updates coordinates and passes new coordinates 'Map' component.
+   * @param {object} newCoordinates - New coordinates to be passed.
    */
-  getSuggestions = (suggestion) => {
+  updateCoordinates = (newCoordinates) => {
     this.setState({
-      suggestion,
-      showSuggestionsList: true
+      coordinates: newCoordinates
+    });
+  };
+
+
+  /**
+   * updates region and passes the new region 'map' component.
+   * @param {object} newRegion - New region to be passed.
+   */
+  updateRegion = (newRegion) => {
+    this.setState({
+      presetRegion: {
+        latitude: newRegion.latitude,
+        longitude: newRegion.longitude,
+        latitudeDelta: 0.05,
+        longitudeDelta: 0.05
+      }
+    });
+    this.setState({
+      region: {
+        latitude: newRegion.latitude,
+        longitude: newRegion.longitude,
+        latitudeDelta: 0.05,
+        longitudeDelta: 0.05
+      }
+    });
+  };
+
+
+  updateRegionCloser = (newRegion) => {
+    this.setState({
+      presetRegion: {
+        latitude: newRegion.latitude,
+        longitude: newRegion.longitude,
+        latitudeDelta: 0.001,
+        longitudeDelta: 0.001
+      }
+    });
+    this.setState({
+      region: {
+        latitude: newRegion.latitude,
+        longitude: newRegion.longitude,
+        latitudeDelta: 0.001,
+        longitudeDelta: 0.001
+      }
     });
   }
 
-  /**
-   * sets the visibility of showing the building information
-   * @param {object} suggestion - New coordinates to be passed.
-   */
-  setSuggestionVisibility = () => {
-    this.setState({
-      showSuggestionsList: false
-    });
-  }
 
   /**
    *
@@ -195,7 +285,7 @@ class Home extends Component {
    * Activates interior mode when building is clicked on
    * Uses the building data to render floors
    */
-  interiorModeOn(building, region) {
+  turnInteriorModeOn(building, region) {
     this.setState({
       region,
       interiorMode: true,
@@ -207,7 +297,7 @@ class Home extends Component {
    *
    * Deactivates interior mode to return to outdoor map view
    */
-  interiorModeOff() {
+  turnInteriorModeOff() {
     this.setState({
       interiorMode: false,
       building: null
@@ -221,13 +311,13 @@ class Home extends Component {
         <TheMap
           updatedCoordinates={this.state.coordinates}
           encryptedLine={this.state.encryptedLine}
-          interiorModeOn={this.interiorModeOn}
+          turnInteriorModeOn={this.turnInteriorModeOn}
           updatedRegion={this.state.presetRegion}
           polylineVisibility={this.state.showDirectionsMenu}
           getDestinationIfSet={this.getDestinationIfSet}
           updateRegionCloser={this.updateRegionCloser}
           nearbyMarkers={this.state.nearbyMarkers}
-          getSuggestions={this.getSuggestions}
+          getBuildingInfoData={this.getBuildingInfoData}
         />
         {!this.state.showDirectionsMenu && (
         <MapSearchBar
@@ -238,6 +328,7 @@ class Home extends Component {
           setCampusToggleVisibility={this.setCampusToggleVisibility}
           currentBuildingPred={this.state.currentBuildingAddress}
           nearbyMarkers={this.getNearbyMarkers}
+          indoorRoomsList={this.state.indoorRoomsList}
         />
         )}
         {this.state.showCampusToggle && (
@@ -252,10 +343,10 @@ class Home extends Component {
         />
         <PathPolyline
           changeVisibilityTo={this.changeVisibilityTo}
-          newValue={this.state.value}
         />
         {this.state.showDirectionsMenu && (
           <OutdoorDirections
+            showBack={this.state.showBack}
             getDestinationIfSet={this.state.destinationToGo}
             getRegion={this.getRegionFromOutdoorDirections}
             getRegionFromSearch={this.state.region}
@@ -263,22 +354,25 @@ class Home extends Component {
             changeVisibilityTo={this.changeVisibilityTo}
             navigation={this.props.navigation}
             currentBuildingPred={this.state.currentBuildingAddress}
+            indoorRoomsList={this.state.indoorRoomsList}
           />
         )}
         {/* Building component contains all the interior floor views */}
         {this.state.interiorMode
         && (
           <IndoorDirections
+            getDestinationIfSet={this.state.destinationToGo}
+            getRegion={this.getRegionFromOutdoorDirections}
+            getRegionFromSearch={this.state.region}
+            getCoordinates={this.getCoordinatesFromOutdoorDirections}
             building={this.state.building}
-            interiorModeOff={this.interiorModeOff}
+            showBuildingInfoModal={this.state.showBuildingInfoModal}
+            setBuildingInfoModalVisibilityTo={this.setBuildingInfoModalVisibilityTo}
+            turnInteriorModeOff={this.turnInteriorModeOff}
+            buildingInfoData={this.state.buildingInfoData}
+            changeVisibilityTo={this.changeVisibilityTo}
+            indoorRoomsList={this.state.indoorRoomsList}
           />
-        )}
-        {this.state.showSuggestionsList && this.state.interiorMode && (
-        <Suggestions
-          changeSuggestionVisibility={this.setSuggestionVisibility}
-          getDirections={this.setDirections}
-          suggestion={this.state.suggestion}
-        />
         )}
       </View>
     );

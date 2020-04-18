@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { View, AsyncStorage, ActivityIndicator } from 'react-native';
 
-
 export default class FetchScreen extends Component {
   componentDidMount() {
     this.getData();

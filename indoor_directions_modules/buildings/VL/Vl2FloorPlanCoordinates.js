@@ -37,7 +37,6 @@ const vl2FloorPlanCoordinates = {
     x: 630,
     y: 390,
     adjacencyList: [
-      'node_staircase_6',
       'node_east',
       'node_north',
       'node_center',
@@ -58,7 +57,6 @@ const vl2FloorPlanCoordinates = {
       'node_east',
       'node_north',
       'node_203',
-      'node_staircase_6'
     ]
   },
   node_east: {
@@ -96,7 +94,6 @@ const vl2FloorPlanCoordinates = {
       'node_study_area_5',
       'node_203',
       'node_staircase_6',
-      'node_staircase_7',
       'node_center',
       'node_east',
       'node_study_area_2_1',
@@ -137,7 +134,6 @@ const vl2FloorPlanCoordinates = {
     adjacencyList: [
       'staircase_4',
       'female_bathroom',
-      'node_staircase_6'
     ]
   },
   node_staircase_5: {
@@ -151,20 +147,10 @@ const vl2FloorPlanCoordinates = {
     ]
   },
   node_staircase_6: {
-    x: 629,
-    y: 353,
-    adjacencyList: [
-      'staircase_6',
-      'node_203',
-      'node_staircase_4',
-      'node_north'
-    ]
-  },
-  node_staircase_7: {
     x: 234,
     y: 354,
     adjacencyList: [
-      'staircase_7',
+      'staircase_6',
       'node_north'
     ]
   },
@@ -288,17 +274,10 @@ const vl2FloorPlanCoordinates = {
     ]
   },
   staircase_6: {
-    x: 725.999986,
-    y: 330.499999,
-    adjacencyList: [
-      'node_staircase_6'
-    ]
-  },
-  staircase_7: {
     x: 206.999986,
     y: 316.499999,
     adjacencyList: [
-      'node_staircase_7'
+      'node_staircase_6'
     ]
   },
   study_area_1: {
@@ -312,7 +291,8 @@ const vl2FloorPlanCoordinates = {
     x: 612,
     y: 730,
     adjacencyList: [
-      'node_study_area_2'
+      'node_study_area_2_1',
+      'node_study_area_2_2'
     ]
   },
   study_area_3: {

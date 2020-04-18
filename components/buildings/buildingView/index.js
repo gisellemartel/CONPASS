@@ -2,22 +2,20 @@ import React, { Component } from 'react';
 import { View } from 'react-native';
 import ReactNativeZoomableView from '@dudigital/react-native-zoomable-view/src/ReactNativeZoomableView';
 import BuildingWithFloors from './buildingWithFloors';
-import BuildingNoFloors from './buildingNoFloors';
 import styles from './styles';
 
-class Building extends Component {
+class BuildingView extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      floor: this.props.buildingFloorPlans[0]
+      floorPlan: this.props.buildingFloorPlans[0]
     };
   }
 
   render() {
-    const { floor } = this.state;
+    const { floorPlan } = this.state;
     return (
       <View style={styles.container}>
-
         <ReactNativeZoomableView
           maxZoom={1.25}
           minZoom={1}
@@ -25,15 +23,21 @@ class Building extends Component {
           initialZoom={1}
         >
           <View style={styles.indoorView}>
-            {floor
-              ? <BuildingWithFloors floor={floor} {...this.props} />
-              : <BuildingNoFloors floor={floor} {...this.props} />}
+            {floorPlan && (
+            <BuildingWithFloors
+              floorPlan={floorPlan}
+              buildingFloorPlans={this.props.buildingFloorPlans}
+              changeCurrentFloorPlanTo={this.props.changeCurrentFloorPlanTo}
+              indoorDirectionsPolyLine={this.props.indoorDirectionsPolyLine}
+              showPolyline={this.props.showPolyline}
+              {...this.props}
+            />
+            ) }
           </View>
         </ReactNativeZoomableView>
       </View>
-
     );
   }
 }
 
-export default Building;
+export default BuildingView;
