@@ -24,11 +24,6 @@ export default class LoginScreen extends Component {
          firebase
            .auth()
            .signInWithCredential(credential).then(() => {
-           })
-           .catch((error) => {
-             // eslint-disable-next-line no-alert
-             alert(error);
-           // ...
            });
        }
      });
