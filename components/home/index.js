@@ -293,6 +293,10 @@ class Home extends Component {
     });
   }
 
+  /**
+   * updates the current boolean to know if the user is navigating from calendar or not
+   * @param {boolean} boolean - Boolean to be passed in
+   */
   navigateFromCalender(boolean) {
     this.setState({ navigateFromCalender: boolean });
   }
