@@ -63,11 +63,12 @@ render() {
   return (
     <View>
       {this.props.navigation.state.params
-        // eslint-disable-next-line react/jsx-wrap-multilines
-        ? <CheckboxGroup
-          options={this.state.calendarsGeneralInfo}
-          navigationHandlerCallback={this.navigationHandler}
-        />
+        ? (
+          <CheckboxGroup
+            options={this.state.calendarsGeneralInfo}
+            navigationHandlerCallback={this.navigationHandler}
+          />
+        )
         : <ActivityIndicator />}
     </View>
   );
