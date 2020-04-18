@@ -1,5 +1,3 @@
-/* eslint-disable no-var */
-/* eslint-disable block-scoped-var */
 /* eslint-disable no-await-in-loop */
 /* eslint-disable no-plusplus */
 import React, { Component } from 'react';
@@ -87,12 +85,13 @@ saveFinalEventsArray= async (finalCalendar) => {
  * This calendar object contains all the events in items array.
  */
 getFinalEventsArray= async () => {
+  let finalCalendarToBeSynced = { items: [] };
   if (this.state.calendarsToSync.length !== 0) {
     let startIndex = 0;
+    let evnts;
     do {
-      const evnts = await AsyncStorage.getItem(this.state.calendarsToSync[startIndex]);
-      // eslint-disable-next-line vars-on-top
-      var finalCalendarToBeSynced = JSON.parse(evnts);
+      evnts = await AsyncStorage.getItem(this.state.calendarsToSync[startIndex]);
+      finalCalendarToBeSynced = JSON.parse(evnts);
       startIndex++;
     } while (('error' in finalCalendarToBeSynced) && startIndex < this.state.calendarsToSync.length);
     let i;
