@@ -20,7 +20,6 @@ export default class CheckboxGroup extends Component {
   }
 
 setCalendarsToSyncList = (storageId) => {
-  // console.log('event pressed ',storageId);
   const elementIndex = (this.state.calendarsToSync).indexOf(storageId);
 
   // if the element exists, then it will be removed from calendarToSync array
@@ -75,7 +74,6 @@ getFinalEventsArray= async () => {
       var finalCalendarToBeSynced = JSON.parse(evnts);
       startIndex++;
     } while (('error' in finalCalendarToBeSynced) && startIndex < this.state.calendarsToSync.length);
-    // console.log('test: ',finalCalendarToBeSynced);
     let i;
     for (i = 1; i < this.state.calendarsToSync.length; i++) {
       const tempEvnts = await AsyncStorage.getItem(this.state.calendarsToSync[i]);
@@ -90,7 +88,6 @@ getFinalEventsArray= async () => {
     if ('error' in finalCalendarToBeSynced) {
       finalCalendarToBeSynced = { items: [] };
     }
-    // console.log(finalCalendarToBeSynced);
   } else {
     finalCalendarToBeSynced = { items: [] };
   }
@@ -98,14 +95,7 @@ getFinalEventsArray= async () => {
   return finalCalendarToBeSynced;
 }
 
-// changeColor(id){
-//   var currentColor = 'blue';
-//   this.setState({buttonColor: this.state.itemSelected === id? currentColor,});
-// }
-
 render() {
-  const itemsSelected = [];
-  console.log(itemsSelected.length);
   return (
     <View>
       <Text style={styles.title}>Availabe Calendars For Synchronization</Text>

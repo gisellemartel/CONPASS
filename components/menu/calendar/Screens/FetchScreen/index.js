@@ -9,15 +9,12 @@ export default class FetchScreen extends Component {
     this.state = {
       calendarsGeneralInfo: [],
     };
-    // this.getDatta=this.getDatta.bind(this);
   }
 
   componentDidMount() {
-    // console.log('length:');
     console.log(this.state.calendarsGeneralInfo.length);
     this.getDatta();
     if (this.state.calendarsGeneralInfo.length === 0) {
-      // console.log('am here');
       this.forceUpdate();
     }
     console.log('--!!!_--~~~~-  The moment of truth ');
@@ -54,9 +51,6 @@ navigationHandler=async (events) => {
 }
 
 render() {
-  console.log('in render');
-  // console.log(this.state.calendarsGeneralInfo);
-
   return (
     <View>
       {this.props.navigation.state.params
