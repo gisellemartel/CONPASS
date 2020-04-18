@@ -36,6 +36,7 @@ class Home extends Component {
       // current concordia bulding tapped on
       currentBuildingAddress: '',
       showDirectionsMenu: false,
+      showBack: true,
       showCampusToggle: false,
       buildingInfoData: {},
       showBuildingInfoModal: false,
@@ -62,6 +63,14 @@ class Home extends Component {
        this.changeVisibilityOfBack(false);
      }
    }
+
+   /**
+   * Changes visibility of back button in outdoor directions component
+   * @param {boolean} boolean - desired visibility boolean
+   */
+   changeVisibilityOfBack=(boolean) => {
+     this.setState({ showBack: boolean });
+  }
 
   /**
    * Fetches the currently searched destination in order to automatically populate

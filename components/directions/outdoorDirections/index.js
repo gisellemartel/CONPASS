@@ -106,11 +106,12 @@ class OutdoorDirections extends Component {
             updateMode={this.updateMode}
           />
           <View style={styles.container}>
+          {this.props.showBack && (
             <BackButton
               changeVisibilityTo={this.props.changeVisibilityTo}
               coordinateCallback={this.updateCoordinates}
               withRedux
-            />
+            />)}
             <CurrentLocation />
             <Destination />
           </View>
