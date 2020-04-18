@@ -73,16 +73,12 @@ export default class LoginScreen extends Component {
             headers: { Authorization: `Bearer ${accessToken}` },
           });
           const jsonFile = await userInfoResponse.json();
-          /* if(calendarCount == 2)
-            console.log('First calendar: ',jsonFile);*/
           const stringFile = JSON.stringify(jsonFile);
           AsyncStorage.setItem(`events${calendarCount}`, stringFile);
           // eslint-disable-next-line no-param-reassign
           calendar.storageId = `events${calendarCount}`;
           calendarCount += 1;
         });
-        // console.log('last Check inshala: ',userCalendarsInfo);
-        console.log('here i am!!!!!');
         await this.removeOldStoredEvents();
 
         this.props.navigation.navigate('FetchScreen', { userCalendarsInfo });
@@ -97,7 +93,6 @@ export default class LoginScreen extends Component {
   removeOldStoredEvents=async () => {
     const finalStored = await AsyncStorage.getItem('events');
     if (finalStored != null) {
-      console.log('The storage is null, indeed!');
       AsyncStorage.removeItem('events');
       return true;
     }
