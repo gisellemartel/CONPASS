@@ -795,9 +795,18 @@ const hall1FloorPlanCoordinates = {
     y: 425,
     adjacencyList: [
       '159',
-      'node_staircase_1',
+      'node_east_corner',
       'node_157',
       'node_161'
+    ]
+  },
+  node_east_corner: {
+    x: 168,
+    y: 399,
+    adjacencyList: [
+      'node_161',
+      'node_staircase_1',
+      'node_159'
     ]
   },
   node_160_01: {
@@ -834,7 +843,8 @@ const hall1FloorPlanCoordinates = {
     adjacencyList: [
       '161',
       'node_159',
-      'node_163'
+      'node_163',
+      'node_east_corner'
     ]
   },
   node_163: {
@@ -975,8 +985,7 @@ const hall1FloorPlanCoordinates = {
       'staircase_1',
       'node_elevator',
       'node_160_01',
-      'node_159',
-      'node_161'
+      'node_east_corner'
     ]
   },
   staircase_1: {

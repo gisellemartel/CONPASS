@@ -794,9 +794,18 @@ const hall4FloorPlanCoordinates = {
     y: 425,
     adjacencyList: [
       '459',
-      'node_staircase_1',
+      'node_east_corner',
       'node_457',
       'node_461'
+    ]
+  },
+  node_east_corner: {
+    x: 168,
+    y: 399,
+    adjacencyList: [
+      'node_461',
+      'node_staircase_1',
+      'node_459'
     ]
   },
   node_460_01: {
@@ -833,6 +842,7 @@ const hall4FloorPlanCoordinates = {
     adjacencyList: [
       '461',
       'node_459',
+      'node_east_corner',
       'node_463'
     ]
   },
@@ -972,8 +982,7 @@ const hall4FloorPlanCoordinates = {
       'staircase_1',
       'node_elevator',
       'node_460_01',
-      'node_459',
-      'node_461'
+      'node_east_corner'
     ]
   },
   staircase_1: {

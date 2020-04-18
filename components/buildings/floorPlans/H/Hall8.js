@@ -1427,7 +1427,7 @@ function SvgHall8(props) {
         >
           O
         </Text>
-         <Text
+        <Text
           stroke="#000"
           strokeWidth={0}
           strokeOpacity="null"
@@ -1439,7 +1439,7 @@ function SvgHall8(props) {
         >
           O
         </Text>
-         <Text
+        <Text
           stroke="#000"
           strokeWidth={0}
           strokeOpacity="null"
@@ -1451,7 +1451,7 @@ function SvgHall8(props) {
         >
           O
         </Text>
-         <Text
+        <Text
           stroke="#000"
           strokeWidth={0}
           strokeOpacity="null"
@@ -1463,7 +1463,7 @@ function SvgHall8(props) {
         >
           O
         </Text>
-         <Text
+        <Text
           stroke="#000"
           strokeWidth={0}
           strokeOpacity="null"
@@ -1474,10 +1474,9 @@ function SvgHall8(props) {
           fontFamily="Helvetica, Arial, sans-serif"
         >
           O
-        </Text>
+        </Text> */}
 
 
-        */}
       </G>
     </Svg>
   );
