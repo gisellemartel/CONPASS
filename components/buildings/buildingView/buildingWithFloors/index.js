@@ -3,6 +3,7 @@ import {
   View, Text, ScrollView
 } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import ReactNativeZoomableView from '@dudigital/react-native-zoomable-view/src/ReactNativeZoomableView';
 import Svg, {
   Polyline
 } from 'react-native-svg';
@@ -13,8 +14,21 @@ class BuildingWithFloors extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      floorPlan: this.props.floorPlan
+      floorPlan: this.props.floorPlan,
+      showScroller: true,
     };
+  }
+
+  zoomOutState = (event, gestureState, zoomableViewEventObject) => {
+    if (zoomableViewEventObject.zoomLevel > 1) {
+      this.setState({
+        showScroller: false
+      });
+    } else {
+      this.setState({
+        showScroller: true
+      });
+    }
   }
 
   /**
@@ -34,6 +48,7 @@ class BuildingWithFloors extends Component {
     }, () => { this.props.changeCurrentFloorPlanTo(floorPlan); });
   }
 
+
   render() {
     const { floorPlan } = this.state;
     const { indoorDirectionsPolyLine } = this.props;
@@ -41,6 +56,7 @@ class BuildingWithFloors extends Component {
     return (
       <View style={styles.container}>
         {/* Renders floor switcher button for each available in current building */}
+        {this.state.showScroller && (
         <ScrollView
           zoomScale="0"
           horizontal
@@ -70,10 +86,19 @@ class BuildingWithFloors extends Component {
             );
           })}
         </ScrollView>
+        )}
 
         {/* Renders map for current floor in building */}
         <View style={styles.buildingContainer}>
-          {floorPlan.component}
+          <ReactNativeZoomableView
+            maxZoom={1.2}
+            minZoom={1}
+            zoomStep={0.05}
+            initialZoom={1}
+            onZoomAfter={this.zoomOutState}
+          >
+            {floorPlan.component}
+          </ReactNativeZoomableView>
         </View>
 
         {/* Renders the needed svg path */}
