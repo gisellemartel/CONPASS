@@ -55,16 +55,25 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%'
   },
+  iconsContainer: {
+    top: 35,
+  },
   directionsContainer: {
+    zIndex: 500,
+    top: 25,
+    width: '100%',
+    height: '100%'
+  },
+  directionsContainerBackground: {
     backgroundColor: 'rgba(156,211,215,0.8)',
-    top: 150,
     borderBottomLeftRadius: 10,
     borderBottomRightRadius: 10,
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
     height: 165,
+    top: 25,
     position: 'absolute',
-    zIndex: 301,
+    zIndex: -1,
     width: '99%',
     left: '0.5%'
   },
@@ -72,8 +81,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: '87%',
     left: 45,
-    position: 'absolute',
-    top: 0
+    position: 'relative',
+    top: 35
   },
   buildingInfoModalContainer: {
     top: 500,

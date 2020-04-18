@@ -359,14 +359,17 @@ class IndoorDirections extends Component {
         >
           <View style={styles.modalBackground} />
           <View style={styles.directionsContainer}>
-            <BackButton
-              withRedux
-              changeVisibilityTo={this.changeVisibilityTo}
-              changePolylineVisibilityTo={this.changePolylineVisibilityTo}
-              coordinateCallback={this.updateCoordinates}
-            />
-            <CurrentLocation />
-            <Destination />
+            <View style={styles.iconsContainer}>
+              <BackButton
+                withRedux
+                changeVisibilityTo={this.changeVisibilityTo}
+                changePolylineVisibilityTo={this.changePolylineVisibilityTo}
+                coordinateCallback={this.updateCoordinates}
+              />
+              <CurrentLocation />
+              <Destination />
+            </View>
+            <View style={styles.directionsContainerBackground} />
             <View style={styles.searchContainer}>
               <IndoorMapSearchBar
                 currentBuilding={currentBuilding}
@@ -379,7 +382,6 @@ class IndoorDirections extends Component {
                 currentBuildingName={currentBuilding.building}
               />
             </View>
-
           </View>
         </Modal>
 
