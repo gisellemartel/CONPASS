@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 import {
   YellowBox,
   View, Text, TouchableOpacity, Alert, Platform, AsyncStorage
@@ -207,7 +208,7 @@ export default class DashboardScreen extends Component {
      sendDirections = (description) => {
        if (!description) {
          alert('There is no address or description for this event.');
-         return;
+         return '';
        }
        this.props.navigation.navigate('HomeScreen', { description });
        return 'address sent';
@@ -272,7 +273,12 @@ export default class DashboardScreen extends Component {
                `${item.startTime}  -  ${item.endTime}\n${item.description}\n${item.address}`,
                [
                  { text: 'Cancel' },
-                 { text: 'Get Directions', onPress: () => { address ? this.sendDirections(address.split(',')[0]) : this.sendDirections(description.split('\n')[0]); } },
+                 {
+                   text: 'Get Directions',
+                   onPress: () => {
+                     if (address) { this.sendDirections(address.split(',')[0]); } else { this.sendDirections(description.split('\n')[0]); }
+                   }
+                 },
                ],
                { cancelable: false });
            }}
