@@ -19,6 +19,9 @@ export default class FetchScreen extends Component {
     this.asyncStorageChecker();
   }
 
+  /**
+ * This function returns the CheckboxGroup component
+ */
   // eslint-disable-next-line consistent-return
   getDatta() {
     if (this.props.navigation.state.params) {
@@ -33,6 +36,9 @@ export default class FetchScreen extends Component {
     }
   }
 
+  /**
+   * This function checks if events item exists in the JSON file.
+   */
   asyncStorageChecker = async () => {
     const evnts = await AsyncStorage.getItem('events');
     const events = JSON.parse(evnts);
@@ -44,6 +50,11 @@ export default class FetchScreen extends Component {
     }
   }
 
+/**
+ * The function handles navigation to DashboardScreen.
+ * It's used as a callback function from CheckboxGroup
+ * @param {String} events - A stringified events array.
+ */
 navigationHandler=async (events) => {
   this.props.navigation.navigate('DashboardScreen', { events });
 }
