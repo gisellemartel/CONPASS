@@ -9,7 +9,7 @@ const vl1FloorPlanCoordinates = {
     x: 372.6664,
     y: 423.99981,
     adjacencyList: [
-      'node_321'
+      'node_122'
     ]
   },
   admin: {
@@ -24,6 +24,13 @@ const vl1FloorPlanCoordinates = {
     y: 624.00019,
     adjacencyList: [
       'node_circ'
+    ]
+  },
+  elevator: {
+    x: 230,
+    y: 550,
+    adjacencyList: [
+      'node_elevator'
     ]
   },
   female_bathroom: {
@@ -54,7 +61,7 @@ const vl1FloorPlanCoordinates = {
     y: 488,
     adjacencyList: [
       '122',
-      'node_staircase_3',
+      'node_staircase_5',
       'node_center',
       'node_study_area_1',
       'node_intersection_south'
@@ -65,7 +72,7 @@ const vl1FloorPlanCoordinates = {
     y: 654,
     adjacencyList: [
       'admin',
-      'node_staircase_2',
+      'node_staircase_3',
       'node_study_area_2',
       'node_study_area_1',
       'node_center'
@@ -78,8 +85,9 @@ const vl1FloorPlanCoordinates = {
       'node_study_area_1',
       'node_study_area_2',
       'node_admin',
-      'node_staircase_3',
-      'node_122'
+      'node_staircase_5',
+      'node_122',
+      'node_elevator'
     ]
   },
   node_circ: {
@@ -91,6 +99,15 @@ const vl1FloorPlanCoordinates = {
       'node_ref',
       'node_intersection_south',
       'node_library_door'
+    ]
+  },
+  node_elevator: {
+    x: 255,
+    y: 565,
+    adjacencyList: [
+      'elevator',
+      'node_staircase_5',
+      'node_center'
     ]
   },
   node_female_bathroom: {
@@ -115,9 +132,9 @@ const vl1FloorPlanCoordinates = {
     x: 618,
     y: 160,
     adjacencyList: [
-      'node_special_collections_3',
+      'special_collections_3',
       'node_hallway_northeast',
-      'node_staircase_5'
+      'node_staircase_2'
     ]
   },
   node_hallway_northeast: {
@@ -144,7 +161,7 @@ const vl1FloorPlanCoordinates = {
     y: 425,
     adjacencyList: [
       'node_special_collections_2_2',
-      'node_staircase_6',
+      'node_staircase_4',
       'node_female_bathroom',
       'node_library_door',
       'node_intersection_south',
@@ -179,7 +196,7 @@ const vl1FloorPlanCoordinates = {
     y: 522,
     adjacencyList: [
       'node_library_door',
-      'node_outside_door',
+      'exit',
       'node_female_bathroom_2'
     ]
   },
@@ -199,7 +216,7 @@ const vl1FloorPlanCoordinates = {
       'node_female_bathroom_2'
     ]
   },
-  node_outside_door: {
+  exit: {
     x: 958,
     y: 554,
     adjacencyList: [
@@ -230,7 +247,7 @@ const vl1FloorPlanCoordinates = {
     y: 160,
     adjacencyList: [
       'special_collections_2',
-      'node_staircase_4',
+      'node_staircase_6',
       'node_hallway_north'
     ]
   },
@@ -242,7 +259,7 @@ const vl1FloorPlanCoordinates = {
       'node_special_collections_1_2',
       'node_intersection_center',
       'node_female_bathroom',
-      'node_staircase_6'
+      'node_staircase_4'
     ]
   },
   node_staircase_1: {
@@ -254,50 +271,51 @@ const vl1FloorPlanCoordinates = {
     ]
   },
   node_staircase_2: {
+    x: 618,
+    y: 205,
+    adjacencyList: [
+      'staircase_2',
+      'node_staircase_4',
+      'node_hallway_north'
+    ]
+  },
+  node_staircase_3: {
     x: 123,
     y: 914,
     adjacencyList: [
-      'staircase_2',
+      'staircase_3',
       'node_study_area_2',
       'study_area_2',
       'node_admin'
     ]
   },
-  node_staircase_3: {
-    x: 250,
-    y: 488,
-    adjacencyList: [
-      'staircase_3',
-      'node_center',
-      'node_122',
-      'node_study_area_1'
-    ]
-  },
   node_staircase_4: {
-    x: 282,
-    y: 160,
-    adjacencyList: [
-      'staircase_4',
-      'special_collections_1',
-      'node_special_collections_2'
-    ]
-  },
-  node_staircase_5: {
-    x: 618,
-    y: 205,
-    adjacencyList: [
-      'staircase_5',
-      'node_staircase_6',
-      'node_hallway_north'
-    ]
-  },
-  node_staircase_6: {
     x: 618,
     y: 310,
     adjacencyList: [
-      'staircase_6',
-      'node_staircase_5',
+      'staircase_4',
+      'node_staircase_2',
       'node_intersection_center'
+    ]
+  },
+  node_staircase_5: {
+    x: 250,
+    y: 488,
+    adjacencyList: [
+      'staircase_5',
+      'node_center',
+      'node_122',
+      'node_study_area_1',
+      'node_elevator'
+    ]
+  },
+  node_staircase_6: {
+    x: 282,
+    y: 160,
+    adjacencyList: [
+      'staircase_6',
+      'special_collections_1',
+      'node_special_collections_2'
     ]
   },
   node_study_area_1: {
@@ -307,7 +325,7 @@ const vl1FloorPlanCoordinates = {
       'node_center',
       'node_122',
       'node_admin',
-      'node_staircase_3'
+      'node_staircase_5'
     ]
   },
   node_study_area_2: {
@@ -316,7 +334,7 @@ const vl1FloorPlanCoordinates = {
     adjacencyList: [
       'node_center',
       'node_admin',
-      'node_staircase_2'
+      'node_staircase_3'
     ]
   },
   ref: {
@@ -330,8 +348,8 @@ const vl1FloorPlanCoordinates = {
     x: 248.39114,
     y: 260,
     adjacencyList: [
-      'node_special_collections_1',
-      'node_staircase_4'
+      'node_special_collections_1_2',
+      'node_staircase_6'
     ]
   },
   special_collections_2: {
@@ -357,36 +375,36 @@ const vl1FloorPlanCoordinates = {
     ]
   },
   staircase_2: {
-    x: 101.33273,
-    y: 929.50101,
+    x: 548.00026,
+    y: 179.16623,
     adjacencyList: [
       'node_staircase_2',
     ]
   },
   staircase_3: {
-    x: 203.9996,
-    y: 395.16666,
+    x: 101.33273,
+    y: 929.50101,
     adjacencyList: [
       'node_staircase_3',
     ]
   },
   staircase_4: {
-    x: 209.33294,
-    y: 136.49948,
+    x: 548.00026,
+    y: 291.16644,
     adjacencyList: [
       'node_staircase_4',
     ]
   },
   staircase_5: {
-    x: 548.00026,
-    y: 179.16623,
+    x: 203.9996,
+    y: 395.16666,
     adjacencyList: [
       'node_staircase_5',
     ]
   },
   staircase_6: {
-    x: 548.00026,
-    y: 291.16644,
+    x: 209.33294,
+    y: 136.49948,
     adjacencyList: [
       'node_staircase_6',
     ]

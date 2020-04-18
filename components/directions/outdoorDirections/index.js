@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
+import { connect } from 'react-redux';
 import MapSearchBar from '../../mapSearchBar';
 import DestinationSearchBar from '../destinationSearchBar';
 import BackButton from '../backButton';
@@ -11,7 +12,7 @@ import Walking from './walking';
 import Bike from './bike';
 import styles from './styles';
 
-export default class OutdoorDirections extends Component {
+class OutdoorDirections extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -75,19 +76,24 @@ export default class OutdoorDirections extends Component {
       return (
         <View style={styles.searchContainer}>
           <MapSearchBar
+            startDescription={this.props.directionsToOutdoor ? this.props.directionsToOutdoor.start.description : ''}
             updateRegion={this.updateRegion}
             urCurentLocation={this.state.value}
             hideMenu={this.state.hide}
             drawPath={this.drawPath}
             currentBuildingPred={this.props.currentBuildingPred}
+            indoorRoomsList={this.props.indoorRoomsList}
           />
           <DestinationSearchBar
+            directionsToOutdoor={this.props.directionsToOutdoor}
             drawPath={this.state.drawPath}
             getRegionFromSearch={this.props.getRegionFromSearch}
             getDestinationIfSet={this.props.getDestinationIfSet}
+            navigateFromCalender={this.props.navigateFromCalender}
             updatedRegion={this.state.region}
             coordinateCallback={this.updateCoordinates}
             getMode={this.state.mode}
+            indoorRoomsList={this.props.indoorRoomsList}
           />
           <Car updateMode={this.updateMode} />
           <Bus
@@ -105,6 +111,7 @@ export default class OutdoorDirections extends Component {
             <BackButton
               changeVisibilityTo={this.props.changeVisibilityTo}
               coordinateCallback={this.updateCoordinates}
+              withRedux
             />
             )}
             <CurrentLocation />
@@ -114,3 +121,12 @@ export default class OutdoorDirections extends Component {
       );
     }
 }
+
+
+const mapStateToProps = (state) => {
+  return {
+    directionsToOutdoor: state.directionsToOutdoor,
+  };
+};
+
+export default connect(mapStateToProps)(OutdoorDirections);

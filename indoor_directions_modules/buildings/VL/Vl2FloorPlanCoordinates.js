@@ -37,12 +37,13 @@ const vl2FloorPlanCoordinates = {
     x: 630,
     y: 390,
     adjacencyList: [
-      'node_staircase_6',
+      '203',
       'node_east',
       'node_north',
       'node_center',
       'node_study_area_5',
-      'node_staircase_5'
+      'node_staircase_5',
+      'node_intersection'
     ]
   },
   node_center: {
@@ -53,12 +54,10 @@ const vl2FloorPlanCoordinates = {
       'node_study_area_2_1',
       'node_study_area_6',
       'node_elevator',
-      'node_staircase_5',
+      'node_staircase_3',
       'node_study_area_5',
       'node_east',
       'node_north',
-      'node_203',
-      'node_staircase_6'
     ]
   },
   node_east: {
@@ -67,10 +66,7 @@ const vl2FloorPlanCoordinates = {
     adjacencyList: [
       'node_203',
       'node_center',
-      'node_study_area_2_1',
       'node_study_area_5',
-      'node_elevator',
-      'node_staircase_5'
     ]
   },
   node_elevator: {
@@ -80,13 +76,8 @@ const vl2FloorPlanCoordinates = {
       'elevator',
       'node_study_area_1',
       'node_center',
-      'node_east',
-      'node_study_area_5',
-      'node_study_area_4',
       'node_study_area_6',
       'node_study_area_3',
-      'node_study_area_2_1',
-      'node_203'
     ]
   },
   node_north: {
@@ -95,12 +86,10 @@ const vl2FloorPlanCoordinates = {
     adjacencyList: [
       'node_study_area_5',
       'node_203',
-      'node_staircase_6',
-      'node_staircase_7',
       'node_center',
       'node_east',
-      'node_study_area_2_1',
-      'node_study_area_3'
+      'node_intersection',
+      'node_intersection_north'
     ]
   },
   node_staircase_1: {
@@ -109,7 +98,6 @@ const vl2FloorPlanCoordinates = {
     adjacencyList: [
       'staircase_1',
       'node_study_area_2_2',
-      'node_study_area_3'
     ]
   },
   node_staircase_2: {
@@ -137,7 +125,8 @@ const vl2FloorPlanCoordinates = {
     adjacencyList: [
       'staircase_4',
       'female_bathroom',
-      'node_staircase_6'
+      'node_staircase_2',
+      'node_intersection'
     ]
   },
   node_staircase_5: {
@@ -151,21 +140,11 @@ const vl2FloorPlanCoordinates = {
     ]
   },
   node_staircase_6: {
-    x: 629,
-    y: 353,
-    adjacencyList: [
-      'staircase_6',
-      'node_203',
-      'node_staircase_4',
-      'node_north'
-    ]
-  },
-  node_staircase_7: {
     x: 234,
     y: 354,
     adjacencyList: [
-      'staircase_7',
-      'node_north'
+      'staircase_6',
+      'node_intersection_north'
     ]
   },
   node_study_area_1: {
@@ -184,7 +163,6 @@ const vl2FloorPlanCoordinates = {
     y: 709.453125,
     adjacencyList: [
       'study_area_2',
-      'node_study_area_2_2',
       'node_center',
       'node_east'
     ]
@@ -194,7 +172,6 @@ const vl2FloorPlanCoordinates = {
     y: 752.453125,
     adjacencyList: [
       'study_area_2',
-      'node_study_area_2_1',
       'node_study_area_3',
       'node_staircase_1'
     ]
@@ -229,6 +206,7 @@ const vl2FloorPlanCoordinates = {
     y: 432,
     adjacencyList: [
       'study_area_5',
+      'node_intersection_north',
       'node_center',
       'node_east',
       'node_north',
@@ -250,6 +228,24 @@ const vl2FloorPlanCoordinates = {
       'node_elevator',
       'node_study_area_5',
       'node_center'
+    ]
+  },
+  node_intersection: {
+    x: 629,
+    y: 353,
+    adjacencyList: [
+      'node_203',
+      'node_staircase_4',
+      'node_north'
+    ]
+  },
+  node_intersection_north: {
+    x: 366,
+    y: 354,
+    adjacencyList: [
+      'node_staircase_6',
+      'node_study_area_5',
+      'node_north'
     ]
   },
   staircase_1: {
@@ -288,17 +284,10 @@ const vl2FloorPlanCoordinates = {
     ]
   },
   staircase_6: {
-    x: 725.999986,
-    y: 330.499999,
+    x: 214,
+    y: 268,
     adjacencyList: [
       'node_staircase_6'
-    ]
-  },
-  staircase_7: {
-    x: 206.999986,
-    y: 316.499999,
-    adjacencyList: [
-      'node_staircase_7'
     ]
   },
   study_area_1: {
@@ -312,7 +301,8 @@ const vl2FloorPlanCoordinates = {
     x: 612,
     y: 730,
     adjacencyList: [
-      'node_study_area_2'
+      'node_study_area_2_1',
+      'node_study_area_2_2'
     ]
   },
   study_area_3: {
