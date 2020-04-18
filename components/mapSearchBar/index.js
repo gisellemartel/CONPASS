@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import React, { Component } from 'react';
 import {
   View,
@@ -9,11 +10,13 @@ import {
 } from 'react-native';
 import { SearchBar, Tooltip } from 'react-native-elements';
 import i18n from 'i18n-js';
+import { connect } from 'react-redux';
 import styles from './styles';
 import SetLocaleContext from '../../localization-context';
 import burger from '../../assets/icons/burger.png';
+import { setStartBuildingNode } from '../../store/actions';
 
-export default class searchBar extends Component {
+class MapSearchBar extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -27,8 +30,7 @@ export default class searchBar extends Component {
         longitudeDelta: 0.0421
       },
       isMounted: false,
-      prevCurrentBuilding: '',
-      currentBuilding: null
+      prevCurrentBuilding: ''
     };
   }
 
@@ -43,7 +45,10 @@ export default class searchBar extends Component {
     } else {
       this.setState({ hideMenu: false });
     }
-    if (this.props.urCurentLocation !== undefined) {
+
+    if (this.props.startDescription) {
+      this.setState({ destination: this.props.startDescription });
+    } else if (this.props.urCurentLocation !== undefined) {
       this.setState({ destination: this.props.urCurentLocation });
     }
   }
@@ -55,36 +60,38 @@ export default class searchBar extends Component {
   async onChangeDestination(destination) {
     this.setState({ destination });
     try {
+      let currentBuilding;
+      let prevCurrBuilding;
       if (this.props.currentBuildingPred !== this.state.prevCurrentBuilding) {
-        this.setState({
-          prevCurrentBuilding: this.props.currentBuildingPred
-        });
-        await this.updateCurrentBuilding();
+        currentBuilding = await this.updateCurrentBuilding();
+        prevCurrBuilding = this.props.currentBuildingPred;
       }
 
-      const json = await this.getPredictions(destination);
-      const { currentBuilding } = this.state;
-      const finalPredictions = currentBuilding !== null && destination !== ''
-        ? [
-          currentBuilding,
-          ...json.predictions.slice(0, json.predictions.length - 1)
-        ]
-        : json.predictions;
-      this.setState({
-        predictions: finalPredictions
-      });
+      const json = await this.getGoogleApiPredictions(destination);
+      const allPredictions = this.generateAllContextualPredictions(currentBuilding, destination.toLowerCase(), json.predictions);
+
+      if (prevCurrBuilding) {
+        this.setState({
+          prevCurrentBuilding: prevCurrBuilding,
+          predictions: allPredictions
+        });
+      } else {
+        this.setState({
+          predictions: allPredictions
+        });
+      }
     } catch (err) {
       console.error(err);
     }
   }
+
 
   /**
    * Retrieves predictions through Google's API for a given string
    * @param {String} destination - String to get predictions for
    * @returns {Promise} - Promise object represents Google's API json response
    */
-  // eslint-disable-next-line consistent-return
-  async getPredictions(destination) {
+  async getGoogleApiPredictions(destination) {
     const key = 'AIzaSyCqNODizSqMIWbKbO8Iq3VWdBcK846n_3w';
     const apiUrl = `https://maps.googleapis.com/maps/api/place/autocomplete/json?key=${key}&input=${destination}&location=45.492409, -73.582153&radius=2000`;
 
@@ -93,6 +100,7 @@ export default class searchBar extends Component {
       return await result.json();
     } catch (err) {
       console.error(err);
+      return {};
     }
   }
 
@@ -186,37 +194,98 @@ export default class searchBar extends Component {
   }
 
   /**
+   * Concatenates custom indoor predictions with predictions from Google API
+   * @param {string} - destination entered by user in search bar
+   * @param {string} - googleApiPredictions
+   */
+  generateAllContextualPredictions(currentBuilding, destination, googleApiPredictions) {
+    if (destination.length === 0) {
+      return [];
+    }
+
+    const { indoorRoomsList } = this.props;
+
+    if (indoorRoomsList) {
+      const MAX_NUM_PREDICTIONS = 6;
+      // contextual predictions based on user query
+      const predictions = indoorRoomsList.filter((room) => {
+        const roomData = room.description ? room.description.toUpperCase() : ''.toUpperCase();
+        const textData = destination.toUpperCase();
+        return roomData.indexOf(textData) > -1;
+      });
+
+      // if H- or VL- prefix entered by user only show relevant indoor predictions
+      if (destination.startsWith('h-') || destination.startsWith('vl-')) {
+        const allPredictions = currentBuilding
+          ? [currentBuilding].concat(predictions.slice(0, MAX_NUM_PREDICTIONS - 1))
+          : predictions.slice(0, MAX_NUM_PREDICTIONS);
+        return allPredictions;
+      }
+
+      if (predictions.length === 0) {
+        const allPredictions = currentBuilding ? [currentBuilding].concat(googleApiPredictions) : googleApiPredictions;
+        return allPredictions;
+      }
+
+      if (googleApiPredictions && googleApiPredictions.length > 0) {
+      // return mix of both google and relevant indoor predictions
+        const googlePredictions = googleApiPredictions.slice(0, 2);
+
+        const allPredictions = currentBuilding
+          ? [currentBuilding].concat(googlePredictions.concat(predictions.slice(0, MAX_NUM_PREDICTIONS - 1)))
+          : googlePredictions.concat(predictions.slice(0, MAX_NUM_PREDICTIONS));
+
+        return allPredictions;
+      }
+
+      return predictions.slice(0, MAX_NUM_PREDICTIONS);
+    }
+    const allPredictions = currentBuilding ? [currentBuilding].concat(googleApiPredictions) : googleApiPredictions;
+    return allPredictions;
+  }
+
+
+  /**
    * Sets currentBuilding state with a prediction of the current building the user is in
    */
   async updateCurrentBuilding() {
     try {
-      const json = await this.getPredictions(this.props.currentBuildingPred);
+      const json = await this.getGoogleApiPredictions(this.props.currentBuildingPred);
 
       if (json.predictions.length > 0) {
-        this.setState({
-          currentBuilding: json.predictions[0]
-        });
+        return json.predictions[0];
       }
+      return null;
     } catch (err) {
       console.error(err);
+      return null;
+    }
+  }
+
+  sendNodeToRedux(prediction) {
+    if (prediction.dijkstraId) {
+      this.props.setStartBuildingNode(prediction);
     }
   }
 
   render() {
     const placeholder = this.state.isMounted ? i18n.t('search') : 'search';
     // Predictions mapped and formmated from the current state predictions
-    const predictions = this.state.predictions.map((prediction) => {
+    const predictions = this.state.predictions && this.state.predictions.length > 0 ? this.state.predictions.map((prediction) => {
       return (
         <View key={prediction.id} style={styles.view}>
           <TouchableOpacity
             style={styles.Touch}
             onPress={() => {
-              this.setState({ destination: prediction.description });
+              this.setState({
+                destination: prediction.description,
+                showPredictions: false
+              });
+              this.sendNodeToRedux(prediction);
+              this.getLatLong(prediction.place_id);
               if (this.props.getDestinationIfSet) {
                 this.props.getDestinationIfSet(prediction.description);
               }
-              this.getLatLong(prediction.place_id);
-              this.setState({ showPredictions: false });
               Keyboard.dismiss();
             }}
           >
@@ -224,7 +293,7 @@ export default class searchBar extends Component {
           </TouchableOpacity>
         </View>
       );
-    });
+    }) : null;
 
     const searchIcon = this.state.hideMenu && (
       <Icon navigation={this.props.navigation} />
@@ -245,10 +314,12 @@ export default class searchBar extends Component {
      * sets state when search bar is cleared
      */
     const onClear = () => {
-      this.setState({ showPredictions: true });
-
       // Clear markers on the map
       if (this.props.nearbyMarkers) { this.props.nearbyMarkers([]); }
+
+      this.setState({
+        showPredictions: true,
+      });
     };
 
     /**
@@ -261,6 +332,10 @@ export default class searchBar extends Component {
       }
       // Clear markers on the map
       if (this.props.nearbyMarkers) { this.props.nearbyMarkers([]); }
+
+      this.setState({
+        showPredictions: true,
+      });
     };
 
     /**
@@ -321,7 +396,7 @@ export default class searchBar extends Component {
           </Tooltip>
 
         </View>
-        {this.state.showPredictions ? predictions : null}
+        {this.state.showPredictions && this.state.predictions ? predictions : null}
       </View>
     );
   }
@@ -338,3 +413,12 @@ const Icon = (props) => {
     </TouchableHighlight>
   );
 };
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setStartBuildingNode: (prediction) => { dispatch(setStartBuildingNode(prediction)); },
+  };
+};
+
+
+export default connect(null, mapDispatchToProps)(MapSearchBar);

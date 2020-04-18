@@ -1,6 +1,7 @@
 import { StyleSheet, Dimensions } from 'react-native';
 
 const fullWidth = Dimensions.get('window').width;
+const fullHeight = Dimensions.get('window').height;
 
 const styles = StyleSheet.create({
   container: {
@@ -12,7 +13,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignContent: 'center',
     backgroundColor: 'white',
-    zIndex: 300
+    zIndex: 300,
   },
   descriptor: {
     position: 'relative',
@@ -50,26 +51,70 @@ const styles = StyleSheet.create({
   buildingViewContainer: {
     alignItems: 'center',
     position: 'relative',
-    bottom: 50
+    bottom: 50,
+    width: '100%',
+    height: '100%'
+  },
+  iconsContainer: {
+    top: 35,
   },
   directionsContainer: {
+    zIndex: 500,
+    top: 25,
+    width: '100%',
+    height: '100%'
+  },
+  directionsContainerBackground: {
     backgroundColor: 'rgba(156,211,215,0.8)',
-    width: fullWidth * 0.84,
-    left: fullWidth * 0.08,
-    right: fullWidth * 0.08,
-    bottom: 50,
     borderBottomLeftRadius: 10,
     borderBottomRightRadius: 10,
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
     height: 165,
+    top: 25,
     position: 'absolute',
-    zIndex: 301
+    zIndex: -1,
+    width: '99%',
+    left: '0.5%'
   },
   searchContainer: {
     alignItems: 'center',
     width: '87%',
     left: 45,
+    position: 'relative',
+    top: 35
+  },
+  buildingInfoModalContainer: {
+    top: 500,
+    position: 'absolute'
+  },
+  modalBackground: {
+    width: fullWidth,
+    height: fullHeight,
     position: 'absolute',
-    top: 0
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0,
+    backgroundColor: 'white',
+    opacity: 0.9,
+  },
+  buildingInfoButtonContainer: {
+    bottom: 135,
+    right: 10,
+    position: 'absolute',
+    zIndex: 200
+  },
+  buildingInfoButton: {
+    resizeMode: 'contain',
+    borderWidth: 1,
+    borderColor: 'rgba(0,0,0,0.2)',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 50,
+    height: 50,
+    borderRadius: 50,
+    backgroundColor: 'white'
   }
 });
 

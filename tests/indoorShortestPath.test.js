@@ -4,6 +4,8 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import BuildingWithFloors from '../components/buildings/buildingView/buildingWithFloors';
 import dijkstraPathfinder from '../indoor_directions_modules/dijkstraPathfinder';
+import floorWaypointFinder from '../indoor_directions_modules/floorWaypointFinder';
+import distanceBetweenTwoNodes from '../indoor_directions_modules/distanceBetweenTwoNodes';
 
 beforeEach(() => {
   mockGraphFloor1 = {
@@ -131,7 +133,7 @@ beforeEach(() => {
 });
 
 it('Should return the proper distance', () => {
-  const distance = dijkstraPathfinder.nodeDistance('101', '102', mockGraphFloor1);
+  const distance = distanceBetweenTwoNodes.nodeDistance(mockGraphFloor1['101'], mockGraphFloor1['102']);
   expect(distance).toBe(1.118033988749895);
 });
 
@@ -206,17 +208,80 @@ it('Should convert the finish node to a proper SVG polyline', () => {
   expect(svgPolylinePoints).toStrictEqual(['10.3173828125,5.3173828125 10.634765625,5.47607421875 10.9521484375,5.3173828125 ']);
 });
 
+it('Should give the slope of a line', () => {
+  const startNode = { x: 1, y: 2, adjacency_list: [] };
+  const endNode = { x: 2, y: 4, adjacency_list: [] };
+  const slope = floorWaypointFinder.calculateSlope([startNode, endNode]);
+  expect(slope).toBe(2);
+});
+
+it('Should give the slope as infinity if deltaX is 0', () => {
+  const startNode = { x: 2, y: 2, adjacency_list: [] };
+  const endNode = { x: 2, y: 4, adjacency_list: [] };
+  const slope = floorWaypointFinder.calculateSlope([startNode, endNode]);
+  expect(slope).toBe(Infinity);
+});
+
+it('Should give the intercept of a line', () => {
+  const slope = 0.5;
+  const node = { x: 3, y: 2, adjacency_list: [] };
+  const intercept = floorWaypointFinder.calculateIntercept(slope, node);
+  expect(intercept).toBe(0.5);
+});
+
+it('Should give the intersection of two points', () => {
+  const expectedIntersect = { x: 2, y: 7 };
+  const slope1 = 2;
+  const slope2 = 3;
+  const intercept1 = 3;
+  const intercept2 = 1;
+  const intersect = floorWaypointFinder.intersectionOfTwoPoints(slope1, slope2, intercept1, intercept2);
+  expect(intersect).toStrictEqual(expectedIntersect);
+});
+
+it('Should give waypoint distance (case where intersect is between start and end)', () => {
+  const waypointNode = { x: 2, y: 2, adjacency_list: [] };
+  const startNode = { x: 2, y: 0, adjacency_list: [] };
+  const endNode = { x: 0, y: 2, adjacency_list: [] };
+  const distance = floorWaypointFinder.distanceToWaypointCalculator(waypointNode, startNode, endNode);
+  expect(distance).toBe(1.4142135623730951);
+});
+
+it('Should give waypoint distance (case where intersect is outside of start and end)', () => {
+  const waypointNode = { x: 0, y: 4, adjacency_list: [] };
+  const startNode = { x: 2, y: 0, adjacency_list: [] };
+  const endNode = { x: 0, y: 2, adjacency_list: [] };
+  const distance = floorWaypointFinder.distanceToWaypointCalculator(waypointNode, startNode, endNode);
+  expect(distance).toBe(2.8284271247461903);
+});
+
+it('Should give waypoint distance (case where start and end line is horizontal)', () => {
+  const waypointNode = { x: 1, y: 2, adjacency_list: [] };
+  const startNode = { x: 0, y: 0, adjacency_list: [] };
+  const endNode = { x: 2, y: 0, adjacency_list: [] };
+  const distance = floorWaypointFinder.distanceToWaypointCalculator(waypointNode, startNode, endNode);
+  expect(distance).toBe(2);
+});
+
+it('Should give waypoint distance (case where start and end line is vertical)', () => {
+  const waypointNode = { x: 0, y: 1, adjacency_list: [] };
+  const startNode = { x: 2, y: 2, adjacency_list: [] };
+  const endNode = { x: 2, y: 0, adjacency_list: [] };
+  const distance = floorWaypointFinder.distanceToWaypointCalculator(waypointNode, startNode, endNode);
+  expect(distance).toBe(2);
+});
+
 it('Should give directions for a single floor', () => {
   const building = { building: 'T', buildingName: 'Test Building' };
   const floors = [{ floor: 1, component: null }, { floor: 2, component: null }];
-  const interiorModeOff = jest.fn();
+  const turnInteriorModeOff = jest.fn();
   const buildingWithFloorsComponent = renderer.create(
     <BuildingWithFloors
       building={building}
       buildingFloorPlans={floors}
       floor={floors[0]}
       adjacencyGraphs={mockGraphs}
-      interiorModeOff={interiorModeOff}
+      turnInteriorModeOff={turnInteriorModeOff}
     />
   ).getInstance();
   buildingWithFloorsComponent.dijkstraHandler('101', '107');
@@ -228,14 +293,14 @@ it('Should give directions for a single floor', () => {
 it('Should give directions for multiple floors', () => {
   const building = { building: 'T', buildingName: 'Test Building' };
   const floors = [{ floor: 1, component: null }, { floor: 2, component: null }];
-  const interiorModeOff = jest.fn();
+  const turnInteriorModeOff = jest.fn();
   const buildingWithFloorsComponent = renderer.create(
     <BuildingWithFloors
       building={building}
       buildingFloorPlans={floors}
       floor={floors[0]}
       adjacencyGraphs={mockGraphs}
-      interiorModeOff={interiorModeOff}
+      turnInteriorModeOff={turnInteriorModeOff}
     />
   ).getInstance();
   buildingWithFloorsComponent.dijkstraHandler('101', '203');

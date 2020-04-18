@@ -24,7 +24,11 @@ export default class Shuttle extends Component {
     await this.getCurrentLocation();
     const { location } = this.state;
     let destCoordinates = [];
-    if (destination === 'SGW') { destCoordinates = [shuttleLocationInformation[0].latitude, shuttleLocationInformation[0].longitude]; } else if (destination === 'LOY') { destCoordinates = [shuttleLocationInformation[1].latitude, shuttleLocationInformation[1].longitude]; }
+    if (destination === 'SGW') {
+      destCoordinates = [shuttleLocationInformation[0].latitude, shuttleLocationInformation[0].longitude];
+    } else if (destination === 'LOY') {
+      destCoordinates = [shuttleLocationInformation[1].latitude, shuttleLocationInformation[1].longitude];
+    }
     await this.drawPath([location.coords.latitude, location.coords.longitude], destCoordinates);
   }
 
@@ -43,6 +47,7 @@ export default class Shuttle extends Component {
   // Parameter: origin point and desired destination as an array of lat,long
   async drawPath(origin, destination) {
     const key = 'AIzaSyBsMjuj6q76Vcna8G5z9PDyTH2z16fNPDk';
+    // eslint-disable-next-line max-len
     const directionUrl = `https://maps.googleapis.com/maps/api/directions/json?key=${key}&origin=${origin[0]},${origin[1]}&destination=${destination[0]},${destination[1]}`;
     try {
       const result = await fetch(directionUrl);
@@ -67,7 +72,6 @@ export default class Shuttle extends Component {
   render() {
     return (
       <View style={styles.container}>
-
         <Button
           title="Get Shuttle Bus Directions"
           onPress={() => {
@@ -82,7 +86,6 @@ export default class Shuttle extends Component {
             );
           }}
         />
-
       </View>
     );
   }

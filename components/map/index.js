@@ -53,8 +53,8 @@ export default class TheMap extends Component {
    * @param {*} building - building polygon to get information
    * Pass building information to home
    */
-  getBuildingInformation =(building) => {
-    this.props.getSuggestions(building);
+  getBuildingInformation = (building) => {
+    this.props.getBuildingInfoData(building);
   }
 
   /**
@@ -74,8 +74,8 @@ export default class TheMap extends Component {
     // Setting at timer for the animation to finish
     setTimeout(() => {
       const getRegion = region;
-      this.props.interiorModeOn(building, getRegion);
       this.getBuildingInformation(building);
+      this.props.turnInteriorModeOn(building, getRegion);
     }, 500);
   }
 
