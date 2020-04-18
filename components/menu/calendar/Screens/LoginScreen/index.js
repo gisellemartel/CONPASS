@@ -76,6 +76,7 @@ export default class LoginScreen extends Component {
             console.log('First calendar: ',jsonFile);*/
           const stringFile = JSON.stringify(jsonFile);
           AsyncStorage.setItem(`events${calendarCount}`, stringFile);
+          // eslint-disable-next-line no-param-reassign
           calendar.storageId = `events${calendarCount}`;
           calendarCount += 1;
         });
