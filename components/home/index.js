@@ -40,7 +40,8 @@ class Home extends Component {
       showCampusToggle: false,
       buildingInfoData: {},
       showBuildingInfoModal: false,
-      indoorRoomsList: []
+      indoorRoomsList: [],
+      navigateFromCalender: false
     };
     this.turnInteriorModeOn = this.turnInteriorModeOn.bind(this);
     this.turnInteriorModeOff = this.turnInteriorModeOff.bind(this);
@@ -50,27 +51,23 @@ class Home extends Component {
 
   componentDidMount() {
     this.generateIndoorPredictionsForSearchBar();
-    this.getCalDirections();
+    if (this.props.navigation.state) {
+      this.getCalDirections();
+    }
   }
 
   /**
    * Gets directions when getting directions from calender component
    */
    getCalDirections = () => {
-     if (this.props.navigation.state) {
+     if (this.props.navigation.state.params.description) {
        this.setState({ destinationToGo: this.props.navigation.state.params.description });
+       this.navigateFromCalender(true);
        this.changeVisibilityTo(true);
        this.changeVisibilityOfBack(false);
      }
    }
 
-   /**
-   * Changes visibility of back button in outdoor directions component
-   * @param {boolean} boolean - desired visibility boolean
-   */
-   changeVisibilityOfBack=(boolean) => {
-     this.setState({ showBack: boolean });
-  }
 
   /**
    * Fetches the currently searched destination in order to automatically populate
@@ -98,6 +95,7 @@ class Home extends Component {
   getRegionFromOutdoorDirections = (region) => {
     this.updateRegion(region);
   };
+
 
   /**
    * gets new coordinates from 'OutdoorDirections' component and updates coordinates state
@@ -147,6 +145,15 @@ class Home extends Component {
     this.setState({
       showBuildingInfoModal: visibility
     });
+  }
+
+
+  /**
+   * Changes visibility of back button in outdoor directions component
+   * @param {boolean} boolean - desired visibility boolean
+   */
+  changeVisibilityOfBack=(boolean) => {
+    this.setState({ showBack: boolean });
   }
 
   /**
@@ -286,6 +293,9 @@ class Home extends Component {
     });
   }
 
+  navigateFromCalender(boolean) {
+    this.setState({ navigateFromCalender: boolean });
+  }
 
   /**
    *
@@ -359,6 +369,7 @@ class Home extends Component {
             getDestinationIfSet={this.state.destinationToGo}
             getRegion={this.getRegionFromOutdoorDirections}
             getRegionFromSearch={this.state.region}
+            navigateFromCalender={this.state.navigateFromCalender}
             getCoordinates={this.getCoordinatesFromOutdoorDirections}
             changeVisibilityTo={this.changeVisibilityTo}
             navigation={this.props.navigation}
