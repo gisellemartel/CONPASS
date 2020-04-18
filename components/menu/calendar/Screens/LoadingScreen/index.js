@@ -9,7 +9,10 @@ export default class LoadingScreen extends Component {
     this.checkIfLoggedIn();
   }
 
-
+  /**
+ * This function checks if the user is logged-in or not
+ * and performs the appropriate action.
+ */
   checkIfLoggedIn = () => {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
