@@ -6,7 +6,7 @@ import LoadingScreen from './Screens/LoadingScreen';
 import DashboardScreen from './Screens/DashboardScreen';
 import FetchScreen from './Screens/FetchScreen';
 import HomeScreen from '../../home';
-import firebaseConfig from '../../../firebase.config';
+import firebaseConfig from '../../../firebaseConfig';
 
 
 export default class Calendar extends Component {
