@@ -274,8 +274,12 @@ export default class DashboardScreen extends Component {
                `${item.startTime}  -  ${item.endTime}\n${item.description}\n${item.address}`,
                [
                  { text: 'Cancel' },
-                 // eslint-disable-next-line no-unused-expressions
-                 { text: 'Get Directions', onPress: () => { address ? this.sendDirections(address.split(',')[0]) : this.sendDirections(description.split('\n')[0]); } },
+                 {
+                   text: 'Get Directions',
+                   onPress: () => {
+                     if (address) { this.sendDirections(address.split(',')[0]); } else { this.sendDirections(description.split('\n')[0]); }
+                   }
+                 },
                ],
                { cancelable: false });
            }}
