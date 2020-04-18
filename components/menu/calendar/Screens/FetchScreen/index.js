@@ -22,7 +22,6 @@ export default class FetchScreen extends Component {
   /**
  * This function returns the CheckboxGroup component
  */
-  // eslint-disable-next-line consistent-return
   getDatta() {
     if (this.props.navigation.state.params) {
       this.setState({ calendarsGeneralInfo: this.props.navigation.state.params.userCalendarsInfo },
@@ -33,7 +32,7 @@ export default class FetchScreen extends Component {
           <CheckboxGroup options={this.state.calendarsGeneralInfo} />
         </View>
       );
-    }
+    } return null;
   }
 
   /**
