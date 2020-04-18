@@ -1,22 +1,34 @@
 import React, { Component } from 'react';
 import {
-  View, Text
+  View, Text, ScrollView
 } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import ReactNativeZoomableView from '@dudigital/react-native-zoomable-view/src/ReactNativeZoomableView';
 import Svg, {
   Polyline
 } from 'react-native-svg';
 import styles from './styles';
-import dijkstraPathfinder from '../../../../indoor_directions_modules/dijkstraPathfinder';
 
 
 class BuildingWithFloors extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      floor: this.props.floor,
-      directionPath: {}
+      floorPlan: this.props.floorPlan,
+      showScroller: true,
     };
+  }
+
+  zoomOutState = (event, gestureState, zoomableViewEventObject) => {
+    if (zoomableViewEventObject.zoomLevel > 1) {
+      this.setState({
+        showScroller: false
+      });
+    } else {
+      this.setState({
+        showScroller: true
+      });
+    }
   }
 
   /**
@@ -29,96 +41,79 @@ class BuildingWithFloors extends Component {
       return i.floor === lvl;
     });
 
+    const floorPlan = this.props.buildingFloorPlans[index];
+
     this.setState({
-      floor: this.props.buildingFloorPlans[index]
-    });
+      floorPlan
+    }, () => { this.props.changeCurrentFloorPlanTo(floorPlan); });
   }
 
-  /**
-   * Handles the processing of input before the Dijkstra algorithm is invoked. Currently checks if
-   * the directions handle a single floor or multiple floors, then gives the directions based
-   * on either scenario.
-   * @param {Array} startNodeId - ID of the node the directions start off at.
-   * @param {Object} finishNodeId - ID of the node the directions start off at.
-   */
-  dijkstraHandler(startNodeId, finishNodeId) {
-    // Need to account for room numbers that have decimals.
-    const startFloor = parseInt(startNodeId.split('.')[0].slice(0, startNodeId.split('.')[0].length - 2), 10);
-    const finishFloor = parseInt(finishNodeId.split('.')[0].slice(0, finishNodeId.split('.')[0].length - 2), 10);
-    const updatedDirectionPath = {};
-    if (startFloor !== finishFloor) {
-      const paths = dijkstraPathfinder.dijkstraPathfinder(
-        [{ start: startNodeId, finish: 'escalator' }, { start: 'escalator', finish: finishNodeId }],
-        [this.props.adjacencyGraphs[startFloor], this.props.adjacencyGraphs[finishFloor]]
-      );
-      [updatedDirectionPath[startFloor], updatedDirectionPath[finishFloor]] = [paths[0], paths[1]];
-    } else {
-      const paths = dijkstraPathfinder.dijkstraPathfinder(
-        [{ start: startNodeId, finish: finishNodeId }],
-        [this.props.adjacencyGraphs[startFloor]]
-      );
-      [updatedDirectionPath[startFloor]] = [paths[0]];
-    }
-    this.setState({
-      directionPath: updatedDirectionPath
-    });
-  }
 
   render() {
-    const { floor } = this.state;
+    const { floorPlan } = this.state;
+    const { indoorDirectionsPolyLine } = this.props;
+
     return (
       <View style={styles.container}>
-        {/* <TouchableOpacity
-          onPress={
-                () => {
-                  this.dijkstraHandler('817', '967');
-                }
-              }
-        >
-          <Text>
-            Get Directions
-          </Text>
-        </TouchableOpacity> */}
-
         {/* Renders floor switcher button for each available in current building */}
-        <View style={styles.switcher}>
+        {this.state.showScroller && (
+        <ScrollView
+          zoomScale="0"
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={styles.switcher}
+          scrollEnabled
+        >
           {this.props.buildingFloorPlans.map((lvl) => {
             return (
-              <TouchableOpacity
-                key={lvl.floor}
-                onPress={
+              <View style={styles.textContainer} key={lvl.floor}>
+                <TouchableOpacity
+                  key={lvl.floor}
+                  onPress={
                       () => {
                         return this.changeFloor(lvl.floor);
                       }
                     }
-              >
-                <Text
-                  key={lvl.floor}
-                  style={styles.lvl}
                 >
-                  {lvl.floor}
-                </Text>
-              </TouchableOpacity>
+                  <Text
+                    key={lvl.floor}
+                    style={styles.lvl}
+                  >
+                    {lvl.floor}
+                  </Text>
+                </TouchableOpacity>
+              </View>
             );
           })}
-        </View>
+        </ScrollView>
+        )}
 
         {/* Renders map for current floor in building */}
         <View style={styles.buildingContainer}>
-          {floor.component}
+          <ReactNativeZoomableView
+            maxZoom={1.2}
+            minZoom={1}
+            zoomStep={0.05}
+            initialZoom={1}
+            onZoomAfter={this.zoomOutState}
+          >
+            {floorPlan.component}
+          </ReactNativeZoomableView>
         </View>
 
         {/* Renders the needed svg path */}
+        {indoorDirectionsPolyLine && this.props.showPolyline && (
         <View style={styles.buildingContainer}>
           <Svg width="100%" height="100%">
             <Polyline
-              points={this.state.directionPath[this.state.floor.floor]}
+              points={indoorDirectionsPolyLine[floorPlan.floor]}
               fill="none"
               stroke="black"
-              strokeWidth="3"
+              strokeWidth="2"
             />
           </Svg>
         </View>
+        )}
 
 
       </View>
