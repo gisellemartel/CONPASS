@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import { View, Image, Text } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import getCurrentLocation from './LocationServices';
-import buildings from '../../assets/polygons/polygons';
+import buildings from '../../assets/polygons/buildings';
 import styles from './styles';
 import locateMe from '../../assets/icons/locate-me.png';
 
