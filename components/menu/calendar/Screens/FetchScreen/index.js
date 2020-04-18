@@ -12,12 +12,10 @@ export default class FetchScreen extends Component {
   }
 
   componentDidMount() {
-    console.log(this.state.calendarsGeneralInfo.length);
     this.getDatta();
     if (this.state.calendarsGeneralInfo.length === 0) {
       this.forceUpdate();
     }
-    console.log('--!!!_--~~~~-  The moment of truth ');
     this.asyncStorageChecker();
   }
 
