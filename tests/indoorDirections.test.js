@@ -1,6 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import IndoorDirections from '../components/directions/indoorDirections';
+import {IndoorDirections} from '../components/directions/indoorDirections';
 
 it('Should cut the string of the building name if it is too long', () => {
   const turnInteriorModeOff = jest.fn();

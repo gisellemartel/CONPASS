@@ -16,7 +16,7 @@ import SetLocaleContext from '../../localization-context';
 import burger from '../../assets/icons/burger.png';
 import { setStartBuildingNode } from '../../store/actions';
 
-class MapSearchBar extends Component {
+export class MapSearchBar extends Component {
   constructor(props) {
     super(props);
     this.state = {

@@ -12,7 +12,7 @@ import Walking from './walking';
 import Bike from './bike';
 import styles from './styles';
 
-class OutdoorDirections extends Component {
+export class OutdoorDirections extends Component {
   constructor(props) {
     super(props);
     this.state = {

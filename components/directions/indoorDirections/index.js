@@ -22,7 +22,7 @@ import { sendDirectionsToOutdoor } from '../../../store/actions';
 import IndoorDestinationSearchBar from '../indoorDestinationSearchBar/index';
 
 
-class IndoorDirections extends Component {
+export class IndoorDirections extends Component {
   constructor(props) {
     super(props);
     this.state = {

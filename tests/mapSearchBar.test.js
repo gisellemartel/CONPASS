@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 import React from 'react';
 import renderer from 'react-test-renderer';
-import MapSearchBar from '../components/mapSearchBar';
+import { MapSearchBar } from '../components/mapSearchBar';
 
 let mockPrediction;
 let mockResult;
