@@ -72,13 +72,9 @@ class IndoorDirections extends Component {
       }
     }
 
-    if (startBuildingNode !== prevProps.startBuildingNode) { // start input from within building changed
+    if (startBuildingNode !== prevProps.startBuildingNode || endBuildingNode !== prevProps.endBuildingNode) { // start input from within building changed
       if (startBuildingNode && endBuildingNode) { // both ready
         this.coordinatesFromInside(startBuildingNode, endBuildingNode); // initiate
-      }
-    } else if (endBuildingNode !== prevProps.endBuildingNode) { // start input from within building changed
-      if (startBuildingNode && endBuildingNode) { // both ready
-        this.coordinatesFromInside(startBuildingNode, endBuildingNode);
       }
     }
   }
