@@ -12,7 +12,7 @@ export default class FetchScreen extends Component {
   }
 
   componentDidMount() {
-    this.getDatta();
+    this.getUserCalendarsGeneralData();
     if (this.state.calendarsGeneralInfo.length === 0) {
       this.forceUpdate();
     }
@@ -22,7 +22,7 @@ export default class FetchScreen extends Component {
   /**
  * This function returns the CheckboxGroup component
  */
-  getDatta() {
+  getUserCalendarsGeneralData() {
     if (this.props.navigation.state.params) {
       this.setState({ calendarsGeneralInfo: this.props.navigation.state.params.userCalendarsInfo },
         () => { this.forceUpdate(); });
