@@ -4,6 +4,7 @@ import LoginScreen from './Screens/LoginScreen';
 import LoadingScreen from './Screens/LoadingScreen';
 import DashboardScreen from './Screens/DashboardScreen';
 import FetchScreen from './Screens/FetchScreen';
+import HomeScreen from '../../home';
 
 
 export default class Calendar extends Component {
@@ -17,7 +18,8 @@ const AppSwitchNavigator = createSwitchNavigator({
   LoadingScreen,
   LoginScreen,
   DashboardScreen,
-  FetchScreen
+  FetchScreen,
+  HomeScreen
 });
 
 const AppNavigator = createAppContainer(AppSwitchNavigator);

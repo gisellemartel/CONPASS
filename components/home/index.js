@@ -44,11 +44,24 @@ class Home extends Component {
     this.turnInteriorModeOn = this.turnInteriorModeOn.bind(this);
     this.turnInteriorModeOff = this.turnInteriorModeOff.bind(this);
     this.setBuildingInfoModalVisibilityTo = this.setBuildingInfoModalVisibilityTo.bind(this);
+    this.getCalDirections = this.getCalDirections.bind(this);
   }
 
   componentDidMount() {
     this.generateIndoorPredictionsForSearchBar();
+    this.getCalDirections();
   }
+
+  /**
+   * Gets directions when getting directions from calender component
+   */
+   getCalDirections = () => {
+     if (this.props.navigation.state) {
+       this.setState({ destinationToGo: this.props.navigation.state.params.description });
+       this.changeVisibilityTo(true);
+       this.changeVisibilityOfBack(false);
+     }
+   }
 
   /**
    * Fetches the currently searched destination in order to automatically populate
@@ -333,6 +346,7 @@ class Home extends Component {
         />
         {this.state.showDirectionsMenu && (
           <OutdoorDirections
+            showBack={this.state.showBack}
             getDestinationIfSet={this.state.destinationToGo}
             getRegion={this.getRegionFromOutdoorDirections}
             getRegionFromSearch={this.state.region}

@@ -3,7 +3,8 @@ import renderer from 'react-test-renderer';
 import DashboardScreen from '../components/menu/calendar/Screens/DashboardScreen';
 
 const navigation = {
-  state: { params: { events: { items: [{ start: '1234', summary: '1234', end: '1234' }] } } }
+  state: { params: { events: { items: [{ start: '1234', summary: '1234', end: '1234' }] } } },
+
 };
 
 
@@ -93,4 +94,71 @@ it('Should not load items', async () => {
     .create(<DashboardScreen navigation={navigation} />).getInstance();
   const eventFormatted = dashboardScreenComponent.loadItems(1);
   expect(eventFormatted).toEqual((undefined));
+});
+
+it('Should fill array', async () => {
+  const events = {
+    items: [{
+      start: {
+        dateTime: '2021-03-26T21:30:00-04:00',
+      },
+      summary: 'conpass',
+    },
+    {
+      start: {
+        dateTime: '2021-03-26T21:30:00-04:00',
+      },
+      summary: 'conpass',
+    }]
+  };
+  const expected = [
+    {
+      startDate: '2021-03-26T21:30:00-04:00',
+      summary: 'conpass',
+    },
+    {
+      startDate: '2021-03-26T21:30:00-04:00',
+      summary: 'conpass',
+    },
+  ];
+  const dashboardScreenComponent = renderer.create(<DashboardScreen navigation={navigation} />)
+    .getInstance();
+  const notify = dashboardScreenComponent
+    .notify(events);
+  expect(notify).toEqual(expect.arrayContaining((expected)));
+});
+
+it('Should change state', () => {
+  const dashboardScreenComponent = renderer.create(<DashboardScreen navigation={navigation} />)
+    .getInstance();
+  dashboardScreenComponent._isMounted = true;
+  dashboardScreenComponent.sendInput(2);
+  const bool = dashboardScreenComponent.state.timeToNotify === 2;
+  expect(bool).toBe(true);
+});
+
+it('Should change isDialogVisible state', () => {
+  const dashboardScreenComponent = renderer.create(<DashboardScreen navigation={navigation} />)
+    .getInstance();
+  dashboardScreenComponent._isMounted = true;
+  dashboardScreenComponent.showDialog(true);
+  const bool = dashboardScreenComponent.state.isDialogVisible;
+  expect(bool).toBe(true);
+});
+
+it('Should return a string', () => {
+  const dashboardScreenComponent = renderer
+    .create(<DashboardScreen navigation={navigation} />)
+    .getInstance();
+  const result = dashboardScreenComponent.sendPushNotification();
+  expect(result).toStrictEqual('Notifications sent');
+});
+
+it('Should send address', () => {
+  navigation.navigate = jest.fn();
+  const dashboardScreenComponent = renderer
+    .create(<DashboardScreen navigation={navigation} />)
+    .getInstance();
+  const result = dashboardScreenComponent.sendDirections('address');
+  expect(result).toStrictEqual('address sent');
 });
