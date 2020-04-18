@@ -19,6 +19,10 @@ export default class CheckboxGroup extends Component {
     };
   }
 
+/**
+ * This function updates the calendarsToSync array state.
+ * @param {String} storageId - Unique Id's of calendars.
+ */
 setCalendarsToSyncList = (storageId) => {
   const elementIndex = (this.state.calendarsToSync).indexOf(storageId);
 
@@ -29,6 +33,9 @@ setCalendarsToSyncList = (storageId) => {
   // if the element doesn't exits, then it will be added from calendarToSync array
 }
 
+/**
+ * Thie function returns an array of summaries of calendars to be synced.
+ */
 getCalendarsToBeSynced= () => {
   const calendarsSummaryToBeSynced = [];
   const calendarsTemp = this.props.options.filter((item) => {
@@ -40,6 +47,9 @@ getCalendarsToBeSynced= () => {
   return calendarsSummaryToBeSynced;
 }
 
+/**
+ * Thie function handles syncronization button
+ */
 handleSyncronizeButton=async () => {
   Alert.alert('The following calendars will be synchronized',
     `${this.getCalendarsToBeSynced()}`,
@@ -54,17 +64,28 @@ handleSyncronizeButton=async () => {
     { cancelable: false });
 }
 
+/**
+ * This function handles the navigation to DashboardScreen
+ */
 navigateToDashboardScreen = async () => {
   const events = await this.getFinalEventsArray();
   this.saveFinalEventsArray(events);
   this.props.navigationHandlerCallback(events);
 }
 
+/**
+ * This function saves the final calendar to be synced
+ * @param {Array} finalCalendar - Final calendar object.
+ */
 saveFinalEventsArray= async (finalCalendar) => {
   const stringFile = JSON.stringify(finalCalendar);
   AsyncStorage.setItem('events', stringFile);
 }
 
+/**
+ * This function creates and returns the final calendar object.
+ * This calendar object contains all the events in items array.
+ */
 getFinalEventsArray= async () => {
   if (this.state.calendarsToSync.length !== 0) {
     let startIndex = 0;
