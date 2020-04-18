@@ -208,10 +208,9 @@ export default class DashboardScreen extends Component {
      sendDirections = (description) => {
        if (!description) {
          alert('There is no address or description for this event.');
-         return;
+         return '';
        }
        this.props.navigation.navigate('HomeScreen', { description });
-       // eslint-disable-next-line consistent-return
        return 'address sent';
      }
 
