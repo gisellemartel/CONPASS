@@ -10,7 +10,7 @@ import buildingLogo from '../../../assets/icons/building.png';
 import quit from '../../../assets/icons/quit.png';
 import IndoorMapSearchBar from '../indoorMapSearchBar';
 import BuildingView from '../../buildings/buildingView/index';
-import generateFloorPlan from '../../buildings/floorPlans/floorPlanRepository';
+import generateFloorPlan from '../../buildings/floorPlans/generateFloorPlan';
 import generateGraph from '../../../indoor_directions_modules/graphRepository';
 import BackButton from '../backButton';
 import BuildingInfoModal from '../../buildingInfoModal';
@@ -19,8 +19,7 @@ import info from '../../../assets/icons/info.png';
 import dijkstraPathfinder from '../../../indoor_directions_modules/dijkstraPathfinder';
 import floorWaypointFinder from '../../../indoor_directions_modules/floorWaypointFinder';
 import styles from './styles';
-import { accessibilityOn, accessibilityOff, sendDirectionsToOutdoor } from '../../../store/actions';
-import { ACCESSIBILITY_ON, ACCESSIBILITY_OFF } from '../../../store/actionTypes';
+import { sendDirectionsToOutdoor } from '../../../store/actions';
 import IndoorDestinationSearchBar from '../indoorDestinationSearchBar/index';
 
 
@@ -72,7 +71,7 @@ class IndoorDirections extends Component {
         this.setState({ accessibility });
       }
     }
-    
+
     if (startBuildingNode !== prevProps.startBuildingNode) { // start input from within building changed
       if (startBuildingNode && endBuildingNode) { // both ready
         this.coordinatesFromInside(startBuildingNode, endBuildingNode); // initiate
