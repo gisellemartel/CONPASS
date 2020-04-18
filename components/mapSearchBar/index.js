@@ -12,7 +12,7 @@ import { SearchBar, Tooltip } from 'react-native-elements';
 import i18n from 'i18n-js';
 import { connect } from 'react-redux';
 import styles from './styles';
-import SetLocaleContext from '../../localization-context';
+import SetLocaleContext from '../../SetLocaleContext';
 import burger from '../../assets/icons/burger.png';
 import { setStartBuildingNode } from '../../store/actions';
 

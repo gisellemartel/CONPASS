@@ -8,7 +8,7 @@ import floorWaypointFinder from '../indoor_directions_modules/floorWaypointFinde
 import distanceBetweenTwoNodes from '../indoor_directions_modules/distanceBetweenTwoNodes';
 
 beforeEach(() => {
-  mockGraphFloor1 = {
+  const mockGraphFloor1 = {
     101: {
       x: 1,
       y: 1,
@@ -84,7 +84,7 @@ beforeEach(() => {
       ]
     }
   };
-  mockGraphFloor2 = {
+  const mockGraphFloor2 = {
     201: {
       x: 2,
       y: 1,

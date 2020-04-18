@@ -11,7 +11,7 @@ import quit from '../../../assets/icons/quit.png';
 import IndoorMapSearchBar from '../indoorMapSearchBar';
 import BuildingView from '../../buildings/buildingView/index';
 import generateFloorPlan from '../../buildings/floorPlans/generateFloorPlan';
-import generateGraph from '../../../indoor_directions_modules/graphRepository';
+import generateGraph from '../../../indoor_directions_modules/generateGraph';
 import BackButton from '../backButton';
 import BuildingInfoModal from '../../buildingInfoModal';
 import PathPolyline from '../../pathPolyline';

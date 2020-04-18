@@ -11,7 +11,7 @@ import { SearchBar } from 'react-native-elements';
 import i18n from 'i18n-js';
 import { connect } from 'react-redux';
 import styles from './styles';
-import SetLocaleContext from '../../../localization-context';
+import SetLocaleContext from '../../../SetLocaleContext';
 import fetchBuildingRooms from '../../../indoor_directions_modules/fetchBuildingRooms';
 import { setStartBuildingNode } from '../../../store/actions';
 
