@@ -6,16 +6,14 @@ const fullHeight = Dimensions.get('window').height;
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
-    padding: 20,
   },
   buildingContainer: {
     justifyContent: 'center',
     alignItems: 'center',
     position: 'absolute',
     top: 150,
-    bottom: fullHeight * 0.20,
-    width: fullWidth * 0.85,
-    height: fullWidth * 0.85,
+    width: 360,
+    height: 360,
     zIndex: 300
   },
   switcher: {

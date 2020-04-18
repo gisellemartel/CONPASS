@@ -51,7 +51,9 @@ const styles = StyleSheet.create({
   buildingViewContainer: {
     alignItems: 'center',
     position: 'relative',
-    bottom: 50
+    bottom: 50,
+    width: '100%',
+    height: '100%'
   },
   directionsContainer: {
     backgroundColor: 'rgba(156,211,215,0.8)',

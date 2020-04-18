@@ -474,8 +474,7 @@ const hall5FloorPlanCoordinates = {
     adjacencyList: [
       '503',
       'node_501',
-      'node_corner_505',
-      'staircase_1'
+      'node_corner_505'
     ]
   },
   node_505: {
@@ -901,7 +900,7 @@ const hall5FloorPlanCoordinates = {
     adjacencyList: [
       'node_escalator_up',
       'node_escalator_corner_north',
-      // 'node_538.01'
+      'node_538_01'
     ]
   },
   node_escalator_down: {
@@ -981,8 +980,7 @@ const hall5FloorPlanCoordinates = {
     x: 214.99139,
     y: 277.79102,
     adjacencyList: [
-      'node_staircase_1',
-      'node_503',
+      'node_staircase_1'
     ]
   },
   staircase_2: {

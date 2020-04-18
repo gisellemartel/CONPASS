@@ -24,10 +24,10 @@ import {
  */
 function generateFloorPlan(buildingName) {
   const defaultAttributes = {
-    height: '100%',
     preserveAspectRatio: 'xMinYMin slice',
-    width: '100%',
-    viewBox: '0 0 1000 1000'
+    viewBox: '0 0 1024 1024',
+    width: 360,
+    height: 360,
   };
 
   switch (buildingName) {

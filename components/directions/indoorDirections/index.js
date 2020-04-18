@@ -83,7 +83,7 @@ class IndoorDirections extends Component {
 
   findFloor(currentBuilding, floorNumber) {
     const floor = generateFloorPlan(currentBuilding.building).find((fl) => {
-      return fl.floor == floorNumber;
+      return fl.floor.toString() === floorNumber.toString();
     });
     return floor;
   }
@@ -104,7 +104,7 @@ class IndoorDirections extends Component {
       }, () => {
         this.dijkstraHandler(endBuildingNode.dijkstraId, endBuildingNode.floor);
       });
-    } else {  // from class to external point
+    } else { // from class to external point
       this.props.sendDirectionsToOutdoor(directions);
       this.setState({
         origin: startBuildingNode.dijkstraId,
@@ -212,12 +212,17 @@ class IndoorDirections extends Component {
     const [waypoints, graphs, floors] = this.indoorDirectionHandler(
       indoorDestination, indoorDestinationFloor
     );
+
     if (waypoints.length > 0) {
       const paths = dijkstraPathfinder.dijkstraPathfinder(waypoints, graphs);
+      // const paths = ['0, 0, 360, 360'];
       // eslint-disable-next-line no-plusplus
+      console.log('Starting to trace path:');
       for (let i = 0; i < paths.length; i++) {
         updatedDirectionPath[floors[i]] = paths[i];
+        console.log(`path ${i}: ${updatedDirectionPath[floors[i]]}`);
       }
+      console.log('\n');
     }
     this.setState({
       indoorDirectionsPolyLine: updatedDirectionPath,
@@ -239,7 +244,13 @@ class IndoorDirections extends Component {
 
     if (adjacencyGraphs[startFloor][startNodeId] !== undefined
       && adjacencyGraphs[finishFloor][finishNodeId] !== undefined) {
-      if (startFloor === finishFloor) {
+      console.log('\nstarting graph: ');
+      console.log(adjacencyGraphs[startFloor][startNodeId]);
+      console.log('\nending graph:');
+      console.log(adjacencyGraphs[finishFloor][finishNodeId]);
+      console.log('\n');
+
+      if (startFloor.toString() === finishFloor.toString()) {
         return [
           [
             {
@@ -279,36 +290,6 @@ class IndoorDirections extends Component {
       ];
     }
     return [[], [], []];
-  }
-
-  /**
-   *
-   * @param {*} input - input string to be parsed into format for djikstra
-   */
-  inputParser(input) {
-    const globalRoomNumberRegex = /^\w-\d{3,}(\.\d{2})?$/i; // ex: H-837 (also H-837.05).
-    const localRoomNumberRegex = /^\d{3,}(\.\d{2})?$/i; // above except w/o building code.
-    const amenityRegex = /^\w+( \w+)*$/i; // Words and spaces.
-
-    let id = '';
-    let { floor } = this.state.currentFloorPlan.floor; // Assume current floor until input says otherwise.
-
-    if (globalRoomNumberRegex.test(input) || localRoomNumberRegex.test(input)) {
-      // Temporary: take current building until multi-building directions are complete.
-      if (globalRoomNumberRegex.test(input)) {
-        id = input.replace(/^\w-/, ''); // Snip the building code.
-      } else {
-        id = input;
-      }
-      floor = input.replace(/\d{0,2}(\.\d{2})?$/i, ''); // Snip all except the floor number.
-    } else if (amenityRegex.test(input)) {
-      id = input.replace(/ /g, '_').toLowerCase(); // Graph id's are denoted in lowercase and snake case.
-      if (/^node_/i.test(id)) {
-        // Do not allow directions to intermediate nodes.
-        id = ' ';
-      }
-    }
-    return [id, floor];
   }
 
   render() {

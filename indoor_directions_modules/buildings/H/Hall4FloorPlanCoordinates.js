@@ -475,7 +475,6 @@ const hall4FloorPlanCoordinates = {
       '403',
       'node_401',
       'node_corner_405',
-      'staircase_1'
     ]
   },
   node_405: {
@@ -901,7 +900,7 @@ const hall4FloorPlanCoordinates = {
     adjacencyList: [
       'node_escalator_up',
       'node_escalator_corner_north',
-      // 'node_438.01'
+      'node_438_01'
     ]
   },
   node_escalator_down: {
@@ -982,7 +981,6 @@ const hall4FloorPlanCoordinates = {
     y: 277.79102,
     adjacencyList: [
       'node_staircase_1',
-      'node_403',
     ]
   },
   staircase_2: {

@@ -16,14 +16,14 @@ class BuildingView extends Component {
     const { floorPlan } = this.state;
     return (
       <View style={styles.container}>
-        {/* <ReactNativeZoomableView
+        <ReactNativeZoomableView
           maxZoom={1.25}
           minZoom={1}
           zoomStep={0.05}
           initialZoom={1}
-        > */}
-        <View style={styles.indoorView}>
-          {floorPlan && (
+        >
+          <View style={styles.indoorView}>
+            {floorPlan && (
             <BuildingWithFloors
               floorPlan={floorPlan}
               buildingFloorPlans={this.props.buildingFloorPlans}
@@ -32,9 +32,9 @@ class BuildingView extends Component {
               showPolyline={this.props.showPolyline}
               {...this.props}
             />
-          ) }
-        </View>
-        {/* </ReactNativeZoomableView> */}
+            ) }
+          </View>
+        </ReactNativeZoomableView>
       </View>
     );
   }

@@ -120,8 +120,8 @@ const dijkstraPathfinder = {
     let shortestPath = '';
     let currentNode = finishNode;
     do {
-      shortestPath = `${adjacencyGraphs[0][currentNode.id].x * (325 / 1024) + 10},`
-      + `${adjacencyGraphs[0][currentNode.id].y * (325 / 1024) + 5} ${shortestPath}`;
+      shortestPath = `${adjacencyGraphs[0][currentNode.id].x * (360 / 1024)},`
+      + `${adjacencyGraphs[0][currentNode.id].y * (360 / 1024)} ${shortestPath}`;
       currentNode = currentNode.predecessor;
     } while (currentNode !== undefined);
     if (waypoints.length > 1) {
