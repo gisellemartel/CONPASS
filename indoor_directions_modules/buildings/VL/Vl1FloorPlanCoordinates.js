@@ -26,6 +26,13 @@ const vl1FloorPlanCoordinates = {
       'node_circ'
     ]
   },
+  elevator: {
+    x: 230,
+    y: 550,
+    adjacencyList: [
+      'node_elevator'
+    ]
+  },
   female_bathroom: {
     x: 730.33395,
     y: 285.66639,
@@ -79,7 +86,8 @@ const vl1FloorPlanCoordinates = {
       'node_study_area_2',
       'node_admin',
       'node_staircase_5',
-      'node_122'
+      'node_122',
+      'node_elevator'
     ]
   },
   node_circ: {
@@ -91,6 +99,15 @@ const vl1FloorPlanCoordinates = {
       'node_ref',
       'node_intersection_south',
       'node_library_door'
+    ]
+  },
+  node_elevator: {
+    x: 255,
+    y: 565,
+    adjacencyList: [
+      'elevator',
+      'node_staircase_5',
+      'node_center'
     ]
   },
   node_female_bathroom: {
@@ -288,7 +305,8 @@ const vl1FloorPlanCoordinates = {
       'staircase_5',
       'node_center',
       'node_122',
-      'node_study_area_1'
+      'node_study_area_1',
+      'node_elevator'
     ]
   },
   node_staircase_6: {
