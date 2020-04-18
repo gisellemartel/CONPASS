@@ -7,6 +7,7 @@ import i18n from 'i18n-js';
 import styles from './styles';
 import conpass from '../../assets/icons/conpass.png';
 import { accessibilityOn, accessibilityOff } from '../../store/actions';
+import { ACCESSIBILITY_ON, ACCESSIBILITY_OFF } from '../../store/actionTypes';
 
 class Menu extends Component {
   constructor(props) {
@@ -47,7 +48,7 @@ class Menu extends Component {
             }}
           >
             <Text style={styles.option}>
-              {this.state.accessibility === 'ACCESSIBILITY_ON' ? i18n.t('accessibility_off') : i18n.t('accessibility_on')}
+              {this.state.accessibility === ACCESSIBILITY_ON ? i18n.t('accessibility_off') : i18n.t('accessibility_on')}
             </Text>
           </TouchableOpacity>
         </View>
@@ -60,11 +61,10 @@ class Menu extends Component {
 
   componentDidUpdate(prevProps) {
     if (prevProps.accessibility === this.props.accessibility) {
-      console.log('global accessibility changed');
-      if (this.props.accessibility === 'ACCESSIBILITY_ON') {
+      if (this.props.accessibility === ACCESSIBILITY_ON) {
         // set component state
         this.setState({ accessibility: 'ON' });
-      } else if (this.props.accessibility === 'ACCESSIBILITY_OFF') {
+      } else if (this.props.accessibility === ACCESSIBILITY_OFF) {
         // set component state
         this.setState({ accessibility: 'OFF' });
       }

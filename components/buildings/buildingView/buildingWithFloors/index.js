@@ -6,9 +6,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import Svg, {
   Polyline
 } from 'react-native-svg';
-import { connect } from 'react-redux';
 import styles from './styles';
-
 
 class BuildingWithFloors extends Component {
   constructor(props) {
