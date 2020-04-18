@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 import React, { Component } from 'react';
 import {
   View, Image, TouchableOpacity, AsyncStorage
@@ -23,19 +24,22 @@ export default class LoginScreen extends Component {
          firebase
            .auth()
            .signInWithCredential(credential).then(() => {
-           })
-           .catch((error) => {
-             alert(error);
-           // ...
            });
        }
      });
    }
 
+   /**
+    * This function returns a boolean to check
+    * if already signed-in Firebase with the correct user.
+    * @param {String} googleUser - Google user identifier.
+    * @param {String} firebaseUser - Firebase user identifier.
+    */
   isUserEqual = (googleUser, firebaseUser) => {
     if (firebaseUser) {
       const providerData = providerData;
-      for (const i = 0; i < providerData.length; i++) {
+      // eslint-disable-next-line no-plusplus
+      for (let i = 0; i < providerData.length; i++) {
         if (providerData[i].providerId === firebase.auth.GoogleAuthProvider.PROVIDER_ID
           && providerData[i].uid === googleUser.getBasicProfile().getId()) {
         // We don't need to reauth the Firebase connection.
@@ -46,6 +50,10 @@ export default class LoginScreen extends Component {
     return false;
   }
 
+  /**
+ * This function authorizes the application to access user's calendars.
+ * Also, it retrieves all users' calendars and saves it locally.
+ */
   signInWithGoogleAsync = async () => {
     try {
       const result = await Google.logInAsync({
@@ -59,13 +67,26 @@ export default class LoginScreen extends Component {
         this.onSignIn(result);
         const { accessToken } = result;
         AsyncStorage.setItem('accessToken', accessToken);
-        const userInfoResponse = await fetch('https://www.googleapis.com/calendar/v3/calendars/primary/events?key=AIzaSyBAHObp5Ic3CbJpkX2500tNhf53e_3wBMA&timeMin=2020-01-01T01:00:00.000Z', {
-          headers: { Authorization: `Bearer ${accessToken}` },
+
+        // getting an array of available calendars for the users.
+        // This includes calendar id and summer (i.e. name).
+        const userCalendarsInfo = await this.getUserCalendars(accessToken);
+
+        let calendarCount = 1;
+        userCalendarsInfo.map(async (calendar) => {
+          const userInfoResponse = await fetch(`https://www.googleapis.com/calendar/v3/calendars/${calendar.id}/events?key=AIzaSyBAHObp5Ic3CbJpkX2500tNhf53e_3wBMA&timeMin=2020-01-01T01:00:00.000Z`, {
+            headers: { Authorization: `Bearer ${accessToken}` },
+          });
+          const jsonFile = await userInfoResponse.json();
+          const stringFile = JSON.stringify(jsonFile);
+          AsyncStorage.setItem(`events${calendarCount}`, stringFile);
+          // eslint-disable-next-line no-param-reassign
+          calendar.storageId = `events${calendarCount}`;
+          calendarCount += 1;
         });
-        const jsonFile = await userInfoResponse.json();
-        const stringFile = JSON.stringify(jsonFile);
-        AsyncStorage.setItem('events', stringFile);
-        this.props.navigation.navigate('FetchScreen');
+        await this.removeOldStoredEvents();
+
+        this.props.navigation.navigate('FetchScreen', { userCalendarsInfo });
         return result.accessToken;
       }
       return { cancelled: true };
@@ -73,6 +94,39 @@ export default class LoginScreen extends Component {
       return { error: true };
     }
   };
+
+  /**
+   * This function removes old stored events from the local storage.
+   */
+  removeOldStoredEvents=async () => {
+    const finalStored = await AsyncStorage.getItem('events');
+    if (finalStored != null) {
+      AsyncStorage.removeItem('events');
+      return true;
+    }
+    return false;
+  }
+
+  /**
+ * The function fetches and returns general users' calendars
+ * @param {String} accessToken - User Access Token.
+ */
+  getUserCalendars = async (accessToken) => {
+    const userCalendars = await fetch('https://www.googleapis.com/calendar/v3/users/me/calendarList?key=AIzaSyBAHObp5Ic3CbJpkX2500tNhf53e_3wBMA&timeMin=2020-01-01T01:00:00.000Z', {
+      headers: { Authorization: `Bearer ${accessToken}` },
+    });
+    const jsonFile = await userCalendars.json();
+    const userCalendarsGeneralInfo = [];
+    jsonFile.items.forEach((calendar) => {
+      userCalendarsGeneralInfo.push({
+        id: calendar.id,
+        summary: calendar.summary,
+        backgroundColor: calendar.backgroundColor,
+        storageId: '',
+      });
+    });
+    return userCalendarsGeneralInfo;
+  }
 
   render() {
     return (

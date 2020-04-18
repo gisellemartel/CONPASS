@@ -1,30 +1,30 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
   touch: {
     borderWidth: 1,
-    borderColor: "rgba(0,0,0,0.2)",
-    alignItems: "center",
-    justifyContent: "center",
+    borderColor: 'rgba(0,0,0,0.2)',
+    alignItems: 'center',
+    justifyContent: 'center',
     width: 50,
     height: 50,
     borderRadius: 50,
-    backgroundColor: "#9CD3D7"
+    backgroundColor: '#9CD3D7'
   },
   container: {
     bottom: 100,
     right: 10,
-    position: "absolute",
+    position: 'absolute',
     zIndex: 200
   },
   location: {
     width: 50,
-    resizeMode: "contain"
+    resizeMode: 'contain'
   },
   userFinalLoc: {
     bottom: 80,
-    backgroundColor: "pink",
-    position: "absolute"
+    backgroundColor: 'pink',
+    position: 'absolute'
   }
 });
 
