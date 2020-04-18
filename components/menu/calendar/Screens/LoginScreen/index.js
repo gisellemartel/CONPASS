@@ -34,6 +34,12 @@ export default class LoginScreen extends Component {
      });
    }
 
+   /**
+    * This function returns a boolean to check
+    * if already signed-in Firebase with the correct user.
+    * @param {String} googleUser - Google user identifier.
+    * @param {String} firebaseUser - Firebase user identifier.
+    */
   isUserEqual = (googleUser, firebaseUser) => {
     if (firebaseUser) {
       const providerData = providerData;
@@ -49,6 +55,10 @@ export default class LoginScreen extends Component {
     return false;
   }
 
+  /**
+ * This function authorizes the application to access user's calendars.
+ * Also, it retrieves all users' calendars and saves it locally.
+ */
   signInWithGoogleAsync = async () => {
     try {
       const result = await Google.logInAsync({
@@ -90,6 +100,9 @@ export default class LoginScreen extends Component {
     }
   };
 
+  /**
+   * This function removes old stored events from the local storage.
+   */
   removeOldStoredEvents=async () => {
     const finalStored = await AsyncStorage.getItem('events');
     if (finalStored != null) {
@@ -99,6 +112,10 @@ export default class LoginScreen extends Component {
     return false;
   }
 
+  /**
+ * The function fetches and returns general users' calendars
+ * @param {String} accessToken - User Access Token.
+ */
   getUserCalendars = async (accessToken) => {
     const userCalendars = await fetch('https://www.googleapis.com/calendar/v3/users/me/calendarList?key=AIzaSyBAHObp5Ic3CbJpkX2500tNhf53e_3wBMA&timeMin=2020-01-01T01:00:00.000Z', {
       headers: { Authorization: `Bearer ${accessToken}` },
