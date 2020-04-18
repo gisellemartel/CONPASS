@@ -4,7 +4,7 @@
 /* eslint-disable no-plusplus */
 import React, { Component } from 'react';
 import {
-  View, FlatList, AsyncStorage, Text, TouchableOpacity, StyleSheet, Alert
+  View, FlatList, AsyncStorage, Text, TouchableOpacity, Alert
 } from 'react-native';
 import { Button } from 'react-native-elements';
 import styles from './styles';
