@@ -50,7 +50,8 @@ getCalendarsToBeSynced= () => {
  * Thie function handles syncronization button
  */
 handleSyncronizeButton=async () => {
-  Alert.alert(i18n.t('CalendarListAlert'),
+  if (this.state.calendarsToSync.length === 0) { Alert.alert(i18n.t('noListAlert')); return; }
+  Alert.alert(i18n.t('calendarListAlert'),
     `${this.getCalendarsToBeSynced()}`,
     [
       {
@@ -119,7 +120,7 @@ getFinalEventsArray= async () => {
 render() {
   return (
     <View>
-      <Text style={styles.title}>{i18n.t('CalendarList')}</Text>
+      <Text style={styles.title}>{i18n.t('calendarList')}</Text>
       <FlatList
         style={styles.flatListContainer}
         keyExtractor={(item) => { return item.id; }}
@@ -153,7 +154,7 @@ render() {
 
       <View style={styles.button}>
         <Button
-          title={i18n.t('SynchronizeCalendars')}
+          title={i18n.t('synchronizeCalendars')}
           type="solid"
 
           onPress={this.handleSyncronizeButton}

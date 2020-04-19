@@ -136,7 +136,7 @@ export default class LoginScreen extends Component {
           onPress={() => { this.signInWithGoogleAsync(); }}
         >
           <View style={{ padding: 10, backgroundColor: '#4285f5', borderRadius: 20 }}>
-            <Text style={{ color: '#ffffff' }}>{i18n.t('SignIn')}</Text>
+            <Text style={{ color: '#ffffff' }}>{i18n.t('signIn')}</Text>
           </View>
         </TouchableOpacity>
       </View>

@@ -363,7 +363,7 @@ export default class DashboardScreen extends Component {
                   firebase.auth().signOut();
                 }}
               >
-                <Text>{i18n.t('LogOut')}</Text>
+                <Text>{i18n.t('logOut')}</Text>
               </TouchableOpacity>
 
               <TouchableOpacity
@@ -372,7 +372,7 @@ export default class DashboardScreen extends Component {
                   this.showDialog(true);
                 }}
               >
-                <Text>{i18n.t('AdjustTime')}</Text>
+                <Text>{i18n.t('adjustTime')}</Text>
               </TouchableOpacity>
             </View>
           </View>
