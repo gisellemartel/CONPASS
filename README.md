@@ -29,8 +29,9 @@ IOS: https://itunes.com/apps/exponent"
 
 3. Wait about 2 minuites to make sure the localhost is ready
 
-4. Scan the barcode from the localhost by using the expo application from your phone
-
+4. Scan the QR code from the localhost by using the expo application from your phone
+ 
 5. Wait for the application to compile and it should be running
 
-6. Incase of any interruptions from the localhost, restart the expo application from your mobile device
+6. Incase of any interruptions from the localhost, restart the expo application from your mobile device <br/>
+   OR/AND choose 'Tunnel' instead of 'LAN' as the connection from the expo browser
