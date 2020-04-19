@@ -2,7 +2,7 @@
 /* eslint-disable max-len */
 import React from 'react';
 import renderer from 'react-test-renderer';
-import IndoorDirections from '../components/directions/indoorDirections';
+import {IndoorDirections} from '../components/directions/indoorDirections';
 import dijkstraPathfinder from '../indoor_directions_modules/dijkstraPathfinder';
 
 beforeEach(() => {
@@ -247,11 +247,12 @@ it('Should give directions for multiple floors', () => {
     />
   ).getInstance(); */
   const indoorDirectionsComponent = renderer.create(
-    <IndoorDirections />
+    <IndoorDirections buildingInfoData={building} />
   ).getInstance();
   indoorDirectionComponent.setState({
     origin: '101',
-    originFloor: 1
+    originFloor: 1,
+    currentBuilding: building
   });
   indoorDirectionsComponent.dijkstraHandler('203', 2);
   expect(buildingWithFloorsComponent.state.directionPath).toStrictEqual({
