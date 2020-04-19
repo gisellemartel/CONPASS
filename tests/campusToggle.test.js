@@ -3,6 +3,7 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import CampusToggle from '../components/campusToggle';
 
+
 let updateR;
 
 beforeEach(() => {
@@ -21,4 +22,9 @@ it('Should set LatLng coordinates near SGW campus', () => {
   campusToggleComponent.setSGW();
   expect(campusToggleComponent.state.region.latitude).toBe(45.495598);
   expect(campusToggleComponent.state.region.longitude).toBe(-73.577850);
+});
+
+it('Should render', () => {
+  const campusToggleComponent = renderer.create(<CampusToggle updateRegion={updateR} />).getInstance();
+  expect(campusToggleComponent).toBeTruthy();
 });

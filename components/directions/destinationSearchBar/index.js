@@ -12,7 +12,7 @@ import { connect } from 'react-redux';
 import { setEndBuildingNode } from '../../../store/actions';
 import styles from './styles';
 
-class DestinationSearchBar extends Component {
+export class DestinationSearchBar extends Component {
   constructor(props) {
     super(props);
     this.state = {

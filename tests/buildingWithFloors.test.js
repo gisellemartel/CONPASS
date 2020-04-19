@@ -15,12 +15,16 @@ const defaultFloor = floors[0];
  * test changeFloor() component works as intended
 */
 it('Should change to passed value for floor', async () => {
+
+  const changeCurrentFloorPlanTo = jest.fn();
+
   const buildingComponent = renderer.create(<BuildingWithFloors
     building={building}
     buildingFloorPlans={floors}
-    floor={defaultFloor}
+    floorPlan={defaultFloor}
+    changeCurrentFloorPlanTo={changeCurrentFloorPlanTo}
   />);
 
   buildingComponent.getInstance().changeFloor(2);
-  expect(buildingComponent.getInstance().state.floor).toBe(floors[1]);
+  expect(buildingComponent.getInstance().state.floorPlan).toBe(floors[1]);
 });

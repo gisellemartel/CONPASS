@@ -1,3 +1,4 @@
+/* eslint-disable no-plusplus */
 import React, { Component } from 'react';
 import {
   View, Image, Text, Modal
@@ -19,12 +20,10 @@ import info from '../../../assets/icons/info.png';
 import dijkstraPathfinder from '../../../indoor_directions_modules/dijkstraPathfinder';
 import floorWaypointFinder from '../../../indoor_directions_modules/floorWaypointFinder';
 import styles from './styles';
-import { accessibilityOn, accessibilityOff, sendDirectionsToOutdoor } from '../../../store/actions';
-import { ACCESSIBILITY_ON, ACCESSIBILITY_OFF } from '../../../store/actionTypes';
+import { sendDirectionsToOutdoor } from '../../../store/actions';
 import IndoorDestinationSearchBar from '../indoorDestinationSearchBar/index';
 
-
-class IndoorDirections extends Component {
+export class IndoorDirections extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -66,13 +65,9 @@ class IndoorDirections extends Component {
   componentDidUpdate(prevProps) {
     const { accessibility, startBuildingNode, endBuildingNode } = this.props;
     if (prevProps.accessibility !== accessibility) {
-      if (accessibility) {
-        this.setState({ accessibility });
-      } else {
-        this.setState({ accessibility });
-      }
+      this.state.accessibility = accessibility;
     }
-    
+
     if (startBuildingNode !== prevProps.startBuildingNode) { // start input from within building changed
       if (startBuildingNode && endBuildingNode) { // both ready
         this.coordinatesFromInside(startBuildingNode, endBuildingNode); // initiate
@@ -82,6 +77,40 @@ class IndoorDirections extends Component {
         this.coordinatesFromInside(startBuildingNode, endBuildingNode);
       }
     }
+  }
+
+
+  getFloorWaypoint(startGraph, finishGraph, startNodeId, finishNodeId) {
+    const transportPriorityList = !this.state.accessibility
+      ? [/^escalator/, /^staircase/i, /^elevator/i] : [/^elevator/i];
+    for (let i = 0; i < transportPriorityList.length; i++) {
+      const transportList = Object.keys(startGraph).filter((node) => { return transportPriorityList[i].test(node); });
+      if (transportList.length === 1) {
+        return transportList[0];
+      }
+      if (transportList.length > 1) {
+        let waypoint = {
+          id: transportList[0],
+          distance: floorWaypointFinder.distanceToWaypointCalculator(startGraph[transportList[0]],
+            startGraph[startNodeId], finishGraph[finishNodeId])
+        };
+        for (let j = 1; j < transportList.length; j++) {
+          const currentDistance = floorWaypointFinder.distanceToWaypointCalculator(
+            startGraph[transportList[j]],
+            startGraph[startNodeId],
+            finishGraph[finishNodeId]
+          );
+          if (currentDistance < waypoint.distance) {
+            waypoint = {
+              id: transportList[j],
+              distance: currentDistance
+            };
+          }
+        }
+        return waypoint.id;
+      }
+    }
+    return '';
   }
 
   /**
@@ -122,33 +151,6 @@ class IndoorDirections extends Component {
       return { drawPath: !prevState.drawPath };
     });
   };
-
-  getFloorWaypoint(startGraph, finishGraph, startNodeId, finishNodeId) {
-    const transportPriorityList = !this.state.accessibility ? [/^escalator/, /^staircase/i, /^elevator/i] : [/^elevator/i];
-    for (let i = 0; i < transportPriorityList.length; i++) {
-      const transportList = Object.keys(startGraph).filter((node) => { return transportPriorityList[i].test(node); });
-      if (transportList.length === 1) {
-        return transportList[0];
-      }
-      if (transportList.length > 1) {
-        let waypoint = {
-          id: transportList[0],
-          distance: floorWaypointFinder.distanceToWaypointCalculator(startGraph[transportList[0]], startGraph[startNodeId], finishGraph[finishNodeId])
-        };
-        for (let j = 1; j < transportList.length; j++) {
-          const currentDistance = floorWaypointFinder.distanceToWaypointCalculator(startGraph[transportList[j]], startGraph[startNodeId], finishGraph[finishNodeId]);
-          if (currentDistance < waypoint.distance) {
-            waypoint = {
-              id: transportList[j],
-              distance: currentDistance
-            };
-          }
-        }
-        return waypoint.id;
-      }
-    }
-    return '';
-  }
 
   /**
    * Set the origin for indoor directions
@@ -260,7 +262,7 @@ class IndoorDirections extends Component {
 
     if (waypoints.length > 0) {
       const paths = dijkstraPathfinder.dijkstraPathfinder(waypoints, graphs);
-      // eslint-disable-next-line no-plusplus
+
       for (let i = 0; i < paths.length; i++) {
         updatedDirectionPath[floors[i]] = paths[i];
       }
@@ -280,11 +282,11 @@ class IndoorDirections extends Component {
    * @param {*} indoorDestinationFloor - the floor that the indoor destination is found on
    */
   indoorDirectionHandler(indoorDestination, indoorDestinationFloor) {
-    const { originFloor, origin } = this.state;
+    const { originFloor, origin, currentBuilding } = this.state;
     const [startNodeId, startFloor] = [origin, originFloor.floor];
     const [finishNodeId, finishFloor] = [indoorDestination, indoorDestinationFloor];
 
-    const adjacencyGraphs = generateGraph(this.state.currentBuilding.building);
+    const adjacencyGraphs = generateGraph(currentBuilding.building);
 
     if (adjacencyGraphs[startFloor][startNodeId] !== undefined
       && adjacencyGraphs[finishFloor][finishNodeId] !== undefined) {
@@ -410,14 +412,14 @@ class IndoorDirections extends Component {
             <View style={styles.directionsContainerBackground} />
             <View style={styles.searchContainer}>
               <IndoorMapSearchBar
-                currentBuilding={currentBuilding}
+                currentBuilding={this.state.currentBuilding}
                 currentFloor={this.state.currentFloorPlan}
                 indoorRoomsList={this.props.indoorRoomsList}
               />
               <IndoorDestinationSearchBar
                 getMode={this.state.mode}
                 indoorRoomsList={this.props.indoorRoomsList}
-                currentBuildingName={currentBuilding.building}
+                currentBuildingName={this.state.currentBuilding.building}
               />
             </View>
           </View>
