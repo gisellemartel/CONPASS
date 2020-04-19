@@ -199,7 +199,7 @@ it('Calling getNearbyPlaces should pass an array to the nearbyMarkers property',
 
 it('Should Update the currentBuilding state with given a prediction from Google\'s API', async () => {
   // Mock API call
-  const result = {
+  const mockData = {
     predictions: [
       {
         description: '1400 de Maisonneuve West, Maisonneuve Boulevard West, Montreal, QC, Canada',
@@ -212,17 +212,18 @@ it('Should Update the currentBuilding state with given a prediction from Google\
     const promise = new Promise((resolve) => {
       resolve({
         json: () => {
-          return result;
+          return mockData;
         }
       });
     });
     return promise;
   });
-  const searchBarComponent = renderer.create(<MapSearchBar currentBuildingPred="1400 DeMaisonneuve W" />).getInstance();
+  const searchBarComponent = renderer.create(<MapSearchBar currentBuildingPred={mockData.predictions[0]} />).getInstance();
   await searchBarComponent.updateCurrentBuilding();
-  expect(searchBarComponent.state.prevCurrentBuilding.description).toBe(result.predictions[0].description);
-  expect(searchBarComponent.state.prevCurrentBuilding.id).toBe(result.predictions[0].id);
-  expect(searchBarComponent.state.prevCurrentBuilding.place_id).toBe(result.predictions[0].place_id);
+
+  expect(searchBarComponent.props.currentBuildingPred.description).toBe(mockData.predictions[0].description);
+  expect(searchBarComponent.props.currentBuildingPred.id).toBe(mockData.predictions[0].id);
+  expect(searchBarComponent.props.currentBuildingPred.place_id).toBe(mockData.predictions[0].place_id);
 });
 
 it('Should keep the currentBuilding state null', async () => {
