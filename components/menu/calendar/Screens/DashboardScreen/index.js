@@ -61,7 +61,7 @@ export default class DashboardScreen extends Component {
     const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
     if (status !== 'granted') {
       // alert(i18n.t('permisionNotGrandted'));
-      Alert.alert(i18n.t('permisionNotGrandted'),
+      Alert.alert(i18n.t('permissionNotGranted'),
     i18n.t('allowNotifications'),
     [
       { text: 'ok' }
@@ -329,9 +329,9 @@ export default class DashboardScreen extends Component {
         >
           <DialogInput
             isDialogVisible={this.state.isDialogVisible}
-            title={i18n.t('setRemindarTime')}
+            title={i18n.t('setReminderTime')}
             keyboardType="numeric"
-            message={i18n.t('remindarMessage')}
+            message={i18n.t('reminderMessage')}
             hintInput="e.g. 10"
             submitInput={(inputText) => { this.sendInput(inputText); }}
             closeDialog={() => { this.showDialog(false); }}
