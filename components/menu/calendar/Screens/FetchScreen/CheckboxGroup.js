@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import {
   View, FlatList, AsyncStorage, Text, TouchableOpacity, Alert
 } from 'react-native';
+import i18n from 'i18n-js';
 import { Button } from 'react-native-elements';
 import styles from './styles';
 
@@ -49,11 +50,12 @@ getCalendarsToBeSynced= () => {
  * Thie function handles syncronization button
  */
 handleSyncronizeButton=async () => {
-  Alert.alert('The following calendars will be synchronized',
+  if (this.state.calendarsToSync.length === 0) { Alert.alert(i18n.t('noListAlert')); return; }
+  Alert.alert(i18n.t('calendarListAlert'),
     `${this.getCalendarsToBeSynced()}`,
     [
       {
-        text: 'Cancel',
+        text: i18n.t('cancel'),
         onPress: () => { return console.log('Cancel Pressed'); },
         style: 'cancel'
       },
@@ -118,7 +120,7 @@ getFinalEventsArray= async () => {
 render() {
   return (
     <View>
-      <Text style={styles.title}>Availabe Calendars For Synchronization</Text>
+      <Text style={styles.title}>{i18n.t('calendarList')}</Text>
       <FlatList
         style={styles.flatListContainer}
         keyExtractor={(item) => { return item.id; }}
@@ -152,7 +154,7 @@ render() {
 
       <View style={styles.button}>
         <Button
-          title="Synchronize Calendars"
+          title={i18n.t('synchronizeCalendars')}
           type="solid"
 
           onPress={this.handleSyncronizeButton}

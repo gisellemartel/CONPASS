@@ -8,7 +8,7 @@ import _ from 'lodash';
 import React, { Component } from 'react';
 import DialogInput from 'react-native-dialog-input';
 import firebase from 'firebase';
-
+import i18n from 'i18n-js';
 import { Agenda } from 'react-native-calendars';
 import * as Permissions from 'expo-permissions';
 import { Notifications } from 'expo';
@@ -60,7 +60,11 @@ export default class DashboardScreen extends Component {
   registerForPushNotificationsAsync = async () => {
     const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
     if (status !== 'granted') {
-      alert('No notification permissions!');
+      Alert.alert(i18n.t('permissionNotGranted'),
+    i18n.t('allowNotifications'),
+    [
+      { text: 'ok' }
+    ]);
     }
   }
 
@@ -172,7 +176,11 @@ export default class DashboardScreen extends Component {
         }
       } else {
         // your call back function
-        alert('Please enter numbers only');
+        Alert.alert(i18n.t('numbersOnly'),
+          '',
+          [
+            { text: 'ok' }
+          ]);
         return;
       }
       setTimeout(() => {
@@ -193,7 +201,11 @@ export default class DashboardScreen extends Component {
        if (error) {
          firebase.auth().signOut();
          this.props.navigation.navigate('LoginScreen');
-         alert('!!You need to log in again.!!');
+         Alert.alert(i18n.t('logInAgain'),
+           '',
+           [
+             { text: 'ok' }
+           ]);
          return;
        }
        const stringFile = JSON.stringify(jsonFile);
@@ -207,7 +219,11 @@ export default class DashboardScreen extends Component {
      */
      sendDirections = (description) => {
        if (!description) {
-         alert('There is no address or description for this event.');
+         Alert.alert(i18n.t('noAddress'),
+           '',
+           [
+             { text: 'ok' }
+           ]);
          return '';
        }
        this.props.navigation.navigate('HomeScreen', { description });
@@ -272,9 +288,9 @@ export default class DashboardScreen extends Component {
              return Alert.alert(item.name,
                `${item.startTime}  -  ${item.endTime}\n${item.description}\n${item.address}`,
                [
-                 { text: 'Cancel' },
+                 { text: i18n.t('cancel') },
                  {
-                   text: 'Get Directions',
+                   text: i18n.t('getDirections'),
                    onPress: () => {
                      if (address) { this.sendDirections(address.split(',')[0]); } else { this.sendDirections(description.split('\n')[0]); }
                    }
@@ -311,12 +327,14 @@ export default class DashboardScreen extends Component {
         >
           <DialogInput
             isDialogVisible={this.state.isDialogVisible}
-            title="Set Reminder Time"
+            title={i18n.t('setReminderTime')}
             keyboardType="numeric"
-            message="Set the time to be reminded before class/minutes"
+            message={i18n.t('reminderMessage')}
             hintInput="e.g. 10"
             submitInput={(inputText) => { this.sendInput(inputText); }}
             closeDialog={() => { this.showDialog(false); }}
+            submitText={i18n.t('submit')}
+            cancelText={i18n.t('cancel')}
           />
           <Agenda
             items={this.state.items}
@@ -343,7 +361,7 @@ export default class DashboardScreen extends Component {
                   firebase.auth().signOut();
                 }}
               >
-                <Text>Logout</Text>
+                <Text>{i18n.t('logOut')}</Text>
               </TouchableOpacity>
 
               <TouchableOpacity
@@ -352,7 +370,7 @@ export default class DashboardScreen extends Component {
                   this.showDialog(true);
                 }}
               >
-                <Text>Adjust Time</Text>
+                <Text>{i18n.t('adjustTime')}</Text>
               </TouchableOpacity>
             </View>
           </View>
