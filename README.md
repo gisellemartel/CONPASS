@@ -7,10 +7,14 @@ https://www.figma.com/proto/o5WsQ4hyBRMp1bXYA9svxH/initial---archive-(dont-delet
 
 
 ## Setting up
+1. Clone the repository
+
 1. install Node.js
 https://nodejs.org/en/download/
+
 2. install expo cli on your machine <br/>
 `npm install -g expo-cli`
+
 3. install dependencies <br/>
 `yarn install`
 
@@ -18,7 +22,10 @@ https://nodejs.org/en/download/
 
 1. start app (see package.json scripts) <br/>
 `expo start`
+
 2. Install expo on your phone from your native mobile store
+android: https://play.google.com/store/apps/details?id=host.exp.exponent
+IOS: https://itunes.com/apps/exponent"
 
 3. Wait about 2 minuites to make sure the localhost is ready
 
