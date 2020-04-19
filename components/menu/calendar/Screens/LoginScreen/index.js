@@ -1,8 +1,9 @@
 /* istanbul ignore file */
 import React, { Component } from 'react';
 import {
-  View, Image, TouchableOpacity, AsyncStorage
+  View, Image, TouchableOpacity, AsyncStorage, Text
 } from 'react-native';
+import i18n from 'i18n-js';
 import * as Google from 'expo-google-app-auth';
 import firebase from 'firebase';
 import styles from './styles';
@@ -134,11 +135,8 @@ export default class LoginScreen extends Component {
         <TouchableOpacity
           onPress={() => { this.signInWithGoogleAsync(); }}
         >
-          <View>
-            <Image
-              style={styles.logo}
-              source={require('./button.png')}
-            />
+          <View style={{ padding: 10, backgroundColor: '#4285f5', borderRadius: 20 }}>
+            <Text style={{ color: '#ffffff' }}>{i18n.t('signIn')}</Text>
           </View>
         </TouchableOpacity>
       </View>
