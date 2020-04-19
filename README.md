@@ -20,17 +20,17 @@ https://nodejs.org/en/download/
 
 ## To run
 
-1. start app (see package.json scripts) <br/>
-`expo start`
-
-2. Install expo on your phone from your native mobile store <br/>
+1. Install expo on your phone from your native mobile store <br/>
 android: https://play.google.com/store/apps/details?id=host.exp.exponent
 IOS: https://itunes.com/apps/exponent"
 
+2. start app (see package.json scripts) <br/>
+`expo start`
+
 3. Wait about 2 minuites to make sure the localhost is ready
 
-4. Scan the barcode from the localhost by the expo application from your phone
+4. Scan the barcode from the localhost by using the expo application from your phone
 
 5. Wait for the application to compile and it should be running
 
-6. Incase of any interruptions from the local host, restart the expo application from your mobile device
+6. Incase of any interruptions from the localhost, restart the expo application from your mobile device
