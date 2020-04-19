@@ -9,13 +9,18 @@ import Menu from './components/menu';
 import ShuttleSchedule from './components/menu/shuttleBusSchedule';
 import Calendar from './components/menu/calendar';
 import store from './store';
+import HelpPage from './components/menu/help/helpPage';
 
 const Stack = createStackNavigator();
 
 export default class App extends Component {
   render() {
     return (
-      <SafeAreaView style={{ flex: 1 }}>
+      <SafeAreaView
+        forceInset={{ top: 'always' }}
+        style={{ backgroundColor: '#212121', flex: 1 }}
+      >
+
         <Provider store={store}>
           <NavigationContainer>
             <Stack.Navigator
@@ -37,6 +42,7 @@ export default class App extends Component {
               <Stack.Screen name="Menu" options={{ gestureDirection: 'horizontal-inverted', headerShown: false }} component={Menu} />
               <Stack.Screen name="ShuttleSchedule" options={{ gestureDirection: 'vertical-inverted', headerShown: true }} component={ShuttleSchedule}></Stack.Screen>
               <Stack.Screen name="Calendar" options={{ gestureDirection: 'vertical-inverted', headerShown: true }} component={Calendar}></Stack.Screen>
+              <Stack.Screen name="Help" options={{ gestureDirection: 'vertical-inverted', headerShown: true}} component={HelpPage} ></Stack.Screen>
             </Stack.Navigator>
           </NavigationContainer>
         </Provider>
