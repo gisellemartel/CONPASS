@@ -8,12 +8,12 @@ import generateIndoorPredictionsForSearchBar from '../components/home/generateIn
 
 const mockStore = configureStore([]);
 
-describe('IndoorDirections', () => {
-  let store;
-  let component;
-  let mockBuildingInfoData;
-  let mockIndoorRoomsList;
+let store;
+let instanceIndoorDirections;
+let mockBuildingInfoData;
+let mockIndoorRoomsList;
 
+describe('IndoorDirections', () => {
   beforeEach(() => {
     store = mockStore({
       accessibilty: 'ACCESSIBILITY_ON',
@@ -95,67 +95,55 @@ describe('IndoorDirections', () => {
 
     mockIndoorRoomsList = generateIndoorPredictionsForSearchBar();
 
-    component = shallow(
-      <Provider store={store}>
-        <IndoorDirections
-          getDestinationIfSet={null}
-          getRegion={getRegionFromOutdoorDirections}
-          getRegionFromSearch={mockRegion}
-          getCoordinates={getCoordinatesFromOutdoorDirections}
-          building={mockBuildingInfoData}
-          showBuildingInfoModal={false}
-          setBuildingInfoModalVisibilityTo={setBuildingInfoModalVisibilityTo}
-          turnInteriorModeOff={turnInteriorModeOff}
-          buildingInfoData={mockBuildingInfoData}
-          changeVisibilityTo={changeVisibilityTo}
-          indoorRoomsList={mockIndoorRoomsList}
-        />
-      </Provider>
-    );
+    instanceIndoorDirections = shallow(
+      <IndoorDirections
+        store={store}
+        startBuildingNode={mockBuildingInfoData}
+        endBuildingNode={mockBuildingInfoData}
+        getDestinationIfSet={null}
+        getRegion={getRegionFromOutdoorDirections}
+        getRegionFromSearch={mockRegion}
+        getCoordinates={getCoordinatesFromOutdoorDirections}
+        building={mockBuildingInfoData}
+        showBuildingInfoModal={false}
+        setBuildingInfoModalVisibilityTo={setBuildingInfoModalVisibilityTo}
+        turnInteriorModeOff={turnInteriorModeOff}
+        buildingInfoData={mockBuildingInfoData}
+        changeVisibilityTo={changeVisibilityTo}
+        indoorRoomsList={mockIndoorRoomsList}
+      />
+    ).instance();
   });
 
 
   it('Should cut the string of the building name if it is too long', () => {
-    const turnInteriorModeOff = jest.fn();
-
-
     // length: 26, maximum allowed is 24
     const stringTooLong26 = '11111111111111111111111111';
-
-    const indoorDirectionsComponent = renderer.create(<IndoorDirections
-      building={stringTooLong26}
-      turnInteriorModeOff={turnInteriorModeOff}
-    />);
-
-    const cutString24 = indoorDirectionsComponent.getInstance().limitNameLength(stringTooLong26);
+    const cutString24 = instanceIndoorDirections.limitNameLength(stringTooLong26);
     expect(cutString24.length).toBe(24);
   });
 
-  it('Should give directions for a single floor', () => {
-    const instanceIndoorDirections = component.root.findByType(IndoorDirections);
-
-    instanceIndoorDirections.instance().setState({
+  it('Should give directions for a single floor', async () => {
+    instanceIndoorDirections.setState({
       currentBuilding: mockBuildingInfoData,
       origin: '101',
       originFloor: '1'
     });
 
-    instanceIndoorDirections.instance().dijkstraHandler('103', '1');
+    instanceIndoorDirections.dijkstraHandler('103', '1');
 
     expect(instanceIndoorDirections.instance().state.indoorDirectionsPolyline).toStrictEqual({
       1: '10.3173828125,5.3173828125 10.47607421875,5.9521484375 10.3173828125,6.5869140625 10.634765625,6.42822265625 '
     });
   });
 
-  it('Should give directions for multiple floors', () => {
-    const instanceIndoorDirections = component.root.findByType(IndoorDirections);
-
-    instanceIndoorDirections.instance().setState({
+  it('Should give directions for multiple floors', async () => {
+    instanceIndoorDirections.setState({
       origin: '101',
       originFloor: 1,
       currentBuilding: mockBuildingInfoData
     });
-    instanceIndoorDirections.instance().dijkstraHandler('203', 2);
+    instanceIndoorDirections.dijkstraHandler('203', 2);
     expect(instanceIndoorDirections.instance().state.directionPath).toStrictEqual({
       1: '10.3173828125,5.3173828125 10.634765625,5.47607421875 10.9521484375,5.3173828125 10.79345703125,5.9521484375 10.634765625,5.9521484375 ',
       2: '10.634765625,5.9521484375 10.3173828125,5.9521484375 10.634765625,6.26953125 10.9521484375,5.9521484375 '
