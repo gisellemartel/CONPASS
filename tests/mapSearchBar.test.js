@@ -143,7 +143,7 @@ it('Should populate prediction state with content', async () => {
 
   const searchBarComponent = renderer.create(<MapSearchBar />).getInstance();
   await searchBarComponent.onChangeDestination('Loyola');
-  expect(searchBarComponent.state.predictions).toMatchObject(mockPrediction.predictions);
+  expect(searchBarComponent.state.predictions[0]).toEqual(mockPrediction.predictions[0]);
 });
 
 it('Should populate LatLng state with content', async () => {
