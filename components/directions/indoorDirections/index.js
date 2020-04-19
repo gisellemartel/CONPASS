@@ -412,14 +412,14 @@ export class IndoorDirections extends Component {
             <View style={styles.directionsContainerBackground} />
             <View style={styles.searchContainer}>
               <IndoorMapSearchBar
-                currentBuilding={currentBuilding}
+                currentBuilding={this.state.currentBuilding}
                 currentFloor={this.state.currentFloorPlan}
                 indoorRoomsList={this.props.indoorRoomsList}
               />
               <IndoorDestinationSearchBar
                 getMode={this.state.mode}
                 indoorRoomsList={this.props.indoorRoomsList}
-                currentBuildingName={currentBuilding.building}
+                currentBuildingName={this.state.currentBuilding.building}
               />
             </View>
           </View>

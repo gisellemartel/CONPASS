@@ -1,22 +1,13 @@
 /* eslint-disable max-len */
-import React from 'react';
-import renderer from 'react-test-renderer';
-import configureStore from 'redux-mock-store';
-import { shallow } from 'enzyme';
-import { IndoorDirections } from '../components/directions/indoorDirections';
 import dijkstraPathfinder from '../indoor_directions_modules/dijkstraPathfinder';
 import generateGraph from '../indoor_directions_modules/graphRepository';
 import floorWaypointFinder from '../indoor_directions_modules/floorWaypointFinder';
 import distanceBetweenTwoNodes from '../indoor_directions_modules/distanceBetweenTwoNodes';
-import generateIndoorPredictionsForSearchBar from '../components/home/generateIndoorPredictionsForSearchBar';
 
 jest.mock('../indoor_directions_modules/graphRepository');
 
-let mockBuildingInfoData;
 let mockGraphFloor1;
 let mockGraphFloor2;
-let mockGraphs;
-let mockIndoorRoomsList;
 
 beforeEach(() => {
   mockGraphFloor1 = {
@@ -137,50 +128,7 @@ beforeEach(() => {
       ]
     }
   };
-  mockGraphs = {
-    1: mockGraphFloor1,
-    2: mockGraphFloor2
-  };
   generateGraph.mockImplementation(() => { return { 1: mockGraphFloor1, 2: mockGraphFloor2 }; });
-
-  mockBuildingInfoData = {
-    campus: 'SGW',
-    building: 'H',
-    buildingName: 'Henry F. Hall Building',
-    accessiblity: true,
-    placesToGo: [{
-      name: 'Hall 4 Café - The Green Beet',
-      id: '7',
-      placeID: 'ChIJtd6Zh2oayUwRAu_CnRIfoBw',
-      opening: ['8:00 am', '9:30 pm'],
-      image: require('../assets/polygons/images/hallCafe.jpg')
-    },
-    {
-      name: 'Hive Café Solidarity Cooperative',
-      id: '7.1',
-      placeID: 'ChIJtd6Zh2oayUwRAu_CnRIfoBw',
-      opening: ['8:00 am', '9:30 pm'],
-      image: require('../assets/polygons/images/hallCafe.jpg')
-    }
-    ],
-    address: '1455 DeMaisonneuve W',
-    latitude: 45.497092,
-    longtitude: -73.578800,
-    image: [{ image: require('../assets/polygons/images/hallCafe.jpg') }],
-    tunnelAccessiblity: true,
-    polygon: {
-      name: 'Henry F. Hall Building',
-      coordinates:
-              [
-                { latitude: 45.497373, longitude: -73.578336 },
-                { latitude: 45.497710, longitude: -73.579032 },
-                { latitude: 45.497164, longitude: -73.579545 },
-                { latitude: 45.496829, longitude: -73.578848 },
-              ]
-    }
-  };
-
-  mockIndoorRoomsList = generateIndoorPredictionsForSearchBar();
 });
 
 it('Should return the proper distance', () => {
@@ -320,97 +268,4 @@ it('Should give waypoint distance (case where start and end line is vertical)', 
   const endNode = { x: 2, y: 0, adjacency_list: [] };
   const distance = floorWaypointFinder.distanceToWaypointCalculator(waypointNode, startNode, endNode);
   expect(distance).toBe(2);
-});
-
-it('Should give directions for a single floor', () => {
-  const building = { building: 'H', buildingName: 'Test Building' };
-  // const mockStore = configureStore([]);
-  // const store = mockStore({
-  //   accessibilty: 'ACCESSIBILITY_ON',
-  // });
-
-  generateGraph.generateGraph = jest.fn();
-  const setBuildingInfoModalVisibilityTo = jest.fn();
-  const turnInteriorModeOff = jest.fn();
-  const getRegionFromOutdoorDirections = jest.fn();
-  const getCoordinatesFromOutdoorDirections = jest.fn();
-  const changeVisibilityTo = jest.fn();
-  const mockRegion = {
-    latitude: 45.492408,
-    longitude: -73.582153,
-    latitudeDelta: 0.04,
-    longitudeDelta: 0.04
-  };
-
-  const indoorDirectionsComponent = shallow(
-    <IndoorDirections
-      getDestinationIfSet={null}
-      getRegion={getRegionFromOutdoorDirections}
-      getRegionFromSearch={mockRegion}
-      getCoordinates={getCoordinatesFromOutdoorDirections}
-      building={building}
-      showBuildingInfoModal={false}
-      setBuildingInfoModalVisibilityTo={setBuildingInfoModalVisibilityTo}
-      turnInteriorModeOff={turnInteriorModeOff}
-      buildingInfoData={mockBuildingInfoData}
-      changeVisibilityTo={changeVisibilityTo}
-      indoorRoomsList={mockIndoorRoomsList}
-    />
-  );
-  indoorDirectionsComponent.setState({
-    currentBuilding: building,
-    origin: '101',
-    originFloor: '1'
-  });
-  indoorDirectionsComponent.instance().dijkstraHandler('103', '1');
-  expect(indoorDirectionsComponent.state.indoorDirectionsPolyline).toStrictEqual({
-    1: '10.3173828125,5.3173828125 10.47607421875,5.9521484375 10.3173828125,6.5869140625 10.634765625,6.42822265625 '
-  });
-});
-
-it('Should give directions for multiple floors', () => {
-  const building = { building: 'H', buildingName: 'Test Building' };
-  // const mockStore = configureStore([]);
-  // const store = mockStore({
-  //   accessibilty: 'ACCESSIBILITY_ON',
-  // });
-
-  generateGraph.generateGraph = jest.fn();
-  const setBuildingInfoModalVisibilityTo = jest.fn();
-  const turnInteriorModeOff = jest.fn();
-  const getRegionFromOutdoorDirections = jest.fn();
-  const getCoordinatesFromOutdoorDirections = jest.fn();
-  const changeVisibilityTo = jest.fn();
-  const mockRegion = {
-    latitude: 45.492408,
-    longitude: -73.582153,
-    latitudeDelta: 0.04,
-    longitudeDelta: 0.04
-  };
-
-  const indoorDirectionsComponent = shallow(
-    <IndoorDirections
-      getDestinationIfSet={null}
-      getRegion={getRegionFromOutdoorDirections}
-      getRegionFromSearch={mockRegion}
-      getCoordinates={getCoordinatesFromOutdoorDirections}
-      building={building}
-      showBuildingInfoModal={false}
-      setBuildingInfoModalVisibilityTo={setBuildingInfoModalVisibilityTo}
-      turnInteriorModeOff={turnInteriorModeOff}
-      buildingInfoData={mockBuildingInfoData}
-      changeVisibilityTo={changeVisibilityTo}
-      indoorRoomsList={mockIndoorRoomsList}
-    />
-  );
-  indoorDirectionsComponent.setState({
-    origin: '101',
-    originFloor: 1,
-    currentBuilding: building
-  });
-  indoorDirectionsComponent.dijkstraHandler('203', 2);
-  expect(indoorDirectionsComponent.state.directionPath).toStrictEqual({
-    1: '10.3173828125,5.3173828125 10.634765625,5.47607421875 10.9521484375,5.3173828125 10.79345703125,5.9521484375 10.634765625,5.9521484375 ',
-    2: '10.634765625,5.9521484375 10.3173828125,5.9521484375 10.634765625,6.26953125 10.9521484375,5.9521484375 '
-  });
 });
