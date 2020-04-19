@@ -115,7 +115,6 @@ describe('IndoorDirections', () => {
     ).instance();
   });
 
-
   it('Should cut the string of the building name if it is too long', () => {
     // length: 26, maximum allowed is 24
     const stringTooLong26 = '11111111111111111111111111';
@@ -127,12 +126,12 @@ describe('IndoorDirections', () => {
     instanceIndoorDirections.setState({
       currentBuilding: mockBuildingInfoData,
       origin: '101',
-      originFloor: '1'
+      originFloor: {floor: 1}
     });
 
-    instanceIndoorDirections.dijkstraHandler('103', '1');
+    instanceIndoorDirections.dijkstraHandler('103', 1);
 
-    expect(instanceIndoorDirections.instance().state.indoorDirectionsPolyline).toStrictEqual({
+    expect(instanceIndoorDirections.state.indoorDirectionsPolyline).toStrictEqual({
       1: '10.3173828125,5.3173828125 10.47607421875,5.9521484375 10.3173828125,6.5869140625 10.634765625,6.42822265625 '
     });
   });
@@ -140,11 +139,11 @@ describe('IndoorDirections', () => {
   it('Should give directions for multiple floors', async () => {
     instanceIndoorDirections.setState({
       origin: '101',
-      originFloor: 1,
+      originFloor: { floor: 1 },
       currentBuilding: mockBuildingInfoData
     });
     instanceIndoorDirections.dijkstraHandler('203', 2);
-    expect(instanceIndoorDirections.instance().state.directionPath).toStrictEqual({
+    expect(instanceIndoorDirections.state.directionPath).toStrictEqual({
       1: '10.3173828125,5.3173828125 10.634765625,5.47607421875 10.9521484375,5.3173828125 10.79345703125,5.9521484375 10.634765625,5.9521484375 ',
       2: '10.634765625,5.9521484375 10.3173828125,5.9521484375 10.634765625,6.26953125 10.9521484375,5.9521484375 '
     });
