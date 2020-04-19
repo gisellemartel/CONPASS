@@ -60,7 +60,6 @@ export default class DashboardScreen extends Component {
   registerForPushNotificationsAsync = async () => {
     const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
     if (status !== 'granted') {
-      // alert(i18n.t('permisionNotGrandted'));
       Alert.alert(i18n.t('permissionNotGranted'),
     i18n.t('allowNotifications'),
     [
@@ -177,7 +176,6 @@ export default class DashboardScreen extends Component {
         }
       } else {
         // your call back function
-        // alert(i18n.t('permisionNotGrandted'));
         Alert.alert(i18n.t('numbersOnly'),
           '',
           [
