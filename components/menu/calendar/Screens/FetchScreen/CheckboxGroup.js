@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import {
   View, FlatList, AsyncStorage, Text, TouchableOpacity, Alert
 } from 'react-native';
+import i18n from 'i18n-js';
 import { Button } from 'react-native-elements';
 import styles from './styles';
 
@@ -118,7 +119,7 @@ getFinalEventsArray= async () => {
 render() {
   return (
     <View>
-      <Text style={styles.title}>Availabe Calendars For Synchronization</Text>
+      <Text style={styles.title}>{i18n.t('CalendarList')}</Text>
       <FlatList
         style={styles.flatListContainer}
         keyExtractor={(item) => { return item.id; }}
@@ -152,7 +153,7 @@ render() {
 
       <View style={styles.button}>
         <Button
-          title="Synchronize Calendars"
+          title={i18n.t('SynchronizeCalendars')}
           type="solid"
 
           onPress={this.handleSyncronizeButton}
