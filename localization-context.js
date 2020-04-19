@@ -17,7 +17,7 @@ const SetLocaleContext = () => {
       LOCATION_ALERT_TITLE: 'Location Services Required',
       LOCATION_ALERT_MESSAGE: 'Location services has not been enabled. Please allow this app to use your location.',
       LOCATION_ALERT_BUTTON: 'Open Settings',
-      LogOut: 'Logout',
+      logOut: 'Logout',
       adjustTime: 'Adjust Time',
       signIn: 'Sign In With Google',
       calendarList: 'Available Calendars For Synchronization',
