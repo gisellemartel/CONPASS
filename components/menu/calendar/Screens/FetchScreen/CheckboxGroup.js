@@ -50,11 +50,11 @@ getCalendarsToBeSynced= () => {
  * Thie function handles syncronization button
  */
 handleSyncronizeButton=async () => {
-  Alert.alert('The following calendars will be synchronized',
+  Alert.alert(i18n.t('CalendarListAlert'),
     `${this.getCalendarsToBeSynced()}`,
     [
       {
-        text: 'Cancel',
+        text: i18n.t('cancel'),
         onPress: () => { return console.log('Cancel Pressed'); },
         style: 'cancel'
       },

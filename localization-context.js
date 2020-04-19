@@ -31,7 +31,8 @@ const SetLocaleContext = () => {
       cancel: 'Cancel',
       setRemindarTime: 'Set Reminder Time',
       remindarMessage: 'Set the time to be reminded before class/minutes',
-      submit: 'Submit'
+      submit: 'Submit',
+      CalendarListAlert: 'The following calendars will be synchronized'
     },
     fr: {
       welcome: 'Bonjour',
@@ -59,7 +60,8 @@ const SetLocaleContext = () => {
       cancel: 'Annuler',
       setRemindarTime: 'Définir l\'heure de rappel',
       remindarMessage: 'Réglez l\'heure à rappeler avant le cours / les minutes',
-      submit: 'soumettre'
+      submit: 'soumettre',
+      CalendarListAlert: 'Les calendriers suivants seront synchronisés'
     },
     sp: {
       welcome: 'Hola',
@@ -87,7 +89,8 @@ const SetLocaleContext = () => {
       cancel: 'Cancelar',
       setRemindarTime: 'Establecer tiempo de recordatorio',
       remindarMessage: 'Establezca el tiempo para ser recordado antes de la clase / minutos',
-      submit: 'enviar'
+      submit: 'enviar',
+      CalendarListAlert: 'Los siguientes calendarios se sincronizarán.'
     }
   };
 
