@@ -1,9 +1,14 @@
 /* eslint-disable no-undef */
-/* eslint-disable max-len */
+/* eslint-disable*/
 import React from 'react';
 import renderer from 'react-test-renderer';
-import {IndoorDirections} from '../components/directions/indoorDirections';
+import configureStore from 'redux-mock-store';
+import { shallow } from 'enzyme';
+import { IndoorDirections } from '../components/directions/indoorDirections';
 import dijkstraPathfinder from '../indoor_directions_modules/dijkstraPathfinder';
+import generateGraph from '../indoor_directions_modules/graphRepository';
+
+jest.mock('../indoor_directions_modules/graphRepository')
 
 beforeEach(() => {
   mockGraphFloor1 = {
@@ -128,7 +133,12 @@ beforeEach(() => {
     1: mockGraphFloor1,
     2: mockGraphFloor2
   };
-});
+  generateGraph.mockImplementation(() => {return {1: mockGraphFloor1, 2: mockGraphFloor2}});
+});  
+
+//jest.mock('../indoor_directions_modules/graphRepository', () => {
+//  generateGraph: return { 1: mockGraphFloor1, 2: mockGraphFloor2 };
+//});
 
 it('Should return the proper distance', () => {
   const distance = dijkstraPathfinder.nodeDistance('101', '102', mockGraphFloor1);
@@ -210,24 +220,28 @@ it('Should give directions for a single floor', () => {
   const building = { building: 'T', buildingName: 'Test Building' };
   const floors = [{ floor: 1, component: null }, { floor: 2, component: null }];
   const turnInteriorModeOff = jest.fn();
-  /* const indoorDirectionsComponent = renderer.create(
-    <BuildingWithFloors
-      building={building}
-      buildingFloorPlans={floors}
-      floor={floors[0]}
-      adjacencyGraphs={mockGraphs}
+  const mockStore = configureStore([]);
+  const store = mockStore({
+    accessibilty: 'ACCESSIBILITY_ON',
+  });
+
+  generateGraph.generateGraph = jest.fn();
+  const indoorDirectionsComponent = shallow(
+    <IndoorDirections
+      store={store}
+      startBuildingNode={building}
+      endBuildingNode={building}
+      building={building.buildingName}
+      buildingInfoData={building}
       turnInteriorModeOff={turnInteriorModeOff}
     />
-  ).getInstance();
-  */
-  const indoorDirectionsComponent = renderer.create(
-    <IndoorDirections />
-  ).getInstance();
-  indoorDirectionComponent.setState({
+  );
+  indoorDirectionsComponent.setState({
+    currentBuilding: building,
     origin: '101',
-    originFloor: 1
+    originFloor: '1'
   });
-  indoorDirectionsComponent.dijkstraHandler('103', 1);
+  indoorDirectionsComponent.instance().dijkstraHandler('103', '1');
   expect(indoorDirectionsComponent.state.indoorDirectionsPolyline).toStrictEqual({
     1: '10.3173828125,5.3173828125 10.47607421875,5.9521484375 10.3173828125,6.5869140625 10.634765625,6.42822265625 '
   });
@@ -247,7 +261,7 @@ it('Should give directions for multiple floors', () => {
     />
   ).getInstance(); */
   const indoorDirectionsComponent = renderer.create(
-    <IndoorDirections buildingInfoData={building} />
+    <IndoorDirections building={building} buildingInfoData={building} />
   ).getInstance();
   indoorDirectionComponent.setState({
     origin: '101',

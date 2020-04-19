@@ -21,7 +21,6 @@ import styles from './styles';
 import { sendDirectionsToOutdoor } from '../../../store/actions';
 import IndoorDestinationSearchBar from '../indoorDestinationSearchBar/index';
 
-
 export class IndoorDirections extends Component {
   constructor(props) {
     super(props);
