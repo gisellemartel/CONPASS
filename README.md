@@ -13,5 +13,17 @@ https://nodejs.org/en/download/
 `npm install -g expo-cli`
 3. install dependencies <br/>
 `yarn install`
-4. start app (see package.json scripts) <br/>
+
+## To run
+
+1. start app (see package.json scripts) <br/>
 `expo start`
+2. Install expo on your phone from your native mobile store
+
+3. Wait about 2 minuites to make sure the localhost is ready
+
+4. Scan the barcode from the localhost by the expo application from your phone
+
+5. Wait for the application to compile and it should be running
+
+6. Incase of any interruptions from the local host, restart the expo application from your mobile device
