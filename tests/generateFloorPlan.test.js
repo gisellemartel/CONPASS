@@ -94,7 +94,7 @@ beforeEach(() => {
 /**
  * Invalid
 */
-it('Should return a null list when invalid value is passed',  () => {
+it('Should return a null list when invalid value is passed', () => {
   const result = generateFloorPlan('not a valid argument');
   expect(result).toStrictEqual([]);
 });
@@ -102,7 +102,7 @@ it('Should return a null list when invalid value is passed',  () => {
 /**
  * Hall building
  */
-it('Should return valid building data when passed valid argument, Hall Building (H)',  () => {
+it('Should return valid building data when passed valid argument, Hall Building (H)', () => {
   const result = generateFloorPlan(mockHallBuildingName);
   expect(result).toStrictEqual(mockHallBuildingData);
 });
@@ -110,7 +110,7 @@ it('Should return valid building data when passed valid argument, Hall Building 
 /**
  * Hall building
  */
-it('Should return valid building data when passed valid argument, Vanier Library (VL)',  () => {
+it('Should return valid building data when passed valid argument, Vanier Library (VL)', () => {
   const result = generateFloorPlan(mockVLBuildingName);
   expect(result).toStrictEqual(mockVLBuildingData);
 });

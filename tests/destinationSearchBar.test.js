@@ -1,4 +1,4 @@
-  /* eslint-disable max-len */
+/* eslint-disable max-len */
 import React from 'react';
 import renderer from 'react-test-renderer';
 import { DestinationSearchBar } from '../components/directions/destinationSearchBar';

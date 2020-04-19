@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import styles from './styles';
 import { resetNavigation } from '../../../store/actions';
 
-export class BackButton extends Component {
+class BackButton extends Component {
   back() {
     if (this.props.withRedux) {
       this.props.resetNavigation();

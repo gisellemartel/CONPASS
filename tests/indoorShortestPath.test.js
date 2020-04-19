@@ -1,5 +1,4 @@
-/* eslint-disable no-undef */
-/* eslint-disable*/
+/* eslint-disable max-len */
 import React from 'react';
 import renderer from 'react-test-renderer';
 import configureStore from 'redux-mock-store';
@@ -9,8 +8,15 @@ import dijkstraPathfinder from '../indoor_directions_modules/dijkstraPathfinder'
 import generateGraph from '../indoor_directions_modules/graphRepository';
 import floorWaypointFinder from '../indoor_directions_modules/floorWaypointFinder';
 import distanceBetweenTwoNodes from '../indoor_directions_modules/distanceBetweenTwoNodes';
-jest.mock('../indoor_directions_modules/graphRepository')
+import generateIndoorPredictionsForSearchBar from '../components/home/generateIndoorPredictionsForSearchBar';
 
+jest.mock('../indoor_directions_modules/graphRepository');
+
+let mockBuildingInfoData;
+let mockGraphFloor1;
+let mockGraphFloor2;
+let mockGraphs;
+let mockIndoorRoomsList;
 
 beforeEach(() => {
   mockGraphFloor1 = {
@@ -135,12 +141,47 @@ beforeEach(() => {
     1: mockGraphFloor1,
     2: mockGraphFloor2
   };
-  generateGraph.mockImplementation(() => {return {1: mockGraphFloor1, 2: mockGraphFloor2}});
-});  
+  generateGraph.mockImplementation(() => { return { 1: mockGraphFloor1, 2: mockGraphFloor2 }; });
 
-//jest.mock('../indoor_directions_modules/graphRepository', () => {
-//  generateGraph: return { 1: mockGraphFloor1, 2: mockGraphFloor2 };
-//});
+  mockBuildingInfoData = {
+    campus: 'SGW',
+    building: 'H',
+    buildingName: 'Henry F. Hall Building',
+    accessiblity: true,
+    placesToGo: [{
+      name: 'Hall 4 Café - The Green Beet',
+      id: '7',
+      placeID: 'ChIJtd6Zh2oayUwRAu_CnRIfoBw',
+      opening: ['8:00 am', '9:30 pm'],
+      image: require('../assets/polygons/images/hallCafe.jpg')
+    },
+    {
+      name: 'Hive Café Solidarity Cooperative',
+      id: '7.1',
+      placeID: 'ChIJtd6Zh2oayUwRAu_CnRIfoBw',
+      opening: ['8:00 am', '9:30 pm'],
+      image: require('../assets/polygons/images/hallCafe.jpg')
+    }
+    ],
+    address: '1455 DeMaisonneuve W',
+    latitude: 45.497092,
+    longtitude: -73.578800,
+    image: [{ image: require('../assets/polygons/images/hallCafe.jpg') }],
+    tunnelAccessiblity: true,
+    polygon: {
+      name: 'Henry F. Hall Building',
+      coordinates:
+              [
+                { latitude: 45.497373, longitude: -73.578336 },
+                { latitude: 45.497710, longitude: -73.579032 },
+                { latitude: 45.497164, longitude: -73.579545 },
+                { latitude: 45.496829, longitude: -73.578848 },
+              ]
+    }
+  };
+
+  mockIndoorRoomsList = generateIndoorPredictionsForSearchBar();
+});
 
 it('Should return the proper distance', () => {
   const distance = distanceBetweenTwoNodes.nodeDistance(mockGraphFloor1['101'], mockGraphFloor1['102']);
@@ -282,23 +323,38 @@ it('Should give waypoint distance (case where start and end line is vertical)', 
 });
 
 it('Should give directions for a single floor', () => {
-  const building = { building: 'T', buildingName: 'Test Building' };
-  const floors = [{ floor: 1, component: null }, { floor: 2, component: null }];
-  const turnInteriorModeOff = jest.fn();
-  const mockStore = configureStore([]);
-  const store = mockStore({
-    accessibilty: 'ACCESSIBILITY_ON',
-  });
+  const building = { building: 'H', buildingName: 'Test Building' };
+  // const mockStore = configureStore([]);
+  // const store = mockStore({
+  //   accessibilty: 'ACCESSIBILITY_ON',
+  // });
 
   generateGraph.generateGraph = jest.fn();
+  const setBuildingInfoModalVisibilityTo = jest.fn();
+  const turnInteriorModeOff = jest.fn();
+  const getRegionFromOutdoorDirections = jest.fn();
+  const getCoordinatesFromOutdoorDirections = jest.fn();
+  const changeVisibilityTo = jest.fn();
+  const mockRegion = {
+    latitude: 45.492408,
+    longitude: -73.582153,
+    latitudeDelta: 0.04,
+    longitudeDelta: 0.04
+  };
+
   const indoorDirectionsComponent = shallow(
     <IndoorDirections
-      store={store}
-      startBuildingNode={building}
-      endBuildingNode={building}
-      building={building.buildingName}
-      buildingInfoData={building}
+      getDestinationIfSet={null}
+      getRegion={getRegionFromOutdoorDirections}
+      getRegionFromSearch={mockRegion}
+      getCoordinates={getCoordinatesFromOutdoorDirections}
+      building={building}
+      showBuildingInfoModal={false}
+      setBuildingInfoModalVisibilityTo={setBuildingInfoModalVisibilityTo}
       turnInteriorModeOff={turnInteriorModeOff}
+      buildingInfoData={mockBuildingInfoData}
+      changeVisibilityTo={changeVisibilityTo}
+      indoorRoomsList={mockIndoorRoomsList}
     />
   );
   indoorDirectionsComponent.setState({
@@ -313,28 +369,47 @@ it('Should give directions for a single floor', () => {
 });
 
 it('Should give directions for multiple floors', () => {
-  const building = { building: 'T', buildingName: 'Test Building' };
-  const floors = [{ floor: 1, component: null }, { floor: 2, component: null }];
+  const building = { building: 'H', buildingName: 'Test Building' };
+  // const mockStore = configureStore([]);
+  // const store = mockStore({
+  //   accessibilty: 'ACCESSIBILITY_ON',
+  // });
+
+  generateGraph.generateGraph = jest.fn();
+  const setBuildingInfoModalVisibilityTo = jest.fn();
   const turnInteriorModeOff = jest.fn();
-  /* const buildingWithFloorsComponent = renderer.create(
-    <BuildingWithFloors
+  const getRegionFromOutdoorDirections = jest.fn();
+  const getCoordinatesFromOutdoorDirections = jest.fn();
+  const changeVisibilityTo = jest.fn();
+  const mockRegion = {
+    latitude: 45.492408,
+    longitude: -73.582153,
+    latitudeDelta: 0.04,
+    longitudeDelta: 0.04
+  };
+
+  const indoorDirectionsComponent = shallow(
+    <IndoorDirections
+      getDestinationIfSet={null}
+      getRegion={getRegionFromOutdoorDirections}
+      getRegionFromSearch={mockRegion}
+      getCoordinates={getCoordinatesFromOutdoorDirections}
       building={building}
-      buildingFloorPlans={floors}
-      floor={floors[0]}
-      adjacencyGraphs={mockGraphs}
+      showBuildingInfoModal={false}
+      setBuildingInfoModalVisibilityTo={setBuildingInfoModalVisibilityTo}
       turnInteriorModeOff={turnInteriorModeOff}
+      buildingInfoData={mockBuildingInfoData}
+      changeVisibilityTo={changeVisibilityTo}
+      indoorRoomsList={mockIndoorRoomsList}
     />
-  ).getInstance(); */
-  const indoorDirectionsComponent = renderer.create(
-    <IndoorDirections building={building} buildingInfoData={building} />
-  ).getInstance();
-  indoorDirectionComponent.setState({
+  );
+  indoorDirectionsComponent.setState({
     origin: '101',
     originFloor: 1,
     currentBuilding: building
   });
   indoorDirectionsComponent.dijkstraHandler('203', 2);
-  expect(buildingWithFloorsComponent.state.directionPath).toStrictEqual({
+  expect(indoorDirectionsComponent.state.directionPath).toStrictEqual({
     1: '10.3173828125,5.3173828125 10.634765625,5.47607421875 10.9521484375,5.3173828125 10.79345703125,5.9521484375 10.634765625,5.9521484375 ',
     2: '10.634765625,5.9521484375 10.3173828125,5.9521484375 10.634765625,6.26953125 10.9521484375,5.9521484375 '
   });
