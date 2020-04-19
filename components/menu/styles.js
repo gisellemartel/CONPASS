@@ -9,8 +9,8 @@ const styles = StyleSheet.create({
   },
   logo: {
     width: 200,
-    top: 25,
-    left: 20,
+    top: 0,
+    left: 10,
     resizeMode: 'contain',
     position: 'absolute',
   },
