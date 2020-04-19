@@ -12,13 +12,13 @@ it('Should render buildingWithFloor if floor data exists', async () => {
   const floors = generateFloorPlan(buildingData);
   const adjacencyGraph = generateGraph(buildingData);
 
-  const interiorModeOff = jest.fn();
+  const turnInteriorModeOff = jest.fn();
 
   const buildingViewComponent = renderer.create(<BuildingView
     building={building}
     buildingFloorPlans={floors}
     adjacencyGraphs={adjacencyGraph}
-    interiorModeOff={interiorModeOff}
+    turnInteriorModeOff={turnInteriorModeOff}
   />);
 
   expect(buildingViewComponent.getInstance().state.floor).toBe(floors[0]);
@@ -30,13 +30,13 @@ it('Should render buildingNoFloors if floor data  not available', async () => {
   const floors = generateFloorPlan(buildingName);
   const adjacencyGraph = generateGraph(buildingName);
 
-  const interiorModeOff = jest.fn();
+  const turnInteriorModeOff = jest.fn();
 
   const buildingViewComponent = renderer.create(<BuildingView
     building={building}
     buildingFloorPlans={floors}
     adjacencyGraphs={adjacencyGraph}
-    interiorModeOff={interiorModeOff}
+    turnInteriorModeOff={turnInteriorModeOff}
   />);
 
   expect(buildingViewComponent.getInstance().state.floor).toBe(undefined);

@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
   },
   help: {
     position: 'absolute',
-    bottom: 20,
+    top: '100%',
     left: 0,
     paddingLeft: 20,
     fontSize: 30,

@@ -474,8 +474,7 @@ const hall8FloorPlanCoordinates = {
     adjacencyList: [
       '803',
       'node_801',
-      'node_corner_805',
-      'staircase_1'
+      'node_corner_805'
     ]
   },
   node_805: {
@@ -795,9 +794,9 @@ const hall8FloorPlanCoordinates = {
     y: 425,
     adjacencyList: [
       '859',
-      'node_staircase_1',
       'node_857',
-      'node_861'
+      'node_861',
+      'node_east_corner'
     ]
   },
   node_860_01: {
@@ -828,13 +827,23 @@ const hall8FloorPlanCoordinates = {
       'node_860_03_04'
     ]
   },
+  node_east_corner: {
+    x: 168,
+    y: 399,
+    adjacencyList: [
+      'node_861',
+      'node_staircase_1',
+      'node_859'
+    ]
+  },
   node_861: {
     x: 168,
     y: 324,
     adjacencyList: [
       '861',
       'node_859',
-      'node_863'
+      'node_863',
+      'node_east_corner'
     ]
   },
   node_863: {
@@ -901,7 +910,7 @@ const hall8FloorPlanCoordinates = {
     adjacencyList: [
       'node_escalator_up',
       'node_escalator_corner_north',
-      // 'node_838.01'
+      'node_838_01'
     ]
   },
   node_escalator_down: {
@@ -946,6 +955,7 @@ const hall8FloorPlanCoordinates = {
       'male_bathroom',
       'node_807',
       'node_corner_805',
+      '805.01'
     ]
   },
   node_north_intersection: {
@@ -973,16 +983,14 @@ const hall8FloorPlanCoordinates = {
       'staircase_1',
       'node_elevator',
       'node_860_01',
-      'node_859',
-      'node_861'
+      'node_east_corner'
     ]
   },
   staircase_1: {
     x: 214.99139,
     y: 277.79102,
     adjacencyList: [
-      'node_staircase_1',
-      'node_803',
+      'node_staircase_1'
     ]
   },
   staircase_2: {

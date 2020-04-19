@@ -1,10 +1,16 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import {
-  View, Text, Image, TouchableOpacity
-} from 'react-native';
-import i18n from 'i18n-js';
-import styles from './styles';
-import conpass from '../../assets/icons/conpass.png';
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  TouchableOpacityBase,
+} from "react-native";
+import { connect } from "react-redux";
+import i18n from "i18n-js";
+import styles from "./styles";
+import conpass from "../../assets/icons/conpass.png";
+import { accessibilityOn, accessibilityOff } from "../../store/actions";
 
 class Menu extends Component {
   render() {
@@ -14,32 +20,60 @@ class Menu extends Component {
         <View style={styles.options}>
           <TouchableOpacity
             onPress={() => {
-              return this.props.navigation.navigate('Calendar');
+              return this.props.navigation.navigate("Calendar");
+            }}
+          >
+            <Text style={styles.option}>{i18n.t("calendar")}</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              return this.props.navigation.navigate("ShuttleSchedule");
+            }}
+          >
+            <Text style={styles.option}>{i18n.t("shuttleBusSchedule")}</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              if (this.props.accessibility) {
+                return this.props.accessibilityOff();
+              }
+              return this.props.accessibilityOn();
             }}
           >
             <Text style={styles.option}>
-              {i18n.t('calendar')}
+              {this.props.accessibility
+                ? i18n.t("accessibility_off")
+                : i18n.t("accessibility_on")}
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => {
-              return this.props.navigation.navigate('ShuttleSchedule');
+              return this.props.navigation.navigate("Help");
             }}
           >
-            <Text style={styles.option}>
-              {i18n.t('shuttleBusSchedule')}
-            </Text>
+            <Text style={styles.option}>{i18n.t("help")}</Text>
           </TouchableOpacity>
-          <Text style={styles.option}>
-            {i18n.t('accessibility')}
-          </Text>
         </View>
-        <Text style={styles.help}>
-          {i18n.t('help')}
-        </Text>
       </View>
     );
   }
 }
 
-export default Menu;
+const mapStateToProps = (state) => {
+  return {
+    accessibility: state.accessibility,
+  };
+};
+
+const mapDispatch = (dispatch) => {
+  return {
+    accessibilityOn: () => {
+      dispatch(accessibilityOn());
+    },
+    accessibilityOff: () => {
+      dispatch(accessibilityOff());
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatch)(Menu);

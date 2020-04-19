@@ -9,8 +9,8 @@ const styles = StyleSheet.create({
   },
   indoorView: {
     position: 'relative',
-    maxWidth: 350,
-    minWidth: 275
+    maxWidth: 270,
+    minWidth: 270
   }
 });
 
