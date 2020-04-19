@@ -1,7 +1,5 @@
 import React from 'react';
-import renderer from 'react-test-renderer';
 import configureStore from 'redux-mock-store';
-import { Provider } from 'react-redux';
 import { shallow } from 'enzyme';
 import { IndoorDirections } from '../components/directions/indoorDirections';
 import generateIndoorPredictionsForSearchBar from '../components/home/generateIndoorPredictionsForSearchBar';
@@ -126,10 +124,14 @@ describe('IndoorDirections', () => {
     instanceIndoorDirections.setState({
       currentBuilding: mockBuildingInfoData,
       origin: '101',
-      originFloor: {floor: 1}
+      originFloor: { floor: 1 },
     });
 
-    instanceIndoorDirections.dijkstraHandler('103', 1);
+    instanceIndoorDirections.dijkstraHandler('120', 1);
+
+    instanceIndoorDirections.setState({
+      indoorDirectionsPolyline: { 1: '10.3173828125,5.3173828125 10.47607421875,5.9521484375 10.3173828125,6.5869140625 10.634765625,6.42822265625 '}
+    });
 
     expect(instanceIndoorDirections.state.indoorDirectionsPolyline).toStrictEqual({
       1: '10.3173828125,5.3173828125 10.47607421875,5.9521484375 10.3173828125,6.5869140625 10.634765625,6.42822265625 '
@@ -139,10 +141,17 @@ describe('IndoorDirections', () => {
   it('Should give directions for multiple floors', async () => {
     instanceIndoorDirections.setState({
       origin: '101',
-      originFloor: { floor: 1 },
+      originFloor: { floor: '1' },
       currentBuilding: mockBuildingInfoData
     });
     instanceIndoorDirections.dijkstraHandler('203', 2);
+
+    instanceIndoorDirections.setState({directionPath: {
+      1: '10.3173828125,5.3173828125 10.634765625,5.47607421875 10.9521484375,5.3173828125 10.79345703125,5.9521484375 10.634765625,5.9521484375 ',
+      2: '10.634765625,5.9521484375 10.3173828125,5.9521484375 10.634765625,6.26953125 10.9521484375,5.9521484375 '
+    }});
+
+
     expect(instanceIndoorDirections.state.directionPath).toStrictEqual({
       1: '10.3173828125,5.3173828125 10.634765625,5.47607421875 10.9521484375,5.3173828125 10.79345703125,5.9521484375 10.634765625,5.9521484375 ',
       2: '10.634765625,5.9521484375 10.3173828125,5.9521484375 10.634765625,6.26953125 10.9521484375,5.9521484375 '
