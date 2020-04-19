@@ -13,7 +13,7 @@ https://www.figma.com/proto/o5WsQ4hyBRMp1bXYA9svxH/initial---archive-(dont-delet
 https://nodejs.org/en/download/
 
 2. install expo cli on your machine from your command line <br/>
-`npm install -g expo-cli`
+`yarn add global expo-cli`
 
 3. install dependencies <br/>
 `yarn install`
