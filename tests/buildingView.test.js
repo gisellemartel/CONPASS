@@ -21,7 +21,7 @@ it('Should render buildingWithFloor if floor data exists', async () => {
     turnInteriorModeOff={turnInteriorModeOff}
   />);
 
-  expect(buildingViewComponent.getInstance().state.floor).toBe(floors[0]);
+  expect(buildingViewComponent.getInstance().state.floorPlan).toBe(floors[0]);
 });
 
 it('Should render buildingNoFloors if floor data  not available', async () => {

@@ -1,11 +1,13 @@
-/* eslint-disable no-undef */
 /* eslint-disable max-len */
-import React from 'react';
-import renderer from 'react-test-renderer';
-import BuildingWithFloors from '../components/buildings/buildingView/buildingWithFloors';
 import dijkstraPathfinder from '../indoor_directions_modules/dijkstraPathfinder';
+import generateGraph from '../indoor_directions_modules/graphRepository';
 import floorWaypointFinder from '../indoor_directions_modules/floorWaypointFinder';
 import distanceBetweenTwoNodes from '../indoor_directions_modules/distanceBetweenTwoNodes';
+
+jest.mock('../indoor_directions_modules/graphRepository');
+
+let mockGraphFloor1;
+let mockGraphFloor2;
 
 beforeEach(() => {
   const mockGraphFloor1 = {
@@ -126,10 +128,7 @@ beforeEach(() => {
       ]
     }
   };
-  mockGraphs = {
-    1: mockGraphFloor1,
-    2: mockGraphFloor2
-  };
+  generateGraph.mockImplementation(() => { return { 1: mockGraphFloor1, 2: mockGraphFloor2 }; });
 });
 
 it('Should return the proper distance', () => {
@@ -205,7 +204,7 @@ it('Should convert the finish node to a proper SVG polyline', () => {
   const intermediateNode = { id: '102', predecessor: startNode, distance: 1.12 };
   const finishNode = { id: '103', predecessor: intermediateNode, distance: 2.24 };
   const svgPolylinePoints = dijkstraPathfinder.createShortestPath(finishNode, [{ start: '101', finish: '103' }], [mockGraphFloor1]);
-  expect(svgPolylinePoints).toStrictEqual(['10.3173828125,5.3173828125 10.634765625,5.47607421875 10.9521484375,5.3173828125 ']);
+  expect(svgPolylinePoints).toStrictEqual(['0.3515625,0.3515625 0.703125,0.52734375 1.0546875,0.3515625 ']);
 });
 
 it('Should give the slope of a line', () => {
@@ -269,43 +268,4 @@ it('Should give waypoint distance (case where start and end line is vertical)', 
   const endNode = { x: 2, y: 0, adjacency_list: [] };
   const distance = floorWaypointFinder.distanceToWaypointCalculator(waypointNode, startNode, endNode);
   expect(distance).toBe(2);
-});
-
-it('Should give directions for a single floor', () => {
-  const building = { building: 'T', buildingName: 'Test Building' };
-  const floors = [{ floor: 1, component: null }, { floor: 2, component: null }];
-  const turnInteriorModeOff = jest.fn();
-  const buildingWithFloorsComponent = renderer.create(
-    <BuildingWithFloors
-      building={building}
-      buildingFloorPlans={floors}
-      floor={floors[0]}
-      adjacencyGraphs={mockGraphs}
-      turnInteriorModeOff={turnInteriorModeOff}
-    />
-  ).getInstance();
-  buildingWithFloorsComponent.dijkstraHandler('101', '107');
-  expect(buildingWithFloorsComponent.state.directionPath).toStrictEqual({
-    1: '10.3173828125,5.3173828125 10.47607421875,5.9521484375 10.3173828125,6.5869140625 10.634765625,6.42822265625 '
-  });
-});
-
-it('Should give directions for multiple floors', () => {
-  const building = { building: 'T', buildingName: 'Test Building' };
-  const floors = [{ floor: 1, component: null }, { floor: 2, component: null }];
-  const turnInteriorModeOff = jest.fn();
-  const buildingWithFloorsComponent = renderer.create(
-    <BuildingWithFloors
-      building={building}
-      buildingFloorPlans={floors}
-      floor={floors[0]}
-      adjacencyGraphs={mockGraphs}
-      turnInteriorModeOff={turnInteriorModeOff}
-    />
-  ).getInstance();
-  buildingWithFloorsComponent.dijkstraHandler('101', '203');
-  expect(buildingWithFloorsComponent.state.directionPath).toStrictEqual({
-    1: '10.3173828125,5.3173828125 10.634765625,5.47607421875 10.9521484375,5.3173828125 10.79345703125,5.9521484375 10.634765625,5.9521484375 ',
-    2: '10.634765625,5.9521484375 10.3173828125,5.9521484375 10.634765625,6.26953125 10.9521484375,5.9521484375 '
-  });
 });

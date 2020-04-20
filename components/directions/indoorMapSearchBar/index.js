@@ -180,7 +180,6 @@ class IndoorMapSearchBar extends Component {
               this.setState({
                 showPredictions: false
               });
-              this.onSubmitSearchQuery();
             }}
             lightTheme
             containerStyle={containerStyle}
