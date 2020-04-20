@@ -19,8 +19,7 @@ const styles = StyleSheet.create({
   },
   location: {
     width: 50,
-    resizeMode: 'contain',
-    flex: 1
+    resizeMode: 'contain'
   },
   userFinalLoc: {
     bottom: 80,
