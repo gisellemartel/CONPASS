@@ -12,7 +12,7 @@ import store from './store';
 import HelpPage from './components/menu/help/helpPage';
 
 const Stack = createStackNavigator();
-
+console.disableYellowBox = true;
 export default class App extends Component {
   render() {
     return (
@@ -42,7 +42,7 @@ export default class App extends Component {
               <Stack.Screen name="Menu" options={{ gestureDirection: 'horizontal-inverted', headerShown: false }} component={Menu} />
               <Stack.Screen name="ShuttleSchedule" options={{ gestureDirection: 'vertical-inverted', headerShown: true }} component={ShuttleSchedule}></Stack.Screen>
               <Stack.Screen name="Calendar" options={{ gestureDirection: 'vertical-inverted', headerShown: true }} component={Calendar}></Stack.Screen>
-              <Stack.Screen name="Help" options={{ gestureDirection: 'vertical-inverted', headerShown: true}} component={HelpPage} ></Stack.Screen>
+              <Stack.Screen name="Help" options={{ gestureDirection: 'vertical-inverted', headerShown: true }} component={HelpPage}></Stack.Screen>
             </Stack.Navigator>
           </NavigationContainer>
         </Provider>
