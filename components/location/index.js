@@ -99,8 +99,8 @@ export default class Location extends Component {
   async locateMe() {
     await getCurrentLocation(this);
 
-    const x = this.state.region.longitude;
-    const y = this.state.region.latitude;
+    const x = -73.577895;
+    const y = 45.496786;
     if (
       this.isInPolygon(
         this.state.xSGWCoordinates.length,
@@ -200,15 +200,19 @@ export default class Location extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <TouchableOpacity
-          onPress={() => {
-            this.locateMe();
-          }}
-        >
+        <View style={styles.imageContainer}>
+          <TouchableOpacity
+            onPress={() => {
+              this.locateMe();
+            }}
+          >
+            <Image style={styles.location} source={locateMe} />
+          </TouchableOpacity>
+        </View>
+        <View style={styles.textContainer}>
           <Text>{this.state.campusDisplayName}</Text>
           <Text>{this.state.buildingDisplayName}</Text>
-          <Image style={styles.location} source={locateMe} />
-        </TouchableOpacity>
+        </View>
       </View>
     );
   }

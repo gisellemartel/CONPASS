@@ -1,30 +1,31 @@
 import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
-  touch: {
-    borderWidth: 1,
-    borderColor: 'rgba(0,0,0,0.2)',
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: 50,
-    height: 50,
-    borderRadius: 50,
-    backgroundColor: '#9CD3D7'
-  },
   container: {
-    bottom: 100,
-    right: 10,
+    bottom: 0,
+    right: 0,
+    height: 200,
+    width: '100%',
     position: 'absolute',
     zIndex: 200
+  },
+  imageContainer: {
+    position: 'absolute',
+    right: 10,
+    bottom: 100
+
+  },
+  textContainer: {
+    position: 'absolute',
+    flex: 1,
+    bottom: 0,
+    alignSelf: 'center',
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   location: {
     width: 50,
     resizeMode: 'contain'
-  },
-  userFinalLoc: {
-    bottom: 80,
-    backgroundColor: 'pink',
-    position: 'absolute'
   }
 });
 
