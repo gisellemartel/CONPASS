@@ -62,7 +62,7 @@ export class MapSearchBar extends Component {
     try {
       let currentBuilding;
       let prevCurrBuilding;
-      if (this.props.currentBuildingPred !== this.state.prevCurrentBuilding) {
+      if (true) {
         currentBuilding = await this.updateCurrentBuilding();
         prevCurrBuilding = this.props.currentBuildingPred;
       }
