@@ -4,7 +4,7 @@ import {
   View, Image, Button, Text, Modal
 } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import shuttleScheduleInformation from '../../../menu/shuttleBusSchedule/shuttleScheduleService';
+import shuttleScheduleInformation from '../../../menu/shuttleBusSchedule/shuttleScheduleInformation';
 import styles from './styles';
 import bus from '../../../../assets/icons/bus.png';
 

@@ -11,8 +11,8 @@ import buildingLogo from '../../../assets/icons/building.png';
 import quit from '../../../assets/icons/quit.png';
 import IndoorMapSearchBar from '../indoorMapSearchBar';
 import BuildingView from '../../buildings/buildingView/index';
-import generateFloorPlan from '../../buildings/floorPlans/floorPlanRepository';
-import generateGraph from '../../../indoor_directions_modules/graphRepository';
+import generateFloorPlan from '../../buildings/floorPlans/generateFloorPlan';
+import generateGraph from '../../../indoor_directions_modules/generateGraph';
 import BackButton from '../backButton';
 import BuildingInfoModal from '../../buildingInfoModal';
 import PathPolyline from '../../pathPolyline';
@@ -68,13 +68,9 @@ export class IndoorDirections extends Component {
       this.state.accessibility = accessibility;
     }
 
-    if (startBuildingNode !== prevProps.startBuildingNode) { // start input from within building changed
+    if (startBuildingNode !== prevProps.startBuildingNode || endBuildingNode !== prevProps.endBuildingNode) { // start input from within building changed
       if (startBuildingNode && endBuildingNode) { // both ready
         this.coordinatesFromInside(startBuildingNode, endBuildingNode); // initiate
-      }
-    } else if (endBuildingNode !== prevProps.endBuildingNode) { // start input from within building changed
-      if (startBuildingNode && endBuildingNode) { // both ready
-        this.coordinatesFromInside(startBuildingNode, endBuildingNode);
       }
     }
   }

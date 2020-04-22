@@ -5,7 +5,7 @@ import {
 import decodePolyline from 'decode-google-map-polyline';
 import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
-import shuttleLocationInformation from './shuttleLocationService';
+import shuttleLocationInformation from './shuttleLocationInformation';
 import styles from './styles';
 
 export default class Shuttle extends Component {

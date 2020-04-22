@@ -12,7 +12,7 @@ import { SearchBar, Tooltip } from 'react-native-elements';
 import i18n from 'i18n-js';
 import { connect } from 'react-redux';
 import styles from './styles';
-import SetLocaleContext from '../../localization-context';
+import SetLocaleContext from '../../SetLocaleContext';
 import burger from '../../assets/icons/burger.png';
 import { setStartBuildingNode } from '../../store/actions';
 
@@ -216,26 +216,26 @@ export class MapSearchBar extends Component {
 
       // if H- or VL- prefix entered by user only show relevant indoor predictions
       if (destination.startsWith('h-') || destination.startsWith('vl-')) {
-        const allPredictions = currentBuilding
+        const allPredictions1 = currentBuilding
           ? [currentBuilding].concat(predictions.slice(0, MAX_NUM_PREDICTIONS - 1))
           : predictions.slice(0, MAX_NUM_PREDICTIONS);
-        return allPredictions;
+        return allPredictions1;
       }
 
       if (predictions.length === 0) {
-        const allPredictions = currentBuilding ? [currentBuilding].concat(googleApiPredictions) : googleApiPredictions;
-        return allPredictions;
+        const allPredictions2 = currentBuilding ? [currentBuilding].concat(googleApiPredictions) : googleApiPredictions;
+        return allPredictions2;
       }
 
       if (googleApiPredictions && googleApiPredictions.length > 0) {
       // return mix of both google and relevant indoor predictions
         const googlePredictions = googleApiPredictions.slice(0, 2);
 
-        const allPredictions = currentBuilding
+        const allPredictions3 = currentBuilding
           ? [currentBuilding].concat(googlePredictions.concat(predictions.slice(0, MAX_NUM_PREDICTIONS - 1)))
           : googlePredictions.concat(predictions.slice(0, MAX_NUM_PREDICTIONS));
 
-        return allPredictions;
+        return allPredictions3;
       }
 
       return predictions.slice(0, MAX_NUM_PREDICTIONS);
