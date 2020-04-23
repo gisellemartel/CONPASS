@@ -8,13 +8,11 @@ import {
   TouchableHighlight,
   Image
 } from 'react-native';
-import { SearchBar, Tooltip } from 'react-native-elements';
+import { SearchBar } from 'react-native-elements';
 import i18n from 'i18n-js';
-import { connect } from 'react-redux';
 import styles from './styles';
 import SetLocaleContext from '../../SetLocaleContext';
 import burger from '../../assets/icons/burger.png';
-import { setStartBuildingNode } from '../../store/actions';
 
 export class MapSearchBar extends Component {
   constructor(props) {
@@ -104,65 +102,6 @@ export class MapSearchBar extends Component {
     }
   }
 
-  /**
-   * Retreives location points (lat, lg) of places around SGW or LOY
-   * depending on what the user searches for
-   * @param {string} value - Value of whatever is inputed into the search bar
-   */
-  async getNearbyPlaces(value) {
-    if (value.toLowerCase().includes('near sgw') || value.toLowerCase().includes('near loy')) {
-      const formattedVal = value.substring(0, value.indexOf('near')).trim().replace(' ', '+');
-      if (value.toLowerCase().includes('sgw')) {
-        this.setState({
-          region: {
-            latitude: 45.492409,
-            longitude: -73.582153,
-            latitudeDelta: 0.05,
-            longitudeDelta: 0.05
-          }
-        }, () => { this.setNearbyPlaces(formattedVal); });
-      } else { // 'Loy' case
-        this.setState({
-          region: {
-            latitude: 45.458295,
-            longitude: -73.640353,
-            latitudeDelta: 0.05,
-            longitudeDelta: 0.05
-          }
-        }, () => { this.setNearbyPlaces(formattedVal); });
-      }
-    }
-  }
-
-  /**
-   * Sets marker points (lat, lg) of places around SGW or LOY
-   * that correspond to what user is searching for
-   * @param {string} formattedVal - Amenity that user is looking for
-   */
-  async setNearbyPlaces(formattedVal) {
-    const markers = [];
-    const key = 'AIzaSyCqNODizSqMIWbKbO8Iq3VWdBcK846n_3w';
-    const url = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=${formattedVal}&location=${this.state.region.latitude},${this.state.region.longitude}&radius=2&key=${key}`;
-    const georesult = await fetch(url);
-    const gjson = await georesult.json();
-    // pushing object to the markers. This is what is passed in the props
-    gjson.results.map((result) => {
-      return (markers.push({
-        id: result.id,
-        title: result.name,
-        description: result.formatted_address,
-        coordinates: {
-          latitude: result.geometry.location.lat,
-          longitude: result.geometry.location.lng
-        }
-      }));
-    });
-    if (markers.length > 0) {
-      // Updating the view
-      this.props.updateRegion(this.state.region);
-      this.props.nearbyMarkers(markers);
-    }
-  }
 
   /**
    * Gets the latitude and longitude of a chosen prediction.
@@ -262,12 +201,6 @@ export class MapSearchBar extends Component {
     }
   }
 
-  sendNodeToRedux(prediction) {
-    if (prediction.dijkstraId) {
-      this.props.setStartBuildingNode(prediction);
-    }
-  }
-
   render() {
     const placeholder = this.state.isMounted ? i18n.t('search') : 'search';
     // Predictions mapped and formmated from the current state predictions
@@ -281,7 +214,6 @@ export class MapSearchBar extends Component {
                 destination: prediction.description,
                 showPredictions: false
               });
-              this.sendNodeToRedux(prediction);
               this.getLatLong(prediction.place_id);
               if (this.props.getDestinationIfSet) {
                 this.props.getDestinationIfSet(prediction.description);
@@ -324,22 +256,6 @@ export class MapSearchBar extends Component {
 
     /**
      * Controller function for searchBar component
-     * Defines UI behaviour of component when triggered by touch event
-     */
-    const onTouchStart = () => {
-      if (this.props.setCampusToggleVisibility) {
-        this.props.setCampusToggleVisibility(true);
-      }
-      // Clear markers on the map
-      if (this.props.nearbyMarkers) { this.props.nearbyMarkers([]); }
-
-      this.setState({
-        showPredictions: true,
-      });
-    };
-
-    /**
-     * Controller function for searchBar component
      */
     const onBlur = () => {
       if (this.props.setCampusToggleVisibility) {
@@ -357,44 +273,26 @@ export class MapSearchBar extends Component {
     return (
       <View style={styles.container}>
         <View>
-          <Tooltip
-            backgroundColor="#b5e3e6"
-            height={100}
-            popover={(
-              <Text>
-                Include
-                <Text style={{ fontWeight: 'bold' }}> &quot;near LOY&quot;</Text>
-                {' '}
-                or
-                <Text style={{ fontWeight: 'bold' }}> &quot;near SGW&quot;</Text>
-                {' '}
-                to find places around campus!
-              </Text>
-            )}
-          >
-            <SearchBar
-              platform="android"
-              autoCorrect={false}
-              padding={5}
-              returnKeyType="search"
-              onSubmitEditing={async () => {
-                await this.getNearbyPlaces(this.state.destination);
-                this.setState({ showPredictions: false });
-              }}
-              lightTheme
-              containerStyle={containerStyle}
-              searchIcon={!this.props.hideMenu && searchIcon}
-              placeholder={placeholder}
-              onChangeText={onChangeText}
-              value={this.state.destination}
-              style={styles.SearchBar}
-              onClear={onClear}
-              onTouchStart={onTouchStart}
-              onBlur={onBlur}
-              blurOnSubmit
-            />
-          </Tooltip>
-
+          <SearchBar
+            platform="android"
+            autoCorrect={false}
+            padding={5}
+            returnKeyType="search"
+            onSubmitEditing={async () => {
+              await this.getNearbyPlaces(this.state.destination);
+              this.setState({ showPredictions: false });
+            }}
+            lightTheme
+            containerStyle={containerStyle}
+            searchIcon={!this.props.hideMenu && searchIcon}
+            placeholder={placeholder}
+            onChangeText={onChangeText}
+            value={this.state.destination}
+            style={styles.SearchBar}
+            onClear={onClear}
+            onBlur={onBlur}
+            blurOnSubmit
+          />
         </View>
         {this.state.showPredictions && this.state.predictions ? predictions : null}
       </View>
@@ -414,11 +312,4 @@ const Icon = (props) => {
   );
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    setStartBuildingNode: (prediction) => { dispatch(setStartBuildingNode(prediction)); },
-  };
-};
-
-
-export default connect(null, mapDispatchToProps)(MapSearchBar);
+export default MapSearchBar;

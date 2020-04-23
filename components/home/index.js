@@ -18,12 +18,9 @@ class Home extends Component {
         latitudeDelta: 0.04,
         longitudeDelta: 0.04
       },
-      nearbyMarkers: [],
       // current concordia bulding tapped on
-      currentBuildingAddress: '',
       showDirectionsMenu: false,
     };
-    this.getCalDirections = this.getCalDirections.bind(this);
   }
 
   componentDidMount() {
@@ -31,17 +28,6 @@ class Home extends Component {
       this.getCalDirections();
     }
   }
-
-  /**
-   * Gets directions when getting directions from calender component
-   */
-   getCalDirections = () => {
-     if (this.props.navigation.state.params.description) {
-       this.navigateFromCalender(true);
-       this.changeVisibilityTo(true);
-       this.changeVisibilityOfBack(false);
-     }
-   }
 
 
   /**
@@ -61,26 +47,6 @@ class Home extends Component {
     this.updateCoordinates(coordinates);
   };
 
-  /**
-   * gets marker objects created from the SearchBar component to nearbyMarker state.
-   * Also being passed to the Map component
-   * @param {object} markers - pins of nearby locations.
-   *      markers [{
-   *        id: string,
-   *        title: string,
-   *        description: string,
-   *        coordinates: {
-   *          latitude: number,
-   *           longitude: number
-   *         }
-   *    }]
-   *
-   */
-
-  getNearbyMarkers=(markers) => {
-    this.setState({ nearbyMarkers: markers });
-  }
-
 
   /**
    * Changes visibility of directions search menus depending on context
@@ -92,11 +58,6 @@ class Home extends Component {
     });
   };
 
-  updateCurrentBuildingAddress = (childCurrentBuilding) => {
-    this.setState({
-      currentBuildingAddress: childCurrentBuilding
-    });
-  };
 
   /**
    * updates coordinates and passes new coordinates 'Map' component.
@@ -142,13 +103,9 @@ class Home extends Component {
         {/* zIndex=1 */}
         <TheMap
           updatedCoordinates={this.state.coordinates}
-          encryptedLine={this.state.encryptedLine}
           updatedRegion={this.state.presetRegion}
-          polylineVisibility={this.state.showDirectionsMenu}
           getDestinationIfSet={this.getDestinationIfSet}
           updateRegionCloser={this.updateRegionCloser}
-          nearbyMarkers={this.state.nearbyMarkers}
-          getBuildingInfoData={this.getBuildingInfoData}
         />
         {!this.state.showDirectionsMenu && (
         <MapSearchBar
@@ -156,14 +113,10 @@ class Home extends Component {
           navigation={this.props.navigation}
           updateRegion={this.updateRegion}
           changeVisibilityTo={this.changeVisibilityTo}
-          currentBuildingPred={this.state.currentBuildingAddress}
-          nearbyMarkers={this.getNearbyMarkers}
-          indoorRoomsList={this.state.indoorRoomsList}
         />
         )}
         <Location
           updateRegion={this.updateRegion}
-          updateCurrentBuildingCallBack={this.updateCurrentBuildingAddress}
         />
       </View>
     );

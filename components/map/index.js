@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { View, Image } from 'react-native';
-import MapView, { Polyline, PROVIDER_GOOGLE } from 'react-native-maps';
+import { View, } from 'react-native';
+import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import styles from './styles';
 
-let region = '';
 
 export default class TheMap extends Component {
   /**
@@ -13,16 +12,8 @@ export default class TheMap extends Component {
   constructor(props) {
     super(props);
     this.mapRef = null;
-    this.focusOnBuilding = this.focusOnBuilding.bind(this);
     this.onRegionChange = this.onRegionChange.bind(this);
     this.selectPoi = this.selectPoi.bind(this);
-  }
-
-  /**
-   * Sets the mapRef when the component is mounted
-   */
-  componentDidMount() {
-    this.setState({ mapRef: this.mapRef });
   }
 
   /**
@@ -46,50 +37,6 @@ export default class TheMap extends Component {
     region = newRegion;
   }
 
-  /**
-   *
-   * @param {*} building - building polygon to get information
-   * Pass building information to home
-   */
-  getBuildingInformation = (building) => {
-    this.props.getBuildingInfoData(building);
-  }
-
-  /**
-   *
-   * @param {*} building - building to be focused on map
-   * focuses on building on map when user taps it's coordinates on the map
-   */
-  focusOnBuilding(building) {
-    const { coordinates } = building.polygon;
-    this.state.mapRef.fitToCoordinates(coordinates, {
-      edgePadding: {
-        top: 10, right: 20, bottom: 10, left: 20
-      }
-    });
-
-    // they do not provide a callback when the fitToCoordinates is complete.
-    // Setting at timer for the animation to finish
-    setTimeout(() => {
-      const getRegion = region;
-      this.getBuildingInformation(building);
-      this.props.turnInteriorModeOn(building, getRegion);
-    }, 500);
-  }
-
-  /**
-   *
-   * @param {*} coordinates - coords of where to focus
-   * When user requests outdoor directions, this function will focus on the polyline path
-   */
-  /** Resize the map to see the path */
-  fitScreenToPath(coordinates) {
-    this.state.mapRef.fitToCoordinates(coordinates, {
-      edgePadding: {
-        top: 180, right: 20, bottom: 10, left: 20
-      }
-    });
-  }
 
   /** Send the selected point of interest to the parent component */
   async selectPoi(poi) {
@@ -129,47 +76,7 @@ export default class TheMap extends Component {
           onRegionChange={this.onRegionChange}
           style={styles.mapStyle}
           onPoiClick={this.selectPoi}
-        >
-          {this.props.polylineVisibility && (
-          <Polyline
-            coordinates={this.props.updatedCoordinates ? this.props.updatedCoordinates : []}
-            strokeWidth={4}
-            strokeColor="black"
-          />
-          )}
-          {
-            // Add different colored marker at location if nothing is nearby
-            this.props.nearbyMarkers.length > 0
-              ? this.props.nearbyMarkers.map((marker) => {
-                return (
-                  <MapView.Marker
-                    key={marker.id}
-                    coordinate={marker.coordinates}
-                    title={marker.title}
-                    description={marker.description}
-                  />
-                );
-              }) : (
-                <MapView.Marker
-                  pinColor="#84ECED"
-                  coordinate={{
-                    latitude: this.props.updatedRegion.latitude,
-                    longitude: this.props.updatedRegion.longitude
-                  }}
-                  title=""
-                  description=""
-                >
-                  <Image
-                    source={require('../../assets/icons/destination.png')}
-                    style={{ width: 30, height: 32 }}
-                    resizeMode="contain"
-                  />
-                </MapView.Marker>
-
-              )
-          }
-
-        </MapView>
+        />
       </View>
     );
   }

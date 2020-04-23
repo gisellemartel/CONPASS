@@ -11,7 +11,6 @@ import store from './store';
 import HelpPage from './components/menu/help/helpPage';
 
 const Stack = createStackNavigator();
-console.disableYellowBox = true;
 export default class App extends Component {
   render() {
     return (
