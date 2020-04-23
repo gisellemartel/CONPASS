@@ -3,7 +3,6 @@ import { View } from 'react-native';
 import TheMap from '../map';
 import MapSearchBar from '../mapSearchBar';
 import Location from '../location';
-import generateIndoorPredictionsForSearchBar from './generateIndoorPredictionsForSearchBar';
 import styles from './styles';
 
 
@@ -28,7 +27,6 @@ class Home extends Component {
   }
 
   componentDidMount() {
-    this.state.indoorRoomsList = generateIndoorPredictionsForSearchBar();
     if (this.props.navigation.state) {
       this.getCalDirections();
     }
@@ -39,7 +37,6 @@ class Home extends Component {
    */
    getCalDirections = () => {
      if (this.props.navigation.state.params.description) {
-       this.setState({ destinationToGo: this.props.navigation.state.params.description });
        this.navigateFromCalender(true);
        this.changeVisibilityTo(true);
        this.changeVisibilityOfBack(false);
