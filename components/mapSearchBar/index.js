@@ -147,39 +147,19 @@ export class MapSearchBar extends Component {
     if (indoorRoomsList) {
       const MAX_NUM_PREDICTIONS = 6;
       // contextual predictions based on user query
-      const predictions = indoorRoomsList.filter((room) => {
-        const roomData = room.description ? room.description.toUpperCase() : ''.toUpperCase();
-        const textData = destination.toUpperCase();
-        return roomData.indexOf(textData) > -1;
-      });
-
-      // if H- or VL- prefix entered by user only show relevant indoor predictions
-      if (destination.startsWith('h-') || destination.startsWith('vl-')) {
-        const allPredictions1 = currentBuilding
-          ? [currentBuilding].concat(predictions.slice(0, MAX_NUM_PREDICTIONS - 1))
-          : predictions.slice(0, MAX_NUM_PREDICTIONS);
-        return allPredictions1;
-      }
-
-      if (predictions.length === 0) {
-        const allPredictions2 = currentBuilding ? [currentBuilding].concat(googleApiPredictions) : googleApiPredictions;
-        return allPredictions2;
-      }
 
       if (googleApiPredictions && googleApiPredictions.length > 0) {
       // return mix of both google and relevant indoor predictions
         const googlePredictions = googleApiPredictions.slice(0, 2);
 
-        const allPredictions3 = currentBuilding
-          ? [currentBuilding].concat(googlePredictions.concat(predictions.slice(0, MAX_NUM_PREDICTIONS - 1)))
-          : googlePredictions.concat(predictions.slice(0, MAX_NUM_PREDICTIONS));
+        const allPredictions3 = googlePredictions.concat(predictions.slice(0, MAX_NUM_PREDICTIONS));
 
         return allPredictions3;
       }
 
       return predictions.slice(0, MAX_NUM_PREDICTIONS);
     }
-    const allPredictions = currentBuilding ? [currentBuilding].concat(googleApiPredictions) : googleApiPredictions;
+    const allPredictions = googleApiPredictions;
     return allPredictions;
   }
 
