@@ -3,10 +3,6 @@ import { View } from 'react-native';
 import TheMap from '../map';
 import MapSearchBar from '../mapSearchBar';
 import Location from '../location';
-import CampusToggle from '../campusToggle';
-import PathPolyline from '../pathPolyline';
-import OutdoorDirections from '../directions/outdoorDirections';
-import IndoorDirections from '../directions/indoorDirections';
 import generateIndoorPredictionsForSearchBar from './generateIndoorPredictionsForSearchBar';
 import styles from './styles';
 
@@ -17,33 +13,17 @@ class Home extends Component {
     this.state = {
       // Set Initial region of the map
       coordinates: [],
-      region: {
-        latitude: '',
-        longitude: '',
-        latitudeDelta: '',
-        longitudeDelta: ''
-      },
       presetRegion: {
         latitude: 45.492408,
         longitude: -73.582153,
         latitudeDelta: 0.04,
         longitudeDelta: 0.04
       },
-      interiorMode: false,
       nearbyMarkers: [],
       // current concordia bulding tapped on
       currentBuildingAddress: '',
       showDirectionsMenu: false,
-      showBack: true,
-      showCampusToggle: false,
-      buildingInfoData: {},
-      showBuildingInfoModal: false,
-      indoorRoomsList: [],
-      navigateFromCalender: false
     };
-    this.turnInteriorModeOn = this.turnInteriorModeOn.bind(this);
-    this.turnInteriorModeOff = this.turnInteriorModeOff.bind(this);
-    this.setBuildingInfoModalVisibilityTo = this.setBuildingInfoModalVisibilityTo.bind(this);
     this.getCalDirections = this.getCalDirections.bind(this);
   }
 
@@ -66,25 +46,6 @@ class Home extends Component {
      }
    }
 
-
-  /**
-   * Fetches the currently searched destination in order to automatically populate
-   * destination option in directions mode
-   * @param {object} destination - current selected destination
-   */
-  getDestinationIfSet = (destination) => {
-    this.setState({ destinationToGo: destination });
-  };
-
-  /**
-   * Changes visibility of campus toggle when search bar is focused/blurred
-   * @param {*} showCampusToggle - desired visibility boolean
-   */
-  setCampusToggleVisibility = (showCampusToggle) => {
-    this.setState({
-      showCampusToggle
-    });
-  };
 
   /**
    * gets new region from 'OutdoorDirections' component and updates region state
@@ -123,36 +84,6 @@ class Home extends Component {
     this.setState({ nearbyMarkers: markers });
   }
 
-  /**
-   * gets the curretly tapped on building information from 'map' component
-   * @param {object} buildingInfoData - New coordinates to be passed.
-   */
-  getBuildingInfoData = (buildingInfoData) => {
-    this.setState({
-      buildingInfoData,
-      showBuildingInfoModal: true
-    });
-  }
-
-
-  /**
-   * sets the visibility of showing the building information
-   * @param {boolean} visibility
-   */
-  setBuildingInfoModalVisibilityTo(visibility) {
-    this.setState({
-      showBuildingInfoModal: visibility
-    });
-  }
-
-
-  /**
-   * Changes visibility of back button in outdoor directions component
-   * @param {boolean} boolean - desired visibility boolean
-   */
-  changeVisibilityOfBack=(boolean) => {
-    this.setState({ showBack: boolean });
-  }
 
   /**
    * Changes visibility of directions search menus depending on context
@@ -194,14 +125,6 @@ class Home extends Component {
         longitudeDelta: 0.05
       }
     });
-    this.setState({
-      region: {
-        latitude: newRegion.latitude,
-        longitude: newRegion.longitude,
-        latitudeDelta: 0.05,
-        longitudeDelta: 0.05
-      }
-    });
   };
 
 
@@ -214,48 +137,6 @@ class Home extends Component {
         longitudeDelta: 0.001
       }
     });
-    this.setState({
-      region: {
-        latitude: newRegion.latitude,
-        longitude: newRegion.longitude,
-        latitudeDelta: 0.001,
-        longitudeDelta: 0.001
-      }
-    });
-  }
-
-  /**
-   * updates the current boolean to know if the user is navigating from calendar or not
-   * @param {boolean} boolean - Boolean to be passed in
-   */
-  navigateFromCalender(boolean) {
-    this.setState({ navigateFromCalender: boolean });
-  }
-
-  /**
-   *
-   * @param {*} building
-   * @param {*} region
-   * Activates interior mode when building is clicked on
-   * Uses the building data to render floors
-   */
-  turnInteriorModeOn(building, region) {
-    this.setState({
-      region,
-      interiorMode: true,
-      building
-    });
-  }
-
-  /**
-   *
-   * Deactivates interior mode to return to outdoor map view
-   */
-  turnInteriorModeOff() {
-    this.setState({
-      interiorMode: false,
-      building: null
-    });
   }
 
   render() {
@@ -265,7 +146,6 @@ class Home extends Component {
         <TheMap
           updatedCoordinates={this.state.coordinates}
           encryptedLine={this.state.encryptedLine}
-          turnInteriorModeOn={this.turnInteriorModeOn}
           updatedRegion={this.state.presetRegion}
           polylineVisibility={this.state.showDirectionsMenu}
           getDestinationIfSet={this.getDestinationIfSet}
@@ -279,56 +159,15 @@ class Home extends Component {
           navigation={this.props.navigation}
           updateRegion={this.updateRegion}
           changeVisibilityTo={this.changeVisibilityTo}
-          setCampusToggleVisibility={this.setCampusToggleVisibility}
           currentBuildingPred={this.state.currentBuildingAddress}
           nearbyMarkers={this.getNearbyMarkers}
           indoorRoomsList={this.state.indoorRoomsList}
         />
         )}
-        {this.state.showCampusToggle && (
-          <CampusToggle
-            updateRegion={this.updateRegion}
-            visiblityState={!this.state.showDirectionsMenu}
-          />
-        )}
         <Location
           updateRegion={this.updateRegion}
           updateCurrentBuildingCallBack={this.updateCurrentBuildingAddress}
         />
-        <PathPolyline
-          changeVisibilityTo={this.changeVisibilityTo}
-        />
-        {this.state.showDirectionsMenu && (
-          <OutdoorDirections
-            showBack={this.state.showBack}
-            getDestinationIfSet={this.state.destinationToGo}
-            getRegion={this.getRegionFromOutdoorDirections}
-            getRegionFromSearch={this.state.region}
-            navigateFromCalender={this.state.navigateFromCalender}
-            getCoordinates={this.getCoordinatesFromOutdoorDirections}
-            changeVisibilityTo={this.changeVisibilityTo}
-            navigation={this.props.navigation}
-            currentBuildingPred={this.state.currentBuildingAddress}
-            indoorRoomsList={this.state.indoorRoomsList}
-          />
-        )}
-        {/* Building component contains all the interior floor views */}
-        {this.state.interiorMode
-        && (
-          <IndoorDirections
-            getDestinationIfSet={this.state.destinationToGo}
-            getRegion={this.getRegionFromOutdoorDirections}
-            getRegionFromSearch={this.state.region}
-            getCoordinates={this.getCoordinatesFromOutdoorDirections}
-            building={this.state.building}
-            showBuildingInfoModal={this.state.showBuildingInfoModal}
-            setBuildingInfoModalVisibilityTo={this.setBuildingInfoModalVisibilityTo}
-            turnInteriorModeOff={this.turnInteriorModeOff}
-            buildingInfoData={this.state.buildingInfoData}
-            changeVisibilityTo={this.changeVisibilityTo}
-            indoorRoomsList={this.state.indoorRoomsList}
-          />
-        )}
       </View>
     );
   }

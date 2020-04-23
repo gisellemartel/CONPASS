@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { View, Image } from 'react-native';
 import MapView, { Polyline, PROVIDER_GOOGLE } from 'react-native-maps';
-import buildings from '../../assets/polygons/buildings';
-import CustomPolygon from './customPolygon';
 import styles from './styles';
 
 let region = '';
@@ -118,18 +116,6 @@ export default class TheMap extends Component {
 
   // do not put conponents that dont belong to react-native-maps API inside the MapView
   render() {
-    const buildingFocus = buildings.map((building) => {
-      return (
-        <CustomPolygon
-          key={building.buildingName + building.address}
-          building={building}
-          getBuildingInformation={this.getBuildingInformation}
-          focusOnBuilding={this.focusOnBuilding}
-          fillColor="rgba(255,135,135,0.5)"
-        />
-      );
-    });
-
     const currRef = (ref) => { this.mapRef = ref; };
     return (
       <View style={styles.container}>
@@ -151,7 +137,6 @@ export default class TheMap extends Component {
             strokeColor="black"
           />
           )}
-          {buildingFocus}
           {
             // Add different colored marker at location if nothing is nearby
             this.props.nearbyMarkers.length > 0

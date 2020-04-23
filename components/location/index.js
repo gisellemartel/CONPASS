@@ -4,7 +4,6 @@ import React, { Component } from 'react';
 import { View, Image, Text } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import getCurrentLocation from './getCurrentLocation';
-import buildings from '../../assets/polygons/buildings';
 import styles from './styles';
 import locateMe from '../../assets/icons/locate-me.png';
 
@@ -24,50 +23,11 @@ export default class Location extends Component {
       // polygon covering all buildings in Loyola
       xLOYCoordinates: [-73.646504, -73.6396194, -73.6330318, -73.642885],
       yLOYCoordinates: [45.457287, 45.4548085, 45.4581882, 45.461931],
-
-      // SGW buildings formatted for isInPolygon use
-      sgwBuildings: this.formatPolygonsObjs('SGW'),
-      // Loyola buildings formatted for isInPolygon use
-      loyBuildings: this.formatPolygonsObjs('LOY')
     };
   }
 
   /** @param {string} campus - either 'SGW' or 'LOY'
    *  Format SGW or Loyola buildings to be used by isInPolygon function */
-  formatPolygonsObjs(campus) {
-    if (campus !== 'SGW' && campus !== 'LOY') {
-      return [];
-    }
-
-    const formattedBuildings = [];
-
-    // filter only the buildings that belong to the current campus
-    const formattedBuildingsTemp = buildings.filter((building) => {
-      return building.campus === campus;
-    });
-
-    formattedBuildingsTemp.forEach((building) => {
-      const xCoordinates = [];
-      const yCoordinates = [];
-
-      const buildingPolygon = building.polygon;
-
-      buildingPolygon.coordinates.forEach((pairOfCoordinates) => {
-        xCoordinates.push(pairOfCoordinates.longitude);
-        yCoordinates.push(pairOfCoordinates.latitude);
-      });
-
-      formattedBuildings.push({
-        name: building.buildingName,
-        address: building.address,
-        xCoords: xCoordinates,
-        yCoords: yCoordinates
-      });
-    });
-
-    return formattedBuildings;
-  }
-
   /** @param {number} nvert
    * @param {number} vertx
    * @param {number} verty
