@@ -7,7 +7,7 @@ const styles = StyleSheet.create({
     top: 25,
     width: '90%',
     zIndex: 300,
-    borderRadius: 10
+    borderRadius: 20
   },
   view: {
     borderRadius: 15,

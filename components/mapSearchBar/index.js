@@ -202,7 +202,7 @@ export class MapSearchBar extends Component {
   }
 
   render() {
-    const placeholder = this.state.isMounted ? i18n.t('search') : 'search';
+    const placeholder = 'Search for a place';
     // Predictions mapped and formmated from the current state predictions
     const predictions = this.state.predictions && this.state.predictions.length > 0 ? this.state.predictions.map((prediction) => {
       return (
@@ -264,8 +264,7 @@ export class MapSearchBar extends Component {
     };
 
     const containerStyle = {
-      borderRadius: 10,
-      borderWidth: 1,
+      borderRadius: 30,
       height: 45,
       justifyContent: 'center'
     };
